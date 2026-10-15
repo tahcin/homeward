@@ -1,0 +1,59 @@
+{
+ "answers": 1372,
+ "facts": 2852,
+ "answers_all_facts_agree": 1001,
+ "answer_agreement_rate": 0.7295918367346939,
+ "fact_agreement_rate": 0.8485273492286115,
+ "cohen_kappa_facts": 0.7645273083486597,
+ "verifier_invalid_facts": 0,
+ "confusion_designed_vs_verifier": {
+  "correct": {
+   "correct": 1350,
+   "partial": 80,
+   "incorrect": 30,
+   "missing": 1,
+   "invalid": 0
+  },
+  "partial": {
+   "correct": 77,
+   "partial": 301,
+   "incorrect": 96,
+   "missing": 3,
+   "invalid": 0
+  },
+  "incorrect": {
+   "correct": 22,
+   "partial": 42,
+   "incorrect": 603,
+   "missing": 1,
+   "invalid": 0
+  },
+  "missing": {
+   "correct": 6,
+   "partial": 23,
+   "incorrect": 51,
+   "missing": 166,
+   "invalid": 0
+  }
+ },
+ "answer_agreement_by_language": {
+  "ar": 0.642,
+  "bn": 0.733,
+  "en": 0.792,
+  "es": 0.812,
+  "fr": 0.723,
+  "hi": 0.875,
+  "it": 0.688,
+  "pt": 0.603,
+  "ta": 0.676,
+  "tl": 0.758,
+  "vi": 0.708,
+  "zh": 0.75
+ },
+ "model": "Qwen3.8-Flash-Next",
+ "reasoning_effort": "none",
+ "batch_size": 8,
+ "requests_counted": 173,
+ "prompt_tokens": 321826,
+ "completion_tokens": 220765
+}

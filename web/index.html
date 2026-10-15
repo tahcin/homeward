@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Homeward</title>
+    <meta name="description" content="Discharge instructions in the patient's language, with every dose and date checked, then a spoken teach-back that shows the nurse what was misunderstood." />
+    <meta name="theme-color" content="#fbf6ef" />
+    <meta property="og:title" content="Homeward" />
+    <meta property="og:description" content="Patients explain their discharge instructions back in their own language; the nurse sees exactly what to go over again." />
+    <meta property="og:image" content="https://homeward.tahcin.tech/og.png" />
+    <meta property="og:url" content="https://homeward.tahcin.tech/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/satoshi-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/satoshi-700.woff2" as="font" type="font/woff2" crossorigin />
+    <style>
+      /* Paint the warm background before the stylesheet arrives, so a refresh never flashes white. */
+      html, body { background: #fbf6ef; margin: 0; }
+    </style>
+    <script>
+      // After a deploy, a page opened earlier can ask for script files that no longer exist. Reload once to get the new ones.
+      window.addEventListener("error", function (e) {
+        var t = e.target;
+        if (!t || (t.tagName !== "SCRIPT" && t.tagName !== "LINK")) return;
+        // Only our own build files count. Third-party scripts (for example an analytics beacon that Brave Shields
+        // or an ad blocker blocks) must never trigger a reload.
+        var u = t.src || t.href || "";
+        if (u.indexOf(location.origin + "/assets/") !== 0) return;
+        try {
+          if (sessionStorage.getItem("homeward.reloaded")) return;
+          sessionStorage.setItem("homeward.reloaded", "1");
+        } catch (err) {}
+        location.reload();
+      }, true);
+      window.addEventListener("load", function () {
+        setTimeout(function () { try { sessionStorage.removeItem("homeward.reloaded"); } catch (err) {} }, 5000);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

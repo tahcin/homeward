@@ -1,0 +1,123 @@
+{
+ "rule": "minimise 5*FR + 1*over-flag on validation; ties to smaller tau",
+ "chosen_tau": 0.0,
+ "sweep": [
+  {
+   "tau": 0.0,
+   "false_reassurance": 2,
+   "bad_facts": 113,
+   "over_flag": 15,
+   "correct_facts": 113,
+   "accuracy": 0.7535211267605634,
+   "cost": 25
+  },
+  {
+   "tau": 0.5,
+   "false_reassurance": 2,
+   "bad_facts": 113,
+   "over_flag": 21,
+   "correct_facts": 113,
+   "accuracy": 0.7429577464788732,
+   "cost": 31
+  },
+  {
+   "tau": 0.6,
+   "false_reassurance": 2,
+   "bad_facts": 113,
+   "over_flag": 24,
+   "correct_facts": 113,
+   "accuracy": 0.7359154929577465,
+   "cost": 34
+  },
+  {
+   "tau": 0.7,
+   "false_reassurance": 2,
+   "bad_facts": 113,
+   "over_flag": 27,
+   "correct_facts": 113,
+   "accuracy": 0.7323943661971831,
+   "cost": 37
+  },
+  {
+   "tau": 0.8,
+   "false_reassurance": 2,
+   "bad_facts": 113,
+   "over_flag": 33,
+   "correct_facts": 113,
+   "accuracy": 0.7112676056338029,
+   "cost": 43
+  },
+  {
+   "tau": 0.85,
+   "false_reassurance": 2,
+   "bad_facts": 113,
+   "over_flag": 35,
+   "correct_facts": 113,
+   "accuracy": 0.704225352112676,
+   "cost": 45
+  },
+  {
+   "tau": 0.9,
+   "false_reassurance": 2,
+   "bad_facts": 113,
+   "over_flag": 42,
+   "correct_facts": 113,
+   "accuracy": 0.6830985915492958,
+   "cost": 52
+  },
+  {
+   "tau": 0.95,
+   "false_reassurance": 2,
+   "bad_facts": 113,
+   "over_flag": 46,
+   "correct_facts": 113,
+   "accuracy": 0.676056338028169,
+   "cost": 56
+  },
+  {
+   "tau": 0.97,
+   "false_reassurance": 1,
+   "bad_facts": 113,
+   "over_flag": 54,
+   "correct_facts": 113,
+   "accuracy": 0.6514084507042254,
+   "cost": 59
+  },
+  {
+   "tau": 0.98,
+   "false_reassurance": 1,
+   "bad_facts": 113,
+   "over_flag": 59,
+   "correct_facts": 113,
+   "accuracy": 0.6338028169014085,
+   "cost": 64
+  },
+  {
+   "tau": 0.99,
+   "false_reassurance": 1,
+   "bad_facts": 113,
+   "over_flag": 78,
+   "correct_facts": 113,
+   "accuracy": 0.5704225352112676,
+   "cost": 83
+  },
+  {
+   "tau": 0.995,
+   "false_reassurance": 1,
+   "bad_facts": 113,
+   "over_flag": 87,
+   "correct_facts": 113,
+   "accuracy": 0.5387323943661971,
+   "cost": 92
+  },
+  {
+   "tau": 0.999,
+   "false_reassurance": 0,
+   "bad_facts": 113,
+   "over_flag": 103,
+   "correct_facts": 113,
+   "accuracy": 0.4894366197183099,
+   "cost": 103
+  }
+ ]
+}

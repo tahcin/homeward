@@ -1,0 +1,123 @@
+{
+ "rule": "minimise 5*FR + 1*over-flag on validation; ties to smaller tau",
+ "chosen_tau": 0.0,
+ "sweep": [
+  {
+   "tau": 0.0,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 0,
+   "correct_facts": 84,
+   "accuracy": 0.9692307692307692,
+   "cost": 0
+  },
+  {
+   "tau": 0.5,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 0,
+   "correct_facts": 84,
+   "accuracy": 0.9692307692307692,
+   "cost": 0
+  },
+  {
+   "tau": 0.6,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 0,
+   "correct_facts": 84,
+   "accuracy": 0.9692307692307692,
+   "cost": 0
+  },
+  {
+   "tau": 0.7,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 0,
+   "correct_facts": 84,
+   "accuracy": 0.9769230769230769,
+   "cost": 0
+  },
+  {
+   "tau": 0.8,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 0,
+   "correct_facts": 84,
+   "accuracy": 0.9769230769230769,
+   "cost": 0
+  },
+  {
+   "tau": 0.85,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 0,
+   "correct_facts": 84,
+   "accuracy": 0.9769230769230769,
+   "cost": 0
+  },
+  {
+   "tau": 0.9,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 0,
+   "correct_facts": 84,
+   "accuracy": 0.9769230769230769,
+   "cost": 0
+  },
+  {
+   "tau": 0.95,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 2,
+   "correct_facts": 84,
+   "accuracy": 0.9615384615384616,
+   "cost": 2
+  },
+  {
+   "tau": 0.97,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 2,
+   "correct_facts": 84,
+   "accuracy": 0.9615384615384616,
+   "cost": 2
+  },
+  {
+   "tau": 0.98,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 3,
+   "correct_facts": 84,
+   "accuracy": 0.9538461538461539,
+   "cost": 3
+  },
+  {
+   "tau": 0.99,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 12,
+   "correct_facts": 84,
+   "accuracy": 0.8846153846153846,
+   "cost": 12
+  },
+  {
+   "tau": 0.995,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 22,
+   "correct_facts": 84,
+   "accuracy": 0.8076923076923077,
+   "cost": 22
+  },
+  {
+   "tau": 0.999,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 62,
+   "correct_facts": 84,
+   "accuracy": 0.5076923076923077,
+   "cost": 62
+  }
+ ]
+}

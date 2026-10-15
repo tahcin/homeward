@@ -1,0 +1,71 @@
+{
+ "pool": 2676,
+ "unique_kept": 1344,
+ "sft_rows_after_oversampling": 2927,
+ "facts_unique": 2681,
+ "counts": {
+  "excluded_eval_or_heldout_case": 580,
+  "kept_verifier_only_v1": 246,
+  "dropped_no_teacher_v1": 96,
+  "dropped_no_majority_v1": 11,
+  "kept_teacher_agree_v1": 365,
+  "kept_majority_vote_v1": 138,
+  "facts_relabelled_by_vote": 126,
+  "kept_teacher_agree_v2": 108,
+  "dropped_no_majority_v2": 4,
+  "dropped_no_teacher_v2": 578,
+  "kept_verifier_only_v2": 508,
+  "kept_majority_vote_v2": 42,
+  "dropped_case_cap": 63
+ },
+ "teacher_rows_available": 782,
+ "verifier_rows_available": 2304,
+ "verdicts_unique": {
+  "correct": 1411,
+  "incorrect": 677,
+  "missing": 250,
+  "partial": 343
+ },
+ "languages_unique": {
+  "ar": 123,
+  "bn": 117,
+  "en": 130,
+  "es": 155,
+  "fr": 147,
+  "hi": 124,
+  "it": 92,
+  "pt": 123,
+  "ta": 98,
+  "tl": 98,
+  "vi": 60,
+  "zh": 77
+ },
+ "sources_unique": {
+  "v2": 634,
+  "v1": 710
+ },
+ "cases": 58,
+ "contamination_check": "passed (transcript hashes, cases, held-out conditions)",
+ "dropped_examples_sample": [
+  "c023/t4/2",
+  "c023/t4/3",
+  "c052/t5/1",
+  "c052/t5/2",
+  "c070/t1/3",
+  "c028/t1/3",
+  "c028/t1/4",
+  "c070/t2/4",
+  "c026/t1/3",
+  "c028/t4/3",
+  "c022/t3/1",
+  "c022/t3/2",
+  "c004/t1/3",
+  "c004/t1/4",
+  "c004/t4/2",
+  "c056/t5/2",
+  "c056/t5/4",
+  "c013/t5/1",
+  "c008/t4/4",
+  "c038/t1/2"
+ ]
+}

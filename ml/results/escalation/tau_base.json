@@ -1,0 +1,123 @@
+{
+ "rule": "minimise 5*FR + 1*over-flag on validation; ties to smaller tau",
+ "chosen_tau": 0.0,
+ "sweep": [
+  {
+   "tau": 0.0,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 1,
+   "correct_facts": 84,
+   "accuracy": 0.9307692307692308,
+   "cost": 1
+  },
+  {
+   "tau": 0.5,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 1,
+   "correct_facts": 84,
+   "accuracy": 0.9307692307692308,
+   "cost": 1
+  },
+  {
+   "tau": 0.6,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 1,
+   "correct_facts": 84,
+   "accuracy": 0.9307692307692308,
+   "cost": 1
+  },
+  {
+   "tau": 0.7,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 2,
+   "correct_facts": 84,
+   "accuracy": 0.9230769230769231,
+   "cost": 2
+  },
+  {
+   "tau": 0.8,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 2,
+   "correct_facts": 84,
+   "accuracy": 0.9230769230769231,
+   "cost": 2
+  },
+  {
+   "tau": 0.85,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 2,
+   "correct_facts": 84,
+   "accuracy": 0.9230769230769231,
+   "cost": 2
+  },
+  {
+   "tau": 0.9,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 2,
+   "correct_facts": 84,
+   "accuracy": 0.9230769230769231,
+   "cost": 2
+  },
+  {
+   "tau": 0.95,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 5,
+   "correct_facts": 84,
+   "accuracy": 0.9,
+   "cost": 5
+  },
+  {
+   "tau": 0.97,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 10,
+   "correct_facts": 84,
+   "accuracy": 0.8615384615384616,
+   "cost": 10
+  },
+  {
+   "tau": 0.98,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 10,
+   "correct_facts": 84,
+   "accuracy": 0.8615384615384616,
+   "cost": 10
+  },
+  {
+   "tau": 0.99,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 12,
+   "correct_facts": 84,
+   "accuracy": 0.8461538461538461,
+   "cost": 12
+  },
+  {
+   "tau": 0.995,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 19,
+   "correct_facts": 84,
+   "accuracy": 0.8,
+   "cost": 19
+  },
+  {
+   "tau": 0.999,
+   "false_reassurance": 0,
+   "bad_facts": 31,
+   "over_flag": 42,
+   "correct_facts": 84,
+   "accuracy": 0.6307692307692307,
+   "cost": 42
+  }
+ ]
+}

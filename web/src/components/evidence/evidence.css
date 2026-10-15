@@ -1,0 +1,99 @@
+/* Evidence page: charts and published benchmarks. Uses the app's tokens from styles.css. */
+.ev { padding-top: 40px; }
+.ev section + section { margin-top: 56px; }
+.ev .lead { color: var(--muted); max-width: 70ch; font-size: 1.1rem; margin-top: 14px; }
+.ev h2 { margin-bottom: 6px; }
+.ev .sec-lead { color: var(--muted); max-width: 72ch; margin-bottom: 18px; }
+
+.ev-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
+@media (max-width: 900px) { .ev-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .ev-kpis { grid-template-columns: 1fr; } }
+.ev-kpi { padding: 16px 18px; }
+.ev-kpi .k-label { color: var(--muted); font-size: 0.9rem; }
+.ev-kpi .k-value { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; margin-top: 4px; }
+.ev-kpi .k-value small { font-size: 0.95rem; font-weight: 500; color: var(--muted); letter-spacing: 0; margin-left: 4px; }
+.ev-kpi .k-note { color: var(--faint); font-size: 0.82rem; margin-top: 6px; }
+
+.ev-grid { display: grid; gap: 18px; }
+.ev-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 900px) { .ev-grid.two { grid-template-columns: 1fr; } }
+
+.ev-card { margin: 0; padding: 20px 22px 16px; min-width: 0; }
+@media (max-width: 640px) { .ev-card { padding: 16px 14px 14px; } }
+.ev-card h3 { font-size: 1.12rem; max-width: 60ch; }
+.ev-sub { color: var(--muted); font-size: 0.92rem; margin-top: 6px; max-width: 72ch; }
+.ev-chart { position: relative; margin-top: 14px; width: 100%; }
+.ev-chart svg { display: block; overflow: visible; }
+.ev-chart g[tabindex]:focus-visible circle, .ev-chart g[tabindex]:focus-visible path { stroke: var(--ink); stroke-width: 2px; }
+.ev-tick { font-size: 12px; fill: var(--faint); font-variant-numeric: tabular-nums; }
+.ev-axis { font-size: 12.5px; fill: var(--muted); }
+.ev-glabel { font-size: 13.5px; fill: var(--ink); }
+.ev-glabel.strong { font-weight: 700; }
+.ev-gsub { font-size: 12px; fill: var(--faint); }
+.ev-val { font-size: 12.5px; fill: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500; }
+
+.ev-tip {
+  position: absolute; transform: translate(-50%, calc(-100% - 12px)); pointer-events: none; z-index: 3;
+  background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; padding: 7px 10px;
+  box-shadow: 0 4px 14px rgba(43, 35, 30, 0.08); font-size: 0.82rem; color: var(--muted); white-space: nowrap;
+  display: flex; flex-direction: column; gap: 1px; max-width: 260px;
+}
+.ev-tip strong { color: var(--ink); font-size: 0.95rem; }
+.ev-tip span { white-space: normal; }
+
+.ev-legend { display: flex; gap: 6px 18px; flex-wrap: wrap; font-size: 0.86rem; color: var(--muted); margin-top: 12px; }
+.ev-legend span { display: inline-flex; align-items: center; gap: 7px; }
+.ev-caveats { margin: 12px 0 0; padding-left: 18px; color: var(--muted); font-size: 0.86rem; }
+.ev-caveats li + li { margin-top: 3px; }
+.ev-source { margin-top: 10px; font-size: 0.82rem; color: var(--faint); }
+.ev-source a { color: var(--muted); }
+.ev-table { margin-top: 10px; font-size: 0.88rem; }
+.ev-table summary { cursor: pointer; color: var(--accent); font-weight: 500; width: fit-content; }
+.ev-table .table-scroll { margin-top: 8px; }
+
+.ev-panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 28px; }
+@media (max-width: 900px) { .ev-panels { grid-template-columns: 1fr; } }
+.ev-panel { min-width: 0; padding-top: 12px; border-top: 1px solid var(--line); margin-top: 14px; }
+.ev-panel h4 { margin: 0; font-size: 0.98rem; font-weight: 700; }
+.ev-panel p { font-size: 0.84rem; color: var(--faint); margin-top: 2px; }
+.ev-panel .ev-chart { margin-top: 6px; }
+
+.ev-hw { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 900px) { .ev-hw { grid-template-columns: 1fr; } }
+.ev-hw .card { padding: 16px 18px; }
+.ev-hw h3 { font-size: 1rem; }
+.ev-hw ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 0.9rem; }
+
+.ev-sources { padding-left: 20px; font-size: 0.9rem; color: var(--muted); }
+.ev-sources li + li { margin-top: 6px; }
+.ev-sources a { word-break: break-word; }
+.ev-seg { margin-top: 14px; }
+.ev-seg button { font-size: 0.9rem; padding: 7px 12px; }
+.ev-panel.wide { grid-column: 1 / -1; }
+
+/* Scorecard: the Homeward grader against each comparator */
+.ev-ours { margin-top: 26px; padding: 20px 22px; border-color: var(--accent); background: var(--surface); }
+.ev-ours .o-top { display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline; }
+.ev-ours .o-name { font-weight: 700; font-size: 1.15rem; }
+.ev-ours .o-desc { color: var(--muted); font-size: 0.92rem; }
+.ev-ours .o-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 24px; margin-top: 12px; }
+@media (max-width: 900px) { .ev-ours .o-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ev-ours .o-stat b { display: block; font-size: 1.7rem; letter-spacing: -0.02em; line-height: 1.15; }
+.ev-ours .o-stat span { color: var(--muted); font-size: 0.86rem; }
+.ev-vs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
+@media (max-width: 1000px) { .ev-vs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .ev-vs { grid-template-columns: 1fr; } }
+.ev-vs .card { padding: 16px 18px; }
+.ev-vs .v-who { color: var(--muted); font-size: 0.9rem; }
+.ev-vs .v-big { font-size: 1.55rem; font-weight: 700; letter-spacing: -0.02em; margin-top: 2px; line-height: 1.2; }
+.ev-vs .v-big small { font-size: 0.88rem; font-weight: 500; color: var(--muted); letter-spacing: 0; margin-left: 4px; }
+.ev-vs ul { margin: 8px 0 0; padding-left: 17px; font-size: 0.87rem; color: var(--muted); }
+.ev-vs li + li { margin-top: 3px; }
+
+.ev-compare { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+@media (max-width: 900px) { .ev-compare { grid-template-columns: 1fr; } }
+.ev-cmp { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px 16px; }
+.ev-cmp.ours { border-color: var(--accent); }
+.ev-cmp h4 { margin: 0; font-size: 0.98rem; }
+.ev-cmp ul { margin: 8px 0 0; padding-left: 17px; font-size: 0.87rem; color: var(--muted); }
+.ev-cmp li + li { margin-top: 3px; }

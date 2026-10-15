@@ -1,0 +1,125 @@
+{
+ "seed": 2026,
+ "held_out_conditions": [
+  "type 2 diabetes, newly started on basal insulin",
+  "deep vein thrombosis, anticoagulant started",
+  "laparoscopic appendectomy, wound care and pain control"
+ ],
+ "filter": true,
+ "verifier_rows_available": 1372,
+ "splits": {
+  "train": {
+   "cases": 49,
+   "conditions": 21,
+   "answers_total": 936,
+   "answers_verified": 936,
+   "answers_verifier_agrees": 672,
+   "answers_kept": 672,
+   "facts_kept": 1284,
+   "verifier_answer_agreement": 0.717948717948718,
+   "verifier_fact_agreement": 0.8453125,
+   "languages": {
+    "ar": 48,
+    "bn": 69,
+    "en": 61,
+    "es": 76,
+    "fr": 67,
+    "hi": 79,
+    "it": 52,
+    "pt": 46,
+    "ta": 46,
+    "tl": 51,
+    "vi": 41,
+    "zh": 36
+   },
+   "verdicts": {
+    "correct": 737,
+    "incorrect": 297,
+    "partial": 164,
+    "missing": 86
+   }
+  },
+  "val": {
+   "cases": 5,
+   "conditions": 5,
+   "answers_total": 88,
+   "answers_verified": 88,
+   "answers_verifier_agrees": 68,
+   "answers_kept": 68,
+   "facts_kept": 130,
+   "verifier_answer_agreement": 0.7727272727272727,
+   "verifier_fact_agreement": 0.8670212765957447,
+   "languages": {
+    "ar": 16,
+    "en": 17,
+    "it": 15,
+    "pt": 9,
+    "ta": 11
+   },
+   "verdicts": {
+    "incorrect": 23,
+    "correct": 84,
+    "partial": 15,
+    "missing": 8
+   }
+  },
+  "test": {
+   "cases": 18,
+   "conditions": 12,
+   "answers_total": 348,
+   "answers_verified": 348,
+   "answers_verifier_agrees": 261,
+   "answers_kept": 348,
+   "facts_kept": 744,
+   "verifier_answer_agreement": 0.75,
+   "verifier_fact_agreement": 0.8521505376344086,
+   "languages": {
+    "ar": 20,
+    "bn": 20,
+    "en": 20,
+    "es": 16,
+    "fr": 20,
+    "hi": 20,
+    "it": 20,
+    "pt": 20,
+    "ta": 20,
+    "tl": 60,
+    "vi": 60,
+    "zh": 52
+   },
+   "verdicts": {
+    "correct": 382,
+    "incorrect": 176,
+    "missing": 63,
+    "partial": 123
+   }
+  },
+  "test_independent": {
+   "answers_total": 150,
+   "facts": 341,
+   "cases": 7,
+   "languages": {
+    "ar": 13,
+    "bn": 12,
+    "en": 12,
+    "es": 12,
+    "fr": 13,
+    "hi": 13,
+    "it": 13,
+    "pt": 13,
+    "ta": 12,
+    "tl": 12,
+    "vi": 12,
+    "zh": 13
+   },
+   "verdicts": {
+    "correct": 138,
+    "incorrect": 96,
+    "partial": 65,
+    "missing": 42
+   },
+   "critical_facts": 268
+  }
+ },
+ "leakage_checks": "passed: no case in two splits; held-out conditions absent from train and val"
+}

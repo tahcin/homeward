@@ -1,0 +1,803 @@
+{
+ "schema": "homeward.evidence.v2",
+ "source": "ml/results/eval.json",
+ "generated_at": "2026-10-15 16:59 IST",
+ "ours": {
+  "system_key": "e4b_lora",
+  "label": "Homeward (fine-tuned)",
+  "model": "Gemma 4 E4B",
+  "run": "run 1",
+  "description": "Gemma 4 E4B fine-tuned with LoRA, run 1",
+  "base_key": "e4b_base",
+  "lora": {
+   "rank": 16,
+   "alpha": 32,
+   "epochs": 2
+  },
+  "asr_system": "e4b",
+  "asr_label": "Gemma 4 E4B speech recognition"
+ },
+ "grader": {
+  "independent": {
+   "answers": 150,
+   "facts": 341,
+   "cases": 7,
+   "languages": [
+    "ar",
+    "bn",
+    "en",
+    "es",
+    "fr",
+    "hi",
+    "it",
+    "pt",
+    "ta",
+    "tl",
+    "vi",
+    "zh"
+   ],
+   "labels": "designed labels from the generator (not verifier-filtered)",
+   "systems": [
+    {
+     "id": "e4b_lora",
+     "role": "ours",
+     "label": "Homeward (fine-tuned)",
+     "model": "Gemma 4 E4B",
+     "run": "run 1",
+     "runs_on": "AMD Radeon PRO W7900D",
+     "accuracy": 88.3,
+     "accuracy_ci": [
+      85.4,
+      91.1
+     ],
+     "macro_f1": 0.8784001650559796,
+     "false_reassurance": 5.8,
+     "false_reassurance_ci": [
+      2.9,
+      8.6
+     ],
+     "false_reassurance_n": [
+      8,
+      138
+     ],
+     "critical_false_reassurance_n": [
+      7,
+      108
+     ],
+     "over_flag": 6.5,
+     "json_valid": 100,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 28,
+      "breaks": 10,
+      "p": 0.0050976432976312935
+     },
+     "latency_bs1_p50_s": 4.9,
+     "usd_per_discharge": null
+    },
+    {
+     "id": "e4b_base",
+     "role": "base",
+     "label": "Gemma 4 E4B, base",
+     "model": "Gemma 4 E4B",
+     "run": null,
+     "runs_on": "AMD Radeon PRO W7900D",
+     "accuracy": 83,
+     "accuracy_ci": [
+      80.6,
+      85.8
+     ],
+     "macro_f1": 0.8323643128332479,
+     "false_reassurance": 4.3,
+     "false_reassurance_ci": [
+      1.5,
+      7.2
+     ],
+     "false_reassurance_n": [
+      6,
+      138
+     ],
+     "critical_false_reassurance_n": [
+      5,
+      108
+     ],
+     "over_flag": 10.9,
+     "json_valid": 100,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": null,
+     "latency_bs1_p50_s": 7.4,
+     "usd_per_discharge": null
+    },
+    {
+     "id": "gemma4_31b",
+     "role": "cloud",
+     "label": "Gemma 4 31B (cloud)",
+     "model": "Gemma 4 31B",
+     "run": null,
+     "runs_on": "AMD GPUs via AMD Token Factory",
+     "accuracy": 97.1,
+     "accuracy_ci": [
+      94.9,
+      99.1
+     ],
+     "macro_f1": 0.9708598419124735,
+     "false_reassurance": 0.7,
+     "false_reassurance_ci": [
+      0,
+      2.1
+     ],
+     "false_reassurance_n": [
+      1,
+      138
+     ],
+     "critical_false_reassurance_n": [
+      1,
+      108
+     ],
+     "over_flag": 2.9,
+     "json_valid": 100,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 51,
+      "breaks": 3,
+      "p": 2.9187763317395365e-12
+     },
+     "latency_bs1_p50_s": null,
+     "usd_per_discharge": 0.0001342292
+    },
+    {
+     "id": "deepseek_v4_flash",
+     "role": "cloud",
+     "label": "DeepSeek V4 Flash (cloud)",
+     "model": "DeepSeek V4 Flash",
+     "run": null,
+     "runs_on": "AMD GPUs via AMD Token Factory",
+     "accuracy": 79.2,
+     "accuracy_ci": [
+      72.3,
+      86.2
+     ],
+     "macro_f1": 0.8167267829604239,
+     "false_reassurance": 2.9,
+     "false_reassurance_ci": [
+      0,
+      6.8
+     ],
+     "false_reassurance_n": [
+      4,
+      138
+     ],
+     "critical_false_reassurance_n": [
+      3,
+      108
+     ],
+     "over_flag": 14.5,
+     "json_valid": 90.7,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 25,
+      "breaks": 38,
+      "p": 0.1299179230225525
+     },
+     "latency_bs1_p50_s": null,
+     "usd_per_discharge": 0.0005156424000000001
+    }
+   ]
+  },
+  "in_distribution": {
+   "answers": 348,
+   "facts": 744,
+   "cases": 18,
+   "languages": [
+    "ar",
+    "bn",
+    "en",
+    "es",
+    "fr",
+    "hi",
+    "it",
+    "pt",
+    "ta",
+    "tl",
+    "vi",
+    "zh"
+   ],
+   "labels": "designed labels from the generator (not verifier-filtered)",
+   "systems": [
+    {
+     "id": "e4b_lora",
+     "role": "ours",
+     "label": "Homeward (fine-tuned)",
+     "model": "Gemma 4 E4B",
+     "run": "run 1",
+     "runs_on": "AMD Radeon PRO W7900D",
+     "accuracy": 87.5,
+     "accuracy_ci": [
+      85.2,
+      89.7
+     ],
+     "macro_f1": 0.8286942724268207,
+     "false_reassurance": 1.7,
+     "false_reassurance_ci": [
+      0.4,
+      3.1
+     ],
+     "false_reassurance_n": [
+      4,
+      239
+     ],
+     "critical_false_reassurance_n": [
+      2,
+      173
+     ],
+     "over_flag": 3.7,
+     "json_valid": 100,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 54,
+      "breaks": 14,
+      "p": 0.000001109725672785106
+     },
+     "latency_bs1_p50_s": 5.4,
+     "usd_per_discharge": null
+    },
+    {
+     "id": "e4b_base",
+     "role": "base",
+     "label": "Gemma 4 E4B, base",
+     "model": "Gemma 4 E4B",
+     "run": null,
+     "runs_on": "AMD Radeon PRO W7900D",
+     "accuracy": 82.1,
+     "accuracy_ci": [
+      79.1,
+      84.9
+     ],
+     "macro_f1": 0.7633515077506507,
+     "false_reassurance": 1.7,
+     "false_reassurance_ci": [
+      0.4,
+      3.1
+     ],
+     "false_reassurance_n": [
+      4,
+      239
+     ],
+     "critical_false_reassurance_n": [
+      2,
+      173
+     ],
+     "over_flag": 5,
+     "json_valid": 100,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": null,
+     "latency_bs1_p50_s": 8.6,
+     "usd_per_discharge": null
+    },
+    {
+     "id": "gemma4_31b",
+     "role": "cloud",
+     "label": "Gemma 4 31B (cloud)",
+     "model": "Gemma 4 31B",
+     "run": null,
+     "runs_on": "AMD GPUs via AMD Token Factory",
+     "accuracy": 85.3,
+     "accuracy_ci": [
+      82,
+      88.2
+     ],
+     "macro_f1": 0.80087086121803,
+     "false_reassurance": 2.5,
+     "false_reassurance_ci": [
+      0.8,
+      4.5
+     ],
+     "false_reassurance_n": [
+      6,
+      239
+     ],
+     "critical_false_reassurance_n": [
+      2,
+      173
+     ],
+     "over_flag": 6.8,
+     "json_valid": 100,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 62,
+      "breaks": 38,
+      "p": 0.020978735677851718
+     },
+     "latency_bs1_p50_s": null,
+     "usd_per_discharge": 0.0001342292
+    },
+    {
+     "id": "deepseek_v4_flash",
+     "role": "cloud",
+     "label": "DeepSeek V4 Flash (cloud)",
+     "model": "DeepSeek V4 Flash",
+     "run": null,
+     "runs_on": "AMD GPUs via AMD Token Factory",
+     "accuracy": 70.8,
+     "accuracy_ci": [
+      65.6,
+      75.9
+     ],
+     "macro_f1": 0.705517681918488,
+     "false_reassurance": 3.8,
+     "false_reassurance_ci": [
+      1.3,
+      6.7
+     ],
+     "false_reassurance_n": [
+      9,
+      239
+     ],
+     "critical_false_reassurance_n": [
+      6,
+      173
+     ],
+     "over_flag": 24.3,
+     "json_valid": 84.5,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 42,
+      "breaks": 126,
+      "p": 6.009507673225811e-11
+     },
+     "latency_bs1_p50_s": null,
+     "usd_per_discharge": 0.0005156424000000001
+    }
+   ]
+  }
+ },
+ "asr": {
+  "clips": {
+   "tts": 110,
+   "human": 15
+  },
+  "tts_note": "TTS clips are macOS `say` voices reading the independent test transcripts written by Claude: clean studio speech, so they flatter ASR compared with real patients.",
+  "normalisation": "NFKC, lowercase, punctuation and symbols removed, whitespace collapsed; WER over whitespace tokens, CER over characters without spaces. Script choice counts as an error (e.g. an English drug name written in Devanagari).",
+  "wer": {
+   "e4b": {
+    "human": {
+     "ALL": {
+      "clips": 15,
+      "words": 238,
+      "word_edits": 48,
+      "wer": 20.2,
+      "wer_normalised": 20.2,
+      "cer": 21.9,
+      "cer_normalised": 21.9
+     },
+     "bn": {
+      "clips": 5,
+      "words": 69,
+      "word_edits": 23,
+      "wer": 33.3,
+      "wer_normalised": 33.3,
+      "cer": 31.3,
+      "cer_normalised": 31.3
+     },
+     "en": {
+      "clips": 5,
+      "words": 81,
+      "word_edits": 5,
+      "wer": 6.2,
+      "wer_normalised": 6.2,
+      "cer": 3.6,
+      "cer_normalised": 3.6
+     },
+     "hi": {
+      "clips": 5,
+      "words": 88,
+      "word_edits": 20,
+      "wer": 22.7,
+      "wer_normalised": 22.7,
+      "cer": 31.5,
+      "cer_normalised": 31.5
+     }
+    },
+    "tts": {
+     "ALL": {
+      "clips": 110,
+      "words": 2928,
+      "word_edits": 804,
+      "wer": 27.5,
+      "wer_normalised": 25.6,
+      "cer": 21.4,
+      "cer_normalised": 20.6
+     },
+     "ar": {
+      "clips": 10,
+      "words": 245,
+      "word_edits": 109,
+      "wer": 44.5,
+      "wer_normalised": 22.9,
+      "cer": 18,
+      "cer_normalised": 13.6
+     },
+     "bn": {
+      "clips": 10,
+      "words": 209,
+      "word_edits": 76,
+      "wer": 36.4,
+      "wer_normalised": 36.4,
+      "cer": 19.4,
+      "cer_normalised": 19.4
+     },
+     "en": {
+      "clips": 10,
+      "words": 353,
+      "word_edits": 69,
+      "wer": 19.5,
+      "wer_normalised": 19.5,
+      "cer": 17.3,
+      "cer_normalised": 17.3
+     },
+     "es": {
+      "clips": 10,
+      "words": 335,
+      "word_edits": 44,
+      "wer": 13.1,
+      "wer_normalised": 13.1,
+      "cer": 11.4,
+      "cer_normalised": 11.4
+     },
+     "fr": {
+      "clips": 10,
+      "words": 293,
+      "word_edits": 96,
+      "wer": 32.8,
+      "wer_normalised": 32.8,
+      "cer": 25,
+      "cer_normalised": 25
+     },
+     "hi": {
+      "clips": 10,
+      "words": 280,
+      "word_edits": 81,
+      "wer": 28.9,
+      "wer_normalised": 28.9,
+      "cer": 36.2,
+      "cer_normalised": 36.2
+     },
+     "it": {
+      "clips": 10,
+      "words": 357,
+      "word_edits": 34,
+      "wer": 9.5,
+      "wer_normalised": 9.5,
+      "cer": 11.5,
+      "cer_normalised": 11.5
+     },
+     "pt": {
+      "clips": 10,
+      "words": 257,
+      "word_edits": 38,
+      "wer": 14.8,
+      "wer_normalised": 14.8,
+      "cer": 14.1,
+      "cer_normalised": 14.1
+     },
+     "ta": {
+      "clips": 10,
+      "words": 212,
+      "word_edits": 114,
+      "wer": 53.8,
+      "wer_normalised": 53.8,
+      "cer": 39.6,
+      "cer_normalised": 39.6
+     },
+     "vi": {
+      "clips": 10,
+      "words": 333,
+      "word_edits": 89,
+      "wer": 26.7,
+      "wer_normalised": 26.7,
+      "cer": 21.5,
+      "cer_normalised": 21.5
+     },
+     "zh": {
+      "clips": 10,
+      "words": 54,
+      "word_edits": 54,
+      "wer": 100,
+      "wer_normalised": 98.1,
+      "cer": 31,
+      "cer_normalised": 17.1
+     }
+    }
+   },
+   "whisper": {
+    "human": {
+     "ALL": {
+      "clips": 15,
+      "words": 238,
+      "word_edits": 91,
+      "wer": 38.2,
+      "wer_normalised": 38.2,
+      "cer": 33.1,
+      "cer_normalised": 33.1
+     },
+     "bn": {
+      "clips": 5,
+      "words": 69,
+      "word_edits": 63,
+      "wer": 91.3,
+      "wer_normalised": 91.3,
+      "cer": 66.5,
+      "cer_normalised": 66.5
+     },
+     "en": {
+      "clips": 5,
+      "words": 81,
+      "word_edits": 7,
+      "wer": 8.6,
+      "wer_normalised": 8.6,
+      "cer": 4.8,
+      "cer_normalised": 4.8
+     },
+     "hi": {
+      "clips": 5,
+      "words": 88,
+      "word_edits": 21,
+      "wer": 23.9,
+      "wer_normalised": 23.9,
+      "cer": 29.6,
+      "cer_normalised": 29.6
+     }
+    },
+    "tts": {
+     "ALL": {
+      "clips": 110,
+      "words": 2928,
+      "word_edits": 817,
+      "wer": 27.9,
+      "wer_normalised": 27.8,
+      "cer": 19.8,
+      "cer_normalised": 19.7
+     },
+     "ar": {
+      "clips": 10,
+      "words": 245,
+      "word_edits": 52,
+      "wer": 21.2,
+      "wer_normalised": 20,
+      "cer": 5.3,
+      "cer_normalised": 4.4
+     },
+     "bn": {
+      "clips": 10,
+      "words": 209,
+      "word_edits": 183,
+      "wer": 87.6,
+      "wer_normalised": 87.6,
+      "cer": 52.2,
+      "cer_normalised": 52.2
+     },
+     "en": {
+      "clips": 10,
+      "words": 353,
+      "word_edits": 52,
+      "wer": 14.7,
+      "wer_normalised": 14.7,
+      "cer": 14.8,
+      "cer_normalised": 14.8
+     },
+     "es": {
+      "clips": 10,
+      "words": 335,
+      "word_edits": 27,
+      "wer": 8.1,
+      "wer_normalised": 8.1,
+      "cer": 8.6,
+      "cer_normalised": 8.6
+     },
+     "fr": {
+      "clips": 10,
+      "words": 293,
+      "word_edits": 52,
+      "wer": 17.7,
+      "wer_normalised": 17.7,
+      "cer": 14.1,
+      "cer_normalised": 14.1
+     },
+     "hi": {
+      "clips": 10,
+      "words": 280,
+      "word_edits": 93,
+      "wer": 33.2,
+      "wer_normalised": 33.2,
+      "cer": 36.7,
+      "cer_normalised": 36.7
+     },
+     "it": {
+      "clips": 10,
+      "words": 357,
+      "word_edits": 42,
+      "wer": 11.8,
+      "wer_normalised": 11.8,
+      "cer": 11.7,
+      "cer_normalised": 11.7
+     },
+     "pt": {
+      "clips": 10,
+      "words": 257,
+      "word_edits": 35,
+      "wer": 13.6,
+      "wer_normalised": 13.6,
+      "cer": 12,
+      "cer_normalised": 12
+     },
+     "ta": {
+      "clips": 10,
+      "words": 212,
+      "word_edits": 137,
+      "wer": 64.6,
+      "wer_normalised": 64.6,
+      "cer": 34.5,
+      "cer_normalised": 34.5
+     },
+     "vi": {
+      "clips": 10,
+      "words": 333,
+      "word_edits": 90,
+      "wer": 27,
+      "wer_normalised": 27,
+      "cer": 19.8,
+      "cer_normalised": 19.8
+     },
+     "zh": {
+      "clips": 10,
+      "words": 54,
+      "word_edits": 54,
+      "wer": 100,
+      "wer_normalised": 100,
+      "cer": 14.3,
+      "cer_normalised": 14.3
+     }
+    }
+   }
+  },
+  "latency_s": {
+   "e4b/tts": {
+    "p50": 2.203095316886902,
+    "p95": 3.827537178993224,
+    "n": 110
+   },
+   "whisper/tts": {
+    "p50": 0.4753481149673462,
+    "p95": 1.1941627740859984,
+    "n": 110
+   },
+   "e4b/human": {
+    "p50": 1.2085869312286377,
+    "p95": 2.232063508033752,
+    "n": 15
+   },
+   "whisper/human": {
+    "p50": 0.5707085132598877,
+    "p95": 1.0166849374771112,
+    "n": 15
+   }
+  },
+  "grading_from_transcripts": {
+   "ref/tts": {
+    "answers": 110,
+    "facts": 261,
+    "same_as_ref_grade": 261,
+    "correct_vs_gold": 229,
+    "false_reassurance": 7,
+    "bad_facts": 103,
+    "critical_false_reassurance": 6,
+    "critical_bad_facts": 83,
+    "invalid": 0,
+    "answers_with_changed_grade": 0
+   },
+   "ref/human": {
+    "answers": 15,
+    "facts": 24,
+    "same_as_ref_grade": 24,
+    "correct_vs_gold": 24,
+    "false_reassurance": 0,
+    "bad_facts": 9,
+    "critical_false_reassurance": 0,
+    "critical_bad_facts": 7,
+    "invalid": 0,
+    "answers_with_changed_grade": 0
+   },
+   "e4b/tts": {
+    "answers": 110,
+    "facts": 261,
+    "same_as_ref_grade": 217,
+    "correct_vs_gold": 212,
+    "false_reassurance": 2,
+    "bad_facts": 103,
+    "critical_false_reassurance": 2,
+    "critical_bad_facts": 83,
+    "invalid": 0,
+    "answers_with_changed_grade": 32
+   },
+   "e4b/human": {
+    "answers": 15,
+    "facts": 24,
+    "same_as_ref_grade": 24,
+    "correct_vs_gold": 24,
+    "false_reassurance": 0,
+    "bad_facts": 9,
+    "critical_false_reassurance": 0,
+    "critical_bad_facts": 7,
+    "invalid": 0,
+    "answers_with_changed_grade": 0
+   },
+   "whisper/tts": {
+    "answers": 110,
+    "facts": 261,
+    "same_as_ref_grade": 222,
+    "correct_vs_gold": 208,
+    "false_reassurance": 6,
+    "bad_facts": 103,
+    "critical_false_reassurance": 5,
+    "critical_bad_facts": 83,
+    "invalid": 0,
+    "answers_with_changed_grade": 31
+   },
+   "whisper/human": {
+    "answers": 15,
+    "facts": 24,
+    "same_as_ref_grade": 22,
+    "correct_vs_gold": 22,
+    "false_reassurance": 0,
+    "bad_facts": 9,
+    "critical_false_reassurance": 0,
+    "critical_bad_facts": 7,
+    "invalid": 0,
+    "answers_with_changed_grade": 2
+   }
+  }
+ },
+ "onprem_loop": {
+  "clips": 25,
+  "p50_s": 10.9,
+  "p95_s": 14.9,
+  "asr_p50_s": 1.8,
+  "grade_p50_s": 8.7,
+  "peak_vram_gib": 15.1
+ },
+ "capacity": {
+  "by_batch": [
+   {
+    "batch": 16,
+    "per_hour": 5917,
+    "peak_vram_gib": 16.4
+   },
+   {
+    "batch": 32,
+    "per_hour": 7784,
+    "peak_vram_gib": 17.9
+   },
+   {
+    "batch": 64,
+    "per_hour": 9027,
+    "peak_vram_gib": 20.6
+   }
+  ],
+  "discharges_per_hour_per_card": 276,
+  "grading_only_discharges_per_hour_per_card": 1505,
+  "answers_per_discharge": 6,
+  "assumptions": "6 graded answers per discharge; grading batched at 64; ASR unbatched at batch 1 (p50 of the on-prem loop clips); one card; no other load"
+ },
+ "training": {
+  "device": "AMD Radeon PRO W7900D",
+  "examples": 672,
+  "minutes": 9.6,
+  "peak_vram_gib": 21.3
+ }
+}

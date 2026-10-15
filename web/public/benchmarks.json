@@ -1,0 +1,636 @@
+{
+ "updated": "2026-10-15",
+ "note": "Where two official sources disagree, the chart shows the model card or paper table value and the difference is noted in the data file.",
+ "llm": {
+  "title": "On multilingual knowledge (MMMLU) Gemma 4 matches or beats the same-size Qwen3.5 at every size; on English reasoning tests Qwen3.5 scores higher at the small sizes",
+  "note": "Official scores from the Gemma 4 and Qwen3.5 model cards, grouped by size from smallest to largest. Both makers report instruction-tuned models in thinking mode. Gemma 4 E4B, the model we fine-tune, has 4.5B effective parameters (8B including embeddings).",
+  "panels": [
+   {
+    "id": "mmmlu",
+    "benchmark": "MMMLU (multilingual MMLU, 14 languages)",
+    "setting": "Instruction-tuned models in thinking mode; shots not stated by either maker",
+    "metric": "Accuracy %",
+    "higher_is_better": true,
+    "size_class": "2B to 31B",
+    "wide": true,
+    "rows": [
+     {
+      "model": "Gemma 4 E2B",
+      "family": "gemma4",
+      "params": "2.3B effective (5.1B with embeddings)",
+      "value": 67.4,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Qwen3.5-2B",
+      "family": "other",
+      "params": "2B",
+      "value": 63.1,
+      "source": "qwen35_2b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Gemma 4 E4B",
+      "family": "gemma4",
+      "params": "4.5B effective (8B with embeddings)",
+      "value": 76.6,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Qwen3.5-4B",
+      "family": "other",
+      "params": "4B",
+      "value": 76.1,
+      "source": "qwen35_4b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Qwen3.5-9B",
+      "family": "other",
+      "params": "9B",
+      "value": 81.2,
+      "source": "qwen35_4b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Gemma 4 12B",
+      "family": "gemma4",
+      "params": "12B dense",
+      "value": 83.4,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Gemma 4 26B A4B",
+      "family": "gemma4",
+      "params": "25.2B total, 3.8B active (MoE)",
+      "value": 86.3,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Qwen3.5-35B-A3B",
+      "family": "other",
+      "params": "35B total, 3B active (MoE)",
+      "value": 85.2,
+      "source": "qwen35_27b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Qwen3.5-27B",
+      "family": "other",
+      "params": "27B dense",
+      "value": 85.9,
+      "source": "qwen35_27b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Gemma 4 31B",
+      "family": "gemma4",
+      "params": "30.7B dense",
+      "value": 88.4,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Gemma 3 27B (no thinking)",
+      "family": "gemma3",
+      "params": "27B dense",
+      "value": 70.7,
+      "source": "gemma4_card",
+      "note": "Previous generation, from the same Google table; scored without thinking, so not a like-for-like match"
+     }
+    ],
+    "note": "The only multilingual text benchmark on the Gemma 4 card. Global-MMLU, MMLU-ProX, WMT24++ and FLORES are not published for Gemma 4."
+   },
+   {
+    "id": "mmlupro",
+    "benchmark": "MMLU-Pro (knowledge and reasoning, English)",
+    "setting": "Instruction-tuned models in thinking mode; shots not stated",
+    "metric": "Accuracy %",
+    "higher_is_better": true,
+    "size_class": "2B to 31B",
+    "rows": [
+     {
+      "model": "Gemma 4 E2B",
+      "family": "gemma4",
+      "params": "2.3B effective (5.1B with embeddings)",
+      "value": 60.0,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Qwen3.5-2B",
+      "family": "other",
+      "params": "2B",
+      "value": 66.5,
+      "source": "qwen35_2b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Gemma 4 E4B",
+      "family": "gemma4",
+      "params": "4.5B effective (8B with embeddings)",
+      "value": 69.4,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Qwen3.5-4B",
+      "family": "other",
+      "params": "4B",
+      "value": 79.1,
+      "source": "qwen35_4b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Qwen3.5-9B",
+      "family": "other",
+      "params": "9B",
+      "value": 82.5,
+      "source": "qwen35_4b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Gemma 4 12B",
+      "family": "gemma4",
+      "params": "12B dense",
+      "value": 77.2,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Gemma 4 26B A4B",
+      "family": "gemma4",
+      "params": "25.2B total, 3.8B active (MoE)",
+      "value": 82.6,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Qwen3.5-35B-A3B",
+      "family": "other",
+      "params": "35B total, 3B active (MoE)",
+      "value": 85.3,
+      "source": "qwen35_27b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Qwen3.5-27B",
+      "family": "other",
+      "params": "27B dense",
+      "value": 86.1,
+      "source": "qwen35_27b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Gemma 4 31B",
+      "family": "gemma4",
+      "params": "30.7B dense",
+      "value": 85.2,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Gemma 3 27B (no thinking)",
+      "family": "gemma3",
+      "params": "27B dense",
+      "value": 67.6,
+      "source": "gemma4_card",
+      "note": "Previous generation, from the same Google table; scored without thinking, so not a like-for-like match (Gemma 3's own card prints 67.5)"
+     }
+    ]
+   },
+   {
+    "id": "gpqa",
+    "benchmark": "GPQA Diamond (graduate-level science questions)",
+    "setting": "Instruction-tuned models in thinking mode; shots not stated",
+    "metric": "Accuracy %",
+    "higher_is_better": true,
+    "size_class": "2B to 31B",
+    "rows": [
+     {
+      "model": "Gemma 4 E2B",
+      "family": "gemma4",
+      "params": "2.3B effective (5.1B with embeddings)",
+      "value": 43.4,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Gemma 4 E4B",
+      "family": "gemma4",
+      "params": "4.5B effective (8B with embeddings)",
+      "value": 58.6,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Qwen3.5-4B",
+      "family": "other",
+      "params": "4B",
+      "value": 76.2,
+      "source": "qwen35_4b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Qwen3.5-9B",
+      "family": "other",
+      "params": "9B",
+      "value": 81.7,
+      "source": "qwen35_4b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Gemma 4 12B",
+      "family": "gemma4",
+      "params": "12B dense",
+      "value": 78.8,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Gemma 4 26B A4B",
+      "family": "gemma4",
+      "params": "25.2B total, 3.8B active (MoE)",
+      "value": 82.3,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Qwen3.5-35B-A3B",
+      "family": "other",
+      "params": "35B total, 3B active (MoE)",
+      "value": 84.2,
+      "source": "qwen35_27b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Qwen3.5-27B",
+      "family": "other",
+      "params": "27B dense",
+      "value": 85.5,
+      "source": "qwen35_27b",
+      "note": "Thinking mode (Qwen3.5 default)"
+     },
+     {
+      "model": "Gemma 4 31B",
+      "family": "gemma4",
+      "params": "30.7B dense",
+      "value": 84.3,
+      "source": "gemma4_card",
+      "note": "Instruction-tuned, thinking mode (Gemma 4 report, Table 5)"
+     },
+     {
+      "model": "Gemma 3 27B (no thinking)",
+      "family": "gemma3",
+      "params": "27B dense",
+      "value": 42.4,
+      "source": "gemma4_card",
+      "note": "Previous generation, from the same Google table; scored without thinking, so not a like-for-like match"
+     }
+    ],
+    "note": "Qwen3.5-2B is left out: its card reports \"GPQA\" without saying which subset."
+   }
+  ]
+ },
+ "whisper_fleurs": {
+  "title": "On FLEURS, Gemma 4 E4B makes well under half of Whisper large-v2's word errors in Hindi and is within about a point in the other languages both report, except English, where Whisper is ahead",
+  "setting": "FLEURS test set, zero-shot transcription. Whisper large-v2: OpenAI paper Table 13 with Whisper's normaliser. Gemma 4 E4B: Google's report Table 7. Each maker used its own scoring.",
+  "note": "OpenAI has not published per-language FLEURS numbers for large-v3-turbo; its card says it has minor quality loss against large-v3. The Open ASR Leaderboard reports turbo FLEURS WER for Spanish 2.73, Italian 3.3, Portuguese 3.77 and French 4.9.",
+  "sources": {
+   "whisper_large_v2": "whisper_paper",
+   "whisper_large_v3_chart": "whisper_readme",
+   "gemma4_e4b": "gemma4_report",
+   "whisper_turbo_open_asr": "open_asr"
+  },
+  "v3_note": "Whisper large-v3 values are read from the bar chart in OpenAI's README (no table is published), accurate to about 0.05 points.",
+  "rows": [
+   {
+    "lang": "en",
+    "metric": "WER",
+    "whisper_large_v2": 4.2,
+    "whisper_large_v3_chart": 4.1,
+    "gemma4_e4b": 6.5,
+    "whisper_turbo_open_asr": null,
+    "note": ""
+   },
+   {
+    "lang": "fr",
+    "metric": "WER",
+    "whisper_large_v2": 8.3,
+    "whisper_large_v3_chart": 5.3,
+    "gemma4_e4b": 8.0,
+    "whisper_turbo_open_asr": 4.9,
+    "note": ""
+   },
+   {
+    "lang": "hi",
+    "metric": "WER",
+    "whisper_large_v2": 21.5,
+    "whisper_large_v3_chart": 17.0,
+    "gemma4_e4b": 8.6,
+    "whisper_turbo_open_asr": null,
+    "note": ""
+   },
+   {
+    "lang": "es",
+    "metric": "WER",
+    "whisper_large_v2": 3.0,
+    "whisper_large_v3_chart": 2.8,
+    "gemma4_e4b": 3.5,
+    "whisper_turbo_open_asr": 2.73,
+    "note": ""
+   },
+   {
+    "lang": "it",
+    "metric": "WER",
+    "whisper_large_v2": 4.0,
+    "whisper_large_v3_chart": 3.0,
+    "gemma4_e4b": 3.2,
+    "whisper_turbo_open_asr": 3.3,
+    "note": ""
+   },
+   {
+    "lang": "pt",
+    "metric": "WER",
+    "whisper_large_v2": 4.3,
+    "whisper_large_v3_chart": 4.1,
+    "gemma4_e4b": 4.6,
+    "whisper_turbo_open_asr": 3.77,
+    "note": "Gemma's report scores Brazilian Portuguese (pt-br)."
+   },
+   {
+    "lang": "ar",
+    "metric": "WER",
+    "whisper_large_v2": 16.0,
+    "whisper_large_v3_chart": 9.6,
+    "gemma4_e4b": 16.2,
+    "whisper_turbo_open_asr": null,
+    "note": ""
+   },
+   {
+    "lang": "zh",
+    "metric": "CER",
+    "whisper_large_v2": 14.7,
+    "whisper_large_v3_chart": 7.7,
+    "gemma4_e4b": 13.6,
+    "whisper_turbo_open_asr": null,
+    "note": "Chinese is scored by characters: Whisper's paper puts a space between every character (effectively CER); the Gemma report marks it CER."
+   },
+   {
+    "lang": "bn",
+    "metric": "WER",
+    "whisper_large_v2": 104.1,
+    "whisper_large_v3_chart": 50.0,
+    "gemma4_e4b": null,
+    "whisper_turbo_open_asr": null,
+    "note": "Whisper large-v2's published Bengali error is above 100%, meaning more errors than words; its paper's normaliser also strips Indic vowel signs, which inflates Hindi, Bengali and Tamil."
+   },
+   {
+    "lang": "ta",
+    "metric": "WER",
+    "whisper_large_v2": 17.5,
+    "whisper_large_v3_chart": 18.4,
+    "gemma4_e4b": null,
+    "whisper_turbo_open_asr": null,
+    "note": ""
+   },
+   {
+    "lang": "vi",
+    "metric": "WER",
+    "whisper_large_v2": 10.3,
+    "whisper_large_v3_chart": 8.6,
+    "gemma4_e4b": null,
+    "whisper_turbo_open_asr": null,
+    "note": ""
+   },
+   {
+    "lang": "tl",
+    "metric": "WER",
+    "whisper_large_v2": 13.8,
+    "whisper_large_v3_chart": 13.0,
+    "gemma4_e4b": null,
+    "whisper_turbo_open_asr": null,
+    "note": "Large-v3 chart lists Filipino (fil)."
+   }
+  ]
+ },
+ "gemma_asr": [
+  {
+   "model": "Gemma 4 E4B",
+   "benchmark": "FLEURS",
+   "setting": "Average over 12 languages, instruction-tuned",
+   "metric": "WER as a fraction (lower is better)",
+   "value": 0.08,
+   "source": "gemma4_card",
+   "note": "Report Table 7 gives 0.075 for the same average."
+  },
+  {
+   "model": "Gemma 4 E2B",
+   "benchmark": "FLEURS",
+   "setting": "Average over 12 languages",
+   "metric": "WER as a fraction",
+   "value": 0.09,
+   "source": "gemma4_card",
+   "note": "Report: 0.090"
+  },
+  {
+   "model": "Gemma 4 12B",
+   "benchmark": "FLEURS",
+   "setting": "Average excluding Chinese",
+   "metric": "WER as a fraction",
+   "value": 0.069,
+   "source": "gemma4_card",
+   "note": ""
+  },
+  {
+   "model": "Gemma 4 E4B",
+   "benchmark": "CoVoST",
+   "setting": "Speech translation to English, average",
+   "metric": "BLEU (card does not name it)",
+   "value": 35.54,
+   "source": "gemma4_card",
+   "note": "Report Table 7 (CorpusBLEU, 7 languages) gives 38.2."
+  },
+  {
+   "model": "Gemma 4 E2B",
+   "benchmark": "CoVoST",
+   "setting": "Speech translation to English, average",
+   "metric": "BLEU",
+   "value": 33.47,
+   "source": "gemma4_card",
+   "note": "Report: 35.4"
+  }
+ ],
+ "hardware": [
+  {
+   "name": "AMD Radeon PRO W7900D",
+   "facts": [
+    {
+     "label": "Memory",
+     "value": "48 GB GDDR6, 864 GB/s"
+    },
+    {
+     "label": "Peak FP16 matrix",
+     "value": "106 TFLOPs"
+    },
+    {
+     "label": "Board power",
+     "value": "295 W"
+    }
+   ],
+   "source": "amd_w7900d",
+   "note": "The card we fine-tuned and served Gemma 4 E4B on. Training peaked at 21.3 GiB and the full speech-plus-grading loop at 15.1 GiB, so one workstation card holds it with room to spare."
+  },
+  {
+   "name": "AMD Radeon PRO W7900",
+   "facts": [
+    {
+     "label": "Memory",
+     "value": "48 GB GDDR6, 864 GB/s, ECC"
+    },
+    {
+     "label": "Peak FP16 matrix",
+     "value": "123 TFLOPs"
+    },
+    {
+     "label": "Board power",
+     "value": "295 W"
+    }
+   ],
+   "source": "amd_w7900",
+   "note": "The international version of the same workstation card, the kind a hospital could put in a server under a desk."
+  },
+  {
+   "name": "AMD Instinct MI300X",
+   "facts": [
+    {
+     "label": "Memory",
+     "value": "192 GB HBM3, 5.3 TB/s"
+    },
+    {
+     "label": "Peak FP16",
+     "value": "1.3 PFLOPs dense"
+    },
+    {
+     "label": "Board power",
+     "value": "750 W"
+    }
+   ],
+   "source": "amd_mi300x",
+   "note": "Data-centre class. Gemma 4 31B's weights take about 61 GB in 16-bit (30.7B parameters times 2 bytes), so a single 192 GB card holds the model with room for long contexts."
+  }
+ ],
+ "disagreements": [
+  "Gemma 4 FLEURS average: card 0.08 (E4B) vs report Table 7 0.075; card 0.09 (E2B) vs report 0.090. Charts use the report's per-language table.",
+  "Gemma 4 CoVoST: card 35.54 (E4B) and 33.47 (E2B) vs report Table 7 38.2 and 35.4 (CorpusBLEU, 7 languages).",
+  "Gemma 4 Tau2 average: report per-domain values average to 45.8 (E4B) and 28.4 (E2B) vs card 42.2 and 24.5. Not charted.",
+  "Gemma 3 27B MMLU-Pro: 67.6 on the Gemma 4 card vs 67.5 on the Gemma 3 card. Chart uses 67.6 (same table as Gemma 4).",
+  "Whisper large-v2 FLEURS: the paper's Table 13 and OpenAI's README chart disagree (e.g. Chinese 14.7 vs 7.46, Hindi 21.5 vs 21.75) because they were scored differently. Charts use the paper table only.",
+  "Whisper large-v3 FLEURS values are read from OpenAI's README bar chart (no table), accurate to about 0.05; they appear only in tooltips and tables.",
+  "AMD Radeon PRO W7900 FP16 vector: 61.3 TFLOPs on the W7900 page vs 123 on the W7900 Dual Slot page. We quote only FP16 matrix (123), which both agree on."
+ ],
+ "excluded": [
+  "WMT24++: Qwen scores a 55-language subset with XCOMET-XXL, Gemma 3/3n use ChrF; Gemma 4 publishes none.",
+  "Global-MMLU, MMLU-ProX, FLORES: no Gemma 4 numbers published.",
+  "LiveCodeBench, Tau2, OmniDocBench: not relevant to this use, or settings differ (version windows, domain fixes, metric direction).",
+  "Ministral 3 and Phi-4 reasoning models: published GPQA Diamond numbers exist but their reasoning setting only loosely matches Gemma's thinking mode, so they are left out.",
+  "Llama 3.x / 4: official cards share no benchmark with the Gemma 4 table under the same setting.",
+  "Qwen3.5-2B GPQA: reported as \"GPQA\" without the subset."
+ ],
+ "sources": {
+  "gemma4_card": {
+   "title": "Gemma 4 model card, benchmark results (identical table on every Gemma 4 card)",
+   "publisher": "Google",
+   "url": "https://huggingface.co/google/gemma-4-E4B-it",
+   "accessed": "2026-10-15"
+  },
+  "gemma4_card_aidev": {
+   "title": "Gemma 4 model card on Google AI for Developers",
+   "publisher": "Google",
+   "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+   "accessed": "2026-10-15"
+  },
+  "gemma4_report": {
+   "title": "Gemma 4 Technical Report (arXiv 2607.02770), Tables 5 and 7",
+   "publisher": "Google DeepMind, Gemma Team",
+   "url": "https://arxiv.org/abs/2607.02770",
+   "accessed": "2026-10-15"
+  },
+  "qwen35_2b": {
+   "title": "Qwen3.5-2B model card",
+   "publisher": "Qwen team, Alibaba",
+   "url": "https://huggingface.co/Qwen/Qwen3.5-2B",
+   "accessed": "2026-10-15"
+  },
+  "qwen35_4b": {
+   "title": "Qwen3.5-4B model card (also lists Qwen3.5-9B)",
+   "publisher": "Qwen team, Alibaba",
+   "url": "https://huggingface.co/Qwen/Qwen3.5-4B",
+   "accessed": "2026-10-15"
+  },
+  "qwen35_27b": {
+   "title": "Qwen3.5-27B model card (also lists Qwen3.5-35B-A3B)",
+   "publisher": "Qwen team, Alibaba",
+   "url": "https://huggingface.co/Qwen/Qwen3.5-27B",
+   "accessed": "2026-10-15"
+  },
+  "whisper_paper": {
+   "title": "Robust Speech Recognition via Large-Scale Weak Supervision (Radford et al., 2022), Appendix D.2.4, Table 13",
+   "publisher": "OpenAI",
+   "url": "https://arxiv.org/abs/2212.04356",
+   "accessed": "2026-10-15"
+  },
+  "whisper_readme": {
+   "title": "openai/whisper README, WER breakdown by language chart (large-v3 vs large-v2)",
+   "publisher": "OpenAI",
+   "url": "https://github.com/openai/whisper",
+   "accessed": "2026-10-15"
+  },
+  "whisper_v3_notes": {
+   "title": "Whisper large-v3 release discussion #1762 (scoring method)",
+   "publisher": "OpenAI",
+   "url": "https://github.com/openai/whisper/discussions/1762",
+   "accessed": "2026-10-15"
+  },
+  "whisper_turbo_card": {
+   "title": "whisper-large-v3-turbo model card",
+   "publisher": "OpenAI",
+   "url": "https://huggingface.co/openai/whisper-large-v3-turbo",
+   "accessed": "2026-10-15"
+  },
+  "open_asr": {
+   "title": "Open ASR Leaderboard, multilingual results (hf-audio/multilingual_evals)",
+   "publisher": "Hugging Face",
+   "url": "https://huggingface.co/datasets/hf-audio/multilingual_evals",
+   "accessed": "2026-10-15"
+  },
+  "amd_w7900d": {
+   "title": "AMD Radeon PRO W7900D specifications (Chinese-language page; no English page exists)",
+   "publisher": "AMD",
+   "url": "https://www.amd.com/zh-cn/products/graphics/workstations/radeon-pro/w7900d.html",
+   "accessed": "2026-10-15"
+  },
+  "amd_w7900": {
+   "title": "AMD Radeon PRO W7900 specifications",
+   "publisher": "AMD",
+   "url": "https://www.amd.com/en/products/graphics/workstations/radeon-pro/w7900.html",
+   "accessed": "2026-10-15"
+  },
+  "amd_mi300x": {
+   "title": "AMD Instinct MI300X specifications",
+   "publisher": "AMD",
+   "url": "https://www.amd.com/en/products/accelerators/instinct/mi300/mi300x.html",
+   "accessed": "2026-10-15"
+  },
+  "amd_mi355x": {
+   "title": "AMD Instinct MI355X specifications",
+   "publisher": "AMD",
+   "url": "https://www.amd.com/en/products/accelerators/instinct/mi350/mi355x.html",
+   "accessed": "2026-10-15"
+  }
+ }
+}

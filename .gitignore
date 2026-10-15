@@ -1,0 +1,16 @@
+.env
+.env.*
+*.key
+node_modules/
+.wrangler/
+dist/
+__pycache__/
+*.pyc
+.venv/
+*.wav
+*.m4a
+*.aifc
+ml/runs/
+ml/adapters/
+.DS_Store
+dist-deploy/

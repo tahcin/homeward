@@ -1,0 +1,188 @@
+{
+  "facts": [
+    {
+      "id": "f1",
+      "category": "medication_change",
+      "critical": true,
+      "statement": "Take Furosemide 40 mg twice a day at 8 am and 2 pm, which is an increase from 20 mg daily.",
+      "anchors": [
+        "Furosemide",
+        "40 mg",
+        "8 am",
+        "2 pm",
+        "20 mg"
+      ],
+      "label": "Furosemide 40 mg: twice a day, 8 am and 2 pm"
+    },
+    {
+      "id": "f2",
+      "category": "medication_change",
+      "critical": true,
+      "statement": "Start taking a new medicine, Spironolactone 25 mg daily.",
+      "anchors": [
+        "Spironolactone",
+        "25 mg"
+      ],
+      "label": "Spironolactone 25 mg: daily"
+    },
+    {
+      "id": "f3",
+      "category": "medication",
+      "critical": true,
+      "statement": "Continue taking Bisoprolol 2.5 mg daily.",
+      "anchors": [
+        "Bisoprolol",
+        "2.5 mg"
+      ],
+      "label": "Bisoprolol 2.5 mg: daily"
+    },
+    {
+      "id": "f4",
+      "category": "medication",
+      "critical": false,
+      "statement": "Continue taking Ramipril 5 mg daily.",
+      "anchors": [
+        "Ramipril",
+        "5 mg"
+      ],
+      "label": "Ramipril 5 mg: daily"
+    },
+    {
+      "id": "f5",
+      "category": "medication_change",
+      "critical": true,
+      "statement": "Stop taking ibuprofen and use paracetamol 500 mg up to 3 times a day only when needed instead.",
+      "anchors": [
+        "ibuprofen",
+        "paracetamol",
+        "500 mg",
+        "3"
+      ],
+      "label": "Stop ibuprofen; paracetamol 500 mg if needed"
+    },
+    {
+      "id": "f6",
+      "category": "self_monitoring",
+      "critical": true,
+      "statement": "Weigh yourself every morning and call the heart failure nurse line if your weight increases more than 2 kg in 3 days.",
+      "anchors": [
+        "2 kg",
+        "3"
+      ],
+      "label": "Weigh daily: call if up 2 kg in 3 days"
+    },
+    {
+      "id": "f7",
+      "category": "diet",
+      "critical": false,
+      "statement": "Limit fluids to 1.5 L per day and keep salt under 2 g sodium per day.",
+      "anchors": [
+        "1.5 L",
+        "2 g"
+      ],
+      "label": "Fluids 1.5 L, salt 2 g"
+    },
+    {
+      "id": "f8",
+      "category": "warning_sign",
+      "critical": true,
+      "statement": "Call 112 immediately if you have shortness of breath at rest, chest pain, or fainting.",
+      "anchors": [
+        "112"
+      ],
+      "label": "Call 112: breathless at rest, chest pain, fainting"
+    },
+    {
+      "id": "f9",
+      "category": "warning_sign",
+      "critical": true,
+      "statement": "Call the heart failure nurse line the same day if you have new ankle swelling, need more pillows to sleep, or feel dizzy when standing.",
+      "anchors": [],
+      "label": "Nurse line: swelling, pillows, dizzy"
+    },
+    {
+      "id": "f10",
+      "category": "follow_up",
+      "critical": false,
+      "statement": "Have a blood test at the outpatient lab on 22 Oct 2026.",
+      "anchors": [
+        "22 Oct 2026"
+      ],
+      "label": "Blood test: 22 Oct 2026, outpatient lab"
+    },
+    {
+      "id": "f11",
+      "category": "follow_up",
+      "critical": false,
+      "statement": "Attend the heart failure clinic with Dr. Elena Bianchi on 12 Nov 2026 at 10:30.",
+      "anchors": [
+        "Dr. Elena Bianchi",
+        "12 Nov 2026",
+        "10:30"
+      ],
+      "label": "Heart failure clinic: 12 Nov 2026"
+    },
+    {
+      "id": "f12",
+      "category": "activity",
+      "critical": false,
+      "statement": "Walk 10-15 min twice a day as tolerated and do not lift anything over 5 kg for 2 weeks.",
+      "anchors": [
+        "10-15 min",
+        "5 kg",
+        "2"
+      ],
+      "label": "Walk 10-15 min, lift <5 kg"
+    }
+  ],
+  "topics": [
+    {
+      "id": "t1",
+      "question": "Can you explain the changes to your medications and how you will take them?",
+      "fact_ids": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5"
+      ]
+    },
+    {
+      "id": "t2",
+      "question": "What should you monitor at home and what are the limits for your diet?",
+      "fact_ids": [
+        "f6",
+        "f7"
+      ]
+    },
+    {
+      "id": "t3",
+      "question": "What symptoms should you look for, and who should you call depending on what happens?",
+      "fact_ids": [
+        "f8",
+        "f9"
+      ]
+    },
+    {
+      "id": "t4",
+      "question": "What are your upcoming appointments and activity restrictions?",
+      "fact_ids": [
+        "f10",
+        "f11",
+        "f12"
+      ]
+    }
+  ],
+  "nurse_checks": [],
+  "steps": [
+    {
+      "step": "Find the facts",
+      "model": "Gemma-4-31B-IT",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 48486,
+      "tokens_in": 892,
+      "tokens_out": 1323,
+      "cost_usd": 0.0001236585
+    }
+  ]
+}

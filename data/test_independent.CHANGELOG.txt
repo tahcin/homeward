@@ -1,0 +1,1 @@
+2026-10-15 12:15 IST, before any model graded part D: c005 f7 in answers 402, 403, 405 relabelled partial -> correct (date and blood tests stated; naming A1c/kidney is not needed to act). Reviewer: lead ML agent.

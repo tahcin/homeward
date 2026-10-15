@@ -1,0 +1,483 @@
+{
+ "schema": "homeward.eval.v1",
+ "generated_at": "2026-10-15 17:43:03 IST",
+ "test_set": {
+  "path": "data/splits/val.jsonl",
+  "answers": 68,
+  "facts": 130,
+  "cases": 5,
+  "languages": [
+   "ar",
+   "en",
+   "it",
+   "pt",
+   "ta"
+  ],
+  "gold_verdict_counts": {
+   "incorrect": 23,
+   "correct": 84,
+   "partial": 15,
+   "missing": 8
+  },
+  "labels": "designed labels from the generator (not verifier-filtered)"
+ },
+ "metric_definitions": {
+  "accuracy": "share of facts whose predicted verdict equals the designed verdict",
+  "macro_f1": "unweighted mean of per-verdict F1 over correct, partial, incorrect, missing; unreadable verdicts count as wrong",
+  "false_reassurance_rate": "share of facts designed incorrect or missing that the system graded correct (the unsafe error)",
+  "false_reassurance_rate_critical": "same, restricted to facts flagged critical",
+  "over_flag_rate": "share of facts designed correct that the system did not grade correct (extra nurse work, not unsafe)",
+  "json_valid_rate": "share of answers whose reply parsed as JSON with exactly the expected fact ids in order and known verdicts"
+ },
+ "systems": {
+  "e4b_base": {
+   "meta": {
+    "system": "e4b_base",
+    "model": "/workspace/models/gemma-4-E4B-it",
+    "adapter": null,
+    "rows": 68,
+    "device": "AMD Radeon Pro W7900D",
+    "torch": "2.13.0+rocm10.0.0",
+    "load_s": 12.5,
+    "decoding": "greedy",
+    "max_new_tokens": 768,
+    "batched": {
+     "batch_size": 16,
+     "wall_s": 74.9,
+     "completion_tokens": 9303,
+     "prompt_tokens": 26549,
+     "gen_tok_per_s": 124.13099122768145,
+     "answers_per_s": 0.9073317643214381
+    },
+    "bs1": {
+     "n": 0,
+     "p50_s": null,
+     "p95_s": null,
+     "mean_s": null,
+     "gen_tok_per_s": null
+    },
+    "peak_vram_allocated_gib": 16.329577445983887
+   },
+   "metrics": {
+    "facts": 130,
+    "accuracy": 0.9307692307692308,
+    "macro_f1": 0.8723207881861728,
+    "per_verdict": {
+     "correct": {
+      "precision": 0.9764705882352941,
+      "recall": 0.9880952380952381,
+      "f1": 0.9822485207100591,
+      "support": 84
+     },
+     "partial": {
+      "precision": 0.6666666666666666,
+      "recall": 0.8,
+      "f1": 0.7272727272727272,
+      "support": 15
+     },
+     "incorrect": {
+      "precision": 1.0,
+      "recall": 0.8260869565217391,
+      "f1": 0.9047619047619047,
+      "support": 23
+     },
+     "missing": {
+      "precision": 0.875,
+      "recall": 0.875,
+      "f1": 0.875,
+      "support": 8
+     }
+    },
+    "false_reassurance_rate": 0.0,
+    "false_reassurance_n": [
+     0,
+     31
+    ],
+    "false_reassurance_rate_critical": 0.0,
+    "false_reassurance_critical_n": [
+     0,
+     26
+    ],
+    "partial_graded_correct_rate": 0.13333333333333333,
+    "over_flag_rate": 0.011904761904761904,
+    "understood_vs_not_accuracy": 0.9769230769230769,
+    "invalid_facts": 0,
+    "confusion": {
+     "correct": {
+      "correct": 83,
+      "partial": 1,
+      "incorrect": 0,
+      "missing": 0,
+      "invalid": 0
+     },
+     "partial": {
+      "correct": 2,
+      "partial": 12,
+      "incorrect": 0,
+      "missing": 1,
+      "invalid": 0
+     },
+     "incorrect": {
+      "correct": 0,
+      "partial": 4,
+      "incorrect": 19,
+      "missing": 0,
+      "invalid": 0
+     },
+     "missing": {
+      "correct": 0,
+      "partial": 1,
+      "incorrect": 0,
+      "missing": 7,
+      "invalid": 0
+     }
+    },
+    "accuracy_95ci": [
+     0.9107142857142857,
+     0.952054794520548
+    ],
+    "macro_f1_95ci": [
+     0.8267196724368987,
+     0.910405891119488
+    ],
+    "false_reassurance_rate_95ci": [
+     0.0,
+     0.0
+    ],
+    "method": "case-level bootstrap, 1000 resamples",
+    "json_valid_rate": 1.0,
+    "answers": 68,
+    "answer_exact_match_rate": 0.8676470588235294,
+    "per_language_accuracy": {
+     "ar": {
+      "accuracy": 0.92,
+      "facts": 25
+     },
+     "en": {
+      "accuracy": 0.8947368421052632,
+      "facts": 19
+     },
+     "it": {
+      "accuracy": 0.9666666666666667,
+      "facts": 30
+     },
+     "pt": {
+      "accuracy": 0.9166666666666666,
+      "facts": 24
+     },
+     "ta": {
+      "accuracy": 0.9375,
+      "facts": 32
+     }
+    },
+    "answers_without_prediction": 0,
+    "tokens": {
+     "prompt_per_answer": 390.4264705882353,
+     "completion_per_answer": 136.80882352941177
+    }
+   }
+  },
+  "e4b_lora": {
+   "meta": {
+    "system": "e4b_lora",
+    "model": "/workspace/models/gemma-4-E4B-it",
+    "adapter": "/workspace/runs/lora1/adapter",
+    "rows": 68,
+    "device": "AMD Radeon Pro W7900D",
+    "torch": "2.13.0+rocm10.0.0",
+    "load_s": 27.8,
+    "decoding": "greedy",
+    "max_new_tokens": 768,
+    "batched": {
+     "batch_size": 16,
+     "wall_s": 52.0,
+     "completion_tokens": 5953,
+     "prompt_tokens": 26549,
+     "gen_tok_per_s": 114.4482714217561,
+     "answers_per_s": 1.3073210913286435
+    },
+    "bs1": {
+     "n": 0,
+     "p50_s": null,
+     "p95_s": null,
+     "mean_s": null,
+     "gen_tok_per_s": null
+    },
+    "peak_vram_allocated_gib": 16.3296537399292
+   },
+   "metrics": {
+    "facts": 130,
+    "accuracy": 0.9692307692307692,
+    "macro_f1": 0.9424466142732396,
+    "per_verdict": {
+     "correct": {
+      "precision": 0.9655172413793104,
+      "recall": 1.0,
+      "f1": 0.9824561403508771,
+      "support": 84
+     },
+     "partial": {
+      "precision": 1.0,
+      "recall": 0.7333333333333333,
+      "f1": 0.846153846153846,
+      "support": 15
+     },
+     "incorrect": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 23
+     },
+     "missing": {
+      "precision": 0.8888888888888888,
+      "recall": 1.0,
+      "f1": 0.9411764705882353,
+      "support": 8
+     }
+    },
+    "false_reassurance_rate": 0.0,
+    "false_reassurance_n": [
+     0,
+     31
+    ],
+    "false_reassurance_rate_critical": 0.0,
+    "false_reassurance_critical_n": [
+     0,
+     26
+    ],
+    "partial_graded_correct_rate": 0.2,
+    "over_flag_rate": 0.0,
+    "understood_vs_not_accuracy": 0.9769230769230769,
+    "invalid_facts": 0,
+    "confusion": {
+     "correct": {
+      "correct": 84,
+      "partial": 0,
+      "incorrect": 0,
+      "missing": 0,
+      "invalid": 0
+     },
+     "partial": {
+      "correct": 3,
+      "partial": 11,
+      "incorrect": 0,
+      "missing": 1,
+      "invalid": 0
+     },
+     "incorrect": {
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 23,
+      "missing": 0,
+      "invalid": 0
+     },
+     "missing": {
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "missing": 8,
+      "invalid": 0
+     }
+    },
+    "accuracy_95ci": [
+     0.9279279279279279,
+     1.0
+    ],
+    "macro_f1_95ci": [
+     0.8599196855775803,
+     1.0
+    ],
+    "false_reassurance_rate_95ci": [
+     0.0,
+     0.0
+    ],
+    "method": "case-level bootstrap, 1000 resamples",
+    "json_valid_rate": 0.9852941176470589,
+    "answers": 68,
+    "answer_exact_match_rate": 0.9411764705882353,
+    "per_language_accuracy": {
+     "ar": {
+      "accuracy": 1.0,
+      "facts": 25
+     },
+     "en": {
+      "accuracy": 0.8947368421052632,
+      "facts": 19
+     },
+     "it": {
+      "accuracy": 1.0,
+      "facts": 30
+     },
+     "pt": {
+      "accuracy": 0.9166666666666666,
+      "facts": 24
+     },
+     "ta": {
+      "accuracy": 1.0,
+      "facts": 32
+     }
+    },
+    "answers_without_prediction": 0,
+    "tokens": {
+     "prompt_per_answer": 390.4264705882353,
+     "completion_per_answer": 87.54411764705883
+    },
+    "paired_vs_e4b_base": {
+     "this_right_ref_wrong": 6,
+     "this_wrong_ref_right": 1
+    }
+   }
+  },
+  "gemma4_12b_base": {
+   "meta": {
+    "system": "gemma4_12b_base",
+    "model": "/workspace/models/gemma-4-12B-it",
+    "adapter": null,
+    "rows": 248,
+    "device": "AMD Radeon Pro W7900D",
+    "torch": "2.13.0+rocm10.0.0",
+    "load_s": 30.6,
+    "decoding": "greedy",
+    "max_new_tokens": 768,
+    "batched": {
+     "batch_size": 16,
+     "wall_s": 322.4,
+     "completion_tokens": 26242,
+     "prompt_tokens": 92793,
+     "gen_tok_per_s": 81.38763107558685,
+     "answers_per_s": 0.7691537423498795
+    },
+    "bs1": {
+     "n": 10,
+     "p50_s": 9.089578628540039,
+     "p95_s": 17.412100422382355,
+     "mean_s": 9.688699555397033,
+     "gen_tok_per_s": 14.470466257971887
+    },
+    "peak_vram_allocated_gib": 26.526185035705566
+   },
+   "metrics": {
+    "facts": 130,
+    "accuracy": 0.8692307692307693,
+    "macro_f1": 0.9121178879625567,
+    "per_verdict": {
+     "correct": {
+      "precision": 0.9733333333333334,
+      "recall": 0.8690476190476191,
+      "f1": 0.9182389937106918,
+      "support": 84
+     },
+     "partial": {
+      "precision": 0.8,
+      "recall": 0.8,
+      "f1": 0.8000000000000002,
+      "support": 15
+     },
+     "incorrect": {
+      "precision": 1.0,
+      "recall": 0.8695652173913043,
+      "f1": 0.9302325581395349,
+      "support": 23
+     },
+     "missing": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 8
+     }
+    },
+    "false_reassurance_rate": 0.0,
+    "false_reassurance_n": [
+     0,
+     31
+    ],
+    "false_reassurance_rate_critical": 0.0,
+    "false_reassurance_critical_n": [
+     0,
+     26
+    ],
+    "partial_graded_correct_rate": 0.13333333333333333,
+    "over_flag_rate": 0.13095238095238096,
+    "understood_vs_not_accuracy": 0.9,
+    "invalid_facts": 12,
+    "confusion": {
+     "correct": {
+      "correct": 73,
+      "partial": 1,
+      "incorrect": 0,
+      "missing": 0,
+      "invalid": 10
+     },
+     "partial": {
+      "correct": 2,
+      "partial": 12,
+      "incorrect": 0,
+      "missing": 0,
+      "invalid": 1
+     },
+     "incorrect": {
+      "correct": 0,
+      "partial": 2,
+      "incorrect": 20,
+      "missing": 0,
+      "invalid": 1
+     },
+     "missing": {
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "missing": 8,
+      "invalid": 0
+     }
+    },
+    "accuracy_95ci": [
+     0.7285714285714285,
+     0.9609375
+    ],
+    "macro_f1_95ci": [
+     0.8525268336314847,
+     0.9517906998928805
+    ],
+    "false_reassurance_rate_95ci": [
+     0.0,
+     0.0
+    ],
+    "method": "case-level bootstrap, 1000 resamples",
+    "json_valid_rate": 0.9705882352941176,
+    "answers": 68,
+    "answer_exact_match_rate": 0.8970588235294118,
+    "per_language_accuracy": {
+     "ar": {
+      "accuracy": 0.96,
+      "facts": 25
+     },
+     "en": {
+      "accuracy": 0.9473684210526315,
+      "facts": 19
+     },
+     "it": {
+      "accuracy": 0.9666666666666667,
+      "facts": 30
+     },
+     "pt": {
+      "accuracy": 0.9166666666666666,
+      "facts": 24
+     },
+     "ta": {
+      "accuracy": 0.625,
+      "facts": 32
+     }
+    },
+    "answers_without_prediction": 0,
+    "tokens": {
+     "prompt_per_answer": 394.4264705882353,
+     "completion_per_answer": 92.8529411764706
+    },
+    "paired_vs_e4b_base": {
+     "this_right_ref_wrong": 5,
+     "this_wrong_ref_right": 13
+    }
+   }
+  }
+ }
+}

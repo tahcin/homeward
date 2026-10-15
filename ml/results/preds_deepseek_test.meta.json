@@ -1,0 +1,13 @@
+{
+ "system": "deepseek_v4_flash",
+ "model": "DeepSeek-V4-Flash",
+ "rows": 348,
+ "errors": 20,
+ "prompt_tokens": 127391,
+ "completion_tokens": 39113,
+ "latency_p50_s": 555.4084829092026,
+ "latency_p95_s": 1211.8202338457108,
+ "json_mode": false,
+ "reasoning_effort": null,
+ "note": "latency includes Token Factory queueing under the shared 20 requests/minute limit"
+}

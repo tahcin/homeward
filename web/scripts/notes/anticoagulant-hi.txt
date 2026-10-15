@@ -1,0 +1,20 @@
+DISCHARGE INSTRUCTIONS (fictional patient, synthetic record)
+Pt: Ramesh Kumar Verma, 66 M. Language: Hindi (son Arjun helps with medicines). D/c date 15/10/2026.
+Dx: New-onset atrial fibrillation with rapid ventricular response, rate controlled. CHA2DS2-VASc 3. Started on anticoagulation.
+
+MEDS
+1. Apixaban 5 mg PO BID, every 12 hours (9 am and 9 pm). NEW blood thinner. Do not skip doses. If a dose is missed, take it as soon as remembered on the same day, never take 2 doses together.
+2. Metoprolol succinate 25 mg PO once daily in the morning. NEW, for heart rate.
+3. STOP aspirin 75 mg (was taking daily at home). Apixaban replaces it.
+4. Atorvastatin 20 mg PO at bedtime. Continue.
+Avoid NSAIDs (ibuprofen, diclofenac) for pain; paracetamol is OK.
+
+BLEEDING PRECAUTIONS
+- Go to emergency / call 112 if: black or bloody stools, vomiting blood, severe headache, or a fall with a head injury.
+- Call the clinic if: nosebleed longer than 10 min, blood in urine, unusual bruising.
+- Tell any dentist or doctor that you take apixaban before any procedure.
+
+F/U
+- Kidney function blood test on 29 Oct 2026.
+- Cardiology OPD, Dr. Anjali Mehta, 9 Nov 2026 at 11:00.
+Check pulse daily; call if resting pulse below 50 or above 110.

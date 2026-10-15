@@ -1,0 +1,13 @@
+{
+ "device": "AMD Radeon Pro W7900D",
+ "torch": "2.13.0+rocm10.0.0",
+ "transformers": "5.19.0",
+ "e4b": "/workspace/models/gemma-4-12B-it",
+ "adapter": null,
+ "whisper": null,
+ "clips": 15,
+ "vram_after_load_e4b_plus_adapter_gib": 22.2767596244812,
+ "peak_vram_e4b_asr_plus_grading_gib": 22.56782102584839,
+ "peak_vram_with_whisper_also_loaded_gib": 22.56782102584839,
+ "note": "one E4B copy in memory: ASR runs with the LoRA adapter disabled, grading with it enabled; greedy decoding, batch size 1"
+}

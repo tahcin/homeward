@@ -1,0 +1,251 @@
+{
+ "schema": "homeward.asr.v1",
+ "generated_at": "2026-10-15 17:43:18 IST",
+ "clips": {
+  "tts": 0,
+  "human": 15
+ },
+ "normalised_score": "second score per row after orthography-only normalisation: Traditional to Simplified Chinese (OpenCC t2s) and standard Arabic letter normalisation; number words vs digits and script choice in code-mixed speech still count as errors",
+ "normalisation": "NFKC, lowercase, punctuation and symbols removed, whitespace collapsed; WER over whitespace tokens, CER over characters without spaces. Script choice counts as an error (e.g. an English drug name written in Devanagari).",
+ "tts_note": "TTS clips are macOS `say` voices reading the independent test transcripts written by Claude: clean studio speech, so they flatter ASR compared with real patients.",
+ "mimo_v2_6_flash": "not measured: Token Factory lists it as text+image only and its backend rejected input_audio on 2026-10-15",
+ "asr": {
+  "e4b": {
+   "human": {
+    "ALL": {
+     "clips": 15,
+     "words": 238,
+     "word_edits": 98,
+     "wer": 0.4117647058823529,
+     "chars": 974,
+     "char_edits": 459,
+     "cer": 0.47125256673511295,
+     "primary": "wer",
+     "normalised": {
+      "wer": 0.4117647058823529,
+      "word_edits": 98,
+      "words": 238,
+      "cer": 0.47125256673511295,
+      "char_edits": 459,
+      "chars": 974
+     }
+    },
+    "bn": {
+     "clips": 5,
+     "words": 69,
+     "word_edits": 70,
+     "wer": 1.0144927536231885,
+     "chars": 316,
+     "char_edits": 332,
+     "cer": 1.0506329113924051,
+     "primary": "wer",
+     "normalised": {
+      "wer": 1.0144927536231885,
+      "word_edits": 70,
+      "words": 69,
+      "cer": 1.0506329113924051,
+      "char_edits": 332,
+      "chars": 316
+     }
+    },
+    "en": {
+     "clips": 5,
+     "words": 81,
+     "word_edits": 9,
+     "wer": 0.1111111111111111,
+     "chars": 334,
+     "char_edits": 24,
+     "cer": 0.0718562874251497,
+     "primary": "wer",
+     "normalised": {
+      "wer": 0.1111111111111111,
+      "word_edits": 9,
+      "words": 81,
+      "cer": 0.0718562874251497,
+      "char_edits": 24,
+      "chars": 334
+     }
+    },
+    "hi": {
+     "clips": 5,
+     "words": 88,
+     "word_edits": 19,
+     "wer": 0.2159090909090909,
+     "chars": 324,
+     "char_edits": 103,
+     "cer": 0.31790123456790126,
+     "primary": "wer",
+     "normalised": {
+      "wer": 0.2159090909090909,
+      "word_edits": 19,
+      "words": 88,
+      "cer": 0.31790123456790126,
+      "char_edits": 103,
+      "chars": 324
+     }
+    }
+   }
+  }
+ },
+ "asr_latency_s": {
+  "e4b/human": {
+   "p50": 1.7469842433929443,
+   "p95": 3.9866058826446515,
+   "n": 15
+  }
+ },
+ "grading_from_transcripts": {},
+ "meta": {},
+ "per_clip": [
+  {
+   "id": "human_h01",
+   "source": "human",
+   "language": "hi",
+   "ref": "मुझे clopidogrel 75 mg रोज़ एक बार लेनी है, पूरे बारह महीने, और cardiologist से पूछे बिना बंद नहीं करनी। और aspirin 75 भी रोज़ एक बार, खाने के बाद।",
+   "duration_s": 14.68,
+   "e4b_hyp": "मुझे कोप्लिड्रिल 75mg रोज़ 1 बार लेनी है पूरे 12 महीने और कार्डियोलॉजिस्ट से पूछने बिना बंद नहीं करनी और एस्पिरिन 75 भी रोज़ 1 बार खाने के बाद।",
+   "e4b_wer": 0.3,
+   "e4b_cer": 0.3805309734513274
+  },
+  {
+   "id": "human_h02",
+   "source": "human",
+   "language": "hi",
+   "ref": "clopidogrel रोज़ लेनी है, एक महीने तक, फिर बंद कर दूँगा। aspirin भी लेनी है शायद।",
+   "duration_s": 7.43,
+   "e4b_hyp": "क्लोपिडोग्रेल रोज़ लेनी है 1 महीने तक फिर बंद कर दूंगा एस्पिरिन भी लेनी है शायद",
+   "e4b_wer": 0.25,
+   "e4b_cer": 0.3870967741935484
+  },
+  {
+   "id": "human_h03",
+   "source": "human",
+   "language": "hi",
+   "ref": "दर्द हो तो वही पुरानी ibuprofen ले लूँगा, वो मेरे पास घर पे है।",
+   "duration_s": 6.44,
+   "e4b_hyp": "दर्द हो तो वही पुरानी आइब्यूप्रोफ़ेन ले लूँगा। वह मेरे पास घर पे है।",
+   "e4b_wer": 0.14285714285714285,
+   "e4b_cer": 0.3125
+  },
+  {
+   "id": "human_h04",
+   "source": "human",
+   "language": "hi",
+   "ref": "अगर सीने में दर्द हो तो थोड़ा आराम करूँगा, अगले दिन भी रहा तो doctor को दिखा दूँगा।",
+   "duration_s": 7.04,
+   "e4b_hyp": "अगर सीने में दर्द हो तो थोड़ा आराम करूँगा। अगले दिन भी रहा तो डॉक्टर को दिखा दूँगा।",
+   "e4b_wer": 0.05555555555555555,
+   "e4b_cer": 0.09375
+  },
+  {
+   "id": "human_h05",
+   "source": "human",
+   "language": "hi",
+   "ref": "बारह नवंबर को heart वाले doctor के पास जाना है।",
+   "duration_s": 4.01,
+   "e4b_hyp": "12 नवंबर को हार्ट वाले डॉक्टर के पास जाना है।",
+   "e4b_wer": 0.3,
+   "e4b_cer": 0.40540540540540543
+  },
+  {
+   "id": "human_b01",
+   "source": "human",
+   "language": "bn",
+   "ref": "আমাকে clopidogrel 75 mg প্রতিদিন একবার খেতে হবে, বারো মাস, ডাক্তারকে না জিজ্ঞেস করে বন্ধ করব না। আর aspirin 75 প্রতিদিন একবার, খাওয়ার পরে।",
+   "duration_s": 12.67,
+   "e4b_hyp": "अमाकिट क्लोपिडोग्रेल 75 mg प्रतिदिन 1 बार खते हो गया। 12 मार्च डॉक्टर के नाजिग्यस्कोरे बोन्डो कोर्बोना आर एस्पिरिन 75 प्रतिदिन 1 बार खावर बोरे।",
+   "e4b_wer": 0.9166666666666666,
+   "e4b_cer": 1.018018018018018
+  },
+  {
+   "id": "human_b02",
+   "source": "human",
+   "language": "bn",
+   "ref": "aspirin দিনে দুবার খাব, আর clopidogrel যখন বুকে ব্যথা হবে তখন।",
+   "duration_s": 6.54,
+   "e4b_hyp": "अस्पेरिन देने दो बार खाओ और क्लोपिडोग्रेल जो 100 बुके बैठा होवे तो खाओ।",
+   "e4b_wer": 1.2727272727272727,
+   "e4b_cer": 1.14
+  },
+  {
+   "id": "human_b03",
+   "source": "human",
+   "language": "bn",
+   "ref": "ব্যথা হলে ibuprofen খাব না, শুধু paracetamol খাব।",
+   "duration_s": 4.47,
+   "e4b_hyp": "बेतहाशा वाले आइबूप्रोफेन खाबो ना, शुद्ध पैरासिटामोल खाबो।",
+   "e4b_wer": 1.0,
+   "e4b_cer": 1.2
+  },
+  {
+   "id": "human_b04",
+   "source": "human",
+   "language": "bn",
+   "ref": "বুকে ব্যথা পাঁচ মিনিটের বেশি থাকলে সঙ্গে সঙ্গে ambulance ডাকব, 108-এ ফোন করব।",
+   "duration_s": 6.94,
+   "e4b_hyp": "बुके बेथा 5 मिनटर बेसी था क्ले शोंगेश शोंगेश एम्बुलेंस लाकबो 108 ए फोन करबो।",
+   "e4b_wer": 1.0,
+   "e4b_cer": 0.967741935483871
+  },
+  {
+   "id": "human_b05",
+   "source": "human",
+   "language": "bn",
+   "ref": "পরের মাসের বিশ তারিখে ডাক্তার দেখাতে যাব। ভারী জিনিস একটু কম তুলব।",
+   "duration_s": 6.19,
+   "e4b_hyp": "बोरन माशर बिस्तारी के डॉक्टर दिखाते जाओ भारी जीनिश एक टूकॉम तुलबो।",
+   "e4b_wer": 1.0,
+   "e4b_cer": 1.0188679245283019
+  },
+  {
+   "id": "human_e01",
+   "source": "human",
+   "language": "en",
+   "ref": "The clopidogrel, one tablet every day. And the aspirin 75, once a day after food.",
+   "duration_s": 5.33,
+   "e4b_hyp": "The clopidogrel 1 tablet every day and the aspirin 75 once a day after food.",
+   "e4b_wer": 0.06666666666666667,
+   "e4b_cer": 0.047619047619047616
+  },
+  {
+   "id": "human_e02",
+   "source": "human",
+   "language": "en",
+   "ref": "For pain I can take ibuprofen, but not paracetamol, right?",
+   "duration_s": 4.35,
+   "e4b_hyp": "For pain, I can take ibuprofen, but not paracetamol, right?",
+   "e4b_wer": 0.0,
+   "e4b_cer": 0.0
+  },
+  {
+   "id": "human_e03",
+   "source": "human",
+   "language": "en",
+   "ref": "If I get chest pain I should call someone quickly.",
+   "duration_s": 3.91,
+   "e4b_hyp": "If I get this bin, I should call someone quickly.",
+   "e4b_wer": 0.2,
+   "e4b_cer": 0.125
+  },
+  {
+   "id": "human_e04",
+   "source": "human",
+   "language": "en",
+   "ref": "Cardiology check-up on the twelfth of November, and no lifting anything heavier than five kilos for two weeks.",
+   "duration_s": 6.09,
+   "e4b_hyp": "cardiology checkup on the 12th of November and no lifting anything heavier than 5 kg for 2 weeks.",
+   "e4b_wer": 0.3157894736842105,
+   "e4b_cer": 0.17777777777777778
+  },
+  {
+   "id": "human_e05",
+   "source": "human",
+   "language": "en",
+   "ref": "My father has to take clopidogrel 75 every day for a full year and never stop it on his own. The aspirin is 150, once a day.",
+   "duration_s": 8.41,
+   "e4b_hyp": "My father has to take clopidogrel 75 every day for a full year and never stop it on his own. The aspirin is 150 once a day.",
+   "e4b_wer": 0.0,
+   "e4b_cer": 0.0
+  }
+ ]
+}

@@ -1,0 +1,795 @@
+{
+  "id": "anticoagulant-hi",
+  "patient": "Ramesh Kumar Verma, 66",
+  "condition": "Atrial fibrillation, new blood thinner",
+  "recorded_at": "2026-10-15T13:11:54.916Z",
+  "note": "DISCHARGE INSTRUCTIONS (fictional patient, synthetic record)\nPt: Ramesh Kumar Verma, 66 M. Language: Hindi (son Arjun helps with medicines). D/c date 15/10/2026.\nDx: New-onset atrial fibrillation with rapid ventricular response, rate controlled. CHA2DS2-VASc 3. Started on anticoagulation.\n\nMEDS\n1. Apixaban 5 mg PO BID, every 12 hours (9 am and 9 pm). NEW blood thinner. Do not skip doses. If a dose is missed, take it as soon as remembered on the same day, never take 2 doses together.\n2. Metoprolol succinate 25 mg PO once daily in the morning. NEW, for heart rate.\n3. STOP aspirin 75 mg (was taking daily at home). Apixaban replaces it.\n4. Atorvastatin 20 mg PO at bedtime. Continue.\nAvoid NSAIDs (ibuprofen, diclofenac) for pain; paracetamol is OK.\n\nBLEEDING PRECAUTIONS\n- Go to emergency / call 112 if: black or bloody stools, vomiting blood, severe headache, or a fall with a head injury.\n- Call the clinic if: nosebleed longer than 10 min, blood in urine, unusual bruising.\n- Tell any dentist or doctor that you take apixaban before any procedure.\n\nF/U\n- Kidney function blood test on 29 Oct 2026.\n- Cardiology OPD, Dr. Anjali Mehta, 9 Nov 2026 at 11:00.\nCheck pulse daily; call if resting pulse below 50 or above 110.\n",
+  "facts": [
+    {
+      "id": "f1",
+      "category": "medication",
+      "critical": true,
+      "statement": "Take new blood thinner Apixaban 5 mg twice a day at 9 am and 9 pm; if a dose is missed, take it as soon as remembered on the same day, but never take 2 doses together.",
+      "anchors": [
+        "Apixaban",
+        "5 mg",
+        "9 am",
+        "9 pm"
+      ],
+      "label": "Apixaban 5 mg: twice a day, 9 am and 9 pm"
+    },
+    {
+      "id": "f2",
+      "category": "medication",
+      "critical": false,
+      "statement": "Take new medicine Metoprolol succinate 25 mg once daily in the morning for heart rate.",
+      "anchors": [
+        "Metoprolol succinate",
+        "25 mg"
+      ],
+      "label": "Metoprolol 25 mg: once a day, morning"
+    },
+    {
+      "id": "f3",
+      "category": "medication_change",
+      "critical": true,
+      "statement": "Stop taking aspirin 75 mg.",
+      "anchors": [
+        "aspirin",
+        "75 mg"
+      ],
+      "label": "Aspirin 75 mg: stop"
+    },
+    {
+      "id": "f4",
+      "category": "medication",
+      "critical": false,
+      "statement": "Continue taking Atorvastatin 20 mg at bedtime.",
+      "anchors": [
+        "Atorvastatin",
+        "20 mg"
+      ],
+      "label": "Atorvastatin: 20 mg at bedtime"
+    },
+    {
+      "id": "f5",
+      "category": "medication",
+      "critical": true,
+      "statement": "Avoid NSAIDs such as ibuprofen and diclofenac for pain, but paracetamol is okay.",
+      "anchors": [
+        "ibuprofen",
+        "diclofenac",
+        "paracetamol"
+      ],
+      "label": "NSAIDs: avoid ibuprofen and diclofenac"
+    },
+    {
+      "id": "f6",
+      "category": "warning_sign",
+      "critical": true,
+      "statement": "Go to emergency or call 112 if you have black or bloody stools, vomit blood, a severe headache, or a fall with a head injury.",
+      "anchors": [
+        "112"
+      ],
+      "label": "Call 112: black or bloody stools, vomiting blood, head injury"
+    },
+    {
+      "id": "f7",
+      "category": "warning_sign",
+      "critical": false,
+      "statement": "Call the clinic if you have a nosebleed longer than 10 minutes, blood in urine, or unusual bruising.",
+      "anchors": [
+        "10 minutes"
+      ],
+      "label": "Call clinic: nosebleed, blood in urine"
+    },
+    {
+      "id": "f8",
+      "category": "warning_sign",
+      "critical": true,
+      "statement": "Tell any dentist or doctor that you take Apixaban before any procedure.",
+      "anchors": [
+        "Apixaban"
+      ],
+      "label": "Apixaban: tell dentist or doctor"
+    },
+    {
+      "id": "f9",
+      "category": "follow_up",
+      "critical": false,
+      "statement": "Have a kidney function blood test on 29 Oct 2026.",
+      "anchors": [
+        "29 Oct 2026"
+      ],
+      "label": "Kidney blood test: 29 Oct 2026"
+    },
+    {
+      "id": "f10",
+      "category": "follow_up",
+      "critical": false,
+      "statement": "Attend the cardiology clinic with Dr. Anjali Mehta on 9 Nov 2026 at 11:00.",
+      "anchors": [
+        "Dr. Anjali Mehta",
+        "9 Nov 2026",
+        "11:00"
+      ],
+      "label": "Cardiology clinic: 9 Nov 2026, 11:00"
+    },
+    {
+      "id": "f11",
+      "category": "self_monitoring",
+      "critical": true,
+      "statement": "Check pulse daily and call if resting pulse is below 50 or above 110.",
+      "anchors": [
+        "50",
+        "110"
+      ],
+      "label": "Pulse: call if below 50, above 110"
+    }
+  ],
+  "topics": [
+    {
+      "id": "t1",
+      "question": "Can you explain which medicines you will take, which one you will stop, and what you should avoid for pain?",
+      "fact_ids": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5"
+      ]
+    },
+    {
+      "id": "t2",
+      "question": "What signs would make you call the clinic, go to the emergency room, or tell a doctor before a procedure?",
+      "fact_ids": [
+        "f6",
+        "f7",
+        "f8"
+      ]
+    },
+    {
+      "id": "t3",
+      "question": "What are your upcoming appointments and what should you monitor at home?",
+      "fact_ids": [
+        "f9",
+        "f10",
+        "f11"
+      ]
+    }
+  ],
+  "nurse_checks": [],
+  "version": {
+    "language": "hi",
+    "level": "very_simple",
+    "title": "घर जाने के निर्देश",
+    "paragraphs": [
+      "ये घर जाने के निर्देश हैं।",
+      "नई दवा Apixaban 5 mg लें। इसे सुबह 9:00 और रात 9:00 बजे लें। खुराक छूटने पर उसी दिन याद आने पर लें। एक साथ 2 खुराक कभी न लें।",
+      "नई दवा Metoprolol succinate 25 mg लें। इसे रोज़ सुबह एक बार लें।",
+      "aspirin 75 mg लेना बंद करें।",
+      "Atorvastatin 20 mg रात को सोते समय लेते रहें।",
+      "दर्द के लिए ibuprofen और diclofenac न लें। paracetamol ले सकते हैं।",
+      "काले या खूनी मल होने पर 112 पर कॉल करें। खून की उल्टी या तेज़ सिरदर्द होने पर 112 पर कॉल करें। सिर में चोट लगने पर 112 पर कॉल करें।",
+      "नाक से 10 मिनट से ज़्यादा खून बहने पर क्लिनिक कॉल करें। पेशाब में खून आने पर क्लिनिक कॉल करें। शरीर पर नीले निशान होने पर क्लिनिक कॉल करें।",
+      "किसी भी इलाज से पहले डॉक्टर या डेंटिस्ट को Apixaban के बारे में बताएं।",
+      "29 अक्टूबर 2026 को किडनी की खून जांच कराएं।",
+      "9 नवंबर 2026 को 11:00 बजे Dr. Anjali Mehta से मिलें।",
+      "रोज़ अपनी नब्ज जांचें। नब्ज 50 से कम या 110 से ज़्यादा होने पर कॉल करें।"
+    ],
+    "back_translation": [
+      "These are instructions for going home.",
+      "Take new medicine Apixaban 5 mg. Take it at morning 9:00 and night 9:00 o'clock. If dose missed, take it when remembered on that same day. Together 2 doses never take.",
+      "New medicine Metoprolol succinate 25 mg take. It daily morning one time take.",
+      "aspirin 75 mg taking stop do.",
+      "Atorvastatin 20 mg at night while sleeping keep taking.",
+      "For pain ibuprofen and diclofenac do not take. paracetamol can take.",
+      "On having black or bloody stool call on 112. On having vomiting of blood or severe headache, call on 112. On injury to the head, call on 112.",
+      "On bleeding from nose for more than 10 minutes, call the clinic. On blood coming in urine, call clinic. On blue marks happening on body, call clinic.",
+      "Before any treatment, tell doctor or dentist about Apixaban.",
+      "29 October 2026 on kidney of blood test get done.",
+      "9 November 2026 on 11:00 o'clock Dr. Anjali Mehta from meet.",
+      "Daily your pulse check. Pulse 50 less than or 110 more than being on call do."
+    ],
+    "questions": {
+      "t1": "आप कौन सी दवाएं लेंगे, कौन सी बंद करेंगे और दर्द के लिए किन चीजों से बचेंगे?",
+      "t2": "किन संकेतों पर आप क्लिनिक कॉल करेंगे, इमरजेंसी जाएंगे या डॉक्टर को बताएंगे?",
+      "t3": "आपके आने वाले अपॉइंटमेंट क्या हैं और आप घर पर किस चीज़ की जांच करेंगे?"
+    },
+    "lock": [
+      {
+        "id": "f1",
+        "status": "repaired",
+        "quote": "नई दवा Apixaban 5 mg लें। इसे सुबह 9:00 और रात 9:00 बजे लें। खुराक छूटने पर उसी दिन याद आने पर लें। एक साथ 2 खुराक कभी न लें।",
+        "quote_en": "Take new medicine Apixaban 5 mg. Take it at morning 9:00 and night 9:00 o'clock. If dose missed, take it when remembered on that same day. Together 2 doses never take.",
+        "problems": [],
+        "rounds": 1,
+        "history": [
+          {
+            "round": 0,
+            "problems": [
+              {
+                "kind": "anchor",
+                "anchor": "5 mg",
+                "reason": "\"5 mg\": number 5 missing"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "f2",
+        "status": "locked",
+        "quote": "नई दवा Metoprolol succinate 25 mg लें। इसे रोज़ सुबह एक बार लें।",
+        "quote_en": "New medicine Metoprolol succinate 25 mg take. It daily morning one time take.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f3",
+        "status": "locked",
+        "quote": "aspirin 75 mg लेना बंद करें।",
+        "quote_en": "aspirin 75 mg taking stop do.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f4",
+        "status": "locked",
+        "quote": "Atorvastatin 20 mg रात को सोते समय लेते रहें।",
+        "quote_en": "Atorvastatin 20 mg at night while sleeping keep taking.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f5",
+        "status": "locked",
+        "quote": "दर्द के लिए ibuprofen और diclofenac न लें। paracetamol ले सकते हैं।",
+        "quote_en": "For pain ibuprofen and diclofenac do not take. paracetamol can take.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f6",
+        "status": "locked",
+        "quote": "काले या खूनी मल होने पर 112 पर कॉल करें। खून की उल्टी या तेज़ सिरदर्द होने पर 112 पर कॉल करें। सिर में चोट लगने पर 112 पर कॉल करें।",
+        "quote_en": "On having black or bloody stool call on 112. On having vomiting of blood or severe headache, call on 112. On injury to the head, call on 112.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f7",
+        "status": "repaired",
+        "quote": "नाक से 10 मिनट से ज़्यादा खून बहने पर क्लिनिक कॉल करें। पेशाब में खून आने पर क्लिनिक कॉल करें। शरीर पर नीले निशान होने पर क्लिनिक कॉल करें।",
+        "quote_en": "On bleeding from nose for more than 10 minutes, call the clinic. On blood coming in urine, call clinic. On blue marks happening on body, call clinic.",
+        "problems": [],
+        "rounds": 2,
+        "history": [
+          {
+            "round": 0,
+            "problems": [
+              {
+                "kind": "meaning",
+                "anchor": "खून",
+                "reason": "suspicious wording \"खून\": means 'blood' but the sentence structure is garbled and lacks a subject/verb; likely intended 'if there is blood in urine'"
+              },
+              {
+                "kind": "meaning",
+                "anchor": "नीले",
+                "reason": "suspicious wording \"नीले\": means 'blue' but likely intended 'red' or 'bloody' signs; blue is nonsensical for urine"
+              }
+            ]
+          },
+          {
+            "round": 1,
+            "problems": [
+              {
+                "kind": "anchor",
+                "anchor": "minutes",
+                "reason": "English left untranslated: \"minutes\"; write it in Hindi"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "f8",
+        "status": "repaired",
+        "quote": "किसी भी इलाज से पहले डॉक्टर या डेंटिस्ट को Apixaban के बारे में बताएं।",
+        "quote_en": "Before any treatment, tell doctor or dentist about Apixaban.",
+        "problems": [],
+        "rounds": 1,
+        "history": [
+          {
+            "round": 0,
+            "problems": [
+              {
+                "kind": "meaning",
+                "anchor": "missing_detail",
+                "reason": "meaning differs (missing detail): Patient sentence omits 'before any procedure'."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "f9",
+        "status": "locked",
+        "quote": "29 अक्टूबर 2026 को किडनी की खून जांच कराएं।",
+        "quote_en": "29 October 2026 on kidney of blood test get done.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f10",
+        "status": "locked",
+        "quote": "9 नवंबर 2026 को 11:00 बजे Dr. Anjali Mehta से मिलें।",
+        "quote_en": "9 November 2026 on 11:00 o'clock Dr. Anjali Mehta from meet.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f11",
+        "status": "locked",
+        "quote": "रोज़ अपनी नब्ज जांचें। नब्ज 50 से कम या 110 से ज़्यादा होने पर कॉल करें।",
+        "quote_en": "Daily your pulse check. Pulse 50 less than or 110 more than being on call do.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      }
+    ],
+    "fault": {
+      "kind": "dose",
+      "fact_id": "f1",
+      "before": "नई दवा Apixaban 5 mg लें।",
+      "after": "नई दवा Apixaban 10 mg लें।"
+    }
+  },
+  "steps": [
+    {
+      "step": "Find the facts",
+      "model": "Gemma-4-31B-IT",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 50719,
+      "tokens_in": 881,
+      "tokens_out": 1179,
+      "cost_usd": 0.0001107925
+    },
+    {
+      "step": "Write the patient version",
+      "model": "Gemma-4-31B-IT",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 206938,
+      "tokens_in": 1034,
+      "tokens_out": 436,
+      "cost_usd": 0.0000312781
+    },
+    {
+      "step": "Fault injected on purpose (dose doubled)",
+      "model": "code",
+      "host": "Homeward Worker",
+      "ms": 0,
+      "note": "Apixaban: 5 changed to 10"
+    },
+    {
+      "step": "Back-translate every sentence (4 of 6)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 5047,
+      "tokens_in": 388,
+      "tokens_out": 35,
+      "cost_usd": 0.0000289968
+    },
+    {
+      "step": "Back-translate every sentence (2 of 6)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 6325,
+      "tokens_in": 345,
+      "tokens_out": 97,
+      "cost_usd": 0.00007546
+    },
+    {
+      "step": "Back-translate every sentence (6 of 6)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 7123,
+      "tokens_in": 297,
+      "tokens_out": 130,
+      "cost_usd": 0.00007798
+    },
+    {
+      "step": "Back-translate every sentence (5 of 6)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 7764,
+      "tokens_in": 381,
+      "tokens_out": 149,
+      "cost_usd": 0.00009506
+    },
+    {
+      "step": "Back-translate every sentence (1 of 6)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 7923,
+      "tokens_in": 356,
+      "tokens_out": 130,
+      "cost_usd": 0.00008624
+    },
+    {
+      "step": "Back-translate every sentence (3 of 6)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 11290,
+      "tokens_in": 352,
+      "tokens_out": 231,
+      "cost_usd": 0.00011396
+    },
+    {
+      "step": "Fact lock: find each fact's sentences",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 13484,
+      "tokens_in": 1130,
+      "tokens_out": 219,
+      "cost_usd": 0.00021952
+    },
+    {
+      "step": "Back-translate every sentence (4 of 6)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 22665,
+      "tokens_in": 388,
+      "tokens_out": 473,
+      "cost_usd": 0.0001516368
+    },
+    {
+      "step": "Back-translate every sentence (4 of 6)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 4462,
+      "tokens_in": 356,
+      "tokens_out": 86,
+      "cost_usd": 0.00007392
+    },
+    {
+      "step": "Fact lock: compare meaning",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 10767,
+      "tokens_in": 768,
+      "tokens_out": 233,
+      "cost_usd": 0.00017276
+    },
+    {
+      "step": "Fact lock: second literal reading of critical warning signs",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 13238,
+      "tokens_in": 365,
+      "tokens_out": 172,
+      "cost_usd": 0.00009926
+    },
+    {
+      "step": "Repair round 1",
+      "model": "Gemma-4-31B-IT",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 10802,
+      "tokens_in": 1219,
+      "tokens_out": 150,
+      "cost_usd": 0.0000529935
+    },
+    {
+      "step": "Fact lock: find each fact's sentences (after repair 1)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 3953,
+      "tokens_in": 821,
+      "tokens_out": 75,
+      "cost_usd": 0.00013594
+    },
+    {
+      "step": "Back-translate the repaired sentences (after repair 1) (2 of 2)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 5001,
+      "tokens_in": 360,
+      "tokens_out": 95,
+      "cost_usd": 0.000077
+    },
+    {
+      "step": "Back-translate the repaired sentences (after repair 1) (1 of 2)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 8957,
+      "tokens_in": 368,
+      "tokens_out": 199,
+      "cost_usd": 0.00010724
+    },
+    {
+      "step": "Fact lock: compare meaning (after repair 1)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 8140,
+      "tokens_in": 455,
+      "tokens_out": 54,
+      "cost_usd": 0.00007882
+    },
+    {
+      "step": "Fact lock: second literal reading of critical warning signs (after repair 1)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 25611,
+      "tokens_in": 262,
+      "tokens_out": 176,
+      "cost_usd": 0.00008596
+    },
+    {
+      "step": "Repair round 2",
+      "model": "Gemma-4-31B-IT",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 43265,
+      "tokens_in": 993,
+      "tokens_out": 60,
+      "cost_usd": 0.0000247205
+    },
+    {
+      "step": "Fact lock: find each fact's sentences (after repair 2)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 6379,
+      "tokens_in": 699,
+      "tokens_out": 31,
+      "cost_usd": 0.00010654
+    },
+    {
+      "step": "Fact lock: compare meaning (after repair 2)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 2150,
+      "tokens_in": 377,
+      "tokens_out": 30,
+      "cost_usd": 0.00006118
+    }
+  ],
+  "answers": {
+    "t1": [
+      {
+        "transcript": "पापा Apixaban सुबह एक बार लेंगे, और Metoprolol दिन में दो बार, सुबह 9 बजे और रात 9 बजे। Aspirin अब बंद है। Atorvastatin 20 mg रात को सोते समय। दर्द के लिए ibuprofen या diclofenac नहीं, सिर्फ़ paracetamol।",
+        "fact_ids": [
+          "f1",
+          "f2",
+          "f3",
+          "f4",
+          "f5"
+        ],
+        "grades": [
+          {
+            "id": "f1",
+            "verdict": "incorrect",
+            "heard": "Apixaban once in the morning",
+            "reteach": "Take Apixaban 5 mg twice a day, at 9 am and 9 pm.",
+            "reteach_patient": "Apixaban 5 mg दिन में दो बार लें, सुबह 9 बजे और रात 9 बजे।"
+          },
+          {
+            "id": "f2",
+            "verdict": "incorrect",
+            "heard": "Metoprolol twice a day at 9 am and 9 pm",
+            "reteach": "Take Metoprolol succinate 25 mg only once daily in the morning.",
+            "reteach_patient": "Metoprolol succinate 25 mg केवल दिन में एक बार सुबह लें।"
+          },
+          {
+            "id": "f3",
+            "verdict": "correct",
+            "heard": "Aspirin is stopped",
+            "reteach": ""
+          },
+          {
+            "id": "f4",
+            "verdict": "correct",
+            "heard": "Atorvastatin 20 mg at bedtime",
+            "reteach": ""
+          },
+          {
+            "id": "f5",
+            "verdict": "correct",
+            "heard": "No ibuprofen or diclofenac, only paracetamol",
+            "reteach": ""
+          }
+        ],
+        "transcript_en": "Papa Apixaban morning one time will take, and Metoprolol day in two times, morning 9 o'clock and night 9 o'clock. Aspirin now stopped is. Atorvastatin 20 mg night at sleeping time. For pain ibuprofen or diclofenac no, only paracetamol.",
+        "steps": [
+          {
+            "step": "Render the answer in English",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 14309,
+            "tokens_in": 112,
+            "tokens_out": 71,
+            "cost_usd": 0.000007518
+          },
+          {
+            "step": "Grade the teach-back",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 20388,
+            "tokens_in": 484,
+            "tokens_out": 210,
+            "cost_usd": 0.0000150731
+          },
+          {
+            "step": "Translate the re-teach",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 47892,
+            "tokens_in": 116,
+            "tokens_out": 52,
+            "cost_usd": 0.0000074942
+          }
+        ]
+      },
+      {
+        "transcript": "Apixaban सुबह 9 बजे, और Metoprolol सुबह और रात दोनों टाइम।",
+        "fact_ids": [
+          "f1",
+          "f2"
+        ],
+        "grades": [
+          {
+            "id": "f1",
+            "verdict": "partial",
+            "heard": "Apixaban at 9 am",
+            "reteach": "Take Apixaban 5 mg twice a day, at 9 am and 9 pm; never take two doses together.",
+            "reteach_patient": "Apixaban 5 mg दिन में दो बार, सुबह 9 बजे और रात 9 बजे लें; कभी भी दो खुराक एक साथ न लें।"
+          },
+          {
+            "id": "f2",
+            "verdict": "incorrect",
+            "heard": "Metoprolol morning and night",
+            "reteach": "Take Metoprolol succinate 25 mg only once daily in the morning.",
+            "reteach_patient": "Metoprolol succinate 25 mg केवल दिन में एक बार सुबह लें।"
+          }
+        ],
+        "transcript_en": "Apixaban morning 9 o'clock, and Metoprolol morning and night both time.",
+        "steps": [
+          {
+            "step": "Render the answer in English",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 5588,
+            "tokens_in": 67,
+            "tokens_out": 26,
+            "cost_usd": 0.000002793
+          },
+          {
+            "step": "Grade the teach-back",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 15507,
+            "tokens_in": 369,
+            "tokens_out": 109,
+            "cost_usd": 0.0000100492
+          },
+          {
+            "step": "Translate the re-teach",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 6862,
+            "tokens_in": 122,
+            "tokens_out": 61,
+            "cost_usd": 0.0000056588
+          }
+        ]
+      }
+    ],
+    "t2": [
+      {
+        "transcript": "अगर काला या खून वाला मल हो, खून की उल्टी हो, बहुत तेज़ सिरदर्द हो या गिरकर सिर पर चोट लगे, तो 112 पर फ़ोन करेंगे। नाक से 10 मिनट से ज़्यादा खून आए, पेशाब में खून दिखे या बिना वजह नील पड़ें तो क्लिनिक को फ़ोन करेंगे। दाँत के डॉक्टर या किसी भी डॉक्टर को बताएँगे कि पापा Apixaban लेते हैं।",
+        "fact_ids": [
+          "f6",
+          "f7",
+          "f8"
+        ],
+        "grades": [
+          {
+            "id": "f6",
+            "verdict": "correct",
+            "heard": "Call 112 for black/bloody stools, vomiting blood, severe headache, or head injury from a fall.",
+            "reteach": ""
+          },
+          {
+            "id": "f7",
+            "verdict": "correct",
+            "heard": "Call clinic for nosebleeds >10 mins, blood in urine, or unusual bruising.",
+            "reteach": ""
+          },
+          {
+            "id": "f8",
+            "verdict": "correct",
+            "heard": "Will tell any dentist or doctor that father takes Apixaban.",
+            "reteach": ""
+          }
+        ],
+        "transcript_en": "If black or blood-containing stool be, blood vomit be, very fast headache be or falling head on injury happen, then on 112 phone will do. From nose 10 minutes from more blood come, in urine blood see or without reason bruises fall then to clinic phone will do. To tooth doctor or any doctor will tell that Papa Apixaban takes.",
+        "steps": [
+          {
+            "step": "Render the answer in English",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 9084,
+            "tokens_in": 136,
+            "tokens_out": 82,
+            "cost_usd": 0.0000058695
+          },
+          {
+            "step": "Grade the teach-back",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 13382,
+            "tokens_in": 454,
+            "tokens_out": 132,
+            "cost_usd": 0.0000095921
+          }
+        ]
+      }
+    ],
+    "t3": [
+      {
+        "transcript": "29 अक्टूबर को किडनी का खून का टेस्ट है। 9 नवंबर को 11 बजे डॉक्टर अंजलि मेहता से मिलना है। रोज़ नब्ज़ देखेंगे, आराम में 50 से कम या 110 से ज़्यादा हो तो फ़ोन करेंगे।",
+        "fact_ids": [
+          "f9",
+          "f10",
+          "f11"
+        ],
+        "grades": [
+          {
+            "id": "f9",
+            "verdict": "correct",
+            "heard": "Kidney blood test on Oct 29",
+            "reteach": ""
+          },
+          {
+            "id": "f10",
+            "verdict": "correct",
+            "heard": "Meeting Dr. Anjali Mehta on Nov 9 at 11:00",
+            "reteach": ""
+          },
+          {
+            "id": "f11",
+            "verdict": "correct",
+            "heard": "Check pulse daily; call if resting pulse <50 or >110",
+            "reteach": ""
+          }
+        ],
+        "transcript_en": "On 29 October kidney's blood test is. On 9 November at 11 o'clock doctor Anjali Mehta with have to meet. Daily pulse will see, in rest if less than 50 or more than 110 then will phone.",
+        "steps": [
+          {
+            "step": "Render the answer in English",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 3747,
+            "tokens_in": 101,
+            "tokens_out": 62,
+            "cost_usd": 0.000004445
+          },
+          {
+            "step": "Grade the teach-back",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 8085,
+            "tokens_in": 402,
+            "tokens_out": 123,
+            "cost_usd": 0.0000089257
+          }
+        ]
+      }
+    ]
+  }
+}

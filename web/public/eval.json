@@ -1,0 +1,115 @@
+{
+  "_note": "Filled by the ML pipeline (ml/). Every null renders as 'Pending' on the How it works page. Never hand-edit numbers in; write them from an evaluation run and set status to 'final'.",
+  "status": "final",
+  "updated": "2026-10-15",
+  "grader": {
+    "test_set": {
+      "description": "Independent hand-written teach-back answers (never seen by the data generator), held-out conditions",
+      "cases": 7,
+      "answers": 150,
+      "facts_graded": 341,
+      "languages": 12
+    },
+    "metrics": [
+      {
+        "id": "accuracy",
+        "label": "Verdict accuracy",
+        "unit": "%"
+      },
+      {
+        "id": "critical_recall",
+        "label": "Critical misses caught",
+        "unit": "%",
+        "hint": "Share of wrong or missing critical facts the grader flagged"
+      },
+      {
+        "id": "false_reassurance",
+        "label": "False reassurance",
+        "unit": "%",
+        "hint": "Wrong or missing facts graded correct; lower is better"
+      },
+      {
+        "id": "latency_p50_ms",
+        "label": "Median latency",
+        "unit": "ms"
+      }
+    ],
+    "models": [
+      {
+        "id": "gemma-4-e4b-base",
+        "label": "Gemma 4 E4B, base",
+        "runs_on": "AMD Radeon PRO W7900D",
+        "accuracy": 83.0,
+        "critical_recall": 95.4,
+        "false_reassurance": 4.3,
+        "latency_p50_ms": 7444,
+        "ci95": {
+          "accuracy": [
+            80.6,
+            85.8
+          ],
+          "false_reassurance": [
+            1.5,
+            7.2
+          ]
+        }
+      },
+      {
+        "id": "gemma-4-e4b-homeward",
+        "label": "Gemma 4 E4B, fine-tuned (ours)",
+        "runs_on": "AMD Radeon PRO W7900D",
+        "accuracy": 88.3,
+        "critical_recall": 93.5,
+        "false_reassurance": 5.8,
+        "latency_p50_ms": 4892,
+        "ci95": {
+          "accuracy": [
+            85.4,
+            91.1
+          ],
+          "false_reassurance": [
+            2.9,
+            8.6
+          ]
+        }
+      },
+      {
+        "id": "gemma-4-31b",
+        "label": "Gemma 4 31B",
+        "runs_on": "AMD GPUs via AMD Token Factory",
+        "accuracy": 97.1,
+        "critical_recall": 99.1,
+        "false_reassurance": 0.7,
+        "latency_p50_ms": null,
+        "ci95": {
+          "accuracy": [
+            94.9,
+            99.1
+          ],
+          "false_reassurance": [
+            0.0,
+            2.1
+          ]
+        }
+      }
+    ]
+  },
+  "training": {
+    "gpu": "AMD Radeon PRO W7900D (48 GB)",
+    "method": "LoRA",
+    "base_model": "Gemma 4 E4B",
+    "examples": 672,
+    "epochs": 2.0,
+    "minutes": 9.6
+  },
+  "fact_lock": {
+    "description": "Patient versions written by Gemma 4 31B across the synthetic cases and languages",
+    "versions": null,
+    "facts": null,
+    "locked_first_pass": null,
+    "repaired": null,
+    "flagged": null,
+    "injected_faults": null,
+    "injected_faults_caught": null
+  }
+}

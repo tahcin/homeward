@@ -1,0 +1,15 @@
+{"id": "human_h01", "e4b_hyp": "मुझे कोप्लिड्रिल 75mg रोज़ 1 बार लेनी है पूरे 12 महीने और कार्डियोलॉजिस्ट से पूछने बिना बंद नहीं करनी और एस्पिरिन 75 भी रोज़ 1 बार खाने के बाद।", "e4b_asr_s": 3.5452358722686768, "audio_s": 14.68}
+{"id": "human_h02", "e4b_hyp": "क्लोपिडोग्रेल रोज़ लेनी है 1 महीने तक फिर बंद कर दूंगा एस्पिरिन भी लेनी है शायद", "e4b_asr_s": 1.7886533737182617, "audio_s": 7.43}
+{"id": "human_h03", "e4b_hyp": "दर्द हो तो वही पुरानी आइब्यूप्रोफ़ेन ले लूँगा। वह मेरे पास घर पे है।", "e4b_asr_s": 1.690129280090332, "audio_s": 6.44}
+{"id": "human_h04", "e4b_hyp": "अगर सीने में दर्द हो तो थोड़ा आराम करूँगा। अगले दिन भी रहा तो डॉक्टर को दिखा दूँगा।", "e4b_asr_s": 1.7178452014923096, "audio_s": 7.04}
+{"id": "human_h05", "e4b_hyp": "12 नवंबर को हार्ट वाले डॉक्टर के पास जाना है।", "e4b_asr_s": 0.9358675479888916, "audio_s": 4.01}
+{"id": "human_b01", "e4b_hyp": "अमाकिट क्लोपिडोग्रेल 75 mg प्रतिदिन 1 बार खते हो गया। 12 मार्च डॉक्टर के नाजिग्यस्कोरे बोन्डो कोर्बोना आर एस्पिरिन 75 प्रतिदिन 1 बार खावर बोरे।", "e4b_asr_s": 5.016469240188599, "audio_s": 12.67}
+{"id": "human_b02", "e4b_hyp": "अस्पेरिन देने दो बार खाओ और क्लोपिडोग्रेल जो 100 बुके बैठा होवे तो खाओ।", "e4b_asr_s": 2.1614632606506348, "audio_s": 6.54}
+{"id": "human_b03", "e4b_hyp": "बेतहाशा वाले आइबूप्रोफेन खाबो ना, शुद्ध पैरासिटामोल खाबो।", "e4b_asr_s": 1.7469842433929443, "audio_s": 4.47}
+{"id": "human_b04", "e4b_hyp": "बुके बेथा 5 मिनटर बेसी था क्ले शोंगेश शोंगेश एम्बुलेंस लाकबो 108 ए फोन करबो।", "e4b_asr_s": 2.460594654083252, "audio_s": 6.94}
+{"id": "human_b05", "e4b_hyp": "बोरन माशर बिस्तारी के डॉक्टर दिखाते जाओ भारी जीनिश एक टूकॉम तुलबो।", "e4b_asr_s": 1.5512301921844482, "audio_s": 6.19}
+{"id": "human_e01", "e4b_hyp": "The clopidogrel 1 tablet every day and the aspirin 75 once a day after food.", "e4b_asr_s": 1.6830286979675293, "audio_s": 5.33}
+{"id": "human_e02", "e4b_hyp": "For pain, I can take ibuprofen, but not paracetamol, right?", "e4b_asr_s": 1.1389696598052979, "audio_s": 4.35}
+{"id": "human_e03", "e4b_hyp": "If I get this bin, I should call someone quickly.", "e4b_asr_s": 0.9392523765563965, "audio_s": 3.91}
+{"id": "human_e04", "e4b_hyp": "cardiology checkup on the 12th of November and no lifting anything heavier than 5 kg for 2 weeks.", "e4b_asr_s": 1.8874492645263672, "audio_s": 6.09}
+{"id": "human_e05", "e4b_hyp": "My father has to take clopidogrel 75 every day for a full year and never stop it on his own. The aspirin is 150 once a day.", "e4b_asr_s": 2.740518808364868, "audio_s": 8.41}

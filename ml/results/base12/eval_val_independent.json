@@ -1,0 +1,574 @@
+{
+ "schema": "homeward.eval.v1",
+ "generated_at": "2026-10-15 17:43:02 IST",
+ "test_set": {
+  "path": "data/val_independent.jsonl",
+  "answers": 120,
+  "facts": 284,
+  "cases": 5,
+  "languages": [
+   "ar",
+   "bn",
+   "en",
+   "es",
+   "fr",
+   "hi",
+   "it",
+   "pt",
+   "ta",
+   "tl",
+   "vi",
+   "zh"
+  ],
+  "gold_verdict_counts": {
+   "incorrect": 78,
+   "correct": 113,
+   "partial": 58,
+   "missing": 35
+  },
+  "labels": "designed labels from the generator (not verifier-filtered)"
+ },
+ "metric_definitions": {
+  "accuracy": "share of facts whose predicted verdict equals the designed verdict",
+  "macro_f1": "unweighted mean of per-verdict F1 over correct, partial, incorrect, missing; unreadable verdicts count as wrong",
+  "false_reassurance_rate": "share of facts designed incorrect or missing that the system graded correct (the unsafe error)",
+  "false_reassurance_rate_critical": "same, restricted to facts flagged critical",
+  "over_flag_rate": "share of facts designed correct that the system did not grade correct (extra nurse work, not unsafe)",
+  "json_valid_rate": "share of answers whose reply parsed as JSON with exactly the expected fact ids in order and known verdicts"
+ },
+ "systems": {
+  "e4b_base": {
+   "meta": {
+    "system": "e4b_base",
+    "model": "/root/models/gemma-4-E4B-it",
+    "adapter": null,
+    "rows": 120,
+    "device": "AMD Radeon Pro W7900D",
+    "torch": "2.13.0+rocm10.0.0",
+    "load_s": 10.9,
+    "decoding": "greedy",
+    "max_new_tokens": 768,
+    "batched": {
+     "batch_size": 16,
+     "wall_s": 111.3,
+     "completion_tokens": 19946,
+     "prompt_tokens": 44562,
+     "gen_tok_per_s": 179.25228285635444,
+     "answers_per_s": 1.0784254458418996
+    },
+    "bs1": {
+     "n": 0,
+     "p50_s": null,
+     "p95_s": null,
+     "mean_s": null,
+     "gen_tok_per_s": null
+    },
+    "peak_vram_allocated_gib": 16.26455593109131
+   },
+   "metrics": {
+    "facts": 284,
+    "accuracy": 0.7535211267605634,
+    "macro_f1": 0.7664979154258487,
+    "per_verdict": {
+     "correct": {
+      "precision": 0.8376068376068376,
+      "recall": 0.8672566371681416,
+      "f1": 0.8521739130434782,
+      "support": 113
+     },
+     "partial": {
+      "precision": 0.4659090909090909,
+      "recall": 0.7068965517241379,
+      "f1": 0.5616438356164384,
+      "support": 58
+     },
+     "incorrect": {
+      "precision": 0.9111111111111111,
+      "recall": 0.5256410256410257,
+      "f1": 0.6666666666666666,
+      "support": 78
+     },
+     "missing": {
+      "precision": 1.0,
+      "recall": 0.9714285714285714,
+      "f1": 0.9855072463768115,
+      "support": 35
+     }
+    },
+    "false_reassurance_rate": 0.017699115044247787,
+    "false_reassurance_n": [
+     2,
+     113
+    ],
+    "false_reassurance_rate_critical": 0.0,
+    "false_reassurance_critical_n": [
+     0,
+     74
+    ],
+    "partial_graded_correct_rate": 0.29310344827586204,
+    "over_flag_rate": 0.13274336283185842,
+    "understood_vs_not_accuracy": 0.8802816901408451,
+    "invalid_facts": 0,
+    "confusion": {
+     "correct": {
+      "correct": 98,
+      "partial": 11,
+      "incorrect": 4,
+      "missing": 0,
+      "invalid": 0
+     },
+     "partial": {
+      "correct": 17,
+      "partial": 41,
+      "incorrect": 0,
+      "missing": 0,
+      "invalid": 0
+     },
+     "incorrect": {
+      "correct": 2,
+      "partial": 35,
+      "incorrect": 41,
+      "missing": 0,
+      "invalid": 0
+     },
+     "missing": {
+      "correct": 0,
+      "partial": 1,
+      "incorrect": 0,
+      "missing": 34,
+      "invalid": 0
+     }
+    },
+    "accuracy_95ci": [
+     0.6639054844174059,
+     0.8065693430656934
+    ],
+    "macro_f1_95ci": [
+     0.6736994532561035,
+     0.8244837548545989
+    ],
+    "false_reassurance_rate_95ci": [
+     0.0,
+     0.030308813324080495
+    ],
+    "method": "case-level bootstrap, 1000 resamples",
+    "json_valid_rate": 1.0,
+    "answers": 120,
+    "answer_exact_match_rate": 0.5083333333333333,
+    "per_language_accuracy": {
+     "ar": {
+      "accuracy": 0.8,
+      "facts": 30
+     },
+     "bn": {
+      "accuracy": 0.625,
+      "facts": 24
+     },
+     "en": {
+      "accuracy": 0.75,
+      "facts": 24
+     },
+     "es": {
+      "accuracy": 0.8076923076923077,
+      "facts": 26
+     },
+     "fr": {
+      "accuracy": 0.7,
+      "facts": 20
+     },
+     "hi": {
+      "accuracy": 0.75,
+      "facts": 16
+     },
+     "it": {
+      "accuracy": 0.8214285714285714,
+      "facts": 28
+     },
+     "pt": {
+      "accuracy": 0.75,
+      "facts": 24
+     },
+     "ta": {
+      "accuracy": 0.6818181818181818,
+      "facts": 22
+     },
+     "tl": {
+      "accuracy": 0.75,
+      "facts": 24
+     },
+     "vi": {
+      "accuracy": 0.8260869565217391,
+      "facts": 23
+     },
+     "zh": {
+      "accuracy": 0.7391304347826086,
+      "facts": 23
+     }
+    },
+    "answers_without_prediction": 0,
+    "tokens": {
+     "prompt_per_answer": 371.35,
+     "completion_per_answer": 166.21666666666667
+    }
+   }
+  },
+  "e4b_lora": {
+   "meta": {
+    "system": "e4b_ft",
+    "model": "/root/models/gemma-4-E4B-it",
+    "adapter": "/workspace/runs/lora1/adapter",
+    "rows": 120,
+    "device": "AMD Radeon Pro W7900D",
+    "torch": "2.13.0+rocm10.0.0",
+    "load_s": 15.0,
+    "decoding": "greedy",
+    "max_new_tokens": 768,
+    "batched": {
+     "batch_size": 16,
+     "wall_s": 78.2,
+     "completion_tokens": 13247,
+     "prompt_tokens": 44562,
+     "gen_tok_per_s": 169.2983361274097,
+     "answers_per_s": 1.533615183459588
+    },
+    "bs1": {
+     "n": 0,
+     "p50_s": null,
+     "p95_s": null,
+     "mean_s": null,
+     "gen_tok_per_s": null
+    },
+    "peak_vram_allocated_gib": 16.26455593109131
+   },
+   "metrics": {
+    "facts": 284,
+    "accuracy": 0.8556338028169014,
+    "macro_f1": 0.8572989363607549,
+    "per_verdict": {
+     "correct": {
+      "precision": 0.8333333333333334,
+      "recall": 0.9292035398230089,
+      "f1": 0.8786610878661087,
+      "support": 113
+     },
+     "partial": {
+      "precision": 0.7115384615384616,
+      "recall": 0.6379310344827587,
+      "f1": 0.6727272727272728,
+      "support": 58
+     },
+     "incorrect": {
+      "precision": 0.9428571428571428,
+      "recall": 0.8461538461538461,
+      "f1": 0.8918918918918919,
+      "support": 78
+     },
+     "missing": {
+      "precision": 0.9722222222222222,
+      "recall": 1.0,
+      "f1": 0.9859154929577464,
+      "support": 35
+     }
+    },
+    "false_reassurance_rate": 0.017699115044247787,
+    "false_reassurance_n": [
+     2,
+     113
+    ],
+    "false_reassurance_rate_critical": 0.0,
+    "false_reassurance_critical_n": [
+     0,
+     74
+    ],
+    "partial_graded_correct_rate": 0.3275862068965517,
+    "over_flag_rate": 0.07079646017699115,
+    "understood_vs_not_accuracy": 0.897887323943662,
+    "invalid_facts": 0,
+    "confusion": {
+     "correct": {
+      "correct": 105,
+      "partial": 5,
+      "incorrect": 3,
+      "missing": 0,
+      "invalid": 0
+     },
+     "partial": {
+      "correct": 19,
+      "partial": 37,
+      "incorrect": 1,
+      "missing": 1,
+      "invalid": 0
+     },
+     "incorrect": {
+      "correct": 2,
+      "partial": 10,
+      "incorrect": 66,
+      "missing": 0,
+      "invalid": 0
+     },
+     "missing": {
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "missing": 35,
+      "invalid": 0
+     }
+    },
+    "accuracy_95ci": [
+     0.8174684568526583,
+     0.8896551724137931
+    ],
+    "macro_f1_95ci": [
+     0.8164418649461778,
+     0.8967537725432462
+    ],
+    "false_reassurance_rate_95ci": [
+     0.0,
+     0.030308813324080495
+    ],
+    "method": "case-level bootstrap, 1000 resamples",
+    "json_valid_rate": 1.0,
+    "answers": 120,
+    "answer_exact_match_rate": 0.7083333333333334,
+    "per_language_accuracy": {
+     "ar": {
+      "accuracy": 0.9333333333333333,
+      "facts": 30
+     },
+     "bn": {
+      "accuracy": 0.7916666666666666,
+      "facts": 24
+     },
+     "en": {
+      "accuracy": 0.8333333333333334,
+      "facts": 24
+     },
+     "es": {
+      "accuracy": 0.8846153846153846,
+      "facts": 26
+     },
+     "fr": {
+      "accuracy": 0.85,
+      "facts": 20
+     },
+     "hi": {
+      "accuracy": 0.75,
+      "facts": 16
+     },
+     "it": {
+      "accuracy": 0.8571428571428571,
+      "facts": 28
+     },
+     "pt": {
+      "accuracy": 0.875,
+      "facts": 24
+     },
+     "ta": {
+      "accuracy": 0.7272727272727273,
+      "facts": 22
+     },
+     "tl": {
+      "accuracy": 0.8333333333333334,
+      "facts": 24
+     },
+     "vi": {
+      "accuracy": 0.9565217391304348,
+      "facts": 23
+     },
+     "zh": {
+      "accuracy": 0.9130434782608695,
+      "facts": 23
+     }
+    },
+    "answers_without_prediction": 0,
+    "tokens": {
+     "prompt_per_answer": 371.35,
+     "completion_per_answer": 110.39166666666667
+    },
+    "paired_vs_e4b_base": {
+     "this_right_ref_wrong": 34,
+     "this_wrong_ref_right": 5
+    }
+   }
+  },
+  "gemma4_12b_base": {
+   "meta": {
+    "system": "gemma4_12b_base",
+    "model": "/workspace/models/gemma-4-12B-it",
+    "adapter": null,
+    "rows": 248,
+    "device": "AMD Radeon Pro W7900D",
+    "torch": "2.13.0+rocm10.0.0",
+    "load_s": 30.6,
+    "decoding": "greedy",
+    "max_new_tokens": 768,
+    "batched": {
+     "batch_size": 16,
+     "wall_s": 322.4,
+     "completion_tokens": 26242,
+     "prompt_tokens": 92793,
+     "gen_tok_per_s": 81.38763107558685,
+     "answers_per_s": 0.7691537423498795
+    },
+    "bs1": {
+     "n": 10,
+     "p50_s": 9.089578628540039,
+     "p95_s": 17.412100422382355,
+     "mean_s": 9.688699555397033,
+     "gen_tok_per_s": 14.470466257971887
+    },
+    "peak_vram_allocated_gib": 26.526185035705566
+   },
+   "metrics": {
+    "facts": 284,
+    "accuracy": 0.8098591549295775,
+    "macro_f1": 0.8452416128472466,
+    "per_verdict": {
+     "correct": {
+      "precision": 0.8796296296296297,
+      "recall": 0.8407079646017699,
+      "f1": 0.8597285067873304,
+      "support": 113
+     },
+     "partial": {
+      "precision": 0.7049180327868853,
+      "recall": 0.7413793103448276,
+      "f1": 0.7226890756302522,
+      "support": 58
+     },
+     "incorrect": {
+      "precision": 0.953125,
+      "recall": 0.782051282051282,
+      "f1": 0.8591549295774649,
+      "support": 78
+     },
+     "missing": {
+      "precision": 1.0,
+      "recall": 0.8857142857142857,
+      "f1": 0.9393939393939393,
+      "support": 35
+     }
+    },
+    "false_reassurance_rate": 0.02654867256637168,
+    "false_reassurance_n": [
+     3,
+     113
+    ],
+    "false_reassurance_rate_critical": 0.02702702702702703,
+    "false_reassurance_critical_n": [
+     2,
+     74
+    ],
+    "partial_graded_correct_rate": 0.1724137931034483,
+    "over_flag_rate": 0.1592920353982301,
+    "understood_vs_not_accuracy": 0.8908450704225352,
+    "invalid_facts": 20,
+    "confusion": {
+     "correct": {
+      "correct": 95,
+      "partial": 7,
+      "incorrect": 2,
+      "missing": 0,
+      "invalid": 9
+     },
+     "partial": {
+      "correct": 10,
+      "partial": 43,
+      "incorrect": 1,
+      "missing": 0,
+      "invalid": 4
+     },
+     "incorrect": {
+      "correct": 3,
+      "partial": 10,
+      "incorrect": 61,
+      "missing": 0,
+      "invalid": 4
+     },
+     "missing": {
+      "correct": 0,
+      "partial": 1,
+      "incorrect": 0,
+      "missing": 31,
+      "invalid": 3
+     }
+    },
+    "accuracy_95ci": [
+     0.7611940298507462,
+     0.8537549407114624
+    ],
+    "macro_f1_95ci": [
+     0.79740188247485,
+     0.884431741831397
+    ],
+    "false_reassurance_rate_95ci": [
+     0.009801541976013706,
+     0.0425531914893617
+    ],
+    "method": "case-level bootstrap, 1000 resamples",
+    "json_valid_rate": 0.95,
+    "answers": 120,
+    "answer_exact_match_rate": 0.7166666666666667,
+    "per_language_accuracy": {
+     "ar": {
+      "accuracy": 0.8333333333333334,
+      "facts": 30
+     },
+     "bn": {
+      "accuracy": 0.8333333333333334,
+      "facts": 24
+     },
+     "en": {
+      "accuracy": 0.8333333333333334,
+      "facts": 24
+     },
+     "es": {
+      "accuracy": 0.8461538461538461,
+      "facts": 26
+     },
+     "fr": {
+      "accuracy": 0.95,
+      "facts": 20
+     },
+     "hi": {
+      "accuracy": 0.8125,
+      "facts": 16
+     },
+     "it": {
+      "accuracy": 0.6071428571428571,
+      "facts": 28
+     },
+     "pt": {
+      "accuracy": 0.875,
+      "facts": 24
+     },
+     "ta": {
+      "accuracy": 0.8181818181818182,
+      "facts": 22
+     },
+     "tl": {
+      "accuracy": 0.875,
+      "facts": 24
+     },
+     "vi": {
+      "accuracy": 0.6956521739130435,
+      "facts": 23
+     },
+     "zh": {
+      "accuracy": 0.782608695652174,
+      "facts": 23
+     }
+    },
+    "answers_without_prediction": 0,
+    "tokens": {
+     "prompt_per_answer": 375.35,
+     "completion_per_answer": 116.325
+    },
+    "paired_vs_e4b_base": {
+     "this_right_ref_wrong": 41,
+     "this_wrong_ref_right": 25
+    }
+   }
+  }
+ }
+}

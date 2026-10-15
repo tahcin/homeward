@@ -1,0 +1,708 @@
+{
+  "id": "heart-failure-it",
+  "patient": "Giuseppe Ferraro, 78",
+  "condition": "Heart failure, water pill dose doubled",
+  "recorded_at": "2026-10-15T10:19:38.290Z",
+  "note": "DISCHARGE SUMMARY (fictional patient, synthetic record)\nPatient: Giuseppe Ferraro, 78 M. Preferred language: Italian. Discharged 15 Oct 2026.\nDx: Acute on chronic HFrEF exacerbation (EF 30%), volume overload, resolved with IV diuresis. Discharge weight 71.4 kg.\n\nMEDICATIONS\n- Furosemide 40 mg PO BID (8 am and 2 pm). INCREASED from 20 mg PO daily.\n- Spironolactone 25 mg PO daily. NEW.\n- Bisoprolol 2.5 mg PO daily. Continue, no change.\n- Ramipril 5 mg PO daily. Continue, no change.\n- STOP ibuprofen (was taking OTC for knee pain). Use paracetamol 500 mg PO up to 3 times a day PRN instead.\n\nSELF-CARE\n- Weigh every morning after voiding, before breakfast. Call HF nurse line if weight up more than 2 kg in 3 days.\n- Fluid restriction 1.5 L/day. Low salt diet, under 2 g sodium/day.\n\nRETURN PRECAUTIONS\n- SOB at rest, chest pain, or fainting: call 112 immediately.\n- New ankle swelling, needing more pillows to sleep, dizziness on standing: call HF nurse line same day.\n\nFOLLOW-UP\n- Blood test (potassium and kidney function) on 22 Oct 2026 at the outpatient lab, fasting not required.\n- Heart failure clinic with Dr. Elena Bianchi, 12 Nov 2026, 10:30.\n\nACTIVITY: walk 10-15 min twice a day as tolerated. No heavy lifting over 5 kg for 2 weeks.\n",
+  "facts": [
+    {
+      "id": "f1",
+      "category": "medication_change",
+      "critical": true,
+      "statement": "Take Furosemide 40 mg twice a day at 8 am and 2 pm, which is an increase from 20 mg daily.",
+      "anchors": [
+        "Furosemide",
+        "40 mg",
+        "8 am",
+        "2 pm",
+        "20 mg"
+      ],
+      "label": "Furosemide 40 mg: twice a day, 8 am and 2 pm"
+    },
+    {
+      "id": "f2",
+      "category": "medication_change",
+      "critical": true,
+      "statement": "Start taking a new medicine, Spironolactone 25 mg daily.",
+      "anchors": [
+        "Spironolactone",
+        "25 mg"
+      ],
+      "label": "Spironolactone 25 mg: daily"
+    },
+    {
+      "id": "f3",
+      "category": "medication",
+      "critical": false,
+      "statement": "Continue taking Bisoprolol 2.5 mg daily.",
+      "anchors": [
+        "Bisoprolol",
+        "2.5 mg"
+      ],
+      "label": "Bisoprolol 2.5 mg: daily"
+    },
+    {
+      "id": "f4",
+      "category": "medication",
+      "critical": false,
+      "statement": "Continue taking Ramipril 5 mg daily.",
+      "anchors": [
+        "Ramipril",
+        "5 mg"
+      ],
+      "label": "Ramipril 5 mg: daily"
+    },
+    {
+      "id": "f5",
+      "category": "medication_change",
+      "critical": true,
+      "statement": "Stop taking ibuprofen and use paracetamol 500 mg up to 3 times a day only when needed instead.",
+      "anchors": [
+        "ibuprofen",
+        "paracetamol",
+        "500 mg",
+        "3"
+      ],
+      "label": "Stop ibuprofen; paracetamol 500 mg if needed"
+    },
+    {
+      "id": "f6",
+      "category": "self_monitoring",
+      "critical": true,
+      "statement": "Weigh yourself every morning and call the heart failure nurse line if your weight increases more than 2 kg in 3 days.",
+      "anchors": [
+        "2 kg",
+        "3"
+      ],
+      "label": "Weigh daily: call if up 2 kg in 3 days"
+    },
+    {
+      "id": "f7",
+      "category": "diet",
+      "critical": false,
+      "statement": "Limit fluids to 1.5 L per day and keep salt under 2 g sodium per day.",
+      "anchors": [
+        "1.5 L",
+        "2 g"
+      ],
+      "label": "Fluids 1.5 L, salt 2 g"
+    },
+    {
+      "id": "f8",
+      "category": "warning_sign",
+      "critical": true,
+      "statement": "Call 112 immediately if you have shortness of breath at rest, chest pain, or fainting.",
+      "anchors": [
+        "112"
+      ],
+      "label": "Call 112: breathless at rest, chest pain, fainting"
+    },
+    {
+      "id": "f9",
+      "category": "warning_sign",
+      "critical": true,
+      "statement": "Call the heart failure nurse line the same day if you have new ankle swelling, need more pillows to sleep, or feel dizzy when standing.",
+      "anchors": [],
+      "label": "Nurse line: swelling, pillows, dizzy"
+    },
+    {
+      "id": "f10",
+      "category": "follow_up",
+      "critical": false,
+      "statement": "Have a blood test for potassium and kidney function on 22 Oct 2026 at the outpatient lab.",
+      "anchors": [
+        "22 Oct 2026"
+      ],
+      "label": "Blood test: 22 Oct 2026"
+    },
+    {
+      "id": "f11",
+      "category": "follow_up",
+      "critical": false,
+      "statement": "Attend the heart failure clinic with Dr. Elena Bianchi on 12 Nov 2026 at 10:30.",
+      "anchors": [
+        "Dr. Elena Bianchi",
+        "12 Nov 2026",
+        "10:30"
+      ],
+      "label": "Heart failure clinic: 12 Nov 2026"
+    },
+    {
+      "id": "f12",
+      "category": "activity",
+      "critical": false,
+      "statement": "Walk 10-15 min twice a day as tolerated and do not lift anything over 5 kg for 2 weeks.",
+      "anchors": [
+        "10-15 min",
+        "5 kg",
+        "2"
+      ],
+      "label": "Walk 10-15 min, lift <5 kg"
+    }
+  ],
+  "topics": [
+    {
+      "id": "t1",
+      "question": "Can you explain the changes to your medications and how you will take them?",
+      "fact_ids": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5"
+      ]
+    },
+    {
+      "id": "t2",
+      "question": "What should you monitor at home and what are the limits for your diet?",
+      "fact_ids": [
+        "f6",
+        "f7"
+      ]
+    },
+    {
+      "id": "t3",
+      "question": "What symptoms should you look for, and who should you call depending on what happens?",
+      "fact_ids": [
+        "f8",
+        "f9"
+      ]
+    },
+    {
+      "id": "t4",
+      "question": "What are your upcoming appointments and activity restrictions?",
+      "fact_ids": [
+        "f10",
+        "f11",
+        "f12"
+      ]
+    }
+  ],
+  "nurse_checks": [],
+  "version": {
+    "language": "it",
+    "level": "simple",
+    "title": "Istruzioni per le dimissioni",
+    "paragraphs": [
+      "Queste sono le istruzioni per tornare a casa.",
+      "Prenda Furosemide 40 mg due volte al giorno alle 8:00 e alle 14:00. Questa dose è un aumento rispetto ai 20 mg giornalieri. Inizi a prendere un nuovo farmaco, Spironolactone 25 mg al giorno.",
+      "Continui a prendere Bisoprolol 2.5 mg al giorno. Continui a prendere Ramipril 5 mg al giorno.",
+      "Smetta di prendere ibuprofen. Al suo posto, usi paracetamol 500 mg fino a 3 volte al giorno solo se necessario.",
+      "Si pesi ogni mattina. Chiami la linea infermieristica per lo scompenso cardiaco se il suo peso aumenta di più di 2 kg in 3 giorni.",
+      "Limiti i liquidi a 1.5 L al giorno. Mantenga il sale sotto i 2 g di sodio al giorno.",
+      "Chiami subito il 112 se ha mancanza di respiro a riposo, dolore al petto o svenimenti.",
+      "Chiami la linea infermieristica per lo scompenso cardiaco lo stesso giorno se ha nuovo gonfiore alle caviglie. Chiami se ha bisogno di più cuscini per dormire o se sente vertigini quando sta in piedi.",
+      "Faccia un esame del sangue per il potassio e la funzione renale il 22 ottobre 2026 presso il laboratorio ambulatoriale.",
+      "Vada alla clinica per lo scompenso cardiaco con Dr. Elena Bianchi il 12 novembre 2026 alle 10:30.",
+      "Cammini 10-15 min due volte al giorno se li tollera. Non sollevi nulla di peso superiore a 5 kg per 2 settimane."
+    ],
+    "back_translation": [
+      "These are the instructions for returning home.",
+      "Take Furosemide 40 mg two times per day at 8:00 and at 14:00. This dose is an increase compared to the 20 mg daily. Start to take a new drug, Spironolactone 25 mg per day.",
+      "Continue to take Bisoprolol 2.5 mg per day. Continue to take Ramipril 5 mg per day.",
+      "Stop to take ibuprofen. In its place, use paracetamol 500 mg up to 3 times per day only if necessary.",
+      "Weigh yourself every morning. Call the nursing line for heart failure if your weight increases by more than 2 kg in 3 days.",
+      "Limit liquids to 1.5 L per day. Keep salt under 2 g of sodium per day.",
+      "Call immediately 112 if you have shortness of breath at rest, chest pain or fainting.",
+      "Call the nursing line for heart failure the same day if you have new swelling of the ankles. Call if you need more pillows to sleep or if you feel dizziness when you stand up.",
+      "Do a blood test for potassium and kidney function on 22 October 2026 at the outpatient laboratory.",
+      "Go to the clinic for heart failure with Dr. Elena Bianchi on 12 November 2026 at 10:30.",
+      "Walk 10-15 min two times per day if you tolerate them. Do not lift anything of weight greater than 5 kg for 2 weeks."
+    ],
+    "questions": {
+      "t1": "Può spiegarmi le modifiche ai suoi farmaci e come li prenderà?",
+      "t2": "Cosa deve monitorare a casa e quali sono i limiti per la sua dieta?",
+      "t3": "Quali sintomi deve osservare e chi deve chiamare a seconda di ciò che accade?",
+      "t4": "Quali sono i suoi prossimi appuntamenti e le limitazioni alle attività?"
+    },
+    "lock": [
+      {
+        "id": "f1",
+        "status": "locked",
+        "quote": "Prenda Furosemide 40 mg due volte al giorno alle 8:00 e alle 14:00. Questa dose è un aumento rispetto ai 20 mg giornalieri.",
+        "quote_en": "Take Furosemide 40 mg two times per day at 8:00 and at 14:00. This dose is an increase compared to the 20 mg daily.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f2",
+        "status": "locked",
+        "quote": "Inizi a prendere un nuovo farmaco, Spironolactone 25 mg al giorno.",
+        "quote_en": "Start to take a new drug, Spironolactone 25 mg per day.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f3",
+        "status": "locked",
+        "quote": "Continui a prendere Bisoprolol 2.5 mg al giorno.",
+        "quote_en": "Continue to take Bisoprolol 2.5 mg per day.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f4",
+        "status": "locked",
+        "quote": "Continui a prendere Ramipril 5 mg al giorno.",
+        "quote_en": "Continue to take Ramipril 5 mg per day.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f5",
+        "status": "repaired",
+        "quote": "Smetta di prendere ibuprofen. Al suo posto, usi paracetamol 500 mg fino a 3 volte al giorno solo se necessario.",
+        "quote_en": "Stop to take ibuprofen. In its place, use paracetamol 500 mg up to 3 times per day only if necessary.",
+        "problems": [],
+        "rounds": 1,
+        "history": [
+          {
+            "round": 0,
+            "problems": [
+              {
+                "kind": "meaning",
+                "anchor": "ibuprofen",
+                "reason": "suspicious wording \"ibuprofen\": It says continue ibuprofen, but the next sentence says to use paracetamol instead, implying ibuprofen should be stopped; this is contradictory and likely a medical error."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "f6",
+        "status": "locked",
+        "quote": "Si pesi ogni mattina. Chiami la linea infermieristica per lo scompenso cardiaco se il suo peso aumenta di più di 2 kg in 3 giorni.",
+        "quote_en": "Weigh yourself every morning. Call the nursing line for heart failure if your weight increases by more than 2 kg in 3 days.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f7",
+        "status": "locked",
+        "quote": "Limiti i liquidi a 1.5 L al giorno. Mantenga il sale sotto i 2 g di sodio al giorno.",
+        "quote_en": "Limit liquids to 1.5 L per day. Keep salt under 2 g of sodium per day.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f8",
+        "status": "locked",
+        "quote": "Chiami subito il 112 se ha mancanza di respiro a riposo, dolore al petto o svenimenti.",
+        "quote_en": "Call immediately 112 if you have shortness of breath at rest, chest pain or fainting.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f9",
+        "status": "locked",
+        "quote": "Chiami la linea infermieristica per lo scompenso cardiaco lo stesso giorno se ha nuovo gonfiore alle caviglie. Chiami se ha bisogno di più cuscini per dormire o se sente vertigini quando sta in piedi.",
+        "quote_en": "Call the nursing line for heart failure the same day if you have new swelling of the ankles. Call if you need more pillows to sleep or if you feel dizziness when you stand up.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f10",
+        "status": "locked",
+        "quote": "Faccia un esame del sangue per il potassio e la funzione renale il 22 ottobre 2026 presso il laboratorio ambulatoriale.",
+        "quote_en": "Do a blood test for potassium and kidney function on 22 October 2026 at the outpatient laboratory.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f11",
+        "status": "locked",
+        "quote": "Vada alla clinica per lo scompenso cardiaco con Dr. Elena Bianchi il 12 novembre 2026 alle 10:30.",
+        "quote_en": "Go to the clinic for heart failure with Dr. Elena Bianchi on 12 November 2026 at 10:30.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f12",
+        "status": "locked",
+        "quote": "Cammini 10-15 min due volte al giorno se li tollera. Non sollevi nulla di peso superiore a 5 kg per 2 settimane.",
+        "quote_en": "Walk 10-15 min two times per day if you tolerate them. Do not lift anything of weight greater than 5 kg for 2 weeks.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      }
+    ],
+    "fault": {
+      "kind": "negation",
+      "fact_id": "f5",
+      "before": "Smetta di prendere ibuprofen.",
+      "after": "Continui a prendere ibuprofen."
+    }
+  },
+  "steps": [
+    {
+      "step": "Find the facts",
+      "model": "Gemma-4-31B-IT",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 48486,
+      "tokens_in": 892,
+      "tokens_out": 1323,
+      "cost_usd": 0.0001236585
+    },
+    {
+      "step": "Write the patient version",
+      "model": "Gemma-4-31B-IT",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 50291,
+      "tokens_in": 1062,
+      "tokens_out": 550,
+      "cost_usd": 0.0000752241
+    },
+    {
+      "step": "Fault injected on purpose (instruction reversed)",
+      "model": "Gemma-4-31B-IT",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 2632,
+      "tokens_in": 89,
+      "tokens_out": 12,
+      "cost_usd": 0.0000038178
+    },
+    {
+      "step": "Fact lock: find each fact's sentences",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 10077,
+      "tokens_in": 1078,
+      "tokens_out": 223,
+      "cost_usd": 0.00021336
+    },
+    {
+      "step": "Back-translate every sentence",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 28210,
+      "tokens_in": 726,
+      "tokens_out": 641,
+      "cost_usd": 0.00028112
+    },
+    {
+      "step": "Fact lock: second literal reading of critical warning signs",
+      "model": "Qwen3.8-Flash-Next",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 16734,
+      "tokens_in": 329,
+      "tokens_out": 404,
+      "cost_usd": 0.00015918
+    },
+    {
+      "step": "Fact lock: compare meaning",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 29650,
+      "tokens_in": 968,
+      "tokens_out": 551,
+      "cost_usd": 0.0002546768
+    },
+    {
+      "step": "Repair round 1",
+      "model": "Gemma-4-31B-IT",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 4182,
+      "tokens_in": 1070,
+      "tokens_out": 47,
+      "cost_usd": 0.0000402941
+    },
+    {
+      "step": "Fact lock: find each fact's sentences (after repair 1)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 2000,
+      "tokens_in": 596,
+      "tokens_out": 27,
+      "cost_usd": 0.000091
+    },
+    {
+      "step": "Back-translate the repaired sentences (after repair 1)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 4496,
+      "tokens_in": 279,
+      "tokens_out": 83,
+      "cost_usd": 0.0000623
+    },
+    {
+      "step": "Fact lock: compare meaning (after repair 1)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 2362,
+      "tokens_in": 370,
+      "tokens_out": 30,
+      "cost_usd": 0.0000602
+    }
+  ],
+  "answers": {
+    "t1": [
+      {
+        "transcript": "La furosemide la prendo una volta al giorno, 40 milligrammi la mattina. Poi c'è una medicina nuova, lo spironolattone, 25 al giorno. Il bisoprololo e il ramipril li continuo come prima. L'ibuprofene per il ginocchio non lo prendo più, se ho male prendo il paracetamolo, al massimo tre volte al giorno.",
+        "fact_ids": [
+          "f1",
+          "f2",
+          "f3",
+          "f4",
+          "f5"
+        ],
+        "grades": [
+          {
+            "id": "f1",
+            "verdict": "incorrect",
+            "heard": "Furosemide 40 mg once a day in the morning",
+            "reteach": "Take Furosemide 40 mg twice a day, specifically at 8 am and 2 pm.",
+            "reteach_patient": "Prenda Furosemide 2 volte al giorno, precisamente alle 8 e alle 14."
+          },
+          {
+            "id": "f2",
+            "verdict": "correct",
+            "heard": "New medicine Spironolactone 25 mg daily",
+            "reteach": ""
+          },
+          {
+            "id": "f3",
+            "verdict": "correct",
+            "heard": "Continue Bisoprolol as before",
+            "reteach": ""
+          },
+          {
+            "id": "f4",
+            "verdict": "correct",
+            "heard": "Continue Ramipril as before",
+            "reteach": ""
+          },
+          {
+            "id": "f5",
+            "verdict": "correct",
+            "heard": "Stop ibuprofen, take paracetamol up to 3 times a day as needed",
+            "reteach": ""
+          }
+        ],
+        "transcript_en": "The furosemide I take it once a day, 40 milligrams the morning. Then there is a medicine new, the spironolactone, 25 per day. The bisoprolol and the ramipril them I continue as before. The ibuprofen for the knee I don't take it anymore, if I have pain I take the paracetamol, at most three times a day.",
+        "steps": [
+          {
+            "step": "Render the answer in English",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 7187,
+            "tokens_in": 138,
+            "tokens_out": 86,
+            "cost_usd": 0.0000106785
+          },
+          {
+            "step": "Grade the teach-back",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 11043,
+            "tokens_in": 490,
+            "tokens_out": 201,
+            "cost_usd": 0.0000239141
+          },
+          {
+            "step": "Translate the re-teach",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 5248,
+            "tokens_in": 98,
+            "tokens_out": 29,
+            "cost_usd": 0.0000052542
+          }
+        ]
+      },
+      {
+        "transcript": "Ah, ho capito: la furosemide 40 milligrammi la prendo due volte al giorno, alle 8 di mattina e alle 2 del pomeriggio. Prima era 20 una volta sola.",
+        "fact_ids": [
+          "f1"
+        ],
+        "grades": [
+          {
+            "id": "f1",
+            "verdict": "correct",
+            "heard": "Furosemide 40 mg twice daily at 8 am and 2 pm, previously 20 mg once daily",
+            "reteach": ""
+          }
+        ],
+        "transcript_en": "Ah, I understood: the furosemide 40 milligrams I take it two times at the day, at the 8 of morning and at the 2 of afternoon. Before it was 20 one time alone.",
+        "steps": [
+          {
+            "step": "Render the answer in English",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 2689,
+            "tokens_in": 93,
+            "tokens_out": 52,
+            "cost_usd": 0.000005523
+          },
+          {
+            "step": "Grade the teach-back",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 4543,
+            "tokens_in": 345,
+            "tokens_out": 55,
+            "cost_usd": 0.0000068698
+          }
+        ]
+      }
+    ],
+    "t2": [
+      {
+        "transcript": "Mi peso ogni mattina prima di colazione. Se in tre giorni salgo di più di 2 chili chiamo l'infermiera dello scompenso. Bevo al massimo un litro e mezzo al giorno e mangio poco sale, meno di 2 grammi.",
+        "fact_ids": [
+          "f6",
+          "f7"
+        ],
+        "grades": [
+          {
+            "id": "f6",
+            "verdict": "correct",
+            "heard": "weighs every morning, calls heart failure nurse if weight increases >2kg in 3 days",
+            "reteach": ""
+          },
+          {
+            "id": "f7",
+            "verdict": "correct",
+            "heard": "drinks max 1.5L per day and eats <2g salt",
+            "reteach": ""
+          }
+        ],
+        "transcript_en": "I weigh myself every morning before breakfast. If in three days I go up more than 2 kilos I call the nurse of the failure. I drink at most one liter and a half per day and I eat little salt, less than 2 grams.",
+        "steps": [
+          {
+            "step": "Render the answer in English",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 8095,
+            "tokens_in": 105,
+            "tokens_out": 57,
+            "cost_usd": 0.000006293
+          },
+          {
+            "step": "Grade the teach-back",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 9392,
+            "tokens_in": 377,
+            "tokens_out": 89,
+            "cost_usd": 0.0000117761
+          }
+        ]
+      }
+    ],
+    "t3": [
+      {
+        "transcript": "Se non respiro bene anche quando sono fermo, se ho dolore al petto o se svengo, chiamo subito il 112. Se mi si gonfiano le caviglie, se mi servono più cuscini per dormire o se mi gira la testa quando mi alzo, chiamo la linea delle infermiere lo stesso giorno.",
+        "fact_ids": [
+          "f8",
+          "f9"
+        ],
+        "grades": [
+          {
+            "id": "f8",
+            "verdict": "correct",
+            "heard": "Call 112 immediately for shortness of breath at rest, chest pain, or fainting",
+            "reteach": ""
+          },
+          {
+            "id": "f9",
+            "verdict": "correct",
+            "heard": "Call the nurse line the same day for ankle swelling, needing more pillows, or dizziness when standing",
+            "reteach": ""
+          }
+        ],
+        "transcript_en": "If I don't breathe well also when I am still, if I have pain to the chest or if I faint, I call immediately the 112. If to me swell the ankles, if I need more pillows for to sleep or if it turns to me the head when I get up, I call the line of the nurses the same day.",
+        "steps": [
+          {
+            "step": "Render the answer in English",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 18905,
+            "tokens_in": 123,
+            "tokens_out": 79,
+            "cost_usd": 0.000008463
+          },
+          {
+            "step": "Grade the teach-back",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 19400,
+            "tokens_in": 404,
+            "tokens_out": 91,
+            "cost_usd": 0.0000128611
+          }
+        ]
+      }
+    ],
+    "t4": [
+      {
+        "transcript": "Il 22 ottobre faccio le analisi del sangue al laboratorio. Il 12 novembre alle 10 e mezza vado dalla dottoressa Bianchi. Cammino dieci, quindici minuti due volte al giorno e per due settimane non sollevo niente sopra i 5 chili.",
+        "fact_ids": [
+          "f10",
+          "f11",
+          "f12"
+        ],
+        "grades": [
+          {
+            "id": "f10",
+            "verdict": "partial",
+            "heard": "blood tests at the lab on Oct 22",
+            "reteach": "Ensure the blood tests are specifically for potassium and kidney function.",
+            "reteach_patient": "Si assicuri che gli esami del sangue siano specificamente per il potassio e la funzione renale."
+          },
+          {
+            "id": "f11",
+            "verdict": "correct",
+            "heard": "Dr. Bianchi on Nov 12 at 10:30",
+            "reteach": ""
+          },
+          {
+            "id": "f12",
+            "verdict": "correct",
+            "heard": "walk 10-15 min twice daily and lift nothing over 5kg for 2 weeks",
+            "reteach": ""
+          }
+        ],
+        "transcript_en": "On October 22 I do the blood analyses at the laboratory. November 12 at 10 and half I go from doctor Bianchi. I walk ten, fifteen minutes two times at the day and for two weeks I lift nothing above 5 kilos.",
+        "steps": [
+          {
+            "step": "Render the answer in English",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 7093,
+            "tokens_in": 109,
+            "tokens_out": 59,
+            "cost_usd": 0.000006573
+          },
+          {
+            "step": "Grade the teach-back",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 10752,
+            "tokens_in": 418,
+            "tokens_out": 139,
+            "cost_usd": 0.0000166768
+          },
+          {
+            "step": "Translate the re-teach",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD Instinct via Token Factory",
+            "ms": 2921,
+            "tokens_in": 88,
+            "tokens_out": 32,
+            "cost_usd": 0.0000031248
+          }
+        ]
+      }
+    ]
+  }
+}

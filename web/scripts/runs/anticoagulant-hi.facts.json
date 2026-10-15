@@ -1,0 +1,168 @@
+{
+  "facts": [
+    {
+      "id": "f1",
+      "category": "medication",
+      "critical": true,
+      "statement": "Take new blood thinner Apixaban 5 mg twice a day at 9 am and 9 pm; if a dose is missed, take it as soon as remembered on the same day, but never take 2 doses together.",
+      "anchors": [
+        "Apixaban",
+        "5 mg",
+        "9 am",
+        "9 pm"
+      ],
+      "label": "Apixaban 5 mg: twice a day, 9 am and 9 pm"
+    },
+    {
+      "id": "f2",
+      "category": "medication",
+      "critical": true,
+      "statement": "Take new medicine Metoprolol succinate 25 mg once daily in the morning for heart rate.",
+      "anchors": [
+        "Metoprolol succinate",
+        "25 mg"
+      ],
+      "label": "Metoprolol 25 mg: once a day, morning"
+    },
+    {
+      "id": "f3",
+      "category": "medication_change",
+      "critical": true,
+      "statement": "Stop taking aspirin 75 mg.",
+      "anchors": [
+        "aspirin",
+        "75 mg"
+      ],
+      "label": "Aspirin 75 mg: stop"
+    },
+    {
+      "id": "f4",
+      "category": "medication",
+      "critical": false,
+      "statement": "Continue taking Atorvastatin 20 mg at bedtime.",
+      "anchors": [
+        "Atorvastatin",
+        "20 mg"
+      ],
+      "label": "Atorvastatin: 20 mg at bedtime"
+    },
+    {
+      "id": "f5",
+      "category": "medication",
+      "critical": true,
+      "statement": "Avoid NSAIDs such as ibuprofen and diclofenac for pain, but paracetamol is okay.",
+      "anchors": [
+        "ibuprofen",
+        "diclofenac",
+        "paracetamol"
+      ],
+      "label": "NSAIDs: avoid ibuprofen and diclofenac"
+    },
+    {
+      "id": "f6",
+      "category": "warning_sign",
+      "critical": true,
+      "statement": "Go to emergency or call 112 if you have black or bloody stools, vomit blood, a severe headache, or a fall with a head injury.",
+      "anchors": [
+        "112"
+      ],
+      "label": "Call 112: black or bloody stools, vomiting blood, head injury"
+    },
+    {
+      "id": "f7",
+      "category": "warning_sign",
+      "critical": false,
+      "statement": "Call the clinic if you have a nosebleed longer than 10 minutes, blood in urine, or unusual bruising.",
+      "anchors": [
+        "10 minutes"
+      ],
+      "label": "Call clinic: nosebleed, blood in urine"
+    },
+    {
+      "id": "f8",
+      "category": "warning_sign",
+      "critical": true,
+      "statement": "Tell any dentist or doctor that you take Apixaban before any procedure.",
+      "anchors": [
+        "Apixaban"
+      ],
+      "label": "Apixaban: tell dentist or doctor"
+    },
+    {
+      "id": "f9",
+      "category": "follow_up",
+      "critical": false,
+      "statement": "Have a kidney function blood test on 29 Oct 2026.",
+      "anchors": [
+        "29 Oct 2026"
+      ],
+      "label": "Kidney blood test: 29 Oct 2026"
+    },
+    {
+      "id": "f10",
+      "category": "follow_up",
+      "critical": false,
+      "statement": "Attend the cardiology clinic with Dr. Anjali Mehta on 9 Nov 2026 at 11:00.",
+      "anchors": [
+        "Dr. Anjali Mehta",
+        "9 Nov 2026",
+        "11:00"
+      ],
+      "label": "Cardiology clinic: 9 Nov 2026, 11:00"
+    },
+    {
+      "id": "f11",
+      "category": "self_monitoring",
+      "critical": true,
+      "statement": "Check pulse daily and call if resting pulse is below 50 or above 110.",
+      "anchors": [
+        "50",
+        "110"
+      ],
+      "label": "Pulse: call if below 50, above 110"
+    }
+  ],
+  "topics": [
+    {
+      "id": "t1",
+      "question": "Can you explain which medicines you will take, which one you will stop, and what you should avoid for pain?",
+      "fact_ids": [
+        "f1",
+        "f2",
+        "f3",
+        "f4",
+        "f5"
+      ]
+    },
+    {
+      "id": "t2",
+      "question": "What signs would make you call the clinic, go to the emergency room, or tell a doctor before a procedure?",
+      "fact_ids": [
+        "f6",
+        "f7",
+        "f8"
+      ]
+    },
+    {
+      "id": "t3",
+      "question": "What are your upcoming appointments and what should you monitor at home?",
+      "fact_ids": [
+        "f9",
+        "f10",
+        "f11"
+      ]
+    }
+  ],
+  "nurse_checks": [],
+  "steps": [
+    {
+      "step": "Find the facts",
+      "model": "Gemma-4-31B-IT",
+      "host": "AMD Instinct via Token Factory",
+      "ms": 50719,
+      "tokens_in": 881,
+      "tokens_out": 1179,
+      "cost_usd": 0.0001107925
+    }
+  ]
+}

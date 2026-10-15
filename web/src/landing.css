@@ -1,0 +1,176 @@
+/* Landing page only. Reuses the design tokens from styles.css; every class here starts with lp. */
+
+.lp { --lp-measure: 62ch; padding-bottom: 8px; }
+.lp h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); letter-spacing: -0.022em; line-height: 1.12; }
+.lp h3 { font-size: 1.1rem; letter-spacing: -0.01em; line-height: 1.25; }
+
+.lp-src { font-size: 0.8rem; line-height: 1.45; color: var(--faint); margin-top: 10px; }
+.lp-src a { color: var(--faint); text-decoration-color: var(--line-strong); }
+.lp-src a:hover { color: var(--accent); text-decoration-color: currentColor; }
+
+/* Hero: centred, just the problem, the promise and two buttons */
+.lp-hero { text-align: center; padding-top: 112px; padding-bottom: 120px; display: flex; flex-direction: column; align-items: center; }
+.lp-hero h1 { font-size: clamp(2.05rem, 4.6vw, 3.5rem); line-height: 1.08; letter-spacing: -0.032em; max-width: 22ch; text-wrap: balance; margin: 0 auto; }
+.lp-lede { font-size: clamp(1.06rem, 1.6vw, 1.24rem); line-height: 1.65; color: var(--muted); margin: 26px auto 0; max-width: 50ch; text-wrap: balance; }
+.lp-lede a { color: var(--muted); text-decoration-color: var(--line-strong); }
+.lp-lede a:hover { color: var(--accent); text-decoration-color: currentColor; }
+.lp-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; justify-content: center; }
+.lp-btn { min-height: 50px; padding: 12px 22px; font-size: 1rem; }
+@media (max-width: 760px) { .lp-hero { padding-top: 64px; padding-bottom: 72px; } }
+@media (max-width: 480px) {
+  .lp-hero { padding-top: 48px; padding-bottom: 60px; }
+  .lp-cta { width: 100%; }
+  .lp-cta .lp-btn { flex: 1 1 100%; }
+}
+
+/* One answer, checked fact by fact */
+.lp-moment { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; }
+.lp-moment-text { margin-bottom: 0; }
+.lp-linkbtn { border: none; background: none; padding: 0; cursor: pointer; color: var(--accent); font: inherit; font-weight: 500; }
+.lp-linkbtn:disabled { opacity: 0.6; cursor: progress; }
+@media (max-width: 940px) { .lp-moment { grid-template-columns: 1fr; gap: 28px; } }
+
+/* Hero vignette */
+.lpv { margin: 0; display: grid; gap: 12px; width: 100%; max-width: 520px; justify-self: end; }
+.lpv-wait { min-height: 520px; }
+@media (max-width: 940px) { .lpv { justify-self: stretch; max-width: 560px; } .lpv-wait { min-height: 0; } }
+.lpv-said { background: var(--sunk); border-radius: 20px 20px 20px 6px; padding: 18px 20px; animation: lp-rise 0.5s ease both; }
+.lpv-who { font-size: 0.86rem; color: var(--muted); font-weight: 500; }
+.lpv-quote { font-size: 1.28rem; line-height: 1.6; font-weight: 500; margin-top: 6px; }
+.lpv-en { font-size: 0.9rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+.lpv-en span { color: var(--faint); }
+.lpv-board { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 18px; overflow: hidden; animation: lp-rise 0.5s 0.25s ease both; }
+.lpv-board-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 0.86rem; }
+.lpv-board-head > span:first-child { font-weight: 700; }
+.lpv-board-flag { color: var(--bad); font-weight: 500; }
+.lpv-board ul { list-style: none; margin: 0; padding: 0; }
+.lpv-line { padding: 12px 16px; border-top: 1px solid var(--line); animation: lp-rise 0.45s ease both; }
+.lpv-line:first-child { border-top: none; }
+.lpv-line.bad { background: var(--bad-soft); border-top-color: #efc9c2; }
+.lpv-line.bad + .lpv-line { border-top-color: #efc9c2; }
+.lpv-line-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.lpv-med { font-weight: 700; }
+.lpv-line.bad .lpv-med { color: var(--bad); }
+.lpv-tags { display: inline-flex; align-items: center; gap: 5px; color: var(--faint); flex-wrap: wrap; }
+.lpv-rule { font-size: 0.9rem; color: var(--muted); margin-top: 2px; }
+.lpv-compare { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 6px 0 0; font-size: 0.92rem; }
+.lpv-compare dt { color: var(--muted); }
+.lpv-compare dd { margin: 0; }
+.lpv-line.bad .lpv-compare dd:last-of-type { color: var(--bad); font-weight: 500; }
+.lpv-line.warn .lpv-compare dd:last-of-type { color: var(--warn); font-weight: 500; }
+@media (max-width: 480px) { .lpv-quote { font-size: 1.16rem; } }
+
+/* Section heads */
+.lp-sec { padding-top: 88px; }
+.lp-head { max-width: 680px; margin-bottom: 32px; }
+.lp-head p { color: var(--muted); font-size: 1.08rem; margin-top: 12px; line-height: 1.55; }
+@media (max-width: 640px) { .lp-sec { padding-top: 64px; } .lp-head { margin-bottom: 24px; } }
+
+/* Why it matters: a chain of four steps, each led by its figure */
+.lp-why { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 80px 0 72px; }
+.lp-chain { list-style: none; margin: 0; padding: 0; max-width: 940px; }
+.lp-chain li { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 36px; padding: 28px 0; border-top: 1px solid var(--line); position: relative; }
+.lp-chain li:first-child { border-top: none; padding-top: 8px; }
+.lp-fig { white-space: nowrap; font-size: clamp(2.2rem, 3.6vw, 2.9rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; padding-top: 2px; }
+.lp-chain li:last-child .lp-fig { color: var(--ink); }
+.lp-chain-body p { margin-top: 8px; max-width: var(--lp-measure); font-size: 1.02rem; line-height: 1.6; }
+.lp-chain-body .lp-src { margin-top: 10px; font-size: 0.8rem; }
+@media (max-width: 760px) {
+  .lp-why { padding: 60px 0 48px; }
+  .lp-chain li { grid-template-columns: 1fr; gap: 10px; padding: 24px 0; }
+  .lp-fig { font-size: 2.3rem; }
+}
+
+/* Barriers: what gets in the way, then Homeward's answer */
+.lp-barriers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.lp-barrier { display: grid; grid-template-rows: 1fr auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+.lp-barrier-problem { padding: 22px 22px 18px; }
+.lp-barrier-problem p:not(.lp-src) { margin-top: 10px; color: var(--muted); line-height: 1.55; }
+.lp-barrier-answer { display: flex; gap: 10px; align-items: flex-start; padding: 16px 22px 20px; background: var(--ok-soft); color: var(--ink); font-weight: 500; line-height: 1.5; }
+.lp-barrier-answer svg { color: var(--ok); flex: none; margin-top: 2px; }
+@media (max-width: 960px) { .lp-barriers { grid-template-columns: 1fr; } .lp-barrier { grid-template-rows: none; } }
+@media (max-width: 640px) { .lp-barrier-problem { padding: 18px 18px 14px; } .lp-barrier-answer { padding: 14px 18px 16px; } }
+
+/* At the bedside */
+.lp-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+.lp-steps li { display: flex; flex-direction: column; gap: 8px; }
+.lp-steps li > p { color: var(--muted); font-size: 0.97rem; line-height: 1.55; }
+.lp-step-n { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--accent); color: var(--accent); display: grid; place-items: center; font-weight: 700; font-size: 0.92rem; margin-bottom: 6px; }
+.lp-steps .lpm-card { margin-top: auto; }
+.lp-steps li > p + .lpm-card { margin-top: 14px; }
+@media (max-width: 900px) { .lp-steps { grid-template-columns: 1fr; gap: 40px; max-width: 560px; } }
+
+/* Mini mocks (Mocks.tsx) */
+.lpm-card { background: var(--surface); border: 1px solid var(--line-strong); border-radius: 16px; padding: 14px 16px; display: grid; gap: 8px; }
+.lpm-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.lpm-small { font-size: 0.84rem; color: var(--muted); }
+.lpm-text { font-size: 0.92rem; line-height: 1.5; }
+.lpm-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.lpm-chip { display: inline-flex; align-items: center; gap: 4px; font-family: var(--mono); font-size: 0.74rem; background: var(--accent-soft); color: var(--accent); padding: 2px 8px; border-radius: 6px; }
+.lpm-tablet { border-radius: 20px; padding: 16px 18px; gap: 10px; }
+.lpm-q { font-weight: 700; font-size: 1.04rem; line-height: 1.35; }
+.lpm-mic { display: flex; justify-content: center; align-items: center; gap: 8px; background: var(--accent); color: var(--accent-ink); border-radius: 12px; padding: 11px; font-size: 0.94rem; font-weight: 500; }
+.lpm-board { padding: 6px 0 0; gap: 0; overflow: hidden; }
+.lpm-board-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 9px 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.lpm-label { font-weight: 500; font-size: 0.94rem; }
+.lpm-verdicts { display: inline-flex; gap: 5px; align-items: center; color: var(--faint); }
+.lpm-ready { display: flex; gap: 8px; align-items: center; padding: 10px 16px; font-size: 0.9rem; font-weight: 500; }
+.lpm-ready.ok { background: var(--ok-soft); color: var(--ok); }
+.lpm-ready.bad { background: var(--bad-soft); color: var(--bad); }
+
+/* Sample patients */
+.lp-samples { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.lp-sample { text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 6px; padding: 22px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); transition: border-color 0.18s ease, transform 0.18s ease; }
+.lp-sample:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-2px); }
+.lp-sample:disabled { opacity: 0.6; cursor: progress; }
+.lp-sample-lang { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.01em; display: flex; gap: 10px; align-items: baseline; }
+.lp-sample-lang span { font-weight: 500; font-size: 0.98rem; color: var(--muted); }
+.lp-sample-who { font-weight: 500; }
+.lp-sample-what { color: var(--muted); font-size: 0.94rem; line-height: 1.5; }
+.lp-sample-shows { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); color: var(--accent); font-weight: 500; font-size: 0.93rem; }
+.lp-sample-what + .lp-sample-shows { margin-top: 12px; }
+.lp-sample-shows svg { flex: none; transition: transform 0.18s ease; }
+.lp-sample:hover:not(:disabled) .lp-sample-shows svg { transform: translateX(3px); }
+@media (max-width: 900px) { .lp-samples { grid-template-columns: 1fr; max-width: 560px; } }
+
+/* Built for hospitals */
+.lp-hosp { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: 36px 40px; background: var(--sunk); border-radius: 20px; }
+.lp-hosp h2 { margin-bottom: 12px; }
+.lp-hosp > div > p { font-size: 1.06rem; line-height: 1.6; max-width: 52ch; }
+.lp-more { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-weight: 500; text-decoration: none; }
+.lp-more:hover { text-decoration: underline; }
+.lp-measured { font-size: 1.12rem; line-height: 1.55; padding-left: 22px; border-left: 3px solid var(--accent); }
+.lp-measured b { font-weight: 700; font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) { .lp-hosp { grid-template-columns: 1fr; gap: 24px; padding: 26px 22px; } }
+
+@keyframes lp-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.lpv-line.bad .tag.bad, .lpv-line.bad .tag.crit { background: var(--surface); }
+.lpv-line.bad .tag.bad { border: 1px solid #e9b9b1; }
+
+/* Hero backdrop: late-afternoon light through a window, warm paper, a faint road home */
+.lp-hero-band {
+  position: relative; overflow: hidden; isolation: isolate;
+  /* The warm light is painted once as layered gradients on the band itself: no blur filters, no blend modes,
+     no animation, so every browser (including Brave with hardware acceleration off) draws it in one cheap pass. */
+  background:
+    radial-gradient(60% 75% at 8% 0%, rgba(250, 196, 140, 0.55), rgba(250, 196, 140, 0) 70%),
+    radial-gradient(45% 55% at 92% 30%, rgba(247, 214, 186, 0.6), rgba(247, 214, 186, 0) 72%),
+    radial-gradient(40% 40% at 45% 100%, rgba(214, 224, 200, 0.5), rgba(214, 224, 200, 0) 72%),
+    #fbf4ea;
+}
+.lp-hero-band .lp-hero { position: relative; z-index: 1; padding-bottom: 168px; }
+.lpb { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.lpb::after {
+  content: ""; position: absolute; inset: 0; opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.22 0 0 0 0 0.12 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.lpb-light { display: none; }
+.lpb-home { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 200px; }
+.lpb-ink { stroke: var(--accent); opacity: 0.32; }
+.lpb-far { opacity: 0.6; }
+.lpb-path { stroke-dasharray: 2 7; opacity: 0.9; }
+.lpb-window { fill: #f4b978; opacity: 0.55; }
+@media (max-width: 760px) {
+  .lp-hero-band .lp-hero { padding-bottom: 132px; }
+  .lpb-home { height: 150px; width: 900px; left: calc(72% - 695px); right: auto; }
+}

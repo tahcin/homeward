@@ -1,0 +1,60 @@
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:   0%|          | 1/2076 [00:00<04:21,  7.93it/s]Loading weights:   4%|▎         | 77/2076 [00:00<00:05, 384.48it/s]Loading weights:   8%|▊         | 157/2076 [00:00<00:03, 547.27it/s]Loading weights:  12%|█▏        | 250/2076 [00:00<00:02, 677.91it/s]Loading weights:  16%|█▌        | 330/2076 [00:00<00:02, 698.04it/s]Loading weights:  21%|██        | 436/2076 [00:00<00:02, 800.07it/s]Loading weights:  25%|██▍       | 518/2076 [00:00<00:01, 785.40it/s]Loading weights:  30%|██▉       | 618/2076 [00:00<00:01, 842.86it/s]Loading weights:  34%|███▍      | 703/2076 [00:01<00:01, 773.74it/s]Loading weights:  38%|███▊      | 782/2076 [00:09<00:41, 30.82it/s] Loading weights:  40%|████      | 837/2076 [00:10<00:34, 35.65it/s]Loading weights:  42%|████▏     | 878/2076 [00:11<00:30, 38.73it/s]Loading weights:  44%|████▎     | 908/2076 [00:11<00:27, 42.92it/s]Loading weights:  45%|████▍     | 932/2076 [00:11<00:25, 44.86it/s]Loading weights:  46%|████▌     | 951/2076 [00:12<00:23, 48.32it/s]Loading weights:  47%|████▋     | 967/2076 [00:12<00:22, 50.21it/s]Loading weights:  47%|████▋     | 980/2076 [00:12<00:20, 53.30it/s]Loading weights:  48%|████▊     | 994/2076 [00:12<00:17, 60.39it/s]Loading weights:  49%|████▊     | 1007/2076 [00:12<00:17, 61.67it/s]Loading weights:  49%|████▉     | 1018/2076 [00:12<00:17, 59.62it/s]Loading weights:  50%|████▉     | 1030/2076 [00:13<00:15, 67.42it/s]Loading weights:  50%|█████     | 1040/2076 [00:13<00:15, 68.11it/s]Loading weights:  51%|█████     | 1049/2076 [00:13<00:16, 62.24it/s]Loading weights:  51%|█████▏    | 1064/2076 [00:13<00:13, 73.55it/s]Loading weights:  52%|█████▏    | 1073/2076 [00:13<00:13, 73.69it/s]Loading weights:  52%|█████▏    | 1082/2076 [00:13<00:14, 68.66it/s]Loading weights:  53%|█████▎    | 1098/2076 [00:13<00:12, 78.69it/s]Loading weights:  53%|█████▎    | 1107/2076 [00:14<00:12, 76.92it/s]Loading weights:  54%|█████▍    | 1116/2076 [00:14<00:13, 69.99it/s]Loading weights:  54%|█████▍    | 1128/2076 [00:14<00:11, 80.50it/s]Loading weights:  55%|█████▍    | 1137/2076 [00:14<00:13, 69.89it/s]Loading weights:  55%|█████▌    | 1150/2076 [00:14<00:13, 66.34it/s]Loading weights:  56%|█████▌    | 1166/2076 [00:14<00:11, 80.38it/s]Loading weights:  57%|█████▋    | 1175/2076 [00:15<00:12, 74.52it/s]Loading weights:  57%|█████▋    | 1183/2076 [00:15<00:14, 59.95it/s]Loading weights:  58%|█████▊    | 1195/2076 [00:15<00:13, 63.89it/s]Loading weights:  58%|█████▊    | 1202/2076 [00:15<00:13, 63.64it/s]Loading weights:  58%|█████▊    | 1209/2076 [00:15<00:14, 58.85it/s]Loading weights:  59%|█████▊    | 1216/2076 [00:15<00:14, 59.28it/s]Loading weights:  59%|█████▉    | 1223/2076 [00:15<00:15, 54.52it/s]Loading weights:  60%|█████▉    | 1236/2076 [00:16<00:13, 64.12it/s]Loading weights:  60%|█████▉    | 1243/2076 [00:16<00:15, 55.35it/s]Loading weights:  60%|██████    | 1250/2076 [00:16<00:16, 49.16it/s]Loading weights:  61%|██████    | 1261/2076 [00:16<00:13, 61.53it/s]Loading weights:  61%|██████    | 1268/2076 [00:16<00:16, 47.73it/s]Loading weights:  62%|██████▏   | 1279/2076 [00:17<00:16, 49.10it/s]Loading weights:  62%|██████▏   | 1292/2076 [00:17<00:14, 53.99it/s]Loading weights:  63%|██████▎   | 1301/2076 [00:17<00:12, 59.80it/s]Loading weights:  63%|██████▎   | 1308/2076 [00:17<00:14, 53.04it/s]Loading weights:  64%|██████▎   | 1321/2076 [00:17<00:14, 50.83it/s]Loading weights:  64%|██████▍   | 1334/2076 [00:17<00:11, 62.48it/s]Loading weights:  65%|██████▍   | 1342/2076 [00:18<00:11, 62.91it/s]Loading weights:  65%|██████▍   | 1349/2076 [00:18<00:15, 45.56it/s]Loading weights:  66%|██████▌   | 1363/2076 [00:18<00:12, 56.10it/s]Loading weights:  66%|██████▌   | 1370/2076 [00:18<00:12, 54.33it/s]Loading weights:  66%|██████▋   | 1376/2076 [00:18<00:15, 44.48it/s]Loading weights:  67%|██████▋   | 1391/2076 [00:19<00:13, 52.01it/s]Loading weights:  67%|██████▋   | 1400/2076 [00:19<00:11, 58.13it/s]Loading weights:  68%|██████▊   | 1407/2076 [00:19<00:14, 46.44it/s]Loading weights:  68%|██████▊   | 1417/2076 [00:19<00:12, 53.64it/s]Loading weights:  74%|███████▍  | 1545/2076 [00:19<00:01, 292.60it/s]Loading weights:  81%|████████  | 1678/2076 [00:19<00:00, 448.45it/s]Loading weights:  88%|████████▊ | 1826/2076 [00:19<00:00, 665.84it/s]Loading weights:  95%|█████████▍| 1965/2076 [00:20<00:00, 830.29it/s]Loading weights: 100%|██████████| 2076/2076 [00:20<00:00, 789.22it/s]Loading weights: 100%|██████████| 2076/2076 [00:20<00:00, 102.85it/s]
+supervised span of example 0: '{"facts": [{"id": "f6", "verdict": "correct", "heard": "cardiologist on November 16, 2026, and primary care on November 30, 2026", "reteach": ""}, {"id": "f7", "verdict": "correct", "heard": "avoid heavy lifting and strenuous exercise for one week", "reteach": ""}, {"id": "f8", "verdict": "correct", "heard": "limit alcohol to less than one drink per day and eat low-salt heart-healthy diet", "rete
+train 672 (dropped 0 > max_len), val 68 (dropped 0)
+trainable params 34,881,536 of 7,975,982,368 (0.437%), lora modules 258
+step 0 val_loss 0.5439
+step 1/84 loss 0.5857 gn 2.24 lr 5.00e-05 1041 tok/s peak 18.5 GiB
+[W1015 10:13:20.622740680 HIPCachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1742733312 bytes (free: 398458880, total: 51522830336).
+step 5/84 loss 0.3368 gn 0.73 lr 1.00e-04 1041 tok/s peak 21.3 GiB
+step 10/84 loss 0.2093 gn 0.39 lr 9.86e-05 1115 tok/s peak 21.3 GiB
+step 15/84 loss 0.2109 gn 0.35 lr 9.54e-05 1147 tok/s peak 21.3 GiB
+step 20/84 loss 0.1894 gn 0.30 lr 9.05e-05 1117 tok/s peak 21.3 GiB
+step 25/84 loss 0.2255 gn 0.31 lr 8.39e-05 1125 tok/s peak 21.3 GiB
+step 30/84 loss 0.2714 gn 0.58 lr 7.61e-05 1148 tok/s peak 21.3 GiB
+step 35/84 loss 0.1771 gn 0.29 lr 6.73e-05 1147 tok/s peak 21.3 GiB
+step 40/84 loss 0.1659 gn 0.30 lr 5.78e-05 1143 tok/s peak 21.3 GiB
+epoch 1 step 42 val_loss 0.2083
+step 45/84 loss 0.1658 gn 0.27 lr 4.80e-05 1133 tok/s peak 21.3 GiB
+step 50/84 loss 0.1894 gn 0.27 lr 3.83e-05 1139 tok/s peak 21.3 GiB
+step 55/84 loss 0.1805 gn 0.29 lr 2.91e-05 1127 tok/s peak 21.3 GiB
+step 60/84 loss 0.1859 gn 0.28 lr 2.06e-05 1077 tok/s peak 21.3 GiB
+step 65/84 loss 0.1608 gn 0.33 lr 1.33e-05 1125 tok/s peak 21.3 GiB
+step 70/84 loss 0.2306 gn 0.43 lr 7.37e-06 1142 tok/s peak 21.3 GiB
+step 75/84 loss 0.1489 gn 0.28 lr 3.09e-06 1066 tok/s peak 21.3 GiB
+step 80/84 loss 0.1556 gn 0.39 lr 6.16e-07 1147 tok/s peak 21.3 GiB
+final val_loss 0.2033
+{
+ "load_s": 23.5,
+ "train_examples": 672,
+ "val_examples": 68,
+ "dropped_over_max_len": 0,
+ "trainable_params": 34881536,
+ "total_params": 7975982368,
+ "lora_modules": 258,
+ "val": [
+  {
+   "step": 0,
+   "loss": 0.5438695778688342
+  },
+  {
+   "step": 42,
+   "loss": 0.20832768900463497
+  },
+  {
+   "step": 84,
+   "loss": 0.20333879065384863
+  }
+ ],
+ "device": "AMD Radeon Pro W7900D",
+ "torch": "2.13.0+rocm10.0.0",
+ "transformers": "5.19.0",
+ "peft": "0.21.2",
+ "optimizer_steps": 84,
+ "train_wall_s": 573.0,
+ "total_wall_s": 617.6,
+ "tokens_processed": 638750,
+ "supervised_tokens": 123978,
+ "mean_tok_per_s": 1114.7294522430172,
+ "peak_vram_allocated_gib": 21.26243782043457,
+ "peak_vram_reserved_gib": 47.13671875
+}

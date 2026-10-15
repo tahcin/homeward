@@ -1,0 +1,24 @@
+DISCHARGE SUMMARY (fictional patient, synthetic record)
+Patient: Giuseppe Ferraro, 78 M. Preferred language: Italian. Discharged 15 Oct 2026.
+Dx: Acute on chronic HFrEF exacerbation (EF 30%), volume overload, resolved with IV diuresis. Discharge weight 71.4 kg.
+
+MEDICATIONS
+- Furosemide 40 mg PO BID (8 am and 2 pm). INCREASED from 20 mg PO daily.
+- Spironolactone 25 mg PO daily. NEW.
+- Bisoprolol 2.5 mg PO daily. Continue, no change.
+- Ramipril 5 mg PO daily. Continue, no change.
+- STOP ibuprofen (was taking OTC for knee pain). Use paracetamol 500 mg PO up to 3 times a day PRN instead.
+
+SELF-CARE
+- Weigh every morning after voiding, before breakfast. Call HF nurse line if weight up more than 2 kg in 3 days.
+- Fluid restriction 1.5 L/day. Low salt diet, under 2 g sodium/day.
+
+RETURN PRECAUTIONS
+- SOB at rest, chest pain, or fainting: call 112 immediately.
+- New ankle swelling, needing more pillows to sleep, dizziness on standing: call HF nurse line same day.
+
+FOLLOW-UP
+- Blood test (potassium and kidney function) on 22 Oct 2026 at the outpatient lab, fasting not required.
+- Heart failure clinic with Dr. Elena Bianchi, 12 Nov 2026, 10:30.
+
+ACTIVITY: walk 10-15 min twice a day as tolerated. No heavy lifting over 5 kg for 2 weeks.
