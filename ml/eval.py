@@ -94,8 +94,12 @@ def predict_local(args):
             att[r, L - n:] = 1
         ids, att = ids.cuda(), att.cuda()
         with torch.no_grad():
-            out = model.generate(input_ids=ids, attention_mask=att, max_new_tokens=args.max_new,
-                                 do_sample=False, pad_token_id=pad)
+            if args.temperature > 0:
+                out = model.generate(input_ids=ids, attention_mask=att, max_new_tokens=args.max_new,
+                                     do_sample=True, temperature=args.temperature, top_p=0.95, pad_token_id=pad)
+            else:
+                out = model.generate(input_ids=ids, attention_mask=att, max_new_tokens=args.max_new,
+                                     do_sample=False, pad_token_id=pad)
         res = []
         eos = set(model.generation_config.eos_token_id if isinstance(model.generation_config.eos_token_id, list)
                   else [model.generation_config.eos_token_id])
@@ -109,6 +113,7 @@ def predict_local(args):
             res.append((tok.decode(new[:n], skip_special_tokens=True), n))
         return res
 
+    torch.manual_seed(args.seed)
     torch.cuda.reset_peak_memory_stats()
     # Warm-up (kernel compilation / caches), excluded from timings.
     gen([0])
@@ -149,7 +154,7 @@ def predict_local(args):
         "system": args.name or ("e4b_lora" if args.adapter else "e4b_base"),
         "model": args.model, "adapter": args.adapter, "lora_scale": args.lora_scale, "rows": len(rows),
         "device": torch.cuda.get_device_name(0), "torch": torch.__version__,
-        "load_s": round(load_s, 1), "decoding": "greedy", "max_new_tokens": args.max_new,
+        "load_s": round(load_s, 1), "decoding": "greedy" if args.temperature <= 0 else f"sampled T={args.temperature} top_p=0.95 seed={args.seed}", "max_new_tokens": args.max_new,
         "batched": {"batch_size": args.bsz, "wall_s": round(batch_s, 1),
                     "completion_tokens": sum(n for _, n in preds.values()),
                     "prompt_tokens": sum(len(e) for e in enc_all),
@@ -254,6 +259,31 @@ def escalate(args):
         Path(args.out).with_suffix(".meta.json").write_text(json.dumps(meta, indent=1))
     print(f"tau {args.tau}: {n_changed} facts escalated")
 
+
+
+def vote(args):
+    """Self-consistency: per fact, majority verdict over several prediction files (greedy and/or
+    samples); ties go to the less reassuring verdict (missing > incorrect > partial > correct)."""
+    order = {"missing": 0, "incorrect": 1, "partial": 2, "correct": 3}
+    rows = {grader.row_key(r): r for r in read_jsonl(args.rows)}
+    files = [{p["key"]: p for p in read_jsonl(f)} for f in args.preds]
+    with open(args.out, "w") as fh:
+        for k, r in rows.items():
+            ids = [f["id"] for f in r["facts"]]
+            votes = [grader.verdicts_from(grader.parse_reply(f[k]["text"]) if k in f else None, ids)[0] for f in files]
+            base_obj = grader.parse_reply(files[0][k]["text"]) if k in files[0] else None
+            facts = []
+            for j, fid in enumerate(ids):
+                c = Counter(v[j] for v in votes if v[j])
+                if c:
+                    top = max(c.values())
+                    pick = min((v for v in c if c[v] == top), key=lambda v: order[v])
+                else:
+                    pick = None
+                src = next((f for f in (base_obj or {}).get("facts", []) if isinstance(f, dict) and f.get("id") == fid), {})
+                facts.append(dict(src, id=fid, verdict=pick or src.get("verdict")))
+            fh.write(json.dumps({"key": k, "text": json.dumps({"facts": facts}, ensure_ascii=False), "votes": len(files)}, ensure_ascii=False) + "\n")
+    print("voted", len(rows), "answers over", len(files), "prediction files")
 
 # ---------------------------------------------------------------- Token Factory
 
@@ -521,6 +551,8 @@ def main():
     a.add_argument("--max-new", type=int, default=768)
     a.add_argument("--limit", type=int, default=0)
     a.add_argument("--lora-scale", type=float, default=1.0)
+    a.add_argument("--temperature", type=float, default=0.0, help="> 0 samples (top_p 0.95) instead of greedy")
+    a.add_argument("--seed", type=int, default=0)
     b = sub.add_parser("predict-api")
     b.add_argument("--model", required=True)
     b.add_argument("--rows", required=True)
@@ -545,6 +577,10 @@ def main():
     x.add_argument("--probs", required=True)
     x.add_argument("--tau", type=float, required=True)
     x.add_argument("--out", required=True)
+    vt = sub.add_parser("vote")
+    vt.add_argument("--rows", required=True)
+    vt.add_argument("--preds", action="append", required=True)
+    vt.add_argument("--out", required=True)
     c = sub.add_parser("score")
     c.add_argument("--rows", required=True)
     c.add_argument("--system", action="append", required=True, help="name=preds.jsonl")
@@ -553,7 +589,7 @@ def main():
     c.add_argument("--out", default="ml/results/eval.json")
     c.add_argument("--md")
     args = ap.parse_args()
-    {"predict-local": predict_local, "predict-api": predict_api, "verdict-probs": verdict_probs, "escalate": escalate, "score": score}[args.cmd](args)
+    {"predict-local": predict_local, "predict-api": predict_api, "verdict-probs": verdict_probs, "escalate": escalate, "vote": vote, "score": score}[args.cmd](args)
 
 
 if __name__ == "__main__":

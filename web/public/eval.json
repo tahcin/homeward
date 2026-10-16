@@ -1,10 +1,10 @@
 {
   "_note": "Filled by the ML pipeline (ml/). Every null renders as 'Pending' on the How it works page. Never hand-edit numbers in; write them from an evaluation run and set status to 'final'.",
   "status": "final",
-  "updated": "2026-10-15",
+  "updated": "2026-10-16",
   "grader": {
     "test_set": {
-      "description": "Independent hand-written teach-back answers (never seen by the data generator), held-out conditions",
+      "description": "Independent teach-back answers written by Claude (a different model family) (never seen by the data generator), held-out conditions",
       "cases": 7,
       "answers": 150,
       "facts_graded": 341,
@@ -58,18 +58,18 @@
         "id": "gemma-4-e4b-homeward",
         "label": "Gemma 4 E4B, fine-tuned (ours)",
         "runs_on": "AMD Radeon PRO W7900D",
-        "accuracy": 88.3,
-        "critical_recall": 93.5,
-        "false_reassurance": 5.8,
-        "latency_p50_ms": 4892,
+        "accuracy": 94.1,
+        "critical_recall": 98.1,
+        "false_reassurance": 1.4,
+        "latency_p50_ms": 5147,
         "ci95": {
           "accuracy": [
-            85.4,
-            91.1
+            91.4,
+            96.7
           ],
           "false_reassurance": [
-            2.9,
-            8.6
+            0.0,
+            3.2
           ]
         }
       },
@@ -98,18 +98,30 @@
     "gpu": "AMD Radeon PRO W7900D (48 GB)",
     "method": "LoRA",
     "base_model": "Gemma 4 E4B",
-    "examples": 672,
+    "examples": 2743,
     "epochs": 2.0,
-    "minutes": 9.6
+    "minutes": 43.5
   },
   "fact_lock": {
-    "description": "Patient versions written by Gemma 4 31B across the synthetic cases and languages",
-    "versions": null,
-    "facts": null,
-    "locked_first_pass": null,
-    "repaired": null,
-    "flagged": null,
-    "injected_faults": null,
-    "injected_faults_caught": null
+    "description": "24 synthetic discharge notes in 8 languages run through the full pipeline on AMD Token Factory (Gemma 4 31B extracts and writes, DeepSeek V4 Flash checks), facts extracted without nurse review.",
+    "source": "ml/results/lock_bench.json",
+    "generated_at": "2026-10-16T05:14:05.041Z",
+    "versions": 24,
+    "facts": 251,
+    "locked_first_pass": 170,
+    "repaired": 57,
+    "flagged": 24,
+    "injected_faults": 17,
+    "injected_faults_caught": 16,
+    "shipped_uncaught": 1,
+    "shipped_kinds": "a dropped warning symptom",
+    "caught_by": "code: anchor check (number, unit, date or name) 6, code: field check (dose, frequency, timing, action) 5, code: English left in the text 3, meaning check 2, literal back-translation (suspicious word) 1",
+    "non_planted_facts": 234,
+    "non_planted_issues": 68,
+    "control_cases": 7,
+    "control_facts": 69,
+    "control_issues": 29,
+    "cost_usd": 0.0543,
+    "median_wall_s": 281
   }
 }

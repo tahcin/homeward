@@ -2,7 +2,7 @@
   "id": "anticoagulant-hi",
   "patient": "Ramesh Kumar Verma, 66",
   "condition": "Atrial fibrillation, new blood thinner",
-  "recorded_at": "2026-10-15T13:11:54.916Z",
+  "recorded_at": "2026-10-16T03:46:01.374Z",
   "note": "DISCHARGE INSTRUCTIONS (fictional patient, synthetic record)\nPt: Ramesh Kumar Verma, 66 M. Language: Hindi (son Arjun helps with medicines). D/c date 15/10/2026.\nDx: New-onset atrial fibrillation with rapid ventricular response, rate controlled. CHA2DS2-VASc 3. Started on anticoagulation.\n\nMEDS\n1. Apixaban 5 mg PO BID, every 12 hours (9 am and 9 pm). NEW blood thinner. Do not skip doses. If a dose is missed, take it as soon as remembered on the same day, never take 2 doses together.\n2. Metoprolol succinate 25 mg PO once daily in the morning. NEW, for heart rate.\n3. STOP aspirin 75 mg (was taking daily at home). Apixaban replaces it.\n4. Atorvastatin 20 mg PO at bedtime. Continue.\nAvoid NSAIDs (ibuprofen, diclofenac) for pain; paracetamol is OK.\n\nBLEEDING PRECAUTIONS\n- Go to emergency / call 112 if: black or bloody stools, vomiting blood, severe headache, or a fall with a head injury.\n- Call the clinic if: nosebleed longer than 10 min, blood in urine, unusual bruising.\n- Tell any dentist or doctor that you take apixaban before any procedure.\n\nF/U\n- Kidney function blood test on 29 Oct 2026.\n- Cardiology OPD, Dr. Anjali Mehta, 9 Nov 2026 at 11:00.\nCheck pulse daily; call if resting pulse below 50 or above 110.\n",
   "facts": [
     {
@@ -21,7 +21,7 @@
     {
       "id": "f2",
       "category": "medication",
-      "critical": false,
+      "critical": true,
       "statement": "Take new medicine Metoprolol succinate 25 mg once daily in the morning for heart rate.",
       "anchors": [
         "Metoprolol succinate",
@@ -164,44 +164,44 @@
     "level": "very_simple",
     "title": "घर जाने के निर्देश",
     "paragraphs": [
-      "ये घर जाने के निर्देश हैं।",
-      "नई दवा Apixaban 5 mg लें। इसे सुबह 9:00 और रात 9:00 बजे लें। खुराक छूटने पर उसी दिन याद आने पर लें। एक साथ 2 खुराक कभी न लें।",
+      "ये आपके घर जाने के निर्देश हैं।",
+      "नई दवा Apixaban 5 mg लें। इसे सुबह 9 बजे और रात 9 बजे लें। अगर खुराक छूट जाए, तो याद आने पर उसी दिन लें। एक साथ 2 खुराक कभी न लें।",
       "नई दवा Metoprolol succinate 25 mg लें। इसे रोज़ सुबह एक बार लें।",
       "aspirin 75 mg लेना बंद करें।",
-      "Atorvastatin 20 mg रात को सोते समय लेते रहें।",
-      "दर्द के लिए ibuprofen और diclofenac न लें। paracetamol ले सकते हैं।",
-      "काले या खूनी मल होने पर 112 पर कॉल करें। खून की उल्टी या तेज़ सिरदर्द होने पर 112 पर कॉल करें। सिर में चोट लगने पर 112 पर कॉल करें।",
-      "नाक से 10 मिनट से ज़्यादा खून बहने पर क्लिनिक कॉल करें। पेशाब में खून आने पर क्लिनिक कॉल करें। शरीर पर नीले निशान होने पर क्लिनिक कॉल करें।",
-      "किसी भी इलाज से पहले डॉक्टर या डेंटिस्ट को Apixaban के बारे में बताएं।",
-      "29 अक्टूबर 2026 को किडनी की खून जांच कराएं।",
-      "9 नवंबर 2026 को 11:00 बजे Dr. Anjali Mehta से मिलें।",
-      "रोज़ अपनी नब्ज जांचें। नब्ज 50 से कम या 110 से ज़्यादा होने पर कॉल करें।"
+      "Atorvastatin 20 mg रात को सोते समय लेना जारी रखें।",
+      "दर्द के लिए ibuprofen और diclofenac न लें। आप paracetamol ले सकते हैं।",
+      "काले या खूनी मल होने पर 112 पर कॉल करें। खून की उल्टी, तेज़ सिरदर्द या सिर की चोट पर 112 पर कॉल करें।",
+      "नाक से 10 मिनट से ज़्यादा खून बहने पर क्लिनिक फोन करें। पेशाब में खून या असामान्य नीले निशान होने पर क्लिनिक फोन करें।",
+      "किसी भी इलाज से पहले डॉक्टर या डेंटिस्ट को बताएं कि आप Apixaban लेते हैं।",
+      "रोज़ अपनी नब्ज़ जांचें। अगर आराम करते समय नब्ज़ 50 से कम या 110 से ज़्यादा हो, तो फोन करें।",
+      "29 अक्टूबर 2026 को किडनी की जांच के लिए खून टेस्ट कराएं।",
+      "9 नवंबर 2026 को 11:00 बजे Dr. Anjali Mehta के पास कार्डियोलॉजी क्लिनिक जाएं।"
     ],
     "back_translation": [
-      "These are instructions for going home.",
-      "Take new medicine Apixaban 5 mg. Take it at morning 9:00 and night 9:00 o'clock. If dose missed, take it when remembered on that same day. Together 2 doses never take.",
-      "New medicine Metoprolol succinate 25 mg take. It daily morning one time take.",
+      "These are instructions for going to your home.",
+      "New medicine Apixaban 5 mg take. Take it at morning 9 o'clock and night 9 o'clock. If dose is missed, then on remembering take it that same day. Together 2 doses never take.",
+      "Metoprolol succinate 25 mg take. This daily morning one time take.",
       "aspirin 75 mg taking stop do.",
-      "Atorvastatin 20 mg at night while sleeping keep taking.",
-      "For pain ibuprofen and diclofenac do not take. paracetamol can take.",
-      "On having black or bloody stool call on 112. On having vomiting of blood or severe headache, call on 112. On injury to the head, call on 112.",
-      "On bleeding from nose for more than 10 minutes, call the clinic. On blood coming in urine, call clinic. On blue marks happening on body, call clinic.",
-      "Before any treatment, tell doctor or dentist about Apixaban.",
-      "29 October 2026 on kidney of blood test get done.",
-      "9 November 2026 on 11:00 o'clock Dr. Anjali Mehta from meet.",
-      "Daily your pulse check. Pulse 50 less than or 110 more than being on call do."
+      "Atorvastatin 20 mg at night while sleeping take continue keep.",
+      "For pain ibuprofen and diclofenac do not take. You paracetamol can take.",
+      "Black or bloody stool happening on 112 on call do. On vomiting of blood, on severe headache or on injury of head, call 112.",
+      "On bleeding of blood from nose for more than 10 minutes, call the clinic. On blood in urine or on abnormal blue marks, call the clinic.",
+      "Before any treatment tell doctor or dentist that you take Apixaban.",
+      "Daily check your pulse. If at rest time pulse 50 from less or 110 from more is, then phone do.",
+      "On 29 October 2026, get a blood test done for kidney check.",
+      "On 9 November 2026 at 11:00, go to Dr. Anjali Mehta's cardiology clinic."
     ],
     "questions": {
-      "t1": "आप कौन सी दवाएं लेंगे, कौन सी बंद करेंगे और दर्द के लिए किन चीजों से बचेंगे?",
-      "t2": "किन संकेतों पर आप क्लिनिक कॉल करेंगे, इमरजेंसी जाएंगे या डॉक्टर को बताएंगे?",
-      "t3": "आपके आने वाले अपॉइंटमेंट क्या हैं और आप घर पर किस चीज़ की जांच करेंगे?"
+      "t1": "क्या आप बता सकते हैं कि आप कौन सी दवाएं लेंगे, कौन सी बंद करेंगे और दर्द के लिए किनसे बचेंगे?",
+      "t2": "कौन से लक्षण देखकर आप क्लिनिक फोन करेंगे, इमरजेंसी जाएंगे या किसी डॉक्टर को बताएंगे?",
+      "t3": "आपके आने वाले अपॉइंटमेंट क्या हैं और आपको घर पर किस चीज़ की निगरानी करनी है?"
     },
     "lock": [
       {
         "id": "f1",
         "status": "repaired",
-        "quote": "नई दवा Apixaban 5 mg लें। इसे सुबह 9:00 और रात 9:00 बजे लें। खुराक छूटने पर उसी दिन याद आने पर लें। एक साथ 2 खुराक कभी न लें।",
-        "quote_en": "Take new medicine Apixaban 5 mg. Take it at morning 9:00 and night 9:00 o'clock. If dose missed, take it when remembered on that same day. Together 2 doses never take.",
+        "quote": "नई दवा Apixaban 5 mg लें। इसे सुबह 9 बजे और रात 9 बजे लें। अगर खुराक छूट जाए, तो याद आने पर उसी दिन लें। एक साथ 2 खुराक कभी न लें।",
+        "quote_en": "New medicine Apixaban 5 mg take. Take it at morning 9 o'clock and night 9 o'clock. If dose is missed, then on remembering take it that same day. Together 2 doses never take.",
         "problems": [],
         "rounds": 1,
         "history": [
@@ -221,7 +221,7 @@
         "id": "f2",
         "status": "locked",
         "quote": "नई दवा Metoprolol succinate 25 mg लें। इसे रोज़ सुबह एक बार लें।",
-        "quote_en": "New medicine Metoprolol succinate 25 mg take. It daily morning one time take.",
+        "quote_en": "Metoprolol succinate 25 mg take. This daily morning one time take.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -238,8 +238,8 @@
       {
         "id": "f4",
         "status": "locked",
-        "quote": "Atorvastatin 20 mg रात को सोते समय लेते रहें।",
-        "quote_en": "Atorvastatin 20 mg at night while sleeping keep taking.",
+        "quote": "Atorvastatin 20 mg रात को सोते समय लेना जारी रखें।",
+        "quote_en": "Atorvastatin 20 mg at night while sleeping take continue keep.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -247,8 +247,8 @@
       {
         "id": "f5",
         "status": "locked",
-        "quote": "दर्द के लिए ibuprofen और diclofenac न लें। paracetamol ले सकते हैं।",
-        "quote_en": "For pain ibuprofen and diclofenac do not take. paracetamol can take.",
+        "quote": "दर्द के लिए ibuprofen और diclofenac न लें। आप paracetamol ले सकते हैं।",
+        "quote_en": "For pain ibuprofen and diclofenac do not take. You paracetamol can take.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -256,52 +256,26 @@
       {
         "id": "f6",
         "status": "locked",
-        "quote": "काले या खूनी मल होने पर 112 पर कॉल करें। खून की उल्टी या तेज़ सिरदर्द होने पर 112 पर कॉल करें। सिर में चोट लगने पर 112 पर कॉल करें।",
-        "quote_en": "On having black or bloody stool call on 112. On having vomiting of blood or severe headache, call on 112. On injury to the head, call on 112.",
+        "quote": "काले या खूनी मल होने पर 112 पर कॉल करें। खून की उल्टी, तेज़ सिरदर्द या सिर की चोट पर 112 पर कॉल करें।",
+        "quote_en": "Black or bloody stool happening on 112 on call do. On vomiting of blood, on severe headache or on injury of head, call 112.",
         "problems": [],
         "rounds": 0,
         "history": []
       },
       {
         "id": "f7",
-        "status": "repaired",
-        "quote": "नाक से 10 मिनट से ज़्यादा खून बहने पर क्लिनिक कॉल करें। पेशाब में खून आने पर क्लिनिक कॉल करें। शरीर पर नीले निशान होने पर क्लिनिक कॉल करें।",
-        "quote_en": "On bleeding from nose for more than 10 minutes, call the clinic. On blood coming in urine, call clinic. On blue marks happening on body, call clinic.",
+        "status": "locked",
+        "quote": "नाक से 10 मिनट से ज़्यादा खून बहने पर क्लिनिक फोन करें। पेशाब में खून या असामान्य नीले निशान होने पर क्लिनिक फोन करें।",
+        "quote_en": "On bleeding of blood from nose for more than 10 minutes, call the clinic. On blood in urine or on abnormal blue marks, call the clinic.",
         "problems": [],
-        "rounds": 2,
-        "history": [
-          {
-            "round": 0,
-            "problems": [
-              {
-                "kind": "meaning",
-                "anchor": "खून",
-                "reason": "suspicious wording \"खून\": means 'blood' but the sentence structure is garbled and lacks a subject/verb; likely intended 'if there is blood in urine'"
-              },
-              {
-                "kind": "meaning",
-                "anchor": "नीले",
-                "reason": "suspicious wording \"नीले\": means 'blue' but likely intended 'red' or 'bloody' signs; blue is nonsensical for urine"
-              }
-            ]
-          },
-          {
-            "round": 1,
-            "problems": [
-              {
-                "kind": "anchor",
-                "anchor": "minutes",
-                "reason": "English left untranslated: \"minutes\"; write it in Hindi"
-              }
-            ]
-          }
-        ]
+        "rounds": 0,
+        "history": []
       },
       {
         "id": "f8",
         "status": "repaired",
-        "quote": "किसी भी इलाज से पहले डॉक्टर या डेंटिस्ट को Apixaban के बारे में बताएं।",
-        "quote_en": "Before any treatment, tell doctor or dentist about Apixaban.",
+        "quote": "किसी भी इलाज से पहले डॉक्टर या डेंटिस्ट को बताएं कि आप Apixaban लेते हैं।",
+        "quote_en": "Before any treatment tell doctor or dentist that you take Apixaban.",
         "problems": [],
         "rounds": 1,
         "history": [
@@ -311,7 +285,7 @@
               {
                 "kind": "meaning",
                 "anchor": "missing_detail",
-                "reason": "meaning differs (missing detail): Patient sentence omits 'before any procedure'."
+                "reason": "meaning differs (missing detail): The patient sentence omits 'before any procedure' which is a necessary condition."
               }
             ]
           }
@@ -320,8 +294,8 @@
       {
         "id": "f9",
         "status": "locked",
-        "quote": "29 अक्टूबर 2026 को किडनी की खून जांच कराएं।",
-        "quote_en": "29 October 2026 on kidney of blood test get done.",
+        "quote": "29 अक्टूबर 2026 को किडनी की जांच के लिए खून टेस्ट कराएं।",
+        "quote_en": "On 29 October 2026, get a blood test done for kidney check.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -329,8 +303,8 @@
       {
         "id": "f10",
         "status": "locked",
-        "quote": "9 नवंबर 2026 को 11:00 बजे Dr. Anjali Mehta से मिलें।",
-        "quote_en": "9 November 2026 on 11:00 o'clock Dr. Anjali Mehta from meet.",
+        "quote": "9 नवंबर 2026 को 11:00 बजे Dr. Anjali Mehta के पास कार्डियोलॉजी क्लिनिक जाएं।",
+        "quote_en": "On 9 November 2026 at 11:00, go to Dr. Anjali Mehta's cardiology clinic.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -338,8 +312,8 @@
       {
         "id": "f11",
         "status": "locked",
-        "quote": "रोज़ अपनी नब्ज जांचें। नब्ज 50 से कम या 110 से ज़्यादा होने पर कॉल करें।",
-        "quote_en": "Daily your pulse check. Pulse 50 less than or 110 more than being on call do.",
+        "quote": "रोज़ अपनी नब्ज़ जांचें। अगर आराम करते समय नब्ज़ 50 से कम या 110 से ज़्यादा हो, तो फोन करें।",
+        "quote_en": "Daily check your pulse. If at rest time pulse 50 from less or 110 from more is, then phone do.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -365,11 +339,11 @@
     {
       "step": "Write the patient version",
       "model": "Gemma-4-31B-IT",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 206938,
-      "tokens_in": 1034,
-      "tokens_out": 436,
-      "cost_usd": 0.0000312781
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 8024,
+      "tokens_in": 1140,
+      "tokens_out": 454,
+      "cost_usd": 0.0000326123
     },
     {
       "step": "Fault injected on purpose (dose doubled)",
@@ -379,184 +353,139 @@
       "note": "Apixaban: 5 changed to 10"
     },
     {
-      "step": "Back-translate every sentence (4 of 6)",
+      "step": "Back-translate every sentence (2 of 5)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 5047,
-      "tokens_in": 388,
-      "tokens_out": 35,
-      "cost_usd": 0.0000289968
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 5753,
+      "tokens_in": 393,
+      "tokens_out": 90,
+      "cost_usd": 0.0000450968
     },
     {
-      "step": "Back-translate every sentence (2 of 6)",
+      "step": "Back-translate every sentence (2 of 5)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 6325,
-      "tokens_in": 345,
-      "tokens_out": 97,
-      "cost_usd": 0.00007546
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 1987,
+      "tokens_in": 335,
+      "tokens_out": 23,
+      "cost_usd": 0.00005334
     },
     {
-      "step": "Back-translate every sentence (6 of 6)",
+      "step": "Back-translate every sentence (1 of 5)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 7123,
-      "tokens_in": 297,
-      "tokens_out": 130,
-      "cost_usd": 0.00007798
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 8076,
+      "tokens_in": 411,
+      "tokens_out": 109,
+      "cost_usd": 0.0000529368
     },
     {
-      "step": "Back-translate every sentence (5 of 6)",
+      "step": "Back-translate every sentence (3 of 5)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 7764,
-      "tokens_in": 381,
-      "tokens_out": 149,
-      "cost_usd": 0.00009506
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 9324,
+      "tokens_in": 405,
+      "tokens_out": 176,
+      "cost_usd": 0.0000708568
     },
     {
-      "step": "Back-translate every sentence (1 of 6)",
+      "step": "Back-translate every sentence (5 of 5)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 7923,
-      "tokens_in": 356,
-      "tokens_out": 130,
-      "cost_usd": 0.00008624
-    },
-    {
-      "step": "Back-translate every sentence (3 of 6)",
-      "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 11290,
-      "tokens_in": 352,
-      "tokens_out": 231,
-      "cost_usd": 0.00011396
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 9611,
+      "tokens_in": 459,
+      "tokens_out": 182,
+      "cost_usd": 0.0000800968
     },
     {
       "step": "Fact lock: find each fact's sentences",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 13484,
-      "tokens_in": 1130,
-      "tokens_out": 219,
-      "cost_usd": 0.00021952
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 12685,
+      "tokens_in": 1169,
+      "tokens_out": 215,
+      "cost_usd": 0.0001184904
     },
     {
-      "step": "Back-translate every sentence (4 of 6)",
+      "step": "Back-translate every sentence (5 of 5)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 22665,
-      "tokens_in": 388,
-      "tokens_out": 473,
-      "cost_usd": 0.0001516368
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 3269,
+      "tokens_in": 374,
+      "tokens_out": 56,
+      "cost_usd": 0.00006804
     },
     {
-      "step": "Back-translate every sentence (4 of 6)",
+      "step": "Back-translate every sentence (4 of 5)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 4462,
-      "tokens_in": 356,
-      "tokens_out": 86,
-      "cost_usd": 0.00007392
-    },
-    {
-      "step": "Fact lock: compare meaning",
-      "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 10767,
-      "tokens_in": 768,
-      "tokens_out": 233,
-      "cost_usd": 0.00017276
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 13503,
+      "tokens_in": 461,
+      "tokens_out": 276,
+      "cost_usd": 0.0001066968
     },
     {
       "step": "Fact lock: second literal reading of critical warning signs",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 13238,
-      "tokens_in": 365,
-      "tokens_out": 172,
-      "cost_usd": 0.00009926
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 6857,
+      "tokens_in": 354,
+      "tokens_out": 159,
+      "cost_usd": 0.00009408
+    },
+    {
+      "step": "Fact lock: compare meaning",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 22953,
+      "tokens_in": 846,
+      "tokens_out": 472,
+      "cost_usd": 0.0002154768
     },
     {
       "step": "Repair round 1",
       "model": "Gemma-4-31B-IT",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 10802,
-      "tokens_in": 1219,
-      "tokens_out": 150,
-      "cost_usd": 0.0000529935
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 3277,
+      "tokens_in": 1191,
+      "tokens_out": 93,
+      "cost_usd": 0.0000264488
     },
     {
       "step": "Fact lock: find each fact's sentences (after repair 1)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 3953,
-      "tokens_in": 821,
-      "tokens_out": 75,
-      "cost_usd": 0.00013594
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 9417,
+      "tokens_in": 797,
+      "tokens_out": 51,
+      "cost_usd": 0.00012586
     },
     {
-      "step": "Back-translate the repaired sentences (after repair 1) (2 of 2)",
+      "step": "Back-translate the repaired sentences (after repair 1)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 5001,
-      "tokens_in": 360,
-      "tokens_out": 95,
-      "cost_usd": 0.000077
-    },
-    {
-      "step": "Back-translate the repaired sentences (after repair 1) (1 of 2)",
-      "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 8957,
-      "tokens_in": 368,
-      "tokens_out": 199,
-      "cost_usd": 0.00010724
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 29245,
+      "tokens_in": 378,
+      "tokens_out": 94,
+      "cost_usd": 0.00007924
     },
     {
       "step": "Fact lock: compare meaning (after repair 1)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 8140,
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 3102,
       "tokens_in": 455,
-      "tokens_out": 54,
-      "cost_usd": 0.00007882
+      "tokens_out": 43,
+      "cost_usd": 0.0000406168
     },
     {
       "step": "Fact lock: second literal reading of critical warning signs (after repair 1)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 25611,
-      "tokens_in": 262,
-      "tokens_out": 176,
-      "cost_usd": 0.00008596
-    },
-    {
-      "step": "Repair round 2",
-      "model": "Gemma-4-31B-IT",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 43265,
-      "tokens_in": 993,
-      "tokens_out": 60,
-      "cost_usd": 0.0000247205
-    },
-    {
-      "step": "Fact lock: find each fact's sentences (after repair 2)",
-      "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 6379,
-      "tokens_in": 699,
-      "tokens_out": 31,
-      "cost_usd": 0.00010654
-    },
-    {
-      "step": "Fact lock: compare meaning (after repair 2)",
-      "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 2150,
-      "tokens_in": 377,
-      "tokens_out": 30,
-      "cost_usd": 0.00006118
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 8065,
+      "tokens_in": 265,
+      "tokens_out": 93,
+      "cost_usd": 0.00006314
     }
   ],
   "answers": {
@@ -609,26 +538,26 @@
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 14309,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 2863,
             "tokens_in": 112,
             "tokens_out": 71,
-            "cost_usd": 0.000007518
+            "cost_usd": 0.0000087185
           },
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 20388,
-            "tokens_in": 484,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 6124,
+            "tokens_in": 486,
             "tokens_out": 210,
-            "cost_usd": 0.0000150731
+            "cost_usd": 0.0000315385
           },
           {
             "step": "Translate the re-teach",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 47892,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 2101,
             "tokens_in": 116,
             "tokens_out": 52,
             "cost_usd": 0.0000074942
@@ -646,8 +575,8 @@
             "id": "f1",
             "verdict": "partial",
             "heard": "Apixaban at 9 am",
-            "reteach": "Take Apixaban 5 mg twice a day, at 9 am and 9 pm; never take two doses together.",
-            "reteach_patient": "Apixaban 5 mg दिन में दो बार, सुबह 9 बजे और रात 9 बजे लें; कभी भी दो खुराक एक साथ न लें।"
+            "reteach": "Take Apixaban 5 mg twice a day, at 9 am and 9 pm.",
+            "reteach_patient": "Apixaban 5 mg दिन में दो बार लें, सुबह 9 बजे और रात 9 बजे।"
           },
           {
             "id": "f2",
@@ -662,8 +591,8 @@
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 5588,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 1449,
             "tokens_in": 67,
             "tokens_out": 26,
             "cost_usd": 0.000002793
@@ -671,20 +600,20 @@
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 15507,
-            "tokens_in": 369,
-            "tokens_out": 109,
-            "cost_usd": 0.0000100492
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 5374,
+            "tokens_in": 371,
+            "tokens_out": 103,
+            "cost_usd": 0.0000096306
           },
           {
             "step": "Translate the re-teach",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 6862,
-            "tokens_in": 122,
-            "tokens_out": 61,
-            "cost_usd": 0.0000056588
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 5396,
+            "tokens_in": 116,
+            "tokens_out": 52,
+            "cost_usd": 0.0000037555
           }
         ]
       }
@@ -717,25 +646,25 @@
             "reteach": ""
           }
         ],
-        "transcript_en": "If black or blood-containing stool be, blood vomit be, very fast headache be or falling head on injury happen, then on 112 phone will do. From nose 10 minutes from more blood come, in urine blood see or without reason bruises fall then to clinic phone will do. To tooth doctor or any doctor will tell that Papa Apixaban takes.",
+        "transcript_en": "If black or blood-containing stool be, blood vomit be, very fast headache be or falling head on injury happen, then on 112 will phone. From nose 10 minutes from more blood come, in urine blood see or without reason bruises fall then clinic to will phone. To tooth doctor or any doctor will tell that Papa Apixaban takes.",
         "steps": [
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 9084,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 3175,
             "tokens_in": 136,
-            "tokens_out": 82,
-            "cost_usd": 0.0000058695
+            "tokens_out": 80,
+            "cost_usd": 0.000008988
           },
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 13382,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 4277,
             "tokens_in": 454,
             "tokens_out": 132,
-            "cost_usd": 0.0000095921
+            "cost_usd": 0.0000174811
           }
         ]
       }
@@ -771,22 +700,22 @@
         "transcript_en": "On 29 October kidney's blood test is. On 9 November at 11 o'clock doctor Anjali Mehta with have to meet. Daily pulse will see, in rest if less than 50 or more than 110 then will phone.",
         "steps": [
           {
-            "step": "Render the answer in English",
-            "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 3747,
-            "tokens_in": 101,
-            "tokens_out": 62,
-            "cost_usd": 0.000004445
-          },
-          {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 8085,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 3123,
             "tokens_in": 402,
             "tokens_out": 123,
-            "cost_usd": 0.0000089257
+            "cost_usd": 0.0000150311
+          },
+          {
+            "step": "Render the answer in English",
+            "model": "Gemma-4-31B-IT",
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 3418,
+            "tokens_in": 101,
+            "tokens_out": 62,
+            "cost_usd": 0.000006503
           }
         ]
       }

@@ -110,14 +110,18 @@ def balance_language(case: dict) -> dict:
     return {**case, "language": code, "language_name": name}
 
 
+CUSTOM_WEIGHTS: dict = {}
+CUSTOM_ERRORS: list = []
+
+
 def plan_for(rng: random.Random, facts: list[dict], hard: bool = False) -> list[dict]:
-    weights = HARD_WEIGHTS if hard else VERDICT_WEIGHTS
+    weights = CUSTOM_WEIGHTS or (HARD_WEIGHTS if hard else VERDICT_WEIGHTS)
     plan = []
     for f in facts:
         v = rng.choices(list(weights), weights=list(weights.values()))[0]
         item = {"id": f["id"], "verdict": v}
         if v == "incorrect":
-            pool = (SUBTLE if hard and rng.random() < 0.6 else ERRORS).get(f.get("category"), ["wrong_action"])
+            pool = CUSTOM_ERRORS or (SUBTLE if hard and rng.random() < 0.6 else ERRORS).get(f.get("category"), ["wrong_action"])
             err = rng.choice(pool)
             item["error"] = err
         plan.append(item)
@@ -213,6 +217,10 @@ async def main() -> None:
     ap.add_argument("--models", default="", help="comma list; rotates per topic (overrides --model)")
     ap.add_argument("--hard", action="store_true", help="more wrong answers and subtle errors")
     ap.add_argument("--n-offset", type=int, default=0, help="added to answer n so keys never collide with earlier runs")
+    ap.add_argument("--weights", default="", help="verdict weights, e.g. correct:0.2,partial:0.35,incorrect:0.4,missing:0.05")
+    ap.add_argument("--error-pool", default="", help="comma list of incorrect-error types to use for every category")
+    ap.add_argument("--categories", default="", help="only topics that contain a fact in one of these categories")
+    ap.add_argument("--lang-pool", default="", help="comma list of language codes; rotates the answer language per topic (to oversample weaker languages)")
     ap.add_argument("--cases-allow", default="", help="file with allowed case ids, one per line")
     args = ap.parse_args()
 
@@ -223,8 +231,12 @@ async def main() -> None:
     if args.limit:
         cases = cases[:args.limit]
     models = [m for m in args.models.split(",") if m] or [args.model]
-    global N_OFFSET
+    global N_OFFSET, CUSTOM_WEIGHTS, CUSTOM_ERRORS
     N_OFFSET = args.n_offset
+    if args.weights:
+        CUSTOM_WEIGHTS = {k: float(v) for k, v in (x.split(":") for x in args.weights.split(","))}
+    if args.error_pool:
+        CUSTOM_ERRORS = [x for x in args.error_pool.split(",") if x]
     out = Path(args.out)
     done = set()
     if out.exists():
@@ -232,9 +244,17 @@ async def main() -> None:
     jobs = []
     for c in cases:
         for t in c["topics"]:
+            if args.categories:
+                cats = set(args.categories.split(","))
+                if not any(f.get("category") in cats for f in c["facts"] if f["id"] in t["fact_ids"]):
+                    continue
             if (c["case_id"], t["id"]) not in done:
                 rng = random.Random(f'{args.seed}-{c["case_id"]}-{t["id"]}')
                 model = models[len(jobs) % len(models)]
+                if args.lang_pool:
+                    pool = [x for x in args.lang_pool.split(",") if x]
+                    code = pool[len(jobs) % len(pool)]
+                    c = {**c, "language": code, "language_name": dict(LANGUAGES)[code]}
                 jobs.append(one_topic_wrapped(c, t, args.k, rng, model, args.hard))
     print(f"{len(jobs)} topics to generate")
     global _client

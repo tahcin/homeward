@@ -69,16 +69,17 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--answers", default="data/answers.jsonl")
     ap.add_argument("--answers-v2", default="data/answers_v2.jsonl")
+    ap.add_argument("--answers-v3", action="append", default=[], help="further answer files (unique n, no remap), e.g. data/answers_v3.jsonl")
     ap.add_argument("--cases", default="data/cases.jsonl")
     ap.add_argument("--cases-v2", default="data/cases_v2.jsonl")
     ap.add_argument("--verify", default="data/verify.jsonl", help="verifier labels (v1 and, if present, v2)")
-    ap.add_argument("--verify-v2", default="data/verify_v2.jsonl")
+    ap.add_argument("--verify-v2", action="append", default=["data/verify_v2.jsonl"])
     ap.add_argument("--teacher", action="append", default=["data/teacher_31b.jsonl"])
     ap.add_argument("--require-teacher", action="store_true")
     ap.add_argument("--cap", type=int, default=30)
-    ap.add_argument("--near-miss-x", type=int, default=2)
+    ap.add_argument("--near-miss-x", type=float, default=1.5)
     ap.add_argument("--weak-langs", default="ta,bn,en,ar")
-    ap.add_argument("--weak-x", type=float, default=1.5)
+    ap.add_argument("--weak-x", type=float, default=1.25)
     ap.add_argument("--seed", type=int, default=16)
     ap.add_argument("--out", default="data/splits_v2")
     a = ap.parse_args()
@@ -93,12 +94,13 @@ def main():
     eval_cases = {r["case_id"] for rows in eval_sets.values() for r in rows}
     eval_hashes = {h(r["transcript"]) for rows in eval_sets.values() for r in rows}
 
-    ver = {r["key"]: r for p in (a.verify, a.verify_v2) for r in rj(p)}
+    ver = {r["key"]: r for p in [a.verify] + a.verify_v2 for r in rj(p)}
     teach = {r["key"]: r for p in a.teacher for r in rj(p)}
     # answers_v2 reuses v1 case ids with n restarting at 1, so its keys collide with v1;
     # remap v2 to n + 1000 (the teacher labels for v2 are produced on the same remapped copy).
     v2 = [dict(r, n=r["n"] + 1000 if r["n"] < 1000 else r["n"], _src="v2") for r in rj(a.answers_v2)]
-    pool = [dict(r, _src="v1") for r in rj(a.answers)] + v2
+    v3 = [dict(r, _src="v3") for p in a.answers_v3 for r in rj(p)]
+    pool = [dict(r, _src="v1") for r in rj(a.answers)] + v2 + v3
     keys = [grader.row_key(r) for r in pool]
     assert len(keys) == len(set(keys)), "duplicate answer keys in the pool"
 

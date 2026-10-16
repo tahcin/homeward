@@ -1,16 +1,16 @@
 {
  "schema": "homeward.evidence.v2",
  "source": "ml/results/eval.json",
- "generated_at": "2026-10-15 16:59 IST",
+ "generated_at": "2026-10-16 13:56 IST",
  "ours": {
-  "system_key": "e4b_lora",
+  "system_key": "homeward_run2",
   "label": "Homeward (fine-tuned)",
   "model": "Gemma 4 E4B",
-  "run": "run 1",
-  "description": "Gemma 4 E4B fine-tuned with LoRA, run 1",
+  "run": "adapter_avg",
+  "description": "Gemma 4 E4B fine-tuned with LoRA, adapter_avg",
   "base_key": "e4b_base",
   "lora": {
-   "rank": 16,
+   "rank": 32,
    "alpha": 32,
    "epochs": 2
   },
@@ -39,41 +39,41 @@
    "labels": "designed labels from the generator (not verifier-filtered)",
    "systems": [
     {
-     "id": "e4b_lora",
+     "id": "homeward_run2",
      "role": "ours",
      "label": "Homeward (fine-tuned)",
      "model": "Gemma 4 E4B",
-     "run": "run 1",
+     "run": "adapter_avg",
      "runs_on": "AMD Radeon PRO W7900D",
-     "accuracy": 88.3,
+     "accuracy": 94.1,
      "accuracy_ci": [
-      85.4,
-      91.1
+      91.4,
+      96.7
      ],
-     "macro_f1": 0.8784001650559796,
-     "false_reassurance": 5.8,
+     "macro_f1": 0.940095633045592,
+     "false_reassurance": 1.4,
      "false_reassurance_ci": [
-      2.9,
-      8.6
+      0,
+      3.2
      ],
      "false_reassurance_n": [
-      8,
+      2,
       138
      ],
      "critical_false_reassurance_n": [
-      7,
+      2,
       108
      ],
-     "over_flag": 6.5,
+     "over_flag": 2.9,
      "json_valid": 100,
      "ci_method": "case-level bootstrap, 1000 resamples",
      "paired_vs_base": {
       "base": "e4b_base",
-      "fixes": 28,
-      "breaks": 10,
-      "p": 0.0050976432976312935
+      "fixes": 41,
+      "breaks": 3,
+      "p": 1.6183321349672042e-9
      },
-     "latency_bs1_p50_s": 4.9,
+     "latency_bs1_p50_s": 5.1,
      "usd_per_discharge": null
     },
     {
@@ -107,6 +107,44 @@
      "ci_method": "case-level bootstrap, 1000 resamples",
      "paired_vs_base": null,
      "latency_bs1_p50_s": 7.4,
+     "usd_per_discharge": null
+    },
+    {
+     "id": "run1",
+     "role": "onsite",
+     "label": "Gemma 4 E4B, fine-tuned run 1",
+     "model": "Gemma 4 E4B",
+     "run": "run 1",
+     "runs_on": "AMD Radeon PRO W7900D",
+     "accuracy": 88.3,
+     "accuracy_ci": [
+      85.4,
+      91.1
+     ],
+     "macro_f1": 0.8784001650559796,
+     "false_reassurance": 5.8,
+     "false_reassurance_ci": [
+      2.9,
+      8.6
+     ],
+     "false_reassurance_n": [
+      8,
+      138
+     ],
+     "critical_false_reassurance_n": [
+      7,
+      108
+     ],
+     "over_flag": 6.5,
+     "json_valid": 100,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 28,
+      "breaks": 10,
+      "p": 0.0050976432976312935
+     },
+     "latency_bs1_p50_s": 4.9,
      "usd_per_discharge": null
     },
     {
@@ -208,41 +246,41 @@
    "labels": "designed labels from the generator (not verifier-filtered)",
    "systems": [
     {
-     "id": "e4b_lora",
+     "id": "homeward_run2",
      "role": "ours",
      "label": "Homeward (fine-tuned)",
      "model": "Gemma 4 E4B",
-     "run": "run 1",
+     "run": "adapter_avg",
      "runs_on": "AMD Radeon PRO W7900D",
-     "accuracy": 87.5,
+     "accuracy": 87,
      "accuracy_ci": [
-      85.2,
-      89.7
+      84.7,
+      89.4
      ],
-     "macro_f1": 0.8286942724268207,
-     "false_reassurance": 1.7,
+     "macro_f1": 0.8140942406852687,
+     "false_reassurance": 2.1,
      "false_reassurance_ci": [
       0.4,
-      3.1
+      4.1
      ],
      "false_reassurance_n": [
-      4,
+      5,
       239
      ],
      "critical_false_reassurance_n": [
-      2,
+      3,
       173
      ],
-     "over_flag": 3.7,
+     "over_flag": 2.9,
      "json_valid": 100,
      "ci_method": "case-level bootstrap, 1000 resamples",
      "paired_vs_base": {
       "base": "e4b_base",
-      "fixes": 54,
-      "breaks": 14,
-      "p": 0.000001109725672785106
+      "fixes": 57,
+      "breaks": 21,
+      "p": 0.00005571116486469109
      },
-     "latency_bs1_p50_s": 5.4,
+     "latency_bs1_p50_s": 5.7,
      "usd_per_discharge": null
     },
     {
@@ -276,6 +314,44 @@
      "ci_method": "case-level bootstrap, 1000 resamples",
      "paired_vs_base": null,
      "latency_bs1_p50_s": 8.6,
+     "usd_per_discharge": null
+    },
+    {
+     "id": "run1",
+     "role": "onsite",
+     "label": "Gemma 4 E4B, fine-tuned run 1",
+     "model": "Gemma 4 E4B",
+     "run": "run 1",
+     "runs_on": "AMD Radeon PRO W7900D",
+     "accuracy": 87.5,
+     "accuracy_ci": [
+      85.2,
+      89.7
+     ],
+     "macro_f1": 0.8286942724268207,
+     "false_reassurance": 1.7,
+     "false_reassurance_ci": [
+      0.4,
+      3.1
+     ],
+     "false_reassurance_n": [
+      4,
+      239
+     ],
+     "critical_false_reassurance_n": [
+      2,
+      173
+     ],
+     "over_flag": 3.7,
+     "json_valid": 100,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 54,
+      "breaks": 14,
+      "p": 0.000001109725672785106
+     },
+     "latency_bs1_p50_s": 5.4,
      "usd_per_discharge": null
     },
     {
@@ -693,10 +769,10 @@
     "answers": 110,
     "facts": 261,
     "same_as_ref_grade": 261,
-    "correct_vs_gold": 229,
-    "false_reassurance": 7,
+    "correct_vs_gold": 245,
+    "false_reassurance": 2,
     "bad_facts": 103,
-    "critical_false_reassurance": 6,
+    "critical_false_reassurance": 2,
     "critical_bad_facts": 83,
     "invalid": 0,
     "answers_with_changed_grade": 0
@@ -716,14 +792,14 @@
    "e4b/tts": {
     "answers": 110,
     "facts": 261,
-    "same_as_ref_grade": 217,
-    "correct_vs_gold": 212,
-    "false_reassurance": 2,
+    "same_as_ref_grade": 230,
+    "correct_vs_gold": 223,
+    "false_reassurance": 1,
     "bad_facts": 103,
-    "critical_false_reassurance": 2,
+    "critical_false_reassurance": 1,
     "critical_bad_facts": 83,
     "invalid": 0,
-    "answers_with_changed_grade": 32
+    "answers_with_changed_grade": 25
    },
    "e4b/human": {
     "answers": 15,
@@ -740,26 +816,26 @@
    "whisper/tts": {
     "answers": 110,
     "facts": 261,
-    "same_as_ref_grade": 222,
-    "correct_vs_gold": 208,
+    "same_as_ref_grade": 234,
+    "correct_vs_gold": 223,
     "false_reassurance": 6,
     "bad_facts": 103,
     "critical_false_reassurance": 5,
     "critical_bad_facts": 83,
     "invalid": 0,
-    "answers_with_changed_grade": 31
+    "answers_with_changed_grade": 22
    },
    "whisper/human": {
     "answers": 15,
     "facts": 24,
-    "same_as_ref_grade": 22,
-    "correct_vs_gold": 22,
+    "same_as_ref_grade": 23,
+    "correct_vs_gold": 23,
     "false_reassurance": 0,
     "bad_facts": 9,
     "critical_false_reassurance": 0,
     "critical_bad_facts": 7,
     "invalid": 0,
-    "answers_with_changed_grade": 2
+    "answers_with_changed_grade": 1
    }
   }
  },
@@ -775,29 +851,24 @@
   "by_batch": [
    {
     "batch": 16,
-    "per_hour": 5917,
+    "per_hour": 5398,
     "peak_vram_gib": 16.4
    },
    {
-    "batch": 32,
-    "per_hour": 7784,
-    "peak_vram_gib": 17.9
-   },
-   {
     "batch": 64,
-    "per_hour": 9027,
+    "per_hour": 8697,
     "peak_vram_gib": 20.6
    }
   ],
-  "discharges_per_hour_per_card": 276,
-  "grading_only_discharges_per_hour_per_card": 1505,
+  "discharges_per_hour_per_card": 274,
+  "grading_only_discharges_per_hour_per_card": 1449,
   "answers_per_discharge": 6,
   "assumptions": "6 graded answers per discharge; grading batched at 64; ASR unbatched at batch 1 (p50 of the on-prem loop clips); one card; no other load"
  },
  "training": {
   "device": "AMD Radeon PRO W7900D",
-  "examples": 672,
-  "minutes": 9.6,
-  "peak_vram_gib": 21.3
+  "examples": 2743,
+  "minutes": 43.5,
+  "peak_vram_gib": 23.5
  }
 }

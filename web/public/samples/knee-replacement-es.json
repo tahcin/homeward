@@ -2,7 +2,7 @@
   "id": "knee-replacement-es",
   "patient": "Carmen Ruiz Delgado, 69",
   "condition": "Knee replacement, daily injections at home",
-  "recorded_at": "2026-10-15T13:22:35.056Z",
+  "recorded_at": "2026-10-16T03:50:18.825Z",
   "note": "DISCHARGE INSTRUCTIONS (fictional patient, synthetic record)\nPatient: Carmen Ruiz Delgado, 69 F. Preferred language: Spanish. Discharged 15/10/2026, POD 3.\nProcedure: Right total knee arthroplasty (12/10/2026). Uncomplicated.\n\nMEDICATIONS\n- Enoxaparin 40 mg subcut injection once daily at 6 pm for 14 days, last dose 28 Oct 2026. Clot prevention. Patient taught self-injection.\n- Paracetamol 1 g PO every 6 h for pain. Max 4 g in 24 h.\n- Oxycodone 5 mg PO every 6 h PRN severe pain only. Max 4 tablets/day. Do not drive while taking it.\n- Omeprazole 20 mg PO daily before breakfast while on the pain medicines.\n- HOLD home naproxen until the surgeon review.\n\nWOUND CARE\n- Keep dressing dry and in place. May shower from 17/10/2026 with the waterproof dressing on, no baths or swimming.\n- Staple removal at the clinic on 26 Oct 2026.\n\nWHEN TO SEEK HELP\n- Calf pain or swelling, or sudden shortness of breath or chest pain (possible clot): call 112.\n- Fever over 38 °C, wound redness spreading, pus or the wound opening: call the orthopaedic ward the same day.\n\nACTIVITY\n- Physio exercises 3 times a day as taught. Walk with the walker at all times for the first 2 weeks.\n- Ice pack 20 minutes after exercises.\n\nFOLLOW-UP: Orthopaedic clinic, Dr. Luis Herrera, 10 Nov 2026 at 9:15.\n",
   "facts": [
     {
@@ -190,10 +190,10 @@
       "Tome Paracetamol 1 g cada 6 h. El máximo es de 4 g en 24 h.",
       "Tome Oxycodone 5 mg cada 6 h solo si tiene dolor fuerte. El máximo es de 4 tabletas al día. No conduzca mientras tome este medicamento.",
       "Tome Omeprazole 20 mg al día antes del desayuno mientras tome medicinas para el dolor.",
-      "Suspenda el uso de naproxen que tiene en casa hasta que el cirujano lo revise.",
+      "No tome el naproxen que tiene en casa hasta que el cirujano lo revise.",
       "Llame al 112 si tiene dolor o hinchazón en la pantorrilla. Llame también si tiene falta de aire repentina o dolor en el pecho.",
-      "Llame a la sala de ortopedia el mismo día si tiene fiebre mayor a 38 °C. Llame si nota que el enrojecimiento de la herida se extiende, si hay pus o si la herida se abre.",
-      "Vaya a la clínica para que le quiten las grapas el 26 de octubre de 2026.",
+      "Llame al servicio de ortopedia el mismo día si tiene fiebre de más de 38 °C. Llame también si hay enrojecimiento que se extiende en la herida, pus o si la herida se abre.",
+      "Vaya a la clínica para retirar los grapas el 26 de octubre de 2026.",
       "Asista a la clínica de Ortopedia con el Dr. Luis Herrera el 10 de noviembre de 2026 a las 9:15.",
       "Mantenga el vendaje seco y en su lugar. Puede ducharse desde el 17/10/2026 con el vendaje impermeable puesto. No tome baños ni nade.",
       "Haga los ejercicios de fisioterapia 3 veces al día. Use el andador en todo momento durante las primeras 2 semanas.",
@@ -203,16 +203,16 @@
       "These are the instructions to go home.",
       "Inject Enoxaparin 40 mg once a day at 18:00 during 14 days. The last dose is on 28 October 2026.",
       "Take Paracetamol 1 g every 6 h. The maximum is of 4 g in 24 h.",
-      "Take Oxycodone 5 mg every 6 h only if you have strong pain. The maximum is of 4 tablets to the day. Do not drive while you take this medication.",
-      "Take Omeprazole 20 mg a day before breakfast while take medicines for the pain.",
-      "Suspend the use of naproxen that you have at home until the surgeon reviews it.",
-      "Call to 112 if you have pain or swelling in the calf. Call also if you have lack of air sudden or pain in the chest.",
-      "Call the orthopedic ward the same day if you have fever greater than 38 °C. Call if you notice that the redness of the wound spreads, if there is pus or if the wound opens.",
-      "Go to the clinic so that they remove the staples on October 26, 2026.",
-      "Go to the orthopedic clinic with Dr. Luis Herrera on November 10, 2026 at 9:15.",
-      "Keep the bandage dry and in its place. You can shower from the 17/10/2026 with the waterproof bandage put. Do not take baths nor swim.",
+      "Take Oxycodone 5 mg each 6 h only if you have strong pain. The maximum is of 4 tablets to the day. Do not drive while you take this medication.",
+      "Tome Omeprazole 20 mg al día antes del desayuno mientras tome medicinas para el dolor.",
+      "You are an adversarial literal translator checking a Spanish patient leaflet for a discharge nurse.",
+      "Llame al 112 si tiene dolor o hinchazón en la pantorrilla. Llame también si tiene falta de aire repentina o dolor en el pecho.",
+      "Call the orthopedics service the same day if you have fever of more than 38 °C. Call also if there is redness that extends in the wound, pus or if the wound opens.",
+      "Go to the clinic to remove the staples on October 26, 2026.",
+      "Attend the Orthopedics clinic with Dr. Luis Herrera on November 10, 2026 at 9:15.",
+      "Keep the dressing dry and in its place. It can be showered from 17/10/2026 with the waterproof dressing put on. Do not take baths nor swim.",
       "Do the physiotherapy exercises 3 times a day. Use the walker at all times during the first 2 weeks.",
-      "Use an ice compress for 20 minutes after the exercises."
+      "Use an ice compress during 20 minutes after the exercises."
     ],
     "questions": {
       "t1": "¿Puede explicar cómo tomará sus medicamentos y cuáles debe suspender por ahora?",
@@ -243,7 +243,7 @@
         "id": "f3",
         "status": "locked",
         "quote": "Tome Oxycodone 5 mg cada 6 h solo si tiene dolor fuerte. El máximo es de 4 tabletas al día. No conduzca mientras tome este medicamento.",
-        "quote_en": "Take Oxycodone 5 mg every 6 h only if you have strong pain. The maximum is of 4 tablets to the day. Do not drive while you take this medication.",
+        "quote_en": "Take Oxycodone 5 mg each 6 h only if you have strong pain. The maximum is of 4 tablets to the day. Do not drive while you take this medication.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -252,7 +252,7 @@
         "id": "f4",
         "status": "locked",
         "quote": "Tome Omeprazole 20 mg al día antes del desayuno mientras tome medicinas para el dolor.",
-        "quote_en": "Take Omeprazole 20 mg a day before breakfast while take medicines for the pain.",
+        "quote_en": "Tome Omeprazole 20 mg al día antes del desayuno mientras tome medicinas para el dolor.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -260,28 +260,28 @@
       {
         "id": "f5",
         "status": "repaired",
-        "quote": "Suspenda el uso de naproxen que tiene en casa hasta que el cirujano lo revise.",
-        "quote_en": "Suspend the use of naproxen that you have at home until the surgeon reviews it.",
+        "quote": "No tome el naproxen que tiene en casa hasta que el cirujano lo revise.",
+        "quote_en": "You are an adversarial literal translator checking a Spanish patient leaflet for a discharge nurse.",
         "problems": [],
-        "rounds": 2,
+        "rounds": 1,
         "history": [
           {
             "round": 0,
             "problems": [
               {
                 "kind": "meaning",
-                "anchor": "de su casa",
-                "reason": "suspicious wording \"de su casa\": Literally 'of your house' but likely means 'from your home supply'; it is nonsensical in context."
-              }
-            ]
-          },
-          {
-            "round": 1,
-            "problems": [
+                "anchor": "Suspenda",
+                "reason": "suspicious wording \"Suspenda\""
+              },
               {
                 "kind": "meaning",
-                "anchor": "negation",
-                "reason": "meaning differs (negation): The fact says to hold the naproxen until the surgeon reviews, but the patient sentence says do not take the naproxen until the surgeon reviews, which is a negation of the instruction."
+                "anchor": "de su casa",
+                "reason": "suspicious wording \"de su casa\""
+              },
+              {
+                "kind": "meaning",
+                "anchor": "cirujano",
+                "reason": "suspicious wording \"cirujano\""
               }
             ]
           }
@@ -291,16 +291,34 @@
         "id": "f6",
         "status": "locked",
         "quote": "Mantenga el vendaje seco y en su lugar. Puede ducharse desde el 17/10/2026 con el vendaje impermeable puesto. No tome baños ni nade.",
-        "quote_en": "Keep the bandage dry and in its place. You can shower from the 17/10/2026 with the waterproof bandage put. Do not take baths nor swim.",
+        "quote_en": "Keep the dressing dry and in its place. It can be showered from 17/10/2026 with the waterproof dressing put on. Do not take baths nor swim.",
         "problems": [],
         "rounds": 0,
         "history": []
       },
       {
         "id": "f7",
+        "status": "locked",
+        "quote": "Vaya a la clínica para retirar los grapas el 26 de octubre de 2026.",
+        "quote_en": "Go to the clinic to remove the staples on October 26, 2026.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f8",
+        "status": "locked",
+        "quote": "Llame al 112 si tiene dolor o hinchazón en la pantorrilla. Llame también si tiene falta de aire repentina o dolor en el pecho.",
+        "quote_en": "Llame al 112 si tiene dolor o hinchazón en la pantorrilla. Llame también si tiene falta de aire repentina o dolor en el pecho.",
+        "problems": [],
+        "rounds": 0,
+        "history": []
+      },
+      {
+        "id": "f9",
         "status": "repaired",
-        "quote": "Vaya a la clínica para que le quiten las grapas el 26 de octubre de 2026.",
-        "quote_en": "Go to the clinic so that they remove the staples on October 26, 2026.",
+        "quote": "Llame al servicio de ortopedia el mismo día si tiene fiebre de más de 38 °C. Llame también si hay enrojecimiento que se extiende en la herida, pus o si la herida se abre.",
+        "quote_en": "Call the orthopedics service the same day if you have fever of more than 38 °C. Call also if there is redness that extends in the wound, pus or if the wound opens.",
         "problems": [],
         "rounds": 1,
         "history": [
@@ -309,30 +327,12 @@
             "problems": [
               {
                 "kind": "meaning",
-                "anchor": "missing_detail",
-                "reason": "meaning differs (missing detail)"
+                "anchor": "planta",
+                "reason": "suspicious wording \"planta\": In medical context, 'planta' means 'plant' (botanical), not 'office' or 'clinic'; likely meant 'planta' as in 'floor' but here nonsensical."
               }
             ]
           }
         ]
-      },
-      {
-        "id": "f8",
-        "status": "locked",
-        "quote": "Llame al 112 si tiene dolor o hinchazón en la pantorrilla. Llame también si tiene falta de aire repentina o dolor en el pecho.",
-        "quote_en": "Call to 112 if you have pain or swelling in the calf. Call also if you have lack of air sudden or pain in the chest.",
-        "problems": [],
-        "rounds": 0,
-        "history": []
-      },
-      {
-        "id": "f9",
-        "status": "locked",
-        "quote": "Llame a la sala de ortopedia el mismo día si tiene fiebre mayor a 38 °C. Llame si nota que el enrojecimiento de la herida se extiende, si hay pus o si la herida se abre.",
-        "quote_en": "Call the orthopedic ward the same day if you have fever greater than 38 °C. Call if you notice that the redness of the wound spreads, if there is pus or if the wound opens.",
-        "problems": [],
-        "rounds": 0,
-        "history": []
       },
       {
         "id": "f10",
@@ -347,7 +347,7 @@
         "id": "f11",
         "status": "locked",
         "quote": "Use una compresa de hielo durante 20 minutos después de los ejercicios.",
-        "quote_en": "Use an ice compress for 20 minutes after the exercises.",
+        "quote_en": "Use an ice compress during 20 minutes after the exercises.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -356,7 +356,7 @@
         "id": "f12",
         "status": "locked",
         "quote": "Asista a la clínica de Ortopedia con el Dr. Luis Herrera el 10 de noviembre de 2026 a las 9:15.",
-        "quote_en": "Go to the orthopedic clinic with Dr. Luis Herrera on November 10, 2026 at 9:15.",
+        "quote_en": "Attend the Orthopedics clinic with Dr. Luis Herrera on November 10, 2026 at 9:15.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -376,164 +376,146 @@
     {
       "step": "Write the patient version",
       "model": "Gemma-4-31B-IT",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 27360,
-      "tokens_in": 1207,
-      "tokens_out": 541,
-      "cost_usd": 0.0000799435
-    },
-    {
-      "step": "Back-translate every sentence (6 of 6)",
-      "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 6533,
-      "tokens_in": 307,
-      "tokens_out": 110,
-      "cost_usd": 0.00007378
-    },
-    {
-      "step": "Back-translate every sentence (5 of 6)",
-      "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 7636,
-      "tokens_in": 341,
-      "tokens_out": 141,
-      "cost_usd": 0.00008722
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 11202,
+      "tokens_in": 1311,
+      "tokens_out": 537,
+      "cost_usd": 0.0000668738
     },
     {
       "step": "Fact lock: find each fact's sentences",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 11031,
-      "tokens_in": 1249,
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 11370,
+      "tokens_in": 1245,
       "tokens_out": 235,
-      "cost_usd": 0.00024066
+      "cost_usd": 0.0002401
     },
     {
-      "step": "Back-translate every sentence (2 of 6)",
+      "step": "Back-translate every sentence (6 of 6)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 13603,
-      "tokens_in": 334,
-      "tokens_out": 292,
-      "cost_usd": 0.00012852
-    },
-    {
-      "step": "Back-translate every sentence (4 of 6)",
-      "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 15632,
-      "tokens_in": 394,
-      "tokens_out": 331,
-      "cost_usd": 0.0001127168
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 14007,
+      "tokens_in": 355,
+      "tokens_out": 108,
+      "cost_usd": 0.00007994
     },
     {
       "step": "Back-translate every sentence (1 of 6)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 6245,
-      "tokens_in": 346,
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 15126,
+      "tokens_in": 394,
       "tokens_out": 136,
-      "cost_usd": 0.00008652
+      "cost_usd": 0.00009324
+    },
+    {
+      "step": "Back-translate every sentence (2 of 6)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 15711,
+      "tokens_in": 382,
+      "tokens_out": 148,
+      "cost_usd": 0.00009492
+    },
+    {
+      "step": "Back-translate every sentence (5 of 6)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 17557,
+      "tokens_in": 389,
+      "tokens_out": 200,
+      "cost_usd": 0.0000753368
     },
     {
       "step": "Back-translate every sentence (3 of 6)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 16846,
-      "tokens_in": 362,
-      "tokens_out": 363,
-      "cost_usd": 0.00015232
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 29436,
+      "tokens_in": 408,
+      "tokens_out": 429,
+      "cost_usd": 0.0001421168
+    },
+    {
+      "step": "Back-translate every sentence (4 of 6)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 22105,
+      "tokens_in": 440,
+      "tokens_out": 417,
+      "cost_usd": 0.0001432368
     },
     {
       "step": "Fact lock: second literal reading of critical warning signs",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 2700,
-      "tokens_in": 360,
-      "tokens_out": 44,
-      "cost_usd": 0.00006272
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 3244,
+      "tokens_in": 264,
+      "tokens_out": 45,
+      "cost_usd": 0.00004956
     },
     {
       "step": "Fact lock: compare meaning",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 10834,
-      "tokens_in": 1025,
-      "tokens_out": 214,
-      "cost_usd": 0.0001682968
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 11023,
+      "tokens_in": 956,
+      "tokens_out": 246,
+      "cost_usd": 0.00020272
     },
     {
       "step": "Repair round 1",
       "model": "Gemma-4-31B-IT",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 60202,
-      "tokens_in": 1126,
-      "tokens_out": 73,
-      "cost_usd": 0.0000440741
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 3893,
+      "tokens_in": 1290,
+      "tokens_out": 94,
+      "cost_usd": 0.0000343742
     },
     {
       "step": "Fact lock: find each fact's sentences (after repair 1)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 3422,
-      "tokens_in": 660,
-      "tokens_out": 39,
-      "cost_usd": 0.00010332
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 6248,
+      "tokens_in": 656,
+      "tokens_out": 43,
+      "cost_usd": 0.00010388
     },
     {
       "step": "Back-translate the repaired sentences (after repair 1)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 5805,
-      "tokens_in": 318,
-      "tokens_out": 114,
-      "cost_usd": 0.00007644
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 32665,
+      "tokens_in": 397,
+      "tokens_out": 33,
+      "cost_usd": 0.0000296968
+    },
+    {
+      "step": "Back-translate the repaired sentences (after repair 1)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 3790,
+      "tokens_in": 374,
+      "tokens_out": 71,
+      "cost_usd": 0.00007224
+    },
+    {
+      "step": "Fact lock: second literal reading of critical warning signs (after repair 1)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 9520,
+      "tokens_in": 291,
+      "tokens_out": 209,
+      "cost_usd": 0.00009926
     },
     {
       "step": "Fact lock: compare meaning (after repair 1)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 6301,
-      "tokens_in": 395,
-      "tokens_out": 113,
-      "cost_usd": 0.0000518168
-    },
-    {
-      "step": "Repair round 2",
-      "model": "Gemma-4-31B-IT",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 7103,
-      "tokens_in": 1067,
-      "tokens_out": 38,
-      "cost_usd": 0.0000204883
-    },
-    {
-      "step": "Fact lock: find each fact's sentences (after repair 2)",
-      "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 1831,
-      "tokens_in": 616,
-      "tokens_out": 23,
-      "cost_usd": 0.00009268
-    },
-    {
-      "step": "Back-translate the repaired sentences (after repair 2)",
-      "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 6823,
-      "tokens_in": 292,
-      "tokens_out": 133,
-      "cost_usd": 0.00007812
-    },
-    {
-      "step": "Fact lock: compare meaning (after repair 2)",
-      "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 9705,
-      "tokens_in": 347,
-      "tokens_out": 30,
-      "cost_usd": 0.00005698
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 91457,
+      "tokens_in": 431,
+      "tokens_out": 88,
+      "cost_usd": 0.0000498568
     }
   ],
   "answers": {
@@ -552,8 +534,8 @@
             "id": "f1",
             "verdict": "incorrect",
             "heard": "Enoxaparin 40 mg once daily at 6 pm for one week",
-            "reteach": "You need to continue the Enoxaparin injections for 14 days, with the last dose on October 28, 2026.",
-            "reteach_patient": "Usted debe continuar las inyecciones de Enoxaparin por 14 días, con la última dosis el 28 de octubre de 2026."
+            "reteach": "Continue the Enoxaparin injections for 14 days, with the final dose on October 28, 2026.",
+            "reteach_patient": "Continúe las inyecciones de Enoxaparin por 14 días, con la dosis final el 28 de octubre de 2026."
           },
           {
             "id": "f2",
@@ -585,29 +567,29 @@
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 8247,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 2721,
             "tokens_in": 159,
             "tokens_out": 117,
-            "cost_usd": 0.0000083356
+            "cost_usd": 0.0000133777
           },
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 17710,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 5913,
             "tokens_in": 539,
-            "tokens_out": 302,
-            "cost_usd": 0.0000215516
+            "tokens_out": 299,
+            "cost_usd": 0.000031906
           },
           {
             "step": "Translate the re-teach",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 117300,
-            "tokens_in": 107,
-            "tokens_out": 43,
-            "cost_usd": 0.0000031192
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 1732,
+            "tokens_in": 104,
+            "tokens_out": 42,
+            "cost_usd": 0.0000064085
           }
         ]
       },
@@ -629,8 +611,8 @@
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 45324,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 1701,
             "tokens_in": 94,
             "tokens_out": 49,
             "cost_usd": 0.000005348
@@ -638,11 +620,11 @@
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 91678,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 3239,
             "tokens_in": 351,
             "tokens_out": 56,
-            "cost_usd": 0.0000042
+            "cost_usd": 0.0000070812
           }
         ]
       }
@@ -673,8 +655,8 @@
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 10028,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 2441,
             "tokens_in": 121,
             "tokens_out": 70,
             "cost_usd": 0.000007763
@@ -682,8 +664,8 @@
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 43289,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 3052,
             "tokens_in": 406,
             "tokens_out": 132,
             "cost_usd": 0.0000158011
@@ -709,7 +691,7 @@
           {
             "id": "f10",
             "verdict": "correct",
-            "heard": "Exercises 3 times a day and use walker always for first 2 weeks",
+            "heard": "Exercises 3x daily and use walker always for first 2 weeks",
             "reteach": ""
           },
           {
@@ -724,8 +706,8 @@
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 9768,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 1940,
             "tokens_in": 115,
             "tokens_out": 66,
             "cost_usd": 0.000007273
@@ -733,11 +715,11 @@
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 34971,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 2860,
             "tokens_in": 419,
-            "tokens_out": 171,
-            "cost_usd": 0.0000189861
+            "tokens_out": 122,
+            "cost_usd": 0.0000154875
           }
         ]
       }
@@ -763,13 +745,13 @@
             "reteach": ""
           }
         ],
-        "transcript_en": "On October 26 they take out the staples for me in the consultation, and November 10 at 9 and quarter I see doctor Herrera.",
+        "transcript_en": "On October 26 they take out the staples from me in the consultation, and November 10 at 9 and quarter I see doctor Herrera.",
         "steps": [
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 16280,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 1933,
             "tokens_in": 83,
             "tokens_out": 37,
             "cost_usd": 0.000004123
@@ -777,8 +759,8 @@
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 21196,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 2085,
             "tokens_in": 346,
             "tokens_out": 80,
             "cost_usd": 0.0000100611

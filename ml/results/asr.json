@@ -1,6 +1,6 @@
 {
  "schema": "homeward.asr.v1",
- "generated_at": "2026-10-15 16:22:06 IST",
+ "generated_at": "2026-10-16 13:54:32 IST",
  "clips": {
   "tts": 110,
   "human": 15
@@ -626,10 +626,10 @@
    "answers": 110,
    "facts": 261,
    "same_as_ref_grade": 261,
-   "correct_vs_gold": 229,
-   "false_reassurance": 7,
+   "correct_vs_gold": 245,
+   "false_reassurance": 2,
    "bad_facts": 103,
-   "critical_false_reassurance": 6,
+   "critical_false_reassurance": 2,
    "critical_bad_facts": 83,
    "invalid": 0,
    "answers_with_changed_grade": 0
@@ -649,14 +649,14 @@
   "e4b/tts": {
    "answers": 110,
    "facts": 261,
-   "same_as_ref_grade": 217,
-   "correct_vs_gold": 212,
-   "false_reassurance": 2,
+   "same_as_ref_grade": 230,
+   "correct_vs_gold": 223,
+   "false_reassurance": 1,
    "bad_facts": 103,
-   "critical_false_reassurance": 2,
+   "critical_false_reassurance": 1,
    "critical_bad_facts": 83,
    "invalid": 0,
-   "answers_with_changed_grade": 32
+   "answers_with_changed_grade": 25
   },
   "e4b/human": {
    "answers": 15,
@@ -673,26 +673,26 @@
   "whisper/tts": {
    "answers": 110,
    "facts": 261,
-   "same_as_ref_grade": 222,
-   "correct_vs_gold": 208,
+   "same_as_ref_grade": 234,
+   "correct_vs_gold": 223,
    "false_reassurance": 6,
    "bad_facts": 103,
    "critical_false_reassurance": 5,
    "critical_bad_facts": 83,
    "invalid": 0,
-   "answers_with_changed_grade": 31
+   "answers_with_changed_grade": 22
   },
   "whisper/human": {
    "answers": 15,
    "facts": 24,
-   "same_as_ref_grade": 22,
-   "correct_vs_gold": 22,
+   "same_as_ref_grade": 23,
+   "correct_vs_gold": 23,
    "false_reassurance": 0,
    "bad_facts": 9,
    "critical_false_reassurance": 0,
    "critical_bad_facts": 7,
    "invalid": 0,
-   "answers_with_changed_grade": 2
+   "answers_with_changed_grade": 1
   }
  },
  "meta": {

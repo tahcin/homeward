@@ -1,0 +1,13 @@
+{
+ "system": "gemma4_31b",
+ "model": "Gemma-4-31B-IT",
+ "rows": 60,
+ "errors": 0,
+ "prompt_tokens": 20930,
+ "completion_tokens": 6710,
+ "latency_p50_s": 282.94609320163727,
+ "latency_p95_s": 554.9404817223549,
+ "json_mode": false,
+ "reasoning_effort": null,
+ "note": "latency includes Token Factory queueing under the shared 20 requests/minute limit"
+}

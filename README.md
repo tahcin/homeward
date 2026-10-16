@@ -44,14 +44,18 @@ Why a small model on site: hospitals should not send patient data to a cloud API
 
 All numbers are measured; details, confidence intervals and commands are in [ml/results/eval.md](ml/results/eval.md).
 
-**Teach-back grading** on an independent test set the training-data generator never saw ([N] answers, [N] facts, 12 languages, written by a different model family with messy, code-mixed phrasing):
+**Teach-back grading** on an independent test set the training-data generator never saw (150 answers, 341 facts, 12 languages, written by Claude, a different model family from the data generator, with messy, code-mixed phrasing):
 
 | System | Per-fact accuracy | Macro-F1 | Critical misses graded "understood" (false reassurance) |
 |---|---|---|---|
-| Gemma 4 E4B base (W7900D) | [ ] | [ ] | [ ] |
-| **Gemma 4 E4B fine-tuned (W7900D)** | [ ] | [ ] | [ ] |
-| Gemma 4 31B (Token Factory) | [ ] | [ ] | [ ] |
-| DeepSeek V4 Flash (Token Factory) | [ ] | [ ] | [ ] |
+| Gemma 4 E4B base (W7900D) | 83.0% (80.6–85.8) | 0.832 | 5 of 108 |
+| **Homeward: Gemma 4 E4B fine-tuned (W7900D)** | **94.1% (91.4–96.7)** | **0.940** | **2 of 108** |
+| Gemma 4 31B (Token Factory) | 97.1% (94.9–99.1) | 0.971 | 1 of 108 |
+| DeepSeek V4 Flash (Token Factory) | 79.2% | 0.817 | 3 of 108 |
+
+The fine-tune fixes 41 facts the base model got wrong and breaks 3 (exact McNemar p = 1.6e-9). It was chosen on a separate validation set with a safety-first rule (zero critical misses, then fewest total misses, then fewest re-checks) before the test set was scored once. Training: 2,743 rows labelled by agreement between the generator's design, Gemma 4 31B and a second model; 2 epochs, 43.5 minutes on one AMD Radeon PRO W7900D.
+
+**Fact lock** on 24 synthetic notes in 8 languages with planted errors: 16 of 17 caught (every wrong dose, date, frequency and dropped negation); 1 missed (a dropped warning symptom). Details: [ml/results/lock_bench.md](ml/results/lock_bench.md).
 
 **Speech recognition** on 15 real recordings (Hindi, Bengali, English; the author's own voice reading scripted answers), word error rate:
 

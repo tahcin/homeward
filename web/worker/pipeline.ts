@@ -7,6 +7,7 @@ import { CATEGORIES, langByCode } from "../shared/types.ts";
 import type { AnchorProblem, Fact, FactGrade, Fault, Level, LockResult, MeaningIssue, PatientVersion, PrepareEvent, Topic, Verdict } from "../shared/types.ts";
 import { inventedNumbers, numberTokens, splitLeaflet, strayEnglish, verifyFact } from "./lock.ts";
 import { HIGH_RISK_HINT, highRiskGroup } from "./rules.ts";
+import { cleanAnchors, compareMed, missingItems, notEnglishComplaint, tidyDuplicateBrackets, type ItemCheck, type MedTuple } from "./structured.ts";
 import { chat, TF_HOST, type Env, type Meter, type ModelRef } from "./tf.ts";
 
 const GEMMA = "Gemma-4-31B-IT";
@@ -31,7 +32,7 @@ const EXTRACT_USER = `Discharge note:
 
 Return JSON with exactly these keys:
 - "facts": 5-14 facts. Each is {"id": "f1", "category": one of ${JSON.stringify(CATEGORIES)}, "critical": true if misunderstanding it could cause serious harm (always true for any new, changed or continued ${HIGH_RISK_HINT}), "statement": one plain-English sentence the patient could follow, "label": a 3-9 word summary a nurse can scan: the medicine or topic first, then the action (start, stop, change, call) and the key dose, times or threshold (for example "Apixaban: twice a day, 9 am and 9 pm" or "Call 112: bleeding, head injury"), "anchors": tokens that must survive any translation, copied character for character from the statement}.
-  Anchors are only: medicine names (always, for medicine facts), numbers with their units (doses, weights, thresholds, durations), times, dates, and names of people. Never use ordinary words or clinic names as anchors.
+  Anchors are only: medicine names (always, for medicine facts), numbers with their units (doses, weights, thresholds, durations), times, dates, and names of people. Never use ordinary words, body parts, symptoms, frequency words ("twice a day") or clinic names as anchors.
   One fact per medicine (dose, timing and any change together; say clearly if it is new, changed, paused or stopped, and for a dose change give both the old and the new dose), one per group of warning signs (with what to do and whom to call), one per appointment or test, one per limit or self-check.
   Cover every medicine, warning sign, follow-up and limit in the note. Write statements with no abbreviations (BID = twice a day, PRN = only when needed, SOB = shortness of breath, HF = heart failure).
 - "topics": 2-5 teach-back topics. Each is {"id": "t1", "question": an open question in plain words that a nurse asks so the patient explains in their own words, "fact_ids": the facts it checks}. Every fact belongs to exactly one topic. Group related facts (medicines together, warning signs together, appointments together).
@@ -72,7 +73,7 @@ export function tidyCase(raw: any): Extracted {
     const category = (CATEGORIES as readonly string[]).includes(f?.category) ? f.category : "medication";
     const lower = statement.toLowerCase();
     const rawAnchors: string[] = (Array.isArray(f?.anchors) ? f.anchors : []).map((a: unknown) => String(a).trim());
-    const anchors = [...new Set(rawAnchors)].filter((a) => a && lower.includes(a.toLowerCase()));
+    const anchors = cleanAnchors(statement, [...new Set(rawAnchors)].filter((a) => a && lower.includes(a.toLowerCase())));
     const label = typeof f?.label === "string" && f.label.trim() ? f.label.trim().slice(0, 80) : undefined;
     // High-risk medicine classes are critical by default, whatever the model said; the nurse can still untick them.
     const critical = Boolean(f?.critical) || highRiskGroup(category, statement) !== null;
@@ -166,7 +167,7 @@ Rules:
 1. Write in ${langName}, speaking to the patient as "you". ${LEVEL_RULES[level]}
 2. Every fact must be stated in its own sentence (or two), complete enough to act on.
 3. Inside the sentence for each fact, keep its anchors safe:
-   - Medicine names: if ${langName} has its own name for the medicine, write that first and the name from the box label in brackets, in Latin letters exactly as given (for example "paracetamolo (paracetamol)"); if the names are the same, write it once as given.
+   - Medicine names: if ${langName} has its own name for the medicine, write that first and the name from the box label in brackets, in Latin letters exactly as given (for example "paracetamolo (paracetamol)"); if the names are the same (ignoring capital letters), write it once, as given, with no brackets.
    - People: keep their names as written; use the usual ${langName} title for a doctor (for example "Dott.ssa" or "Dott." in Italian, "Dra." or "Dr." in Spanish).
    - Numbers: digits 0-9 with the same value (40, 10:30), written with the decimal separator ${langName} uses (2,5 in Italian, Spanish, Portuguese, French and Vietnamese; 2.5 otherwise).
    - Units exactly as written (mg, ml, L, g, kg, mmHg, °C).
@@ -182,7 +183,7 @@ interface Draft {
   paragraphs: string[];
 }
 const acceptDraft = (d: any) => typeof d?.title === "string" && Array.isArray(d?.paragraphs) && d.paragraphs.length > 0 && d.paragraphs.every((p: unknown) => typeof p === "string");
-const tidyDraft = (d: any): Draft => ({ title: String(d.title).trim(), paragraphs: d.paragraphs.map((p: string) => p.trim()).filter(Boolean) });
+const tidyDraft = (d: any): Draft => ({ title: String(d.title).trim(), paragraphs: d.paragraphs.map((p: string) => tidyDuplicateBrackets(p.trim())).filter(Boolean) });
 
 async function write(env: Env, meter: Meter, facts: Fact[], topics: Topic[], langName: string, level: Level) {
   const r = await chat(env, meter, {
@@ -312,6 +313,9 @@ async function repair(
       own.slice(1).forEach((id) => replaced.set(id, ""));
     } else {
       const shared = (picked[e.id] ?? []).at(-1);
+      // Never add a sentence that is already in the leaflet: the fact will simply be checked again.
+      const already = splitLeaflet([text]).every((x) => sentences.some((y) => y.text.trim() === x.text.trim()));
+      if (already) continue;
       if (shared) replaced.set(shared, `${replaced.get(shared) ?? byId.get(shared)!.text} ${text}`);
       else appended.push(text);
     }
@@ -335,6 +339,7 @@ const selfCleared = (why: string) => /\b(no error|is correct|it is correct|here 
 const BACK_SYSTEM = (langName: string) => `You are an adversarial literal translator checking a ${langName} patient leaflet for a discharge nurse. Translate each sentence into English word for word.
 - Preserve every error exactly. If a word is wrong, misspelled, nonsensical or means something else, translate what it actually says, not what the writer probably meant (a word meaning "addiction" stays "addiction" even if "stool" was intended).
 - Never infer, smooth over or correct. Keep every number, negation and time exactly as written.
+- Words in the leaflet's own script and language are expected: never flag a word for not being English or for how it would be transliterated.
 - You do not have the original document. Never mark a word wrong because you suspect the original meant something else (a different number, frequency or duration); judge only whether each word is wrong or nonsensical in the ${langName} sentence itself.
 - Judge as a careful native speaker: everyday idiomatic expressions are correct even when a dictionary gloss differs; translate them by their idiomatic meaning.
 - List as "suspicious" any word or phrase that is wrong, nonsensical, the wrong medical term, or likely to mislead a patient. Give each a severity: "wrong" when it changes the meaning or makes no sense, "awkward" when it is understandable but unusual.
@@ -391,7 +396,7 @@ async function backTranslate(
             suspects.set(
               t,
               sus
-                .filter((x: any) => x && typeof x.word === "string" && x.word.trim() && x.severity === "wrong" && !selfCleared(String(x.why ?? "")))
+                .filter((x: any) => x && typeof x.word === "string" && x.word.trim() && x.severity === "wrong" && !selfCleared(String(x.why ?? "")) && !notEnglishComplaint(String(x.why ?? "")))
                 .map((x: any) => ({ word: String(x.word).trim(), why: String(x.why ?? "").trim() })),
             );
           });
@@ -433,9 +438,91 @@ async function secondReading(env: Env, meter: Meter, items: { fact: Fact; quote:
   const out: Record<string, Suspect[]> = {};
   for (const { fact } of items) {
     const sus = r.data?.[fact.id]?.suspicious;
-    out[fact.id] = Array.isArray(sus) ? sus.filter((x: any) => x && typeof x.word === "string" && x.word.trim() && x.severity === "wrong" && !selfCleared(String(x.why ?? ""))).map((x: any) => ({ word: String(x.word).trim(), why: String(x.why ?? "").trim() })) : [];
+    out[fact.id] = Array.isArray(sus) ? sus.filter((x: any) => x && typeof x.word === "string" && x.word.trim() && x.severity === "wrong" && !selfCleared(String(x.why ?? "")) && !notEnglishComplaint(String(x.why ?? ""))).map((x: any) => ({ word: String(x.word).trim(), why: String(x.why ?? "").trim() })) : [];
   }
   return out;
+}
+
+// ---------------------------------------------------------------- structured checks (compared in code)
+
+const MED_FIELDS = `{"drug": "...", "dose_value": number or null, "dose_unit": "mg" or null, "times_per_day": number or null, "every_n_hours": number or null, "time_of_day": ["morning", "9 pm", ...], "duration_days": number or null, "action": "take|start|continue|stop|avoid|hold" or null, "negated": true or false, "as_needed": true or false, "max_per_day": number or null}`;
+
+interface FactStructure {
+  meds: Record<string, MedTuple>;
+  warnings: Record<string, string[]>;
+}
+
+/** Once per patient version, from the confirmed English facts: medicine fields and warning-sign items. */
+async function factStructure(env: Env, meter: Meter, facts: Fact[]): Promise<FactStructure | null> {
+  const meds = facts.filter((f) => f.category.startsWith("medication"));
+  const warns = facts.filter((f) => f.category === "warning_sign");
+  if (!meds.length && !warns.length) return { meds: {}, warnings: {} };
+  try {
+    const r = await chat(env, meter, {
+      step: "Structure the facts (medicine fields, warning-sign items)",
+      models: CHECKER,
+      json: true,
+      maxTokens: 3000,
+      temperature: 0,
+      messages: [
+        {
+          role: "system",
+          content: `You turn discharge facts into fields for an automatic check. Use only what each fact says; null when it does not say. For each medicine fact give ${MED_FIELDS}. For each warning-sign fact list every separate symptom, sign or threshold it names, as short phrases (not the action to take). Reply with JSON only: {"meds": {"f1": {...}}, "warnings": {"f6": ["...", "..."]}}`,
+        },
+        {
+          role: "user",
+          content: `Medicine facts:\n${meds.map((f) => `- ${f.id}: ${f.statement}`).join("\n") || "(none)"}\n\nWarning-sign facts:\n${warns.map((f) => `- ${f.id}: ${f.statement}`).join("\n") || "(none)"}`,
+        },
+      ],
+      accept: (d) => d && typeof d === "object",
+    });
+    const out: FactStructure = { meds: {}, warnings: {} };
+    for (const f of meds) if (r.data?.meds?.[f.id] && typeof r.data.meds[f.id] === "object") out.meds[f.id] = r.data.meds[f.id];
+    for (const f of warns) if (Array.isArray(r.data?.warnings?.[f.id])) out.warnings[f.id] = r.data.warnings[f.id].map(String).filter(Boolean);
+    return out;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * From the literal back-translation of each fact's sentences: the same medicine fields, and which warning-sign
+ * items appear (with the exact words). Code then compares field by field and requires every item.
+ */
+async function patientStructure(
+  env: Env,
+  meter: Meter,
+  meds: { id: string; text: string }[],
+  warns: { id: string; items: string[]; text: string }[],
+  label: string,
+): Promise<{ meds: Record<string, MedTuple>; warnings: Record<string, ItemCheck[]> } | null> {
+  if (!meds.length && !warns.length) return { meds: {}, warnings: {} };
+  try {
+    const r = await chat(env, meter, {
+      step: label,
+      models: CHECKER,
+      json: true,
+      maxTokens: 3000,
+      temperature: 0,
+      messages: [
+        {
+          role: "system",
+          content: `You read sentences from a patient leaflet (already translated into English word for word) for an automatic check. Use only what each sentence itself says, never what it probably meant; null when it does not say. For each medicine item give ${MED_FIELDS}. For each warning item, say for every listed symptom whether the sentence mentions it, and copy the exact words from the sentence that mention it. Reply with JSON only: {"meds": {"f1": {...}}, "warnings": {"f6": [{"item": "...", "present": true, "span": "exact words"}]}}`,
+        },
+        {
+          role: "user",
+          content: `Medicine items:\n${meds.map((m) => `- ${m.id}: ${m.text}`).join("\n") || "(none)"}\n\nWarning items:\n${warns.map((w) => `- ${w.id}: ${w.text}\n  symptoms to look for: ${JSON.stringify(w.items)}`).join("\n") || "(none)"}`,
+        },
+      ],
+      accept: (d) => d && typeof d === "object",
+    });
+    const out = { meds: {} as Record<string, MedTuple>, warnings: {} as Record<string, ItemCheck[]> };
+    for (const m of meds) if (r.data?.meds?.[m.id] && typeof r.data.meds[m.id] === "object") out.meds[m.id] = r.data.meds[m.id];
+    for (const w of warns) if (Array.isArray(r.data?.warnings?.[w.id])) out.warnings[w.id] = r.data.warnings[w.id];
+    return out;
+  } catch {
+    return null;
+  }
 }
 
 // ---------------------------------------------------------------- deliberate faults (to watch the lock work)
@@ -551,15 +638,31 @@ async function sabotage(env: Env, meter: Meter, draft: Draft, facts: Fact[], kin
         },
         { role: "user", content: `Fact: ${f.statement}\n\nLeaflet:\n${sentences.map((x) => `[${x.id}] ${x.text}`).join("\n")}` },
       ],
-      accept: (d) => typeof d?.sentence_id === "string" && typeof d?.new === "string" && d.new.trim().length > 0,
+      accept: (d) => (typeof d?.sentence_id === "string" || typeof d?.sentence_id === "number") && typeof d?.new === "string" && d.new.trim().length > 0,
     }).catch(() => null);
-    if (!r) continue;
-    const hit = sentences.find((x) => x.id === r.data.sentence_id);
+    const why = (note: string) => meter.add({ step: `Fault not injected for ${f.id}`, model: "code", host: "Homeward Worker", ms: 0, note });
+    if (!r) {
+      why("the model gave no usable answer");
+      continue;
+    }
+    // Models answer "s3", "3" or 3: accept any of them.
+    const sid = String(r.data.sentence_id).trim();
+    const hit = sentences.find((x) => x.id === sid || x.id === `s${sid.replace(/^s/i, "")}`);
     const after = String(r.data.new).trim();
-    if (!hit || after === hit.text) continue;
+    if (!hit) {
+      why(`sentence id ${sid} not in the leaflet`);
+      continue;
+    }
+    if (after === hit.text) {
+      why("the rewritten sentence was unchanged");
+      continue;
+    }
     const paragraphs = [...draft.paragraphs];
     paragraphs[hit.para] = paragraphs[hit.para].replace(hit.text, after);
-    if (paragraphs[hit.para] === draft.paragraphs[hit.para]) continue;
+    if (paragraphs[hit.para] === draft.paragraphs[hit.para]) {
+      why("the sentence could not be replaced in its paragraph");
+      continue;
+    }
     return { draft: { ...draft, paragraphs }, fault: { kind, fact_id: f.id, before: hit.text, after } };
   }
   return null;
@@ -579,6 +682,8 @@ export async function prepare(
 ): Promise<PatientVersion> {
   const lang = langByCode(langCode);
   emit({ type: "progress", stage: "write", message: `Writing the instructions in ${lang.name}` });
+  // The facts' own fields are needed only for checking, so they are worked out while the writer writes.
+  const structureP = factStructure(env, meter, facts);
   const written = await write(env, meter, facts, topics, lang.name, level);
   let draft = written.draft;
 
@@ -615,6 +720,13 @@ export async function prepare(
       lockQuotes(env, meter, toCheck, sentences, `Fact lock: find each fact's sentences${suffix}`),
       backTranslate(env, meter, sentences, lang.name, english, suspects, round === 0 ? "Back-translate every sentence" : `Back-translate the repaired sentences${suffix}`),
     ]);
+    // The checker sometimes points at nothing for a fact whose sentence is plainly there: ask once more for those
+    // facts alone before calling the fact missing (a "missing" fact would otherwise be written again by the repair).
+    const empty = toCheck.filter((f) => !(picked[f.id] ?? []).length);
+    if (empty.length) {
+      const again = await lockQuotes(env, meter, empty, sentences, `Fact lock: find the sentences for facts with none${suffix}`).catch(() => ({}) as Record<string, string[]>);
+      for (const f of empty) if (again[f.id]?.length) picked[f.id] = again[f.id];
+    }
     backOk = ok;
     // A failed back-translation is the checker's problem, not the text's: try the missing sentences again before judging.
     for (let extra = 0; extra < 2 && !backOk; extra++) {
@@ -657,12 +769,37 @@ export async function prepare(
       for (const f of passed) uncheckable.add(f.id);
     } else {
       const critical = passed.filter((f) => f.critical && f.category === "warning_sign");
-      const [meaning, second] = await Promise.all([
+      const fs = await structureP;
+      const medItems = fs ? passed.filter((f) => fs.meds[f.id] && results[f.id].quote_en).map((f) => ({ id: f.id, text: results[f.id].quote_en })) : [];
+      const warnItems = fs
+        ? passed.filter((f) => (fs.warnings[f.id]?.length ?? 0) > 1 && results[f.id].quote_en).map((f) => ({ id: f.id, items: fs.warnings[f.id], text: results[f.id].quote_en }))
+        : [];
+      const [meaning, second, ps] = await Promise.all([
         compareMeaning(env, meter, passed.map((f) => ({ fact: f, quote_en: results[f.id].quote_en })), `Fact lock: compare meaning${suffix}`),
         secondReading(env, meter, critical.map((f) => ({ fact: f, quote: results[f.id].quote })), lang.name, `Fact lock: second literal reading of critical warning signs${suffix}`).catch(
           () => null,
         ),
+        patientStructure(env, meter, medItems, warnItems, `Fact lock: compare fields and warning-sign items${suffix}`),
       ]);
+      // Field-by-field medicine check and item-by-item warning-sign check, decided in code.
+      if (fs && !ps && (medItems.length || warnItems.length)) {
+        // The field check could not run: that is the checker's failure, so these facts go to the nurse rather than pass.
+        for (const it of [...medItems, ...warnItems]) {
+          results[it.id].problems.push({ kind: "meaning", anchor: "", reason: "the field check gave no answer for this fact" });
+          uncheckable.add(it.id);
+        }
+      }
+      if (fs && ps) {
+        for (const m of medItems) {
+          const pt = ps.meds[m.id];
+          if (!pt) continue;
+          for (const issue of compareMed(fs.meds[m.id], pt)) results[m.id].problems.push({ kind: "meaning", anchor: "", reason: `field check: ${issue}` });
+        }
+        for (const w of warnItems) {
+          const miss = missingItems(w.items, ps.warnings[w.id] ?? [], w.text);
+          for (const item of miss) results[w.id].problems.push({ kind: "meaning", anchor: item, reason: `missing: ${item}` });
+        }
+      }
       for (const f of critical) {
         if (second === null) results[f.id].problems.push({ kind: "meaning", anchor: "", reason: "the second reading of this critical warning sign failed" });
         else for (const x of second[f.id] ?? []) results[f.id].problems.push({ kind: "meaning", anchor: x.word, reason: `second reading found "${x.word}"${x.why ? `: ${x.why}` : ""}` });

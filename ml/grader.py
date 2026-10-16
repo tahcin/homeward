@@ -77,8 +77,21 @@ def parse_reply(text: str):
             try:
                 return json.loads(t[s:e + 1])
             except json.JSONDecodeError:
-                return None
-    return None
+                pass
+    return lenient_facts(t)
+
+
+def lenient_facts(t: str):
+    """Fallback for malformed JSON (a dropped colon or quote): read each fact object's id and
+    verdict with a regex. Marked _lenient so JSON validity is still scored strictly; applied
+    identically to every system (added 2026-10-16)."""
+    facts = []
+    for chunk in re.split(r"\{", t):
+        mi = re.search(r'"id"\s*:?\s*"(f\d+)"', chunk)
+        mv = re.search(r'"verdict"\s*:?\s*"(correct|partial|incorrect|missing)"', chunk)
+        if mi and mv:
+            facts.append({"id": mi.group(1), "verdict": mv.group(1)})
+    return {"facts": facts, "_lenient": True} if facts else None
 
 
 def verdicts_from(obj, fact_ids: list[str]) -> tuple[list[str | None], bool]:
@@ -97,5 +110,5 @@ def verdicts_from(obj, fact_ids: list[str]) -> tuple[list[str | None], bool]:
             got.setdefault(f["id"], v if v in VERDICTS else None)
     ids = [f.get("id") for f in obj["facts"] if isinstance(f, dict)]
     out = [got.get(i) for i in fact_ids]
-    strict = ids == fact_ids and all(v is not None for v in out)
+    strict = ids == fact_ids and all(v is not None for v in out) and not obj.get("_lenient")
     return out, strict

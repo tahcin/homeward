@@ -47,6 +47,7 @@ def main():
     ap.add_argument("--manifest", required=True)
     ap.add_argument("--clip", default="human_h02")
     ap.add_argument("--wavdir", required=True)
+    ap.add_argument("--lora-scale", type=float, default=1.0)
     a = ap.parse_args()
 
     import transformers
@@ -59,6 +60,10 @@ def main():
     t0 = time.time()
     model, tok = load_model_and_tokenizer(a.model)
     model = PeftModel.from_pretrained(model, a.adapter).eval()
+    if a.lora_scale != 1.0:
+        for mod in model.modules():
+            if hasattr(mod, "scaling") and isinstance(mod.scaling, dict) and "default" in mod.scaling:
+                mod.scaling["default"] *= a.lora_scale
     proc = transformers.AutoProcessor.from_pretrained(a.model)
     print(f"Loaded Gemma 4 E4B + Homeward LoRA grader in {time.time() - t0:.1f} s")
     print(rocm_vram())

@@ -23,7 +23,8 @@
   "yes": "Yes, check it",
   "sayAgain": "Say it again",
   "typeInstead": "Type instead",
-  "finish": "Finish"
+  "finish": "Finish",
+  "aiNotice": "This tablet uses AI to read your instructions with you and check what you understood. Your nurse reviews everything and makes every decision."
  },
  "it": {
   "yourInstructions": "Le istruzioni per il suo rientro a casa",
@@ -49,7 +50,8 @@
   "yes": "Sì, controlla",
   "sayAgain": "Ripeti, per favore",
   "typeInstead": "Preferisco scrivere",
-  "finish": "Fine"
+  "finish": "Fine",
+  "aiNotice": "Questo tablet usa l'AI per leggere le istruzioni con Lei e controllare che cosa ha capito. Il personale infermieristico rivede tutto e prende ogni decisione."
  },
  "es": {
   "yourInstructions": "Sus instrucciones para ir a casa",
@@ -75,7 +77,8 @@
   "yes": "Sí, es correcto",
   "sayAgain": "Repítalo, por favor",
   "typeInstead": "Escribir en su lugar",
-  "finish": "Terminar"
+  "finish": "Terminar",
+  "aiNotice": "Esta tableta usa la IA para leer las instrucciones con usted y comprobar lo que entendió. Su enfermero o enfermera revisa todo y toma cada decisión."
  },
  "hi": {
   "yourInstructions": "घर जाने के लिए आपके निर्देश",
@@ -101,7 +104,8 @@
   "yes": "हाँ, यह सही है",
   "sayAgain": "कृपया फिर से कहें",
   "typeInstead": "टाइप करें",
-  "finish": "समाप्त करें"
+  "finish": "समाप्त करें",
+  "aiNotice": "यह टैबलेट AI का उपयोग करके आपके साथ निर्देश पढ़ता है और जाँचता है कि आपने क्या समझा। आपके नर्स सब कुछ देखते हैं और हर फैसला वही लेते हैं।"
  },
  "bn": {
   "yourInstructions": "আপনার বাড়ি যাওয়ার নির্দেশাবলী",
@@ -127,7 +131,8 @@
   "yes": "হ্যাঁ, ঠিক আছে",
   "sayAgain": "দয়া করে আবার বলুন",
   "typeInstead": "লিখে জানান",
-  "finish": "শেষ করুন"
+  "finish": "শেষ করুন",
+  "aiNotice": "এই ট্যাবলেটটি AI ব্যবহার করে আপনার সাথে নির্দেশাবলী পড়ে এবং আপনি কী বুঝেছেন তা পরীক্ষা করে। আপনার নার্স সব কিছু পর্যালোচনা করেন এবং প্রতিটি সিদ্ধান্ত নেন।"
  },
  "tl": {
   "yourInstructions": "Ang iyong mga tagubilin sa pag-uwi",
@@ -153,7 +158,8 @@
   "yes": "Opo, tama ito",
   "sayAgain": "Pakiulit po",
   "typeInstead": "I-type na lang",
-  "finish": "Tapos na"
+  "finish": "Tapos na",
+  "aiNotice": "Ginagamit ng tablet na ito ang AI para basahin ang mga tagubilin kasama ninyo at tingnan kung ano ang inyong naunawaan. Sinusuri ng inyong nars ang lahat at siya ang gumagawa ng bawat desisyon."
  },
  "ar": {
   "yourInstructions": "تعليمات العودة إلى المنزل",
@@ -179,7 +185,8 @@
   "yes": "نعم، هذا صحيح",
   "sayAgain": "أعد من فضلك",
   "typeInstead": "اكتب بدلاً من ذلك",
-  "finish": "إنهاء"
+  "finish": "إنهاء",
+  "aiNotice": "يستخدم هذا الجهاز اللوحي الذكاء الاصطناعي لقراءة التعليمات معك والتحقق مما فهمته. ويراجع الممرض أو الممرضة كل شيء ويتخذ كل قرار."
  },
  "zh": {
   "yourInstructions": "您的出院指南",
@@ -205,7 +212,8 @@
   "yes": "是的，没错",
   "sayAgain": "请再说一遍",
   "typeInstead": "改为输入",
-  "finish": "完成"
+  "finish": "完成",
+  "aiNotice": "这个平板电脑用AI和您一起读说明，并检查您明白了什么。您的护士会查看所有内容，并做出每个决定。"
  },
  "pt": {
   "yourInstructions": "Suas instruções para ir para casa",
@@ -231,7 +239,8 @@
   "yes": "Sim, está correto",
   "sayAgain": "Repita, por favor",
   "typeInstead": "Digitar em vez disso",
-  "finish": "Concluir"
+  "finish": "Concluir",
+  "aiNotice": "Este tablet usa IA para ler as instruções com você e verificar o que você entendeu. A equipe de enfermagem revisa tudo e toma todas as decisões."
  },
  "fr": {
   "yourInstructions": "Vos consignes pour le retour à domicile",
@@ -257,7 +266,8 @@
   "yes": "Oui, c'est ça",
   "sayAgain": "Répétez, s'il vous plaît",
   "typeInstead": "Écrire à la place",
-  "finish": "Terminer"
+  "finish": "Terminer",
+  "aiNotice": "Cette tablette utilise l'IA pour lire les instructions avec vous et vérifier ce que vous avez compris. Votre infirmier ou infirmière vérifie tout et prend chaque décision."
  },
  "ta": {
   "yourInstructions": "நீங்கள் வீட்டிற்குச் செல்வதற்கான வழிமுறைகள்",
@@ -283,7 +293,8 @@
   "yes": "ஆம், சரி",
   "sayAgain": "தயவுசெய்து மீண்டும் சொல்லுங்கள்",
   "typeInstead": "தட்டச்சு செய்யவும்",
-  "finish": "முடிக்கவும்"
+  "finish": "முடிக்கவும்",
+  "aiNotice": "இந்த டேப்லெட் AI-ஐப் பயன்படுத்தி உங்களுடன் வழிமுறைகளைப் படித்து, நீங்கள் புரிந்துகொண்டதைச் சரிபார்க்கிறது. உங்கள் செவிலியர் எல்லாவற்றையும் மதிப்பாய்வு செய்து ஒவ்வொரு முடிவையும் எடுக்கிறார்."
  },
  "vi": {
   "yourInstructions": "Hướng dẫn khi bác xuất viện",
@@ -309,6 +320,7 @@
   "yes": "Vâng, đúng rồi",
   "sayAgain": "Vui lòng nói lại",
   "typeInstead": "Nhập chữ thay thế",
-  "finish": "Hoàn tất"
+  "finish": "Hoàn tất",
+  "aiNotice": "Máy tính bảng này dùng AI để đọc hướng dẫn cùng quý vị và kiểm tra xem quý vị đã hiểu những gì. Điều dưỡng của quý vị xem lại mọi thứ và đưa ra mọi quyết định."
  }
 }

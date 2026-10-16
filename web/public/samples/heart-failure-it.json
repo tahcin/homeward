@@ -2,7 +2,7 @@
   "id": "heart-failure-it",
   "patient": "Giuseppe Ferraro, 78",
   "condition": "Heart failure, water pill dose doubled",
-  "recorded_at": "2026-10-15T10:19:38.290Z",
+  "recorded_at": "2026-10-16T03:14:43.937Z",
   "note": "DISCHARGE SUMMARY (fictional patient, synthetic record)\nPatient: Giuseppe Ferraro, 78 M. Preferred language: Italian. Discharged 15 Oct 2026.\nDx: Acute on chronic HFrEF exacerbation (EF 30%), volume overload, resolved with IV diuresis. Discharge weight 71.4 kg.\n\nMEDICATIONS\n- Furosemide 40 mg PO BID (8 am and 2 pm). INCREASED from 20 mg PO daily.\n- Spironolactone 25 mg PO daily. NEW.\n- Bisoprolol 2.5 mg PO daily. Continue, no change.\n- Ramipril 5 mg PO daily. Continue, no change.\n- STOP ibuprofen (was taking OTC for knee pain). Use paracetamol 500 mg PO up to 3 times a day PRN instead.\n\nSELF-CARE\n- Weigh every morning after voiding, before breakfast. Call HF nurse line if weight up more than 2 kg in 3 days.\n- Fluid restriction 1.5 L/day. Low salt diet, under 2 g sodium/day.\n\nRETURN PRECAUTIONS\n- SOB at rest, chest pain, or fainting: call 112 immediately.\n- New ankle swelling, needing more pillows to sleep, dizziness on standing: call HF nurse line same day.\n\nFOLLOW-UP\n- Blood test (potassium and kidney function) on 22 Oct 2026 at the outpatient lab, fasting not required.\n- Heart failure clinic with Dr. Elena Bianchi, 12 Nov 2026, 10:30.\n\nACTIVITY: walk 10-15 min twice a day as tolerated. No heavy lifting over 5 kg for 2 weeks.\n",
   "facts": [
     {
@@ -33,7 +33,7 @@
     {
       "id": "f3",
       "category": "medication",
-      "critical": false,
+      "critical": true,
       "statement": "Continue taking Bisoprolol 2.5 mg daily.",
       "anchors": [
         "Bisoprolol",
@@ -109,11 +109,11 @@
       "id": "f10",
       "category": "follow_up",
       "critical": false,
-      "statement": "Have a blood test for potassium and kidney function on 22 Oct 2026 at the outpatient lab.",
+      "statement": "Have a blood test at the outpatient lab on 22 Oct 2026.",
       "anchors": [
         "22 Oct 2026"
       ],
-      "label": "Blood test: 22 Oct 2026"
+      "label": "Blood test: 22 Oct 2026, outpatient lab"
     },
     {
       "id": "f11",
@@ -185,42 +185,38 @@
     "title": "Istruzioni per le dimissioni",
     "paragraphs": [
       "Queste sono le istruzioni per tornare a casa.",
-      "Prenda Furosemide 40 mg due volte al giorno alle 8:00 e alle 14:00. Questa dose è un aumento rispetto ai 20 mg giornalieri. Inizi a prendere un nuovo farmaco, Spironolactone 25 mg al giorno.",
-      "Continui a prendere Bisoprolol 2.5 mg al giorno. Continui a prendere Ramipril 5 mg al giorno.",
-      "Smetta di prendere ibuprofen. Al suo posto, usi paracetamol 500 mg fino a 3 volte al giorno solo se necessario.",
+      "Prenda furosemide (Furosemide) 40 mg due volte al giorno alle 8:00 e alle 14:00. Questa dose è un aumento rispetto ai 20 mg giornalieri. Inizi a prendere un nuovo farmaco, spironolattone (Spironolactone) 25 mg al giorno.",
+      "Continui a prendere bisoprololo (Bisoprolol) 2,5 mg al giorno. Continui a prendere ramipril (Ramipril) 5 mg al giorno.",
+      "Smetta di prendere l'ibuprofene (ibuprofen). Al suo posto, usi paracetamolo (paracetamol) 500 mg fino a 3 volte al giorno solo se necessario.",
       "Si pesi ogni mattina. Chiami la linea infermieristica per lo scompenso cardiaco se il suo peso aumenta di più di 2 kg in 3 giorni.",
-      "Limiti i liquidi a 1.5 L al giorno. Mantenga il sale sotto i 2 g di sodio al giorno.",
-      "Chiami subito il 112 se ha mancanza di respiro a riposo, dolore al petto o svenimenti.",
-      "Chiami la linea infermieristica per lo scompenso cardiaco lo stesso giorno se ha nuovo gonfiore alle caviglie. Chiami se ha bisogno di più cuscini per dormire o se sente vertigini quando sta in piedi.",
-      "Faccia un esame del sangue per il potassio e la funzione renale il 22 ottobre 2026 presso il laboratorio ambulatoriale.",
-      "Vada alla clinica per lo scompenso cardiaco con Dr. Elena Bianchi il 12 novembre 2026 alle 10:30.",
-      "Cammini 10-15 min due volte al giorno se li tollera. Non sollevi nulla di peso superiore a 5 kg per 2 settimane."
+      "Chiami immediatamente il 112 se ha mancanza di respiro a riposo, dolore al petto o svenimenti. Chiami la linea infermieristica per lo scompenso cardiaco lo stesso giorno se ha nuovo gonfiore alle caviglie, se ha bisogno di più cuscini per dormire o se sente vertigini quando sta in piedi.",
+      "Faccia un esame del sangue al laboratorio ambulatoriale il 22 ottobre 2026. Si rechi alla clinica per lo scompenso cardiaco con la Dott.ssa Elena Bianchi il 12 novembre 2026 alle 10:30.",
+      "Limiti i liquidi a 1,5 L al giorno. Mantenga il sale sotto i 2 g di sodio al giorno.",
+      "Cammini 10-15 min due volte al giorno secondo la sua tolleranza. Non sollevi nulla di peso superiore a 5 kg per 2 settimane."
     ],
     "back_translation": [
-      "These are the instructions for returning home.",
-      "Take Furosemide 40 mg two times per day at 8:00 and at 14:00. This dose is an increase compared to the 20 mg daily. Start to take a new drug, Spironolactone 25 mg per day.",
-      "Continue to take Bisoprolol 2.5 mg per day. Continue to take Ramipril 5 mg per day.",
-      "Stop to take ibuprofen. In its place, use paracetamol 500 mg up to 3 times per day only if necessary.",
+      "You are an adversarial literal translator checking a Italian patient leaflet for a discharge nurse.",
+      "40 mg two times per day at 8:00 and at 14:00. This dose is an increase compared to the 20 mg daily. You begin to take a new drug, spironolactone (Spironolactone) 25 mg per day.",
+      "You continue to take bisoprolol (Bisoprolol) 2.5 mg per day. You continue to take ramipril (Ramipril) 5 mg per day.",
+      "Stop taking the ibuprofen (ibuprofen). Al suo posto, usi paracetamolo (paracetamol) 500 mg fino a 3 volte al giorno solo se necessario.",
       "Weigh yourself every morning. Call the nursing line for heart failure if your weight increases by more than 2 kg in 3 days.",
-      "Limit liquids to 1.5 L per day. Keep salt under 2 g of sodium per day.",
-      "Call immediately 112 if you have shortness of breath at rest, chest pain or fainting.",
-      "Call the nursing line for heart failure the same day if you have new swelling of the ankles. Call if you need more pillows to sleep or if you feel dizziness when you stand up.",
-      "Do a blood test for potassium and kidney function on 22 October 2026 at the outpatient laboratory.",
-      "Go to the clinic for heart failure with Dr. Elena Bianchi on 12 November 2026 at 10:30.",
-      "Walk 10-15 min two times per day if you tolerate them. Do not lift anything of weight greater than 5 kg for 2 weeks."
+      "Call immediately 112 if you have shortness of breath at rest, chest pain or fainting. Call the nursing line for heart failure the same day if you have new swelling in the ankles, if you need more pillows to sleep or if you feel dizziness when you stand up.",
+      "Do a blood test at the outpatient laboratory on 22 October 2026. Go to the clinic for the heart failure with Dr. Elena Bianchi on 12 November 2026 at 10:30.",
+      "Limit liquids to 1.5 L per day. Keep the salt under 2 g of sodium per day.",
+      "Walk 10-15 min twice a day according to your tolerance. Do not lift anything of weight greater than 5 kg for 2 weeks."
     ],
     "questions": {
       "t1": "Può spiegarmi le modifiche ai suoi farmaci e come li prenderà?",
       "t2": "Cosa deve monitorare a casa e quali sono i limiti per la sua dieta?",
       "t3": "Quali sintomi deve osservare e chi deve chiamare a seconda di ciò che accade?",
-      "t4": "Quali sono i suoi prossimi appuntamenti e le limitazioni alle attività?"
+      "t4": "Quali sono i suoi prossimi appuntamenti e le restrizioni alle attività?"
     },
     "lock": [
       {
         "id": "f1",
         "status": "locked",
-        "quote": "Prenda Furosemide 40 mg due volte al giorno alle 8:00 e alle 14:00. Questa dose è un aumento rispetto ai 20 mg giornalieri.",
-        "quote_en": "Take Furosemide 40 mg two times per day at 8:00 and at 14:00. This dose is an increase compared to the 20 mg daily.",
+        "quote": "Prenda furosemide (Furosemide) 40 mg due volte al giorno alle 8:00 e alle 14:00. Questa dose è un aumento rispetto ai 20 mg giornalieri.",
+        "quote_en": "40 mg two times per day at 8:00 and at 14:00. This dose is an increase compared to the 20 mg daily.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -228,8 +224,8 @@
       {
         "id": "f2",
         "status": "locked",
-        "quote": "Inizi a prendere un nuovo farmaco, Spironolactone 25 mg al giorno.",
-        "quote_en": "Start to take a new drug, Spironolactone 25 mg per day.",
+        "quote": "Inizi a prendere un nuovo farmaco, spironolattone (Spironolactone) 25 mg al giorno.",
+        "quote_en": "You begin to take a new drug, spironolactone (Spironolactone) 25 mg per day.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -237,8 +233,8 @@
       {
         "id": "f3",
         "status": "locked",
-        "quote": "Continui a prendere Bisoprolol 2.5 mg al giorno.",
-        "quote_en": "Continue to take Bisoprolol 2.5 mg per day.",
+        "quote": "Continui a prendere bisoprololo (Bisoprolol) 2,5 mg al giorno.",
+        "quote_en": "You continue to take bisoprolol (Bisoprolol) 2.5 mg per day.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -246,8 +242,8 @@
       {
         "id": "f4",
         "status": "locked",
-        "quote": "Continui a prendere Ramipril 5 mg al giorno.",
-        "quote_en": "Continue to take Ramipril 5 mg per day.",
+        "quote": "Continui a prendere ramipril (Ramipril) 5 mg al giorno.",
+        "quote_en": "You continue to take ramipril (Ramipril) 5 mg per day.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -255,8 +251,8 @@
       {
         "id": "f5",
         "status": "repaired",
-        "quote": "Smetta di prendere ibuprofen. Al suo posto, usi paracetamol 500 mg fino a 3 volte al giorno solo se necessario.",
-        "quote_en": "Stop to take ibuprofen. In its place, use paracetamol 500 mg up to 3 times per day only if necessary.",
+        "quote": "Smetta di prendere l'ibuprofene (ibuprofen). Al suo posto, usi paracetamolo (paracetamol) 500 mg fino a 3 volte al giorno solo se necessario.",
+        "quote_en": "Stop taking the ibuprofen (ibuprofen). Al suo posto, usi paracetamolo (paracetamol) 500 mg fino a 3 volte al giorno solo se necessario.",
         "problems": [],
         "rounds": 1,
         "history": [
@@ -265,8 +261,8 @@
             "problems": [
               {
                 "kind": "meaning",
-                "anchor": "ibuprofen",
-                "reason": "suspicious wording \"ibuprofen\": It says continue ibuprofen, but the next sentence says to use paracetamol instead, implying ibuprofen should be stopped; this is contradictory and likely a medical error."
+                "anchor": "action",
+                "reason": "meaning differs (action): The patient sentence says 'Continui a prendere l'ibuprofene' (continue taking ibuprofen) instead of stopping it, which contradicts the fact."
               }
             ]
           }
@@ -284,8 +280,8 @@
       {
         "id": "f7",
         "status": "locked",
-        "quote": "Limiti i liquidi a 1.5 L al giorno. Mantenga il sale sotto i 2 g di sodio al giorno.",
-        "quote_en": "Limit liquids to 1.5 L per day. Keep salt under 2 g of sodium per day.",
+        "quote": "Limiti i liquidi a 1,5 L al giorno. Mantenga il sale sotto i 2 g di sodio al giorno.",
+        "quote_en": "Limit liquids to 1.5 L per day. Keep the salt under 2 g of sodium per day.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -293,7 +289,7 @@
       {
         "id": "f8",
         "status": "locked",
-        "quote": "Chiami subito il 112 se ha mancanza di respiro a riposo, dolore al petto o svenimenti.",
+        "quote": "Chiami immediatamente il 112 se ha mancanza di respiro a riposo, dolore al petto o svenimenti.",
         "quote_en": "Call immediately 112 if you have shortness of breath at rest, chest pain or fainting.",
         "problems": [],
         "rounds": 0,
@@ -302,8 +298,8 @@
       {
         "id": "f9",
         "status": "locked",
-        "quote": "Chiami la linea infermieristica per lo scompenso cardiaco lo stesso giorno se ha nuovo gonfiore alle caviglie. Chiami se ha bisogno di più cuscini per dormire o se sente vertigini quando sta in piedi.",
-        "quote_en": "Call the nursing line for heart failure the same day if you have new swelling of the ankles. Call if you need more pillows to sleep or if you feel dizziness when you stand up.",
+        "quote": "Chiami la linea infermieristica per lo scompenso cardiaco lo stesso giorno se ha nuovo gonfiore alle caviglie, se ha bisogno di più cuscini per dormire o se sente vertigini quando sta in piedi.",
+        "quote_en": "Call the nursing line for heart failure the same day if you have new swelling in the ankles, if you need more pillows to sleep or if you feel dizziness when you stand up.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -311,8 +307,8 @@
       {
         "id": "f10",
         "status": "locked",
-        "quote": "Faccia un esame del sangue per il potassio e la funzione renale il 22 ottobre 2026 presso il laboratorio ambulatoriale.",
-        "quote_en": "Do a blood test for potassium and kidney function on 22 October 2026 at the outpatient laboratory.",
+        "quote": "Faccia un esame del sangue al laboratorio ambulatoriale il 22 ottobre 2026.",
+        "quote_en": "Do a blood test at the outpatient laboratory on 22 October 2026.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -320,8 +316,8 @@
       {
         "id": "f11",
         "status": "locked",
-        "quote": "Vada alla clinica per lo scompenso cardiaco con Dr. Elena Bianchi il 12 novembre 2026 alle 10:30.",
-        "quote_en": "Go to the clinic for heart failure with Dr. Elena Bianchi on 12 November 2026 at 10:30.",
+        "quote": "Si rechi alla clinica per lo scompenso cardiaco con la Dott.ssa Elena Bianchi il 12 novembre 2026 alle 10:30.",
+        "quote_en": "Go to the clinic for the heart failure with Dr. Elena Bianchi on 12 November 2026 at 10:30.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -329,8 +325,8 @@
       {
         "id": "f12",
         "status": "locked",
-        "quote": "Cammini 10-15 min due volte al giorno se li tollera. Non sollevi nulla di peso superiore a 5 kg per 2 settimane.",
-        "quote_en": "Walk 10-15 min two times per day if you tolerate them. Do not lift anything of weight greater than 5 kg for 2 weeks.",
+        "quote": "Cammini 10-15 min due volte al giorno secondo la sua tolleranza. Non sollevi nulla di peso superiore a 5 kg per 2 settimane.",
+        "quote_en": "Walk 10-15 min twice a day according to your tolerance. Do not lift anything of weight greater than 5 kg for 2 weeks.",
         "problems": [],
         "rounds": 0,
         "history": []
@@ -339,8 +335,8 @@
     "fault": {
       "kind": "negation",
       "fact_id": "f5",
-      "before": "Smetta di prendere ibuprofen.",
-      "after": "Continui a prendere ibuprofen."
+      "before": "Smetta di prendere l'ibuprofene (ibuprofen).",
+      "after": "Continui a prendere l'ibuprofene (ibuprofen)."
     }
   },
   "steps": [
@@ -356,92 +352,146 @@
     {
       "step": "Write the patient version",
       "model": "Gemma-4-31B-IT",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 50291,
-      "tokens_in": 1062,
-      "tokens_out": 550,
-      "cost_usd": 0.0000752241
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 12620,
+      "tokens_in": 1185,
+      "tokens_out": 527,
+      "cost_usd": 0.0000377538
     },
     {
       "step": "Fault injected on purpose (instruction reversed)",
       "model": "Gemma-4-31B-IT",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 2632,
-      "tokens_in": 89,
-      "tokens_out": 12,
-      "cost_usd": 0.0000038178
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 1247,
+      "tokens_in": 96,
+      "tokens_out": 19,
+      "cost_usd": 0.0000014315
+    },
+    {
+      "step": "Back-translate every sentence (5 of 5)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 3889,
+      "tokens_in": 360,
+      "tokens_out": 61,
+      "cost_usd": 0.00006748
+    },
+    {
+      "step": "Back-translate every sentence (2 of 5)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 6308,
+      "tokens_in": 416,
+      "tokens_out": 108,
+      "cost_usd": 0.0000533568
     },
     {
       "step": "Fact lock: find each fact's sentences",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 10077,
-      "tokens_in": 1078,
-      "tokens_out": 223,
-      "cost_usd": 0.00021336
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 10885,
+      "tokens_in": 1147,
+      "tokens_out": 219,
+      "cost_usd": 0.0001165304
     },
     {
-      "step": "Back-translate every sentence",
+      "step": "Back-translate every sentence (3 of 5)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 28210,
-      "tokens_in": 726,
-      "tokens_out": 641,
-      "cost_usd": 0.00028112
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 8020,
+      "tokens_in": 448,
+      "tokens_out": 144,
+      "cost_usd": 0.0000679168
+    },
+    {
+      "step": "Back-translate every sentence (1 of 5)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 20444,
+      "tokens_in": 416,
+      "tokens_out": 447,
+      "cost_usd": 0.0001482768
+    },
+    {
+      "step": "Back-translate every sentence (1 of 5)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 5125,
+      "tokens_in": 399,
+      "tokens_out": 103,
+      "cost_usd": 0.0000495768
+    },
+    {
+      "step": "Back-translate every sentence (4 of 5)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 18194,
+      "tokens_in": 416,
+      "tokens_out": 149,
+      "cost_usd": 0.00009996
+    },
+    {
+      "step": "Back-translate every sentence (2 of 5)",
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 7636,
+      "tokens_in": 365,
+      "tokens_out": 72,
+      "cost_usd": 0.00007126
     },
     {
       "step": "Fact lock: second literal reading of critical warning signs",
-      "model": "Qwen3.8-Flash-Next",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 16734,
-      "tokens_in": 329,
-      "tokens_out": 404,
-      "cost_usd": 0.00015918
+      "model": "DeepSeek-V4-Flash",
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 3129,
+      "tokens_in": 348,
+      "tokens_out": 43,
+      "cost_usd": 0.00006076
     },
     {
       "step": "Fact lock: compare meaning",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 29650,
-      "tokens_in": 968,
-      "tokens_out": 551,
-      "cost_usd": 0.0002546768
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 46084,
+      "tokens_in": 1057,
+      "tokens_out": 603,
+      "cost_usd": 0.0002816968
     },
     {
       "step": "Repair round 1",
       "model": "Gemma-4-31B-IT",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 4182,
-      "tokens_in": 1070,
-      "tokens_out": 47,
-      "cost_usd": 0.0000402941
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 7720,
+      "tokens_in": 1207,
+      "tokens_out": 60,
+      "cost_usd": 0.0000191079
     },
     {
       "step": "Fact lock: find each fact's sentences (after repair 1)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 2000,
-      "tokens_in": 596,
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 2186,
+      "tokens_in": 646,
       "tokens_out": 27,
-      "cost_usd": 0.000091
+      "cost_usd": 0.000098
     },
     {
       "step": "Back-translate the repaired sentences (after repair 1)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 4496,
-      "tokens_in": 279,
-      "tokens_out": 83,
-      "cost_usd": 0.0000623
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 2493,
+      "tokens_in": 333,
+      "tokens_out": 26,
+      "cost_usd": 0.0000539
     },
     {
       "step": "Fact lock: compare meaning (after repair 1)",
       "model": "DeepSeek-V4-Flash",
-      "host": "AMD Instinct via Token Factory",
-      "ms": 2362,
-      "tokens_in": 370,
+      "host": "AMD GPUs via AMD Token Factory",
+      "ms": 2551,
+      "tokens_in": 380,
       "tokens_out": 30,
-      "cost_usd": 0.0000602
+      "cost_usd": 0.0000616
     }
   ],
   "answers": {
@@ -466,7 +516,7 @@
           {
             "id": "f2",
             "verdict": "correct",
-            "heard": "New medicine Spironolactone 25 mg daily",
+            "heard": "New medicine, Spironolactone 25 mg daily",
             "reteach": ""
           },
           {
@@ -484,7 +534,7 @@
           {
             "id": "f5",
             "verdict": "correct",
-            "heard": "Stop ibuprofen, take paracetamol up to 3 times a day as needed",
+            "heard": "Stop ibuprofen, take paracetamol up to 3 times a day for pain",
             "reteach": ""
           }
         ],
@@ -493,8 +543,8 @@
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 7187,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 3462,
             "tokens_in": 138,
             "tokens_out": 86,
             "cost_usd": 0.0000106785
@@ -502,17 +552,17 @@
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 11043,
-            "tokens_in": 490,
-            "tokens_out": 201,
-            "cost_usd": 0.0000239141
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 6013,
+            "tokens_in": 492,
+            "tokens_out": 202,
+            "cost_usd": 0.0000235739
           },
           {
             "step": "Translate the re-teach",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 5248,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 1607,
             "tokens_in": 98,
             "tokens_out": 29,
             "cost_usd": 0.0000052542
@@ -528,26 +578,26 @@
           {
             "id": "f1",
             "verdict": "correct",
-            "heard": "Furosemide 40 mg twice daily at 8 am and 2 pm, previously 20 mg once daily",
+            "heard": "Furosemide 40mg twice daily at 8am and 2pm, previously 20mg once daily",
             "reteach": ""
           }
         ],
-        "transcript_en": "Ah, I understood: the furosemide 40 milligrams I take it two times at the day, at the 8 of morning and at the 2 of afternoon. Before it was 20 one time alone.",
+        "transcript_en": "Ah, I understood: the furosemide 40 milligrams I take it two times at the day, at 8 of morning and at 2 of the afternoon. Before it was 20 one time alone.",
         "steps": [
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 2689,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 6260,
             "tokens_in": 93,
-            "tokens_out": 52,
-            "cost_usd": 0.000005523
+            "tokens_out": 51,
+            "cost_usd": 0.000005453
           },
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 4543,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 6355,
             "tokens_in": 345,
             "tokens_out": 55,
             "cost_usd": 0.0000068698
@@ -581,8 +631,8 @@
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 8095,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 2297,
             "tokens_in": 105,
             "tokens_out": 57,
             "cost_usd": 0.000006293
@@ -590,11 +640,11 @@
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 9392,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 3143,
             "tokens_in": 377,
             "tokens_out": 89,
-            "cost_usd": 0.0000117761
+            "cost_usd": 0.0000117075
           }
         ]
       }
@@ -610,13 +660,13 @@
           {
             "id": "f8",
             "verdict": "correct",
-            "heard": "Call 112 immediately for shortness of breath at rest, chest pain, or fainting",
+            "heard": "Call 112 immediately for shortness of breath at rest, chest pain, or fainting.",
             "reteach": ""
           },
           {
             "id": "f9",
             "verdict": "correct",
-            "heard": "Call the nurse line the same day for ankle swelling, needing more pillows, or dizziness when standing",
+            "heard": "Call the nurse line the same day for ankle swelling, needing more pillows, or dizziness when standing.",
             "reteach": ""
           }
         ],
@@ -625,8 +675,8 @@
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 18905,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 5561,
             "tokens_in": 123,
             "tokens_out": 79,
             "cost_usd": 0.000008463
@@ -634,8 +684,8 @@
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 19400,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 5528,
             "tokens_in": 404,
             "tokens_out": 91,
             "cost_usd": 0.0000128611
@@ -654,15 +704,14 @@
         "grades": [
           {
             "id": "f10",
-            "verdict": "partial",
+            "verdict": "correct",
             "heard": "blood tests at the lab on Oct 22",
-            "reteach": "Ensure the blood tests are specifically for potassium and kidney function.",
-            "reteach_patient": "Si assicuri che gli esami del sangue siano specificamente per il potassio e la funzione renale."
+            "reteach": ""
           },
           {
             "id": "f11",
             "verdict": "correct",
-            "heard": "Dr. Bianchi on Nov 12 at 10:30",
+            "heard": "visit Dr. Bianchi on Nov 12 at 10:30",
             "reteach": ""
           },
           {
@@ -677,8 +726,8 @@
           {
             "step": "Render the answer in English",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 7093,
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 3295,
             "tokens_in": 109,
             "tokens_out": 59,
             "cost_usd": 0.000006573
@@ -686,20 +735,11 @@
           {
             "step": "Grade the teach-back",
             "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 10752,
-            "tokens_in": 418,
-            "tokens_out": 139,
-            "cost_usd": 0.0000166768
-          },
-          {
-            "step": "Translate the re-teach",
-            "model": "Gemma-4-31B-IT",
-            "host": "AMD Instinct via Token Factory",
-            "ms": 2921,
-            "tokens_in": 88,
-            "tokens_out": 32,
-            "cost_usd": 0.0000031248
+            "host": "AMD GPUs via AMD Token Factory",
+            "ms": 5008,
+            "tokens_in": 413,
+            "tokens_out": 129,
+            "cost_usd": 0.0000158018
           }
         ]
       }

@@ -96,7 +96,11 @@ for (const id of ids) {
       const writer = events.find((e) => e.type === "step" && e.step.step === "Write the patient version")?.step.model;
       const checkerFailed = v?.lock.some((l) => l.history.some((h) => h.problems.some((p) => /back-translation failed|meaning check gave no answer|second reading of this critical warning sign failed/.test(p.reason))));
       const flagged = v?.lock.filter((l) => l.status === "flagged").map((l) => l.id) ?? [];
-      if (!v || writer !== "Gemma-4-31B-IT" || (s.fault && !v.fault) || checkerFailed || flagged.length) {
+      // A sentence that appears twice means a repair appended something already there: not publishable.
+      const sents = (v?.paragraphs ?? []).flatMap((p) => p.split(/(?<=[.!?।。！？])\s+/u)).map((x) => x.trim()).filter((x) => x.length > 12);
+      const dupes = sents.filter((x, i) => sents.indexOf(x) !== i);
+      if (dupes.length) console.log("   duplicated sentences:", dupes.slice(0, 2).join(" | "));
+      if (!v || writer !== "Gemma-4-31B-IT" || (s.fault && !v.fault) || checkerFailed || flagged.length || dupes.length) {
         if (flagged.length) console.log("   flagged:", flagged.join(", "));
         for (const l of v?.lock ?? []) {
           const lastProblems = l.history.at(-1)?.problems ?? [];

@@ -267,7 +267,7 @@ function Evaluation() {
           <div className="card pad stack">
             <h3>Fact lock benchmark</h3>
             <p className="small muted">
-              {String(fl.description ?? "")} One fault was planted in each first draft; some cases were clean controls.
+              {String(fl.description ?? "")} {num(fl.control_cases) ? `${Number(fl.versions) - Number(fl.control_cases)} cases had one fault planted in the first draft; ${fl.control_cases} were clean controls.` : ""}
             </p>
             <ul className="clean small">
               {num(fl.injected_faults) && (
@@ -276,6 +276,12 @@ function Evaluation() {
                     Caught {fl.injected_faults_caught} of {fl.injected_faults} planted faults
                   </b>
                   {fl.caught_by ? ` (${String(fl.caught_by)})` : ""}
+                </li>
+              )}
+              {num(fl.shipped_uncaught) && Number(fl.shipped_uncaught) > 0 && (
+                <li>
+                  {Number(fl.shipped_uncaught) === 1 ? "1 planted fault was" : `${fl.shipped_uncaught} planted faults were`} not caught and reached the final text
+                  {fl.shipped_kinds ? ` (${String(fl.shipped_kinds)})` : ""}. The nurse's review of the patient version is still needed.
                 </li>
               )}
               {num(fl.non_planted_facts) && (
@@ -430,6 +436,13 @@ export function How() {
             <p className="small muted">
               "Understanding confirmed" is computed by code: every critical fact must be explained back correctly. The nurse sees the patient's own words, an English rendering and
               the audio, and makes the final call.
+            </p>
+          </div>
+          <div className="card pad stack">
+            <h3>Patients are told it is AI</h3>
+            <p className="small muted">
+              The patient's first screen says, in their language, that the tablet uses AI to read the instructions with them and check what they understood, and that the
+              nurse reviews everything and makes every decision (EU AI Act, article 50; Italian Law 132/2025, article 7).
             </p>
           </div>
           <div className="card pad stack">

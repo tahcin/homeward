@@ -1,0 +1,460 @@
+{
+ "confusion": {
+  "incorrect->partial": 12,
+  "partial->correct": 10,
+  "correct->invalid": 5,
+  "missing->invalid": 4,
+  "partial->invalid": 3,
+  "correct->incorrect": 1,
+  "correct->partial": 1
+ },
+ "accuracy_by": {
+  "language": {
+   "es": {
+    "acc": 0.692,
+    "n": 26
+   },
+   "ar": {
+    "acc": 0.7,
+    "n": 30
+   },
+   "en": {
+    "acc": 0.833,
+    "n": 24
+   },
+   "hi": {
+    "acc": 0.875,
+    "n": 16
+   },
+   "it": {
+    "acc": 0.893,
+    "n": 28
+   },
+   "ta": {
+    "acc": 0.909,
+    "n": 22
+   },
+   "bn": {
+    "acc": 0.917,
+    "n": 24
+   },
+   "tl": {
+    "acc": 0.917,
+    "n": 24
+   },
+   "pt": {
+    "acc": 0.917,
+    "n": 24
+   },
+   "fr": {
+    "acc": 0.95,
+    "n": 20
+   },
+   "zh": {
+    "acc": 0.957,
+    "n": 23
+   },
+   "vi": {
+    "acc": 1.0,
+    "n": 23
+   }
+  },
+  "category": {
+   "self_monitoring": {
+    "acc": 0.667,
+    "n": 6
+   },
+   "activity": {
+    "acc": 0.73,
+    "n": 37
+   },
+   "diet": {
+    "acc": 0.81,
+    "n": 21
+   },
+   "warning_sign": {
+    "acc": 0.848,
+    "n": 33
+   },
+   "follow_up": {
+    "acc": 0.897,
+    "n": 58
+   },
+   "medication": {
+    "acc": 0.92,
+    "n": 100
+   },
+   "medication_change": {
+    "acc": 0.966,
+    "n": 29
+   }
+  },
+  "critical": {
+   "False": {
+    "acc": 0.811,
+    "n": 90
+   },
+   "True": {
+    "acc": 0.902,
+    "n": 194
+   }
+  },
+  "error_type": {
+   "wrong_threshold": {
+    "acc": 0.5,
+    "n": 10
+   },
+   "wrong_timing": {
+    "acc": 0.846,
+    "n": 26
+   },
+   "wrong_action": {
+    "acc": 0.875,
+    "n": 24
+   },
+   "-": {
+    "acc": 0.883,
+    "n": 206
+   },
+   "wrong_date": {
+    "acc": 1.0,
+    "n": 10
+   },
+   "wrong_number": {
+    "acc": 1.0,
+    "n": 7
+   },
+   "wrong_who": {
+    "acc": 1.0,
+    "n": 1
+   }
+  }
+ },
+ "unsafe_misses": [],
+ "errors": [
+  {
+   "key": "c058/t1/703",
+   "language": "it",
+   "fact": "Take Clopidogrel 75 mg by mouth once a day, every day.",
+   "gold": "partial",
+   "pred": "correct",
+   "error": null,
+   "transcript": "allora l'aspirina ottantuno una volta al giorno il clopidogrel una volta al giorno il metoprololo cinquanta una volta la mattina il lisinopril dieci credo una volta al giorno o forse due e l'atorvastatina ottanta la sera prima di dormire tutti i giorni"
+  },
+  {
+   "key": "c068/t2/705",
+   "language": "it",
+   "fact": "Take Prednisone 40 mg once a day for 3 days, then 30 mg once a day for 3 days, then 20 mg once a day for 3 days, then 10 mg once a day for 3 days, then stop.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_action",
+   "transcript": "il prednisone quaranta per tre giorni poi trenta per tre giorni poi venti per tre giorni e poi smetto"
+  },
+  {
+   "key": "c068/t5/710",
+   "language": "it",
+   "fact": "See Dr. Reyes in the GI clinic on November 12, 2026 at 9:00 AM.",
+   "gold": "correct",
+   "pred": "incorrect",
+   "error": null,
+   "transcript": "se il dolore di pancia peggiora o vomito o ho la febbre sopra cento virgola quattro o divento giallo nella pelle o negli occhi vado al pronto soccorso dal dottor reyes della gastro ci vado il dodici novembre alle nove"
+  },
+  {
+   "key": "c037/t3/712",
+   "language": "hi",
+   "fact": "Call the doctor if the redness on your leg spreads, your temperature goes above 100.4°F (38°C), or you have severe pain.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_threshold",
+   "transcript": "अगर पैर की लाली फैल जाए या बुखार 101 से ऊपर जाए या बहुत तेज़ दर्द हो तो doctor को call करूँगा"
+  },
+  {
+   "key": "c068/t1/718",
+   "language": "hi",
+   "fact": "Take Pancrelipase 1 capsule by mouth with every meal and snack.",
+   "gold": "partial",
+   "pred": "correct",
+   "error": null,
+   "transcript": "Pancrelipase एक capsule हर खाने के साथ, नाश्ता, दोपहर का खाना, रात का खाना"
+  },
+  {
+   "key": "c037/t4/722",
+   "language": "es",
+   "fact": "Keep your leg raised above heart level when you sit or lie down.",
+   "gold": "partial",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "la pierna arriba cuando puedo revisar lo rojo cada día a ver si se extiende la cita con el doctor el doce de noviembre y con la enfermera creo que también en noviembre no me acuerdo qué día"
+  },
+  {
+   "key": "c037/t4/722",
+   "language": "es",
+   "fact": "See your primary care doctor on November 12, 2026, for a follow-up.",
+   "gold": "correct",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "la pierna arriba cuando puedo revisar lo rojo cada día a ver si se extiende la cita con el doctor el doce de noviembre y con la enfermera creo que también en noviembre no me acuerdo qué día"
+  },
+  {
+   "key": "c037/t4/722",
+   "language": "es",
+   "fact": "Go to the wound check appointment with the nurse on November 19, 2026.",
+   "gold": "partial",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "la pierna arriba cuando puedo revisar lo rojo cada día a ver si se extiende la cita con el doctor el doce de noviembre y con la enfermera creo que también en noviembre no me acuerdo qué día"
+  },
+  {
+   "key": "c037/t4/722",
+   "language": "es",
+   "fact": "You can eat your normal diet.",
+   "gold": "missing",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "la pierna arriba cuando puedo revisar lo rojo cada día a ver si se extiende la cita con el doctor el doce de noviembre y con la enfermera creo que también en noviembre no me acuerdo qué día"
+  },
+  {
+   "key": "c037/t4/722",
+   "language": "es",
+   "fact": "Avoid heavy lifting and standing for long periods.",
+   "gold": "missing",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "la pierna arriba cuando puedo revisar lo rojo cada día a ver si se extiende la cita con el doctor el doce de noviembre y con la enfermera creo que también en noviembre no me acuerdo qué día"
+  },
+  {
+   "key": "c037/t4/722",
+   "language": "es",
+   "fact": "Check the redness on your leg each day and note if it spreads.",
+   "gold": "correct",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "la pierna arriba cuando puedo revisar lo rojo cada día a ver si se extiende la cita con el doctor el doce de noviembre y con la enfermera creo que también en noviembre no me acuerdo qué día"
+  },
+  {
+   "key": "c045/t1/723",
+   "language": "es",
+   "fact": "Take Ferrous sulfate 325 mg once a day with food for anemia.",
+   "gold": "partial",
+   "pred": "correct",
+   "error": null,
+   "transcript": "el labetalol dos veces al día el ibuprofeno de seiscientos cada ocho horas si me duele máximo dos mil cuatrocientos al día el hierro una vez al día con comida y la vitamina prenatal la dejo"
+  },
+  {
+   "key": "c068/t4/729",
+   "language": "es",
+   "fact": "Do light activity only and do not lift anything heavier than 10 pounds for 2 weeks.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_timing",
+   "transcript": "actividad ligera nomás y no levantar más de diez libras por una semana"
+  },
+  {
+   "key": "c037/t3/731",
+   "language": "en",
+   "fact": "Call the doctor if the redness on your leg spreads, your temperature goes above 100.4°F (38°C), or you have severe pain.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_threshold",
+   "transcript": "if the red spreads up my leg or i get a fever over a hundred and one or the pain gets really bad i call the doctor my neighbor had this too you know last winter"
+  },
+  {
+   "key": "c045/t4/733",
+   "language": "en",
+   "fact": "Do not lift anything heavier than 10 pounds for 2 weeks.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_timing",
+   "transcript": "no lifting over ten pounds for like a week no sex or tampons for six weeks and um yeah that's it"
+  },
+  {
+   "key": "c058/t1/734",
+   "language": "en",
+   "fact": "Take Clopidogrel 75 mg by mouth once a day, every day.",
+   "gold": "partial",
+   "pred": "correct",
+   "error": null,
+   "transcript": "dad takes the aspirin 81 and the clopidogrel every morning the metoprolol 50 morning and night atorvastatin 80 at bedtime and the stomach one omeprazole i think he only needs that when his stomach hurts"
+  },
+  {
+   "key": "c058/t4/735",
+   "language": "en",
+   "fact": "Do not lift more than 10 pounds for the first week after discharge.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_timing",
+   "transcript": "cardiologist november sixteenth and nothing over ten pounds for the first two days"
+  },
+  {
+   "key": "c037/t4/807",
+   "language": "ar",
+   "fact": "Keep your leg raised above heart level when you sit or lie down.",
+   "gold": "partial",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "برفع رجلي لما أقعد، يعني على كرسي صغير. موعد الدكتور يوم اثنعش نوفمبر، وموعد الممرضة للجرح تسعطعش نوفمبر، وكل يوم بشوف الاحمرار إذا عم ينتشر"
+  },
+  {
+   "key": "c037/t4/807",
+   "language": "ar",
+   "fact": "See your primary care doctor on November 12, 2026, for a follow-up.",
+   "gold": "correct",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "برفع رجلي لما أقعد، يعني على كرسي صغير. موعد الدكتور يوم اثنعش نوفمبر، وموعد الممرضة للجرح تسعطعش نوفمبر، وكل يوم بشوف الاحمرار إذا عم ينتشر"
+  },
+  {
+   "key": "c037/t4/807",
+   "language": "ar",
+   "fact": "Go to the wound check appointment with the nurse on November 19, 2026.",
+   "gold": "correct",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "برفع رجلي لما أقعد، يعني على كرسي صغير. موعد الدكتور يوم اثنعش نوفمبر، وموعد الممرضة للجرح تسعطعش نوفمبر، وكل يوم بشوف الاحمرار إذا عم ينتشر"
+  },
+  {
+   "key": "c037/t4/807",
+   "language": "ar",
+   "fact": "You can eat your normal diet.",
+   "gold": "missing",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "برفع رجلي لما أقعد، يعني على كرسي صغير. موعد الدكتور يوم اثنعش نوفمبر، وموعد الممرضة للجرح تسعطعش نوفمبر، وكل يوم بشوف الاحمرار إذا عم ينتشر"
+  },
+  {
+   "key": "c037/t4/807",
+   "language": "ar",
+   "fact": "Avoid heavy lifting and standing for long periods.",
+   "gold": "missing",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "برفع رجلي لما أقعد، يعني على كرسي صغير. موعد الدكتور يوم اثنعش نوفمبر، وموعد الممرضة للجرح تسعطعش نوفمبر، وكل يوم بشوف الاحمرار إذا عم ينتشر"
+  },
+  {
+   "key": "c037/t4/807",
+   "language": "ar",
+   "fact": "Check the redness on your leg each day and note if it spreads.",
+   "gold": "correct",
+   "pred": "invalid",
+   "error": null,
+   "transcript": "برفع رجلي لما أقعد، يعني على كرسي صغير. موعد الدكتور يوم اثنعش نوفمبر، وموعد الممرضة للجرح تسعطعش نوفمبر، وكل يوم بشوف الاحمرار إذا عم ينتشر"
+  },
+  {
+   "key": "c058/t1/815",
+   "language": "tl",
+   "fact": "Take Lisinopril 10 mg by mouth once a day, every day.",
+   "gold": "partial",
+   "pred": "correct",
+   "error": null,
+   "transcript": "aspirin 81 isang beses sa isang araw clopidogrel 75 once a day yung metoprolol 50 twice a day lisinopril once a day hindi ko maalala yung dose atorvastatin 40 sa gabi bago matulog araw araw lahat yan"
+  },
+  {
+   "key": "c058/t1/817",
+   "language": "ar",
+   "fact": "Take Atorvastatin 80 mg by mouth every night at bedtime.",
+   "gold": "partial",
+   "pred": "correct",
+   "error": null,
+   "transcript": "أبوي بياخذ الأسبرين واحد وثمانين مرة باليوم، والكلوبيدوقريل خمسة وسبعين مرة باليوم، بس إذا حس حاله منيح بعد شهر بيوقفه. الميتوبرولول خمسين مرتين باليوم. واللي للكوليسترول بالليل. والباقي ما بتذكره"
+  },
+  {
+   "key": "c058/t3/822",
+   "language": "bn",
+   "fact": "Call 911 for chest pain lasting more than 5 minutes that is not relieved by nitroglycerin, or for severe shortness of breath, fainting, or bleeding that won't stop.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_threshold",
+   "transcript": "বুকে ব্যথা হলে জিভের নিচে নাইট্রো একটা দেব, পাঁচ মিনিট পর আবার, এভাবে পাঁচটা পর্যন্ত নেওয়া যায়, তারপরও ব্যথা থাকলে হাসপাতালে যাব"
+  },
+  {
+   "key": "c066/t1/826",
+   "language": "zh",
+   "fact": "Take levetiracetam 500 mg by mouth twice a day, at the same times every day (about 8am and 8pm), with food to prevent nausea.",
+   "gold": "partial",
+   "pred": "correct",
+   "error": null,
+   "transcript": "左乙拉西坦 五百毫克 一天两次 早上八点晚上八点 嗯 我想是跟饭吃吧 不太确定 叶酸每天一毫克 空腹吃 饭前一个小时"
+  },
+  {
+   "key": "c068/t3/836",
+   "language": "bn",
+   "fact": "Eat a low-fat diet with small meals and do not drink any alcohol.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_action",
+   "transcript": "কম তেলের খাবার, অল্প অল্প করে বারবার খাব। আর মদ কমিয়ে দেব, মাঝে মাঝে এক গ্লাস চলবে"
+  },
+  {
+   "key": "c068/t4/837",
+   "language": "tl",
+   "fact": "Do light activity only and do not lift anything heavier than 10 pounds for 2 weeks.",
+   "gold": "partial",
+   "pred": "correct",
+   "error": null,
+   "transcript": "light activity lang daw muna tapos bawal magbuhat ng mabigat ng two weeks"
+  },
+  {
+   "key": "c068/t5/839",
+   "language": "ar",
+   "fact": "Call your doctor or go to the emergency room if your belly pain gets worse, you vomit, you have a fever over 100.4°F, or your skin or eyes turn yellow.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_threshold",
+   "transcript": "إذا زاد الوجع أو استفرغت أو صار عندي حرارة فوق مية وواحد فهرنهايت، بروح عالطوارئ. موعد دكتور رييس بالجهاز الهضمي اتنعش نوفمبر الساعة تسعة الصبح. وموعد الدكتور العام ما بتذكره"
+  },
+  {
+   "key": "c068/t5/839",
+   "language": "ar",
+   "fact": "See Dr. Reyes in the GI clinic on November 12, 2026 at 9:00 AM.",
+   "gold": "correct",
+   "pred": "partial",
+   "error": null,
+   "transcript": "إذا زاد الوجع أو استفرغت أو صار عندي حرارة فوق مية وواحد فهرنهايت، بروح عالطوارئ. موعد دكتور رييس بالجهاز الهضمي اتنعش نوفمبر الساعة تسعة الصبح. وموعد الدكتور العام ما بتذكره"
+  },
+  {
+   "key": "c066/t4/908",
+   "language": "pt",
+   "fact": "You cannot drive for at least 6 months, and you must not swim alone, take baths alone, or use heavy machinery until your doctor says it is safe.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_threshold",
+   "transcript": "não posso dirigir por três meses nem nadar sozinho nem tomar banho de banheira sozinho nem mexer com máquina pesada e bebida alcoólica nada e dormir direitinho sem virar a noite"
+  },
+  {
+   "key": "c068/t5/910",
+   "language": "pt",
+   "fact": "Call your doctor or go to the emergency room if your belly pain gets worse, you vomit, you have a fever over 100.4°F, or your skin or eyes turn yellow.",
+   "gold": "partial",
+   "pred": "correct",
+   "error": null,
+   "transcript": "se a dor na barriga piorar se tiver febre acima de cem vírgula quatro Fahrenheit ou ficar amarelo nos olhos ou na pele eu ligo pro médico ou vou pro pronto socorro a consulta com o doutor Reyes no gastro é dia doze de novembro às nove e o clínico acho que é dia dezenove pra exame de sangue mas não t"
+  },
+  {
+   "key": "c068/t3/920",
+   "language": "fr",
+   "fact": "Eat a low-fat diet with small meals and do not drink any alcohol.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_action",
+   "transcript": "je mange pauvre en graisses des petits repas plusieurs fois par jour et l'alcool juste un petit verre de vin le dimanche pas plus"
+  },
+  {
+   "key": "c045/t1/923",
+   "language": "ta",
+   "fact": "Take Ferrous sulfate 325 mg once a day with food for anemia.",
+   "gold": "partial",
+   "pred": "correct",
+   "error": null,
+   "transcript": "labetalol இருநூறு காலையிலும் ராத்திரியிலும் ஏழு நாளைக்கு கொடுப்போம் இரும்பு மாத்திரை ஒரு நாளைக்கு ஒண்ணு சாப்பாட்டோட prenatal vitamin நிறுத்திட்டோம்"
+  },
+  {
+   "key": "c068/t4/929",
+   "language": "ta",
+   "fact": "Do light activity only and do not lift anything heavier than 10 pounds for 2 weeks.",
+   "gold": "incorrect",
+   "pred": "partial",
+   "error": "wrong_timing",
+   "transcript": "லேசான வேலை மட்டும் பத்து pound மேல எதுவும் தூக்க மாட்டேன் ஒரு வாரத்துக்கு"
+  }
+ ]
+}

@@ -39,9 +39,11 @@ test("a changed dose fails the lock", () => {
   assert.equal(p[0].anchor, "40 mg");
 });
 
-test("a translated unit fails the lock", () => {
-  assert.ok(checkAnchor("40 mg", "फ्यूरोसेमाइड 40 मिलीग्राम दिन में दो बार", "hi"));
+test("a unit in the patient's script counts, a missing unit does not", () => {
+  assert.equal(checkAnchor("40 mg", "फ्यूरोसेमाइड 40 मिलीग्राम दिन में दो बार", "hi"), null);
   assert.equal(checkAnchor("40 mg", "furosemide 40 mg दिन में दो बार", "hi"), null);
+  assert.ok(checkAnchor("40 mg", "furosemide 40 दिन में दो बार", "hi"));
+  assert.ok(checkAnchor("40 mg", "furosemide 40 ग्राम दिन में दो बार", "hi"));
 });
 
 test("dates match on localised month names or numeric dates", () => {
@@ -65,7 +67,8 @@ test("12-hour times match their 24-hour forms", () => {
   assert.ok(checkAnchor("2 pm", "alle 2:30", "it"));
   assert.equal(checkAnchor("3 days", "in 3 giorni", "it"), null);
   assert.equal(checkAnchor("1.5 L/day", "1,5 L al giorno", "it"), null);
-  assert.ok(checkAnchor("1.5 L/day", "1,5 litri al giorno", "it"));
+  assert.equal(checkAnchor("1.5 L/day", "1,5 litri al giorno", "it"), null);
+  assert.ok(checkAnchor("1.5 L/day", "1,5 bicchieri al giorno", "it"));
 });
 
 test("re-teach lines may use the 24-hour form of a fact's time", () => {

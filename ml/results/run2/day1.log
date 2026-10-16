@@ -1,0 +1,61 @@
+=== start 05:56:03
+5.19.0 0.21.2
+=== e4b_ready 05:56:24
+=== smoke_nockpt 05:56:24
+no-ckpt failed (see smoke_nockpt.log), keeping checkpointing
+unlikelihood target token: 'correct' 19448 lambda 0.5
+unlikelihood positions: [('incorrect', 1.0), ('incorrect', 1.0), ('incorrect', 1.0)]
+unlikelihood positions: []
+unlikelihood positions: [('partial', 0.5), ('incorrect', 1.0)]
+Traceback (most recent call last):
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 56.00 MiB. GPU 0 has a total capacity of 47.98 GiB of which 0 bytes is free. Of the allocated memory 47.15 GiB is allocated by PyTorch, and 502.70 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+Traceback (most recent call last):
+  File "/workspace/code/avg_adapters.py", line 27, in <module>
+    main()
+    ~~~~^^
+  File "/workspace/code/avg_adapters.py", line 16, in main
+    tensors = [load_file(str(p / "adapter_model.safetensors")) for p in srcs]
+               ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/venv/lib/python3.14/site-packages/safetensors/torch.py", line 359, in load_file
+    with safe_open(filename, framework="pt", device=device, backend=backend) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: No such file or directory: /workspace/runs/smoke_nockpt/adapter/adapter_model.safetensors
+avg_adapters FAILED
+=== train_runA 05:58:20
+=== eval_runA 06:42:31
+=== train_runB 06:49:55
+=== eval_runB 07:34:09
+runB_avg                     scale 1.0   tau 0.0    cost 8    acc 91.5% FR 1 over 3 | at tau 0: acc 91.5% FR 1 over 3
+runA_final                   scale 1.0   tau 0.0    cost 10   acc 89.1% FR 2 over 0 | at tau 0: acc 89.1% FR 2 over 0
+runA_avg                     scale 1.0   tau 0.0    cost 11   acc 88.7% FR 2 over 1 | at tau 0: acc 88.7% FR 2 over 1
+run1                         scale 1.0   tau 0.8    cost 16   acc 85.6% FR 1 over 11 | at tau 0: acc 85.6% FR 2 over 8
+runB_final                   scale 1.0   tau 0.0    cost 17   acc 89.4% FR 2 over 7 | at tau 0: acc 89.4% FR 2 over 7
+SAFETY-FIRST pick (safety-first constraints met): {'name': 'runA_final', 'adapter': '/workspace/runs/runA/adapter', 'scale': 1.0, 'tau': 0.95, 'accuracy': 0.8697183098591549, 'false_reassurance': 0, 'critical_false_reassurance': 0, 'over_flag': 14, 'cost': 14}
+5x-cost rule pick (reported for transparency): {'name': 'runB_avg', 'adapter': '/workspace/runs/runB/adapter_avg', 'scale': 1.0, 'tau': 0.0, 'accuracy': 0.9154929577464789, 'false_reassurance': 1, 'critical_false_reassurance': 1, 'over_flag': 3, 'cost': 8}
+CHOSEN runA_final /workspace/runs/runA/adapter 1.0 0.95
+best of A/B: runB_avg (val FR 1 vs run1 2)
+skip run C (elapsed 105 min)
+runB_avg                     scale 1.0   tau 0.0    cost 8    acc 91.5% FR 1 over 3 | at tau 0: acc 91.5% FR 1 over 3
+runA_final                   scale 1.0   tau 0.0    cost 10   acc 89.1% FR 2 over 0 | at tau 0: acc 89.1% FR 2 over 0
+runA_avg                     scale 1.0   tau 0.0    cost 11   acc 88.7% FR 2 over 1 | at tau 0: acc 88.7% FR 2 over 1
+run1                         scale 1.0   tau 0.8    cost 16   acc 85.6% FR 1 over 11 | at tau 0: acc 85.6% FR 2 over 8
+runB_final                   scale 1.0   tau 0.0    cost 17   acc 89.4% FR 2 over 7 | at tau 0: acc 89.4% FR 2 over 7
+SAFETY-FIRST pick (safety-first constraints met): {'name': 'runA_final', 'adapter': '/workspace/runs/runA/adapter', 'scale': 1.0, 'tau': 0.95, 'accuracy': 0.8697183098591549, 'false_reassurance': 0, 'critical_false_reassurance': 0, 'over_flag': 14, 'cost': 14}
+5x-cost rule pick (reported for transparency): {'name': 'runB_avg', 'adapter': '/workspace/runs/runB/adapter_avg', 'scale': 1.0, 'tau': 0.0, 'accuracy': 0.9154929577464789, 'false_reassurance': 1, 'critical_false_reassurance': 1, 'over_flag': 3, 'cost': 8}
+CHOSEN runA_final /workspace/runs/runA/adapter 1.0 0.95
+=== scale_sweep_runB_avg 07:41:58
+runB_avg_s050                scale 0.5   tau 0.0    cost 7    acc 87.3% FR 0 over 7 | at tau 0: acc 87.3% FR 0 over 7
+runB_avg                     scale 1.0   tau 0.0    cost 8    acc 91.5% FR 1 over 3 | at tau 0: acc 91.5% FR 1 over 3
+runA_final                   scale 1.0   tau 0.0    cost 10   acc 89.1% FR 2 over 0 | at tau 0: acc 89.1% FR 2 over 0
+runA_avg                     scale 1.0   tau 0.0    cost 11   acc 88.7% FR 2 over 1 | at tau 0: acc 88.7% FR 2 over 1
+runB_avg_s075                scale 0.75  tau 0.0    cost 12   acc 88.4% FR 1 over 7 | at tau 0: acc 88.4% FR 1 over 7
+run1                         scale 1.0   tau 0.8    cost 16   acc 85.6% FR 1 over 11 | at tau 0: acc 85.6% FR 2 over 8
+runB_final                   scale 1.0   tau 0.0    cost 17   acc 89.4% FR 2 over 7 | at tau 0: acc 89.4% FR 2 over 7
+SAFETY-FIRST pick (safety-first constraints met): {'name': 'runB_avg_s050', 'adapter': '/workspace/runs/runB/adapter_avg', 'scale': 0.5, 'tau': 0.0, 'accuracy': 0.8732394366197183, 'false_reassurance': 0, 'critical_false_reassurance': 0, 'over_flag': 7, 'cost': 7}
+5x-cost rule pick (reported for transparency): {'name': 'runB_avg_s050', 'adapter': '/workspace/runs/runB/adapter_avg', 'scale': 0.5, 'tau': 0.0, 'accuracy': 0.8732394366197183, 'false_reassurance': 0, 'critical_false_reassurance': 0, 'over_flag': 7, 'cost': 7}
+CHOSEN runB_avg_s050 /workspace/runs/runB/adapter_avg 0.5 0.0
+FINAL: runB_avg_s050 /workspace/runs/runB/adapter_avg scale 0.5 tau 0.0
+=== final_test_independent 07:49:48
+=== final_test 07:56:20
+=== capacity 08:07:40
+=== DAY1DONE 08:10:48

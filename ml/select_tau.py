@@ -26,11 +26,12 @@ def sweep(rows, preds, probs):
     probs = {(r["key"], r["id"]): r["p"] for r in probs}
     out = []
     for tau in GRID:
-        fr = bad = over = good = acc = n = 0
+        fr = bad = over = good = acc = n = crit_fr = crit_bad = 0
         for r in rows:
             k = grader.row_key(r)
             ids = [f["id"] for f in r["facts"]]
             v, _ = grader.verdicts_from(grader.parse_reply(preds[k]["text"]) if k in preds else None, ids)
+            crit = {f["id"]: bool(f.get("critical")) for f in r["facts"]}
             for fid, lab, pv in zip(ids, r["labels"], v):
                 pr = probs.get((k, fid))
                 if pv == "correct" and pr and pr.get("correct", 1) < tau:
@@ -41,11 +42,15 @@ def sweep(rows, preds, probs):
                 if g in ("incorrect", "missing"):
                     bad += 1
                     fr += pv == "correct"
+                    if crit[fid]:
+                        crit_bad += 1
+                        crit_fr += pv == "correct"
                 if g == "correct":
                     good += 1
                     over += pv != "correct"
         out.append({"tau": tau, "false_reassurance": fr, "bad_facts": bad, "over_flag": over, "correct_facts": good,
-                    "accuracy": acc / n, "cost": COST_FR * fr + COST_OVERFLAG * over})
+                    "accuracy": acc / n, "cost": COST_FR * fr + COST_OVERFLAG * over,
+                    "critical_false_reassurance": crit_fr, "critical_bad_facts": crit_bad})
     return out
 
 

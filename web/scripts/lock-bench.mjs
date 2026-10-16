@@ -21,6 +21,7 @@ const N = Number(opt("n", 24));
 const CONC = Number(opt("concurrency", 2));
 const MAX_USD = Number(opt("max-usd", 0.4));
 const DRY = args.includes("--dry");
+const RESUME = args.includes("--resume"); // keep finished cases from the last run and only run the missing ones
 if (!base) {
   console.error("usage: node scripts/lock-bench.mjs <base-url> [--n 24] [--concurrency 2] [--max-usd 0.40] [--dry]");
   process.exit(1);
@@ -94,8 +95,25 @@ async function post(p, body) {
   }
 }
 
+/** Where a non-planted finding came from, read from its reason (for the report only). */
+function findingSource(reason) {
+  if (/back-translation failed|no answer|reading .* failed/.test(reason)) return "checker failed to answer (retried, not repaired)";
+  if (/English left untranslated/.test(reason)) return "writer left an English word untranslated";
+  if (/^field check:/.test(reason)) return "field check disagreed (dose, frequency, timing, action)";
+  if (/^missing: /.test(reason)) return "warning-sign item missing";
+  if (/unit .* missing/.test(reason)) return "writer translated a medical unit (policy keeps mg, g in Latin letters)";
+  if (/is not in the sentence/.test(reason)) return "name anchor missing (includes ordinary words the extractor chose as anchors)";
+  if (/number .* missing|date "/.test(reason)) return "number or date missing";
+  if (/^no sentence|word for word/.test(reason)) return "checker found no sentence for the fact";
+  if (/suspicious wording|second reading found/.test(reason)) return "suspicious word (read these: several are checker false alarms)";
+  if (/meaning differs/.test(reason)) return "meaning check disagreed";
+  return "other";
+}
+
 function detector(reason) {
   if (/back-translation failed|no answer|reading .* failed/.test(reason)) return "checker failure";
+  if (/^field check:/.test(reason)) return "code: field check (dose, frequency, timing, action)";
+  if (/^missing: /.test(reason)) return "code: warning-sign item check";
   if (/^no sentence|word for word/.test(reason)) return "code: no sentence carries it";
   if (/English left untranslated/.test(reason)) return "code: English left in the text";
   if (/suspicious wording/.test(reason)) return "literal back-translation (suspicious word)";
@@ -173,6 +191,7 @@ async function runCase(c, planned) {
     planned_fault: planned,
     fault: injected ? fault : "none",
     fault_requested_but_not_injected: fault !== "none" && !injected,
+    fault_not_injected_reasons: steps.filter((x) => /^Fault not injected|Fault requested but not injected/.test(x.step)).map((x) => `${x.step}: ${x.note ?? ""}`),
     facts: v.lock.length,
     planted,
     other_facts_with_issues: others,
@@ -215,6 +234,8 @@ function summarize(results) {
     }
     return out;
   };
+  const bySource = {};
+  for (const r of results) for (const o of r.other_facts_with_issues) for (const k of new Set(o.reasons.map(findingSource))) bySource[k] = (bySource[k] ?? 0) + 1;
   const byDetector = {};
   for (const r of caught) for (const d of r.planted.detectors) byDetector[d] = (byDetector[d] ?? 0) + 1;
   return {
@@ -232,6 +253,7 @@ function summarize(results) {
     total_facts: totalFacts,
     final_flagged_facts: finalFlagged,
     caught_by: byDetector,
+    non_planted_by_source: bySource,
     by_fault: group((r) => r.fault),
     by_language: group((r) => r.language),
     cost_usd: results.reduce((n, r) => n + r.cost_usd, 0),
@@ -256,6 +278,9 @@ function markdown(sum, results, failures) {
   );
   L.push(`Planted fact final status: ${Object.entries(sum.planted_final_status).map(([k, v]) => `${k} ${v}`).join(", ")}.`, "");
   L.push(`Cost: $${sum.cost_usd.toFixed(4)} for ${sum.calls} model calls (${sum.tokens_in.toLocaleString()} tokens in, ${sum.tokens_out.toLocaleString()} out). Median wall time per case: ${sum.median_wall_s} s.`, "");
+  L.push("## Non-planted findings by source", "", "| Source | Facts |", "|---|---|");
+  for (const [k, v] of Object.entries(sum.non_planted_by_source).sort((a, b) => b[1] - a[1])) L.push(`| ${k} | ${v} |`);
+  L.push("", "A fact can have findings from more than one source. Writer and extractor findings are real deviations from the rules; the suspicious-word list includes checker false alarms (listed at the end).", "");
   L.push("## Caught by", "", "| Check | Faults caught |", "|---|---|");
   for (const [k, v] of Object.entries(sum.caught_by).sort((a, b) => b[1] - a[1])) L.push(`| ${k} | ${v} |`);
   L.push("", "A fault can be caught by more than one check.", "");
@@ -282,15 +307,28 @@ function markdown(sum, results, failures) {
   return L.join("\n") + "\n";
 }
 
+if (args.includes("--report")) {
+  const prev = JSON.parse(fs.readFileSync(path.join(root, "ml", "results", "lock_bench.json"), "utf8"));
+  const sum = summarize(prev.results);
+  fs.writeFileSync(path.join(root, "ml", "results", "lock_bench.json"), JSON.stringify({ ...prev, summary: sum }, null, 2));
+  fs.writeFileSync(path.join(root, "ml", "results", "lock_bench.md"), markdown(sum, prev.results, prev.failures ?? []));
+  console.log(JSON.stringify({ caught: sum.caught, planted: sum.planted_faults, other: sum.non_planted_facts_with_issues, of: sum.non_planted_facts }));
+  process.exit(0);
+}
+
 const cases = loadCases();
 const plan = cases.map((c, i) => ({ c, fault: (i + 1) % 4 === 0 ? "none" : FAULTS[i - Math.floor((i + 1) / 4)] ?? FAULTS[i % FAULTS.length] }));
 // Re-spread the faults over the non-control slots so each type appears about equally.
 let k = 0;
 for (const p of plan) if (p.fault !== "none") p.fault = FAULTS[k++ % FAULTS.length];
-const todo = DRY ? plan.slice(0, 1) : plan;
+const outDir = path.join(root, "ml", "results");
+const prevFile = path.join(outDir, "lock_bench.json");
+const previous = RESUME && fs.existsSync(prevFile) ? JSON.parse(fs.readFileSync(prevFile, "utf8")).results : [];
+const done = new Set(previous.map((r) => r.case_id));
+const todo = DRY ? plan.slice(0, 1) : plan.filter((p) => !done.has(p.c.case_id));
 console.log(`${todo.length} cases: ${todo.map((p) => `${p.c.case_id}/${p.c.language}/${p.fault}`).join(" ")}`);
 
-const results = [];
+const results = [...previous];
 const failures = [];
 let next = 0;
 async function worker() {
@@ -316,7 +354,6 @@ await Promise.all(Array.from({ length: CONC }, worker));
 
 results.sort((a, b) => a.case_id.localeCompare(b.case_id));
 const summary = summarize(results);
-const outDir = path.join(root, "ml", "results");
 const suffix = DRY ? "_dry" : "";
 fs.writeFileSync(path.join(outDir, `lock_bench${suffix}.json`), JSON.stringify({ generated_at: new Date().toISOString(), base, summary, results, failures }, null, 2));
 fs.writeFileSync(path.join(outDir, `lock_bench${suffix}.md`), markdown(summary, results, failures));

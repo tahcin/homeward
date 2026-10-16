@@ -296,9 +296,13 @@ export function TeachBack({ s, update, goStage }: { s: Session; update: Update; 
             <h1>
               <Bidi text={v.title || t.yourInstructions} rtl={L.rtl} />
             </h1>
+            <p className="ai-notice">
+              <Icon name="info" size={22} />
+              <span>{t.aiNotice}</span>
+            </p>
             <div className="btn-row">
               {hasVoice && (
-                <button className="btn" onClick={() => say([v.title, ...v.paragraphs].join(". "))}>
+                <button className="btn" onClick={() => say([t.aiNotice, v.title, ...v.paragraphs].join(". "))}>
                   <Icon name={speaking ? "stop" : "speaker"} />
                   {speaking ? t.stop : t.listen}
                 </button>

@@ -256,6 +256,8 @@ textarea.input { resize: vertical; }
 .progress-bar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
 .progress-bar span { display: block; height: 100%; background: var(--accent); transition: width 0.3s ease; }
 .patient-note { font-size: 20px; }
+.ai-notice { display: flex; gap: 12px; align-items: flex-start; font-size: 19px; line-height: 1.5; color: var(--muted); background: var(--sunk); border-radius: 14px; padding: 14px 16px; }
+.ai-notice svg { flex: none; margin-top: 3px; color: var(--accent); }
 
 /* Board */
 .verdict { padding: 22px; border-radius: var(--radius); display: flex; gap: 16px; align-items: flex-start; }

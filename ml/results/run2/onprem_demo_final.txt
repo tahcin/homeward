@@ -1,0 +1,28 @@
+==============================================================================
+Homeward on-prem teach-back check   |   AMD Radeon Pro W7900D   |   ROCm, torch 2.13.0+rocm10.0.0
+==============================================================================
+Loaded Gemma 4 E4B + Homeward LoRA grader in 14.6 s
+rocm-smi: VRAM used 15.6 GiB of 48.0 GiB
+
+Question (Hindi): Tell me about your new heart medicines.
+Facts the patient must understand:
+  f1 [critical] Take clopidogrel 75 mg once a day for 12 months, and do not stop it without asking your cardiologist.
+  f2 [critical] Take aspirin 75 mg once a day after food.
+
+Patient's spoken answer: human_h02.wav (7.4 s of audio, recorded by a person)
+
+[1] Gemma 4 E4B speech recognition (9.2 s):
+    क्लोपिडोरिल रोज़ लेनी है 1 महीने तक फिर बंद कर दूंगा एस्पिरिन भी लेनी है शायद
+
+[2] Fine-tuned E4B grader (10.7 s):
+  WRONG f1: incorrect heard: Take clopidogrel for 1 month then stop it
+        re-teach: Take clopidogrel 75 mg once a day for 12 months and do not stop it without asking your cardiologist.
+  PART  f2: partial   heard: Take aspirin
+        re-teach: Take aspirin 75 mg once a day after food.
+
+Readiness: NOT READY, re-teach critical facts f1, f2
+Designed labels for this clip: {'f1': 'incorrect', 'f2': 'partial'}
+
+End to end on one GPU: 19.8 s (ASR 9.2 s + grading 10.7 s); peak PyTorch memory 15.3 GiB
+rocm-smi: VRAM used 15.9 GiB of 48.0 GiB
+No audio or text left this machine.

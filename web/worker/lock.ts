@@ -2,6 +2,7 @@
 // carries every anchor. No model output is trusted here; everything is plain string checks.
 
 import type { AnchorProblem, Fact } from "../shared/types.ts";
+import { hasLocalUnit } from "./structured.ts";
 
 /** Unicode decimal digit blocks whose zero we map to ASCII. NFKC already folds full-width digits. */
 const DIGIT_ZEROS = [0x0660, 0x06f0, 0x07c0, 0x0966, 0x09e6, 0x0a66, 0x0ae6, 0x0b66, 0x0be6, 0x0c66, 0x0ce6, 0x0d66, 0x0e50, 0x0ed0, 0x0f20, 0x1040, 0x17e0, 0x1810];
@@ -171,7 +172,8 @@ export function checkAnchor(anchor: string, quote: string, lang: string): string
   }
   const problems: string[] = [];
   if (missingNums.length) problems.push(`number ${missingNums.join(", ")} missing`);
-  const units = medUnits(anchor).filter((u) => !medUnits(quote).includes(u));
+  // A unit written in the patient's script right after the number ("40 毫克") counts as the unit.
+  const units = medUnits(anchor).filter((u) => !medUnits(quote).includes(u) && !hasLocalUnit(quote, u === "l" ? "l" : u));
   if (units.length) problems.push(`unit ${units.join(", ")} missing`);
   return problems.length ? `"${anchor}": ${problems.join("; ")}` : null;
 }

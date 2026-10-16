@@ -1,0 +1,1738 @@
+{
+  "generated_at": "2026-10-16T05:14:05.041Z",
+  "base": "http://localhost:8787",
+  "summary": {
+    "cases": 24,
+    "languages": [
+      "it",
+      "es",
+      "hi",
+      "bn",
+      "ar",
+      "zh",
+      "ta",
+      "vi"
+    ],
+    "planted_faults": 17,
+    "caught": 16,
+    "shipped_uncaught": 1,
+    "planted_final_status": {
+      "locked": 1,
+      "repaired": 14,
+      "flagged": 2
+    },
+    "non_planted_facts": 234,
+    "non_planted_facts_with_issues": 68,
+    "control_cases": 7,
+    "control_facts": 69,
+    "control_facts_with_issues": 29,
+    "total_facts": 251,
+    "final_flagged_facts": 24,
+    "caught_by": {
+      "code: anchor check (number, unit, date or name)": 6,
+      "code: English left in the text": 3,
+      "code: field check (dose, frequency, timing, action)": 5,
+      "meaning check": 2,
+      "literal back-translation (suspicious word)": 1
+    },
+    "non_planted_by_source": {
+      "warning-sign item missing": 2,
+      "checker failed to answer (retried, not repaired)": 5,
+      "writer left an English word untranslated": 34,
+      "meaning check disagreed": 9,
+      "number or date missing": 1,
+      "writer translated a medical unit (policy keeps mg, g in Latin letters)": 5,
+      "suspicious word (read these: several are checker false alarms)": 7,
+      "field check disagreed (dose, frequency, timing, action)": 6
+    },
+    "by_fault": {
+      "date": {
+        "cases": 3,
+        "planted": 3,
+        "caught": 3,
+        "facts": 30,
+        "other_issues": 2,
+        "final_flagged": 1
+      },
+      "frequency": {
+        "cases": 5,
+        "planted": 5,
+        "caught": 5,
+        "facts": 51,
+        "other_issues": 15,
+        "final_flagged": 6
+      },
+      "drop_negation": {
+        "cases": 2,
+        "planted": 2,
+        "caught": 2,
+        "facts": 22,
+        "other_issues": 4,
+        "final_flagged": 2
+      },
+      "none": {
+        "cases": 7,
+        "planted": 0,
+        "caught": 0,
+        "facts": 69,
+        "other_issues": 29,
+        "final_flagged": 9
+      },
+      "drop_symptom": {
+        "cases": 2,
+        "planted": 2,
+        "caught": 1,
+        "facts": 20,
+        "other_issues": 4,
+        "final_flagged": 1
+      },
+      "dose": {
+        "cases": 2,
+        "planted": 2,
+        "caught": 2,
+        "facts": 23,
+        "other_issues": 4,
+        "final_flagged": 3
+      },
+      "negation": {
+        "cases": 1,
+        "planted": 1,
+        "caught": 1,
+        "facts": 10,
+        "other_issues": 4,
+        "final_flagged": 0
+      },
+      "dose_half": {
+        "cases": 1,
+        "planted": 1,
+        "caught": 1,
+        "facts": 14,
+        "other_issues": 3,
+        "final_flagged": 1
+      },
+      "mistranslate": {
+        "cases": 1,
+        "planted": 1,
+        "caught": 1,
+        "facts": 12,
+        "other_issues": 3,
+        "final_flagged": 1
+      }
+    },
+    "by_language": {
+      "it": {
+        "cases": 3,
+        "planted": 3,
+        "caught": 3,
+        "facts": 34,
+        "other_issues": 3,
+        "final_flagged": 1
+      },
+      "es": {
+        "cases": 3,
+        "planted": 3,
+        "caught": 3,
+        "facts": 32,
+        "other_issues": 3,
+        "final_flagged": 3
+      },
+      "hi": {
+        "cases": 3,
+        "planted": 2,
+        "caught": 2,
+        "facts": 28,
+        "other_issues": 8,
+        "final_flagged": 4
+      },
+      "bn": {
+        "cases": 3,
+        "planted": 3,
+        "caught": 2,
+        "facts": 28,
+        "other_issues": 8,
+        "final_flagged": 2
+      },
+      "ar": {
+        "cases": 3,
+        "planted": 3,
+        "caught": 3,
+        "facts": 36,
+        "other_issues": 9,
+        "final_flagged": 4
+      },
+      "zh": {
+        "cases": 3,
+        "planted": 0,
+        "caught": 0,
+        "facts": 30,
+        "other_issues": 19,
+        "final_flagged": 2
+      },
+      "ta": {
+        "cases": 3,
+        "planted": 3,
+        "caught": 3,
+        "facts": 35,
+        "other_issues": 12,
+        "final_flagged": 4
+      },
+      "vi": {
+        "cases": 3,
+        "planted": 0,
+        "caught": 0,
+        "facts": 28,
+        "other_issues": 6,
+        "final_flagged": 4
+      }
+    },
+    "cost_usd": 0.05432190679999999,
+    "calls": 535,
+    "tokens_in": 333593,
+    "tokens_out": 131722,
+    "median_wall_s": 281
+  },
+  "results": [
+    {
+      "case_id": "c001",
+      "source": "cases.jsonl",
+      "language": "it",
+      "condition": "heart failure exacerbation, new diuretic dose and daily weights",
+      "planned_fault": "negation",
+      "fault": "date",
+      "fault_requested_but_not_injected": false,
+      "facts": 10,
+      "planted": {
+        "kind": "date",
+        "fact_id": "f6",
+        "critical": false,
+        "before": "Si rechi alla clinica di cardiologia il 10 novembre 2026.",
+        "after": "Si rechi alla clinica di cardiologia il 11 novembre 2026.",
+        "caught": true,
+        "detectors": [
+          "code: anchor check (number, unit, date or name)"
+        ],
+        "reasons": [
+          "date \"Nov 10, 2026\": number 10 missing"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [],
+      "final": {
+        "locked": 9,
+        "repaired": 1,
+        "flagged": 0
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 9446,
+      "tokens_out": 4095,
+      "cost_usd": 0.0015478946,
+      "calls": 18,
+      "wall_s": 200
+    },
+    {
+      "case_id": "c002",
+      "source": "cases.jsonl",
+      "language": "es",
+      "condition": "atrial fibrillation, newly started on an anticoagulant",
+      "planned_fault": "date",
+      "fault": "date",
+      "fault_requested_but_not_injected": false,
+      "facts": 11,
+      "planted": {
+        "kind": "date",
+        "fact_id": "f4",
+        "critical": false,
+        "before": "Tenga una cita de seguimiento con cardiología el 16/11/26.",
+        "after": "Tenga una cita de seguimiento con cardiología el 17/11/26.",
+        "caught": true,
+        "detectors": [
+          "code: anchor check (number, unit, date or name)"
+        ],
+        "reasons": [
+          "\"11/16/26\": number 16 missing"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f8",
+          "final_status": "flagged",
+          "detectors": [
+            "code: warning-sign item check"
+          ],
+          "reasons": [
+            "missing: rapid irregular heartbeat with shortness of breath"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 9,
+        "repaired": 1,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 12948,
+      "tokens_out": 4868,
+      "cost_usd": 0.0020933017,
+      "calls": 24,
+      "wall_s": 219
+    },
+    {
+      "case_id": "c003",
+      "source": "cases.jsonl",
+      "language": "hi",
+      "condition": "community-acquired pneumonia, oral antibiotics to finish at home",
+      "planned_fault": "dose",
+      "fault": "frequency",
+      "fault_requested_but_not_injected": false,
+      "facts": 8,
+      "planted": {
+        "kind": "frequency",
+        "fact_id": "f1",
+        "critical": false,
+        "before": "Azithromycin 250 mg को अगले 3 दिनों तक रोज़ाना मुँह से लें।",
+        "after": "Azithromycin 250 mg को अगले 3 दिनों तक हर 12 घंटे में मुँह से लें।",
+        "caught": true,
+        "detectors": [
+          "code: English left in the text"
+        ],
+        "reasons": [
+          "English left untranslated: \"h\"; write it in Hindi"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f2",
+          "final_status": "repaired",
+          "detectors": [
+            "checker failure"
+          ],
+          "reasons": [
+            "the meaning check gave no answer for this fact"
+          ]
+        },
+        {
+          "id": "f3",
+          "final_status": "flagged",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"clots\", \"h\"; write it in Hindi"
+          ]
+        },
+        {
+          "id": "f7",
+          "final_status": "repaired",
+          "detectors": [
+            "meaning check"
+          ],
+          "reasons": [
+            "meaning differs (timing): The patient sentence says '2 week after 11/17/2026' which implies meeting 2 weeks after that date, but the fact says follow up in 2 weeks on 11/17/2026, meaning the appointment is on that date."
+          ]
+        }
+      ],
+      "final": {
+        "locked": 4,
+        "repaired": 3,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 14030,
+      "tokens_out": 4412,
+      "cost_usd": 0.0019309849999999996,
+      "calls": 21,
+      "wall_s": 218
+    },
+    {
+      "case_id": "c004",
+      "source": "cases.jsonl",
+      "language": "bn",
+      "condition": "COPD exacerbation, steroid taper and new inhaler",
+      "planned_fault": "frequency",
+      "fault": "frequency",
+      "fault_requested_but_not_injected": false,
+      "facts": 10,
+      "planted": {
+        "kind": "frequency",
+        "fact_id": "f1",
+        "critical": false,
+        "before": "প্রথম 5 দিন প্রতিদিন 40 mg নিন।",
+        "after": "প্রথম 5 দিন প্রতি 12 ঘণ্টা অন্তর 40 mg নিন।",
+        "caught": true,
+        "detectors": [
+          "code: field check (dose, frequency, timing, action)"
+        ],
+        "reasons": [
+          "field check: frequency differs (fact 1 a day, patient text 2 a day)"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f2",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"puffs\"; write it in Bengali"
+          ]
+        },
+        {
+          "id": "f3",
+          "final_status": "flagged",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"puff\"; write it in Bengali"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 7,
+        "repaired": 2,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 14394,
+      "tokens_out": 5029,
+      "cost_usd": 0.0021214186,
+      "calls": 24,
+      "wall_s": 223
+    },
+    {
+      "case_id": "c006",
+      "source": "cases.jsonl",
+      "language": "ar",
+      "condition": "diabetic ketoacidosis in type 1 diabetes, insulin plan changes",
+      "planned_fault": "drop_negation",
+      "fault": "drop_negation",
+      "fault_requested_but_not_injected": false,
+      "facts": 12,
+      "planted": {
+        "kind": "drop_negation",
+        "fact_id": "f10",
+        "critical": true,
+        "before": "تجنب القيادة إذا كان سكر الدم أقل من 70 mg/dL.",
+        "after": "قد إذا كان سكر الدم أقل من 70 mg/dL.",
+        "caught": true,
+        "detectors": [
+          "code: English left in the text"
+        ],
+        "reasons": [
+          "English left untranslated: \"dl\"; write it in Arabic"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f2",
+          "final_status": "flagged",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"dl\"; write it in Arabic"
+          ]
+        },
+        {
+          "id": "f6",
+          "final_status": "repaired",
+          "detectors": [
+            "code: anchor check (number, unit, date or name)"
+          ],
+          "reasons": [
+            "\"2\": number 2 missing"
+          ]
+        },
+        {
+          "id": "f7",
+          "final_status": "repaired",
+          "detectors": [
+            "checker failure"
+          ],
+          "reasons": [
+            "the second reading of this critical warning sign failed"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 8,
+        "repaired": 3,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 14506,
+      "tokens_out": 7665,
+      "cost_usd": 0.0028227675000000005,
+      "calls": 21,
+      "wall_s": 366
+    },
+    {
+      "case_id": "c007",
+      "source": "cases.jsonl",
+      "language": "zh",
+      "condition": "laparoscopic appendectomy, wound care and pain control",
+      "planned_fault": "none",
+      "fault": "none",
+      "fault_requested_but_not_injected": false,
+      "facts": 9,
+      "planted": null,
+      "other_facts_with_issues": [
+        {
+          "id": "f1",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"h\"; write it in Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "f2",
+          "final_status": "locked",
+          "detectors": [
+            "checker failure"
+          ],
+          "reasons": [
+            "the back-translation failed, so the meaning could not be checked"
+          ]
+        },
+        {
+          "id": "f3",
+          "final_status": "flagged",
+          "detectors": [
+            "code: anchor check (number, unit, date or name)"
+          ],
+          "reasons": [
+            "\"3 g\": unit g missing"
+          ]
+        },
+        {
+          "id": "f4",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"days\", \"h\"; write it in Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "f5",
+          "final_status": "locked",
+          "detectors": [
+            "checker failure"
+          ],
+          "reasons": [
+            "the back-translation failed, so the meaning could not be checked"
+          ]
+        },
+        {
+          "id": "f6",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"weeks\"; write it in Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "f7",
+          "final_status": "locked",
+          "detectors": [
+            "checker failure"
+          ],
+          "reasons": [
+            "the back-translation failed, so the meaning could not be checked"
+          ]
+        },
+        {
+          "id": "f8",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"weeks\"; write it in Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "f9",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"h\"; write it in Mandarin Chinese"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 3,
+        "repaired": 5,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 15809,
+      "tokens_out": 5527,
+      "cost_usd": 0.0026185606999999996,
+      "calls": 29,
+      "wall_s": 340
+    },
+    {
+      "case_id": "c010",
+      "source": "cases.jsonl",
+      "language": "ta",
+      "condition": "acute myocardial infarction with stent, dual antiplatelet therapy",
+      "planned_fault": "drop_symptom",
+      "fault": "drop_symptom",
+      "fault_requested_but_not_injected": false,
+      "facts": 12,
+      "planted": {
+        "kind": "drop_symptom",
+        "fact_id": "f8",
+        "critical": true,
+        "before": "ஓய்வெடுத்தும் சரியாகாத 5 min க்கும் மேலாக நீடிக்கும் மார்பு வலி, வியர்த்தல், மூச்சுத் திணறல் அல்லது மயக்கம் ஏற்பட்டால் அவசர சிகிச்சை பிரிவுக்குத் திரும்புங்கள்.",
+        "after": "ஓய்வெடுத்தும் சரியாகாத 5 min க்கும் மேலாக நீடிக்கும் மார்பு வலி, வியர்த்தல், மூச்சுத் திணறல் ஏற்பட்டால் அவசர சிகிச்சை பிரிவுக்குத் திரும்புங்கள்.",
+        "caught": true,
+        "detectors": [
+          "code: English left in the text"
+        ],
+        "reasons": [
+          "English left untranslated: \"min\"; write it in Tamil"
+        ],
+        "final_status": "flagged",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f9",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"cardiology\"; write it in Tamil"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 10,
+        "repaired": 1,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 15774,
+      "tokens_out": 6475,
+      "cost_usd": 0.0026869829,
+      "calls": 23,
+      "wall_s": 324
+    },
+    {
+      "case_id": "c012",
+      "source": "cases.jsonl",
+      "language": "vi",
+      "condition": "deep vein thrombosis, anticoagulant started",
+      "planned_fault": "none",
+      "fault": "none",
+      "fault_requested_but_not_injected": false,
+      "facts": 11,
+      "planted": null,
+      "other_facts_with_issues": [
+        {
+          "id": "f2",
+          "final_status": "flagged",
+          "detectors": [
+            "code: anchor check (number, unit, date or name)"
+          ],
+          "reasons": [
+            "\"3 g\": unit g missing"
+          ]
+        },
+        {
+          "id": "f9",
+          "final_status": "flagged",
+          "detectors": [
+            "literal back-translation (suspicious word)"
+          ],
+          "reasons": [
+            "suspicious wording \"đỏ mới\": It literally means 'red new' but likely intended 'new redness'; as written it is nonsensical."
+          ]
+        }
+      ],
+      "final": {
+        "locked": 9,
+        "repaired": 0,
+        "flagged": 2
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 15034,
+      "tokens_out": 5638,
+      "cost_usd": 0.0023698079999999993,
+      "calls": 23,
+      "wall_s": 205
+    },
+    {
+      "case_id": "c013",
+      "source": "cases.jsonl",
+      "language": "it",
+      "condition": "cellulitis of the leg, oral antibiotics and leg elevation",
+      "planned_fault": "frequency",
+      "fault": "frequency",
+      "fault_requested_but_not_injected": false,
+      "facts": 10,
+      "planted": {
+        "kind": "frequency",
+        "fact_id": "f1",
+        "critical": false,
+        "before": "Prenda cefalessina (Cephalexin) 500 mg per bocca quattro volte al giorno per 10 giorni.",
+        "after": "Prenda cefalessina (Cephalexin) 500 mg per bocca due volte al giorno per 10 giorni.",
+        "caught": true,
+        "detectors": [
+          "code: field check (dose, frequency, timing, action)"
+        ],
+        "reasons": [
+          "field check: frequency differs (fact 4 a day, patient text 2 a day)"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [],
+      "final": {
+        "locked": 9,
+        "repaired": 1,
+        "flagged": 0
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 9956,
+      "tokens_out": 3944,
+      "cost_usd": 0.0016079217,
+      "calls": 17,
+      "wall_s": 357
+    },
+    {
+      "case_id": "c014",
+      "source": "cases.jsonl",
+      "language": "es",
+      "condition": "kidney stone, pain control and straining urine",
+      "planned_fault": "drop_negation",
+      "fault": "drop_negation",
+      "fault_requested_but_not_injected": false,
+      "facts": 10,
+      "planted": {
+        "kind": "drop_negation",
+        "fact_id": "f6",
+        "critical": false,
+        "before": "Evite levantar objetos pesados de más de 10 lb durante 1 semana.",
+        "after": "Levante objetos pesados de más de 10 lb durante 1 semana.",
+        "caught": true,
+        "detectors": [
+          "meaning check"
+        ],
+        "reasons": [
+          "meaning differs (missing detail)"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f2",
+          "final_status": "flagged",
+          "detectors": [
+            "code: field check (dose, frequency, timing, action)"
+          ],
+          "reasons": [
+            "field check: time of day differs (fact morning, evening, patient text morning, night)"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 8,
+        "repaired": 1,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 13175,
+      "tokens_out": 4539,
+      "cost_usd": 0.0018864957999999996,
+      "calls": 23,
+      "wall_s": 281
+    },
+    {
+      "case_id": "c015",
+      "source": "cases.jsonl",
+      "language": "hi",
+      "condition": "urinary tract infection with sepsis in an older adult",
+      "planned_fault": "mistranslate",
+      "fault": "none",
+      "fault_requested_but_not_injected": true,
+      "fault_not_injected_reasons": [
+        "Fault not injected for f5: the rewritten sentence was unchanged",
+        "Fault requested but not injected: no matching sentence was found in the first draft"
+      ],
+      "facts": 11,
+      "planted": null,
+      "other_facts_with_issues": [
+        {
+          "id": "f3",
+          "final_status": "flagged",
+          "detectors": [
+            "code: anchor check (number, unit, date or name)"
+          ],
+          "reasons": [
+            "\"3 g\": unit g missing"
+          ]
+        },
+        {
+          "id": "f5",
+          "final_status": "flagged",
+          "detectors": [
+            "code: warning-sign item check"
+          ],
+          "reasons": [
+            "missing: worsening flank pain"
+          ]
+        },
+        {
+          "id": "f9",
+          "final_status": "flagged",
+          "detectors": [
+            "meaning check"
+          ],
+          "reasons": [
+            "meaning differs (missing detail): The patient sentence omits 'or strenuous exercise' from the instruction."
+          ]
+        },
+        {
+          "id": "f11",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"h\"; write it in Hindi"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 7,
+        "repaired": 1,
+        "flagged": 3
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 17076,
+      "tokens_out": 6229,
+      "cost_usd": 0.0025978001,
+      "calls": 25,
+      "wall_s": 445
+    },
+    {
+      "case_id": "c016",
+      "source": "cases.jsonl",
+      "language": "bn",
+      "condition": "asthma attack, steroid burst and inhaler technique",
+      "planned_fault": "dose_half",
+      "fault": "frequency",
+      "fault_requested_but_not_injected": false,
+      "facts": 10,
+      "planted": {
+        "kind": "frequency",
+        "fact_id": "f1",
+        "critical": false,
+        "before": "Prednisone 40 mg প্রতিদিন মুখে খাবেন 5 দিন ধরে।",
+        "after": "Prednisone 40 mg প্রতি ১২ ঘণ্টা অন্তর মুখে খাবেন 5 দিন ধরে।",
+        "caught": true,
+        "detectors": [
+          "code: field check (dose, frequency, timing, action)"
+        ],
+        "reasons": [
+          "field check: frequency differs (fact 1 a day, patient text 2 a day)"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f2",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"puffs\"; write it in Bengali"
+          ]
+        },
+        {
+          "id": "f3",
+          "final_status": "flagged",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"puff\"; write it in Bengali"
+          ]
+        },
+        {
+          "id": "f8",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"puffs\"; write it in Bengali"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 6,
+        "repaired": 3,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 15578,
+      "tokens_out": 5691,
+      "cost_usd": 0.0023270659999999996,
+      "calls": 24,
+      "wall_s": 192
+    },
+    {
+      "case_id": "c018",
+      "source": "cases.jsonl",
+      "language": "ar",
+      "condition": "new seizure, antiseizure medicine started and driving restrictions",
+      "planned_fault": "dose",
+      "fault": "dose",
+      "fault_requested_but_not_injected": false,
+      "facts": 12,
+      "planted": {
+        "kind": "dose",
+        "fact_id": "f1",
+        "critical": true,
+        "before": "ابدأ في تناول levetiracetam بجرعة 500 mg مرتين يومياً في الصباح والمساء.",
+        "after": "ابدأ في تناول levetiracetam بجرعة 1000 mg مرتين يومياً في الصباح والمساء.",
+        "caught": true,
+        "detectors": [
+          "code: anchor check (number, unit, date or name)"
+        ],
+        "reasons": [
+          "\"500 mg\": number 500 missing"
+        ],
+        "final_status": "flagged",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f3",
+          "final_status": "flagged",
+          "detectors": [
+            "code: anchor check (number, unit, date or name)"
+          ],
+          "reasons": [
+            "\"3 g\": unit g missing"
+          ]
+        },
+        {
+          "id": "f4",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"min\"; write it in Arabic"
+          ]
+        },
+        {
+          "id": "f10",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"week\"; write it in Arabic"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 8,
+        "repaired": 2,
+        "flagged": 2
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 13291,
+      "tokens_out": 5229,
+      "cost_usd": 0.0019640292,
+      "calls": 21,
+      "wall_s": 330
+    },
+    {
+      "case_id": "c019",
+      "source": "cases.jsonl",
+      "language": "zh",
+      "condition": "hypertensive urgency, blood pressure medicine changes",
+      "planned_fault": "none",
+      "fault": "none",
+      "fault_requested_but_not_injected": false,
+      "facts": 10,
+      "planted": null,
+      "other_facts_with_issues": [
+        {
+          "id": "f4",
+          "final_status": "flagged",
+          "detectors": [
+            "literal back-translation (suspicious word)"
+          ],
+          "reasons": [
+            "suspicious wording \"停止\": The sentence says 'stop' but the context of a discharge leaflet likely means 'continue' or 'take'; 'stop' is nonsensical for a medication instruction."
+          ]
+        },
+        {
+          "id": "f8",
+          "final_status": "repaired",
+          "detectors": [
+            "literal back-translation (suspicious word)"
+          ],
+          "reasons": [
+            "suspicious wording \"出现\": 'Appear' is used for '出现' but in English 'appear' means 'seem' or 'become visible'; the correct medical term is 'experience' or 'have'."
+          ]
+        }
+      ],
+      "final": {
+        "locked": 8,
+        "repaired": 1,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 12903,
+      "tokens_out": 5050,
+      "cost_usd": 0.0022397073999999998,
+      "calls": 25,
+      "wall_s": 341
+    },
+    {
+      "case_id": "c022",
+      "source": "cases.jsonl",
+      "language": "ta",
+      "condition": "chemotherapy-related neutropenic fever, infection precautions",
+      "planned_fault": "negation",
+      "fault": "negation",
+      "fault_requested_but_not_injected": false,
+      "facts": 10,
+      "planted": {
+        "kind": "negation",
+        "fact_id": "f3",
+        "critical": false,
+        "before": "Lisinopril 10 mg மருந்தை எடுத்துக் கொள்வதை நிறுத்துங்கள்.",
+        "after": "Lisinopril 10 mg மருந்தை எடுத்துக் கொள்வதை தொடருங்கள்.",
+        "caught": true,
+        "detectors": [
+          "code: field check (dose, frequency, timing, action)",
+          "meaning check"
+        ],
+        "reasons": [
+          "field check: frequency missing",
+          "field check: action differs (fact: not take, patient text: take)",
+          "meaning differs (negation): The patient sentence says 'continue taking' instead of 'stop taking'."
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f6",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"am\"; write it in Tamil"
+          ]
+        },
+        {
+          "id": "f7",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"pm\"; write it in Tamil"
+          ]
+        },
+        {
+          "id": "f8",
+          "final_status": "repaired",
+          "detectors": [
+            "meaning check"
+          ],
+          "reasons": [
+            "meaning differs (missing detail): The patient sentence says 'avoid heavy things to lift' but does not specify the 10 lb threshold."
+          ]
+        },
+        {
+          "id": "f9",
+          "final_status": "repaired",
+          "detectors": [
+            "literal back-translation (suspicious word)"
+          ],
+          "reasons": [
+            "suspicious wording \"நோயாளிகள்\": It means 'patients' but in context of avoiding crowded places, it likely means 'sick people' or 'infected persons'; as written it is nonsensical to avoid patients generally."
+          ]
+        }
+      ],
+      "final": {
+        "locked": 5,
+        "repaired": 5,
+        "flagged": 0
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 13750,
+      "tokens_out": 5275,
+      "cost_usd": 0.0023009566999999996,
+      "calls": 20,
+      "wall_s": 174
+    },
+    {
+      "case_id": "c024",
+      "source": "cases.jsonl",
+      "language": "vi",
+      "condition": "lithium toxicity, medicine dose change and blood tests",
+      "planned_fault": "none",
+      "fault": "none",
+      "fault_requested_but_not_injected": false,
+      "facts": 10,
+      "planted": null,
+      "other_facts_with_issues": [
+        {
+          "id": "f4",
+          "final_status": "flagged",
+          "detectors": [
+            "code: anchor check (number, unit, date or name)"
+          ],
+          "reasons": [
+            "\"3 g\": unit g missing"
+          ]
+        },
+        {
+          "id": "f7",
+          "final_status": "flagged",
+          "detectors": [
+            "literal back-translation (suspicious word)"
+          ],
+          "reasons": [
+            "suspicious wording \"nói ngọng\": 'nói ngọng' means 'lisp' or 'slurred speech' — but 'ngọng' specifically is a lisp, not general slurring; however it is commonly used for slurred speech, so acceptable."
+          ]
+        },
+        {
+          "id": "f9",
+          "final_status": "repaired",
+          "detectors": [
+            "literal back-translation (suspicious word)"
+          ],
+          "reasons": [
+            "suspicious wording \"Thận\": It means 'kidney' but likely intended 'nephrology' department; however, as written it is a body organ, not a department name."
+          ]
+        }
+      ],
+      "final": {
+        "locked": 7,
+        "repaired": 1,
+        "flagged": 2
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 10415,
+      "tokens_out": 4174,
+      "cost_usd": 0.0015691739000000002,
+      "calls": 16,
+      "wall_s": 294
+    },
+    {
+      "case_id": "c025",
+      "source": "cases.jsonl",
+      "language": "it",
+      "condition": "heart failure exacerbation, new diuretic dose and daily weights",
+      "planned_fault": "dose_half",
+      "fault": "dose_half",
+      "fault_requested_but_not_injected": false,
+      "facts": 14,
+      "planted": {
+        "kind": "dose_half",
+        "fact_id": "f1",
+        "critical": true,
+        "before": "La dose di Furosemide aumenta da 20 mg a 40 mg due volte al giorno.",
+        "after": "La dose di Furosemide aumenta da 10 mg a 40 mg due volte al giorno.",
+        "caught": true,
+        "detectors": [
+          "code: anchor check (number, unit, date or name)"
+        ],
+        "reasons": [
+          "\"20 mg\": number 20 missing"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f6",
+          "final_status": "flagged",
+          "detectors": [
+            "meaning check"
+          ],
+          "reasons": [
+            "meaning differs (dose): Patient says one tablet per day, but fact says take one tablet as needed, not daily."
+          ]
+        },
+        {
+          "id": "f8",
+          "final_status": "repaired",
+          "detectors": [
+            "meaning check"
+          ],
+          "reasons": [
+            "meaning differs (missing detail): Patient sentence omits the instruction to weigh every morning."
+          ]
+        },
+        {
+          "id": "f12",
+          "final_status": "repaired",
+          "detectors": [
+            "meaning check"
+          ],
+          "reasons": [
+            "meaning differs (action): Patient sentence is nonsense and does not convey the fact."
+          ]
+        }
+      ],
+      "final": {
+        "locked": 10,
+        "repaired": 3,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 16963,
+      "tokens_out": 7441,
+      "cost_usd": 0.002979235699999999,
+      "calls": 25,
+      "wall_s": 416
+    },
+    {
+      "case_id": "c026",
+      "source": "cases.jsonl",
+      "language": "es",
+      "condition": "atrial fibrillation, newly started on an anticoagulant",
+      "planned_fault": "dose",
+      "fault": "dose",
+      "fault_requested_but_not_injected": false,
+      "facts": 11,
+      "planted": {
+        "kind": "dose",
+        "fact_id": "f1",
+        "critical": true,
+        "before": "Empiece a tomar apixaban 5mg dos veces al día.",
+        "after": "Empiece a tomar apixaban 10mg dos veces al día.",
+        "caught": true,
+        "detectors": [
+          "code: anchor check (number, unit, date or name)"
+        ],
+        "reasons": [
+          "\"5mg\": number 5 missing"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f5",
+          "final_status": "flagged",
+          "detectors": [
+            "literal back-translation (suspicious word)"
+          ],
+          "reasons": [
+            "suspicious wording \"al\": 'al día' means 'per day' but literally 'to the day' - I translated as 'to day' which is wrong English but literal."
+          ]
+        }
+      ],
+      "final": {
+        "locked": 9,
+        "repaired": 1,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 11459,
+      "tokens_out": 5477,
+      "cost_usd": 0.0020989318,
+      "calls": 20,
+      "wall_s": 363
+    },
+    {
+      "case_id": "c027",
+      "source": "cases.jsonl",
+      "language": "hi",
+      "condition": "community-acquired pneumonia, oral antibiotics to finish at home",
+      "planned_fault": "date",
+      "fault": "date",
+      "fault_requested_but_not_injected": false,
+      "facts": 9,
+      "planted": {
+        "kind": "date",
+        "fact_id": "f6",
+        "critical": false,
+        "before": "फेफड़ों की दोबारा जांच के लिए 11/10/2026 को क्लिनिक वापस आएं।",
+        "after": "फेफड़ों की दोबारा जांच के लिए 12/10/2026 को क्लिनिक वापस आएं।",
+        "caught": true,
+        "detectors": [
+          "code: anchor check (number, unit, date or name)"
+        ],
+        "reasons": [
+          "\"11/10/2026\": number 11 missing"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f3",
+          "final_status": "repaired",
+          "detectors": [
+            "code: field check (dose, frequency, timing, action)"
+          ],
+          "reasons": [
+            "field check: maximum per day differs (fact 3000)"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 7,
+        "repaired": 2,
+        "flagged": 0
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 10681,
+      "tokens_out": 5474,
+      "cost_usd": 0.0020843823,
+      "calls": 17,
+      "wall_s": 250
+    },
+    {
+      "case_id": "c028",
+      "source": "cases.jsonl",
+      "language": "bn",
+      "condition": "COPD exacerbation, steroid taper and new inhaler",
+      "planned_fault": "drop_symptom",
+      "fault": "drop_symptom",
+      "fault_requested_but_not_injected": false,
+      "facts": 8,
+      "planted": {
+        "kind": "drop_symptom",
+        "fact_id": "f4",
+        "critical": true,
+        "before": "রক্তবমি বা কাশির সাথে রক্ত আসলে জরুরি বিভাগে যান।",
+        "after": "কাশির সাথে রক্ত আসলে জরুরি বিভাগে যান।",
+        "caught": false,
+        "detectors": [],
+        "reasons": [],
+        "final_status": "locked",
+        "shipped": true
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f2",
+          "final_status": "repaired",
+          "detectors": [
+            "code: field check (dose, frequency, timing, action)"
+          ],
+          "reasons": [
+            "field check: time of day differs (fact morning, evening, patient text morning, night)"
+          ]
+        },
+        {
+          "id": "f5",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"weeks\"; write it in Bengali"
+          ]
+        },
+        {
+          "id": "f6",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"weeks\"; write it in Bengali"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 5,
+        "repaired": 3,
+        "flagged": 0
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 14145,
+      "tokens_out": 4734,
+      "cost_usd": 0.0020950482000000005,
+      "calls": 23,
+      "wall_s": 161
+    },
+    {
+      "case_id": "c030",
+      "source": "cases.jsonl",
+      "language": "ar",
+      "condition": "diabetic ketoacidosis in type 1 diabetes, insulin plan changes",
+      "planned_fault": "mistranslate",
+      "fault": "mistranslate",
+      "fault_requested_but_not_injected": false,
+      "facts": 12,
+      "planted": {
+        "kind": "mistranslate",
+        "fact_id": "f1",
+        "critical": true,
+        "before": "خذ insulin glargine بمقدار 24 وحدة تحت الجلد كل ليلة عند النوم.",
+        "after": "خذ insulin glargine بمقدار 24 وحدة تحت الجند كل ليلة عند النوم.",
+        "caught": true,
+        "detectors": [
+          "literal back-translation (suspicious word)"
+        ],
+        "reasons": [
+          "suspicious wording \"الجند\": It means 'the soldier' but the intended word is 'الجلد' (the skin)."
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f3",
+          "final_status": "flagged",
+          "detectors": [
+            "code: field check (dose, frequency, timing, action)"
+          ],
+          "reasons": [
+            "field check: duration missing (fact 9 days)"
+          ]
+        },
+        {
+          "id": "f9",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"rao\"; write it in Arabic"
+          ]
+        },
+        {
+          "id": "f11",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"rao\"; write it in Arabic"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 8,
+        "repaired": 3,
+        "flagged": 1
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 15619,
+      "tokens_out": 5798,
+      "cost_usd": 0.0023700208,
+      "calls": 24,
+      "wall_s": 230
+    },
+    {
+      "case_id": "c031",
+      "source": "cases.jsonl",
+      "language": "zh",
+      "condition": "laparoscopic appendectomy, wound care and pain control",
+      "planned_fault": "none",
+      "fault": "none",
+      "fault_requested_but_not_injected": false,
+      "facts": 11,
+      "planted": null,
+      "other_facts_with_issues": [
+        {
+          "id": "f1",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"h\"; write it in Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "f3",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"h\"; write it in Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "f4",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"h\", \"days\"; write it in Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "f6",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"week\"; write it in Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "f8",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"weeks\"; write it in Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "f9",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"f\"; write it in Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "f10",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"weeks\"; write it in Mandarin Chinese"
+          ]
+        },
+        {
+          "id": "f11",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"weeks\"; write it in Mandarin Chinese"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 3,
+        "repaired": 8,
+        "flagged": 0
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 15743,
+      "tokens_out": 6093,
+      "cost_usd": 0.002615249,
+      "calls": 27,
+      "wall_s": 219
+    },
+    {
+      "case_id": "c034",
+      "source": "cases.jsonl",
+      "language": "ta",
+      "condition": "acute myocardial infarction with stent, dual antiplatelet therapy",
+      "planned_fault": "frequency",
+      "fault": "frequency",
+      "fault_requested_but_not_injected": false,
+      "facts": 13,
+      "planted": {
+        "kind": "frequency",
+        "fact_id": "f1",
+        "critical": true,
+        "before": "Aspirin 81 mg மருந்தினை தினமும் வாயின் வழியாக எடுத்துக்கொள்ளத் தொடங்குங்கள்.",
+        "after": "Aspirin 81 mg மருந்தினை ஒரு நாளைக்கு இரண்டு முறை வாயின் வழியாக எடுத்துக்கொள்ளத் தொடங்குங்கள்.",
+        "caught": true,
+        "detectors": [
+          "code: field check (dose, frequency, timing, action)"
+        ],
+        "reasons": [
+          "field check: frequency differs (fact 1 a day, patient text 2 a day)"
+        ],
+        "final_status": "repaired",
+        "shipped": false
+      },
+      "other_facts_with_issues": [
+        {
+          "id": "f4",
+          "final_status": "flagged",
+          "detectors": [
+            "code: field check (dose, frequency, timing, action)",
+            "meaning check"
+          ],
+          "reasons": [
+            "field check: frequency differs (fact 2 a day, patient text 1 a day)",
+            "meaning differs (frequency): Patient sentence says 'daily' instead of 'twice a day'."
+          ]
+        },
+        {
+          "id": "f6",
+          "final_status": "flagged",
+          "detectors": [
+            "code: field check (dose, frequency, timing, action)"
+          ],
+          "reasons": [
+            "field check: dose missing",
+            "field check: frequency missing",
+            "field check: action differs (fact: take, patient text: not take)",
+            "field check: duration missing (fact 5 days)"
+          ]
+        },
+        {
+          "id": "f7",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"min\"; write it in Tamil"
+          ]
+        },
+        {
+          "id": "f8",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"min\"; write it in Tamil"
+          ]
+        },
+        {
+          "id": "f10",
+          "final_status": "flagged",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"cardiology\"; write it in Tamil"
+          ]
+        },
+        {
+          "id": "f12",
+          "final_status": "repaired",
+          "detectors": [
+            "code: English left in the text"
+          ],
+          "reasons": [
+            "English left untranslated: \"hrs\", \"week\"; write it in Tamil"
+          ]
+        },
+        {
+          "id": "f13",
+          "final_status": "repaired",
+          "detectors": [
+            "meaning check"
+          ],
+          "reasons": [
+            "meaning differs (missing detail): Patient sentence omits 'avoid grapefruit'."
+          ]
+        }
+      ],
+      "final": {
+        "locked": 5,
+        "repaired": 5,
+        "flagged": 3
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 21935,
+      "tokens_out": 8471,
+      "cost_usd": 0.0036014496,
+      "calls": 29,
+      "wall_s": 312
+    },
+    {
+      "case_id": "c036",
+      "source": "cases.jsonl",
+      "language": "vi",
+      "condition": "deep vein thrombosis, anticoagulant started",
+      "planned_fault": "none",
+      "fault": "none",
+      "fault_requested_but_not_injected": false,
+      "facts": 7,
+      "planted": null,
+      "other_facts_with_issues": [
+        {
+          "id": "f1",
+          "final_status": "repaired",
+          "detectors": [
+            "meaning check"
+          ],
+          "reasons": [
+            "meaning differs (missing detail)"
+          ]
+        }
+      ],
+      "final": {
+        "locked": 6,
+        "repaired": 1,
+        "flagged": 0
+      },
+      "writer": "Gemma-4-31B-IT",
+      "fallbacks": 0,
+      "tokens_in": 8963,
+      "tokens_out": 4394,
+      "cost_usd": 0.0017927195999999997,
+      "calls": 16,
+      "wall_s": 252
+    }
+  ],
+  "failures": []
+}

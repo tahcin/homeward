@@ -1,0 +1,28 @@
+{
+ "system": "homeward_final",
+ "model": "/workspace/models/gemma-4-E4B-it",
+ "adapter": "/workspace/runs/runB/adapter_avg",
+ "lora_scale": 0.5,
+ "rows": 150,
+ "device": "AMD Radeon Pro W7900D",
+ "torch": "2.13.0+rocm10.0.0",
+ "load_s": 29.4,
+ "decoding": "greedy",
+ "max_new_tokens": 768,
+ "batched": {
+  "batch_size": 16,
+  "wall_s": 103.4,
+  "completion_tokens": 17430,
+  "prompt_tokens": 55310,
+  "gen_tok_per_s": 168.5528025865585,
+  "answers_per_s": 1.4505404697638424
+ },
+ "bs1": {
+  "n": 20,
+  "p50_s": 5.14745819568634,
+  "p95_s": 7.83917636871338,
+  "mean_s": 5.380455017089844,
+  "gen_tok_per_s": 19.078312089582504
+ },
+ "peak_vram_allocated_gib": 16.321255683898926
+}

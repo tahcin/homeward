@@ -76,8 +76,9 @@ PY
 )
 echo "best of A/B: $CHOICE (val FR $CFR vs run1 $R1FR)" >> $L/day1.log
 case $CHOICE in runB*) TR=$D/v2/sft_train_heardfirst.jsonl; VA=$D/v2/sft_val_heardfirst.jsonl;; *) TR=$D/v2/sft_train.jsonl; VA=$D/v2/sft_val.jsonl;; esac
-if [ $(elapsed) -gt 85 ]; then echo "skip run C (elapsed $(elapsed) min)" >> $L/day1.log
-elif [ "$CFR" -gt "$R1FR" ]; then trainrun runC $TR $VA --epochs 2 --ul-lambda 1.0; else trainrun runC $TR $VA --epochs 3 --ul-lambda 0.5; fi
+# Run C is bounded to 2 epochs so the frozen-choice test runs always fit (window 180 min).
+if [ $(elapsed) -gt 100 ]; then echo "skip run C (elapsed $(elapsed) min)" >> $L/day1.log
+elif [ "$CFR" -gt "$R1FR" ]; then trainrun runC $TR $VA --epochs 2 --ul-lambda 1.0; else trainrun runC $TR $VA --epochs 2 --ul-lambda 0.5 --verdict-weight 5; fi
 
 # LoRA-scale sweep on the current best non-run1 candidate.
 select_now ABC

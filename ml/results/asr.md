@@ -42,12 +42,12 @@ TTS clips are macOS `say` voices reading the independent test transcripts writte
 
 | Transcript / source | Answers | Facts | Same grade as from reference | Accuracy vs labels | False reassurance | Critical FR |
 |---|---|---|---|---|---|---|
-| ref/tts | 110 | 261 | 261/261 | 229/261 | 7/103 | 6/83 |
+| ref/tts | 110 | 261 | 261/261 | 245/261 | 2/103 | 2/83 |
 | ref/human | 15 | 24 | 24/24 | 24/24 | 0/9 | 0/7 |
-| e4b/tts | 110 | 261 | 217/261 | 212/261 | 2/103 | 2/83 |
+| e4b/tts | 110 | 261 | 230/261 | 223/261 | 1/103 | 1/83 |
 | e4b/human | 15 | 24 | 24/24 | 24/24 | 0/9 | 0/7 |
-| whisper/tts | 110 | 261 | 222/261 | 208/261 | 6/103 | 5/83 |
-| whisper/human | 15 | 24 | 22/24 | 22/24 | 0/9 | 0/7 |
+| whisper/tts | 110 | 261 | 234/261 | 223/261 | 6/103 | 5/83 |
+| whisper/human | 15 | 24 | 23/24 | 23/24 | 0/9 | 0/7 |
 
 ## On-prem loop (W7900D)
 
