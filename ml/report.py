@@ -3,7 +3,8 @@ import os
 per-set score files, the training log, verifier summary, ASR results, capacity runs and
 Token Factory prices. Pure reporting: no number is typed in by hand.
 
-Usage: python3 ml/report.py [--web web/public/eval.json]
+Usage: python3 ml/report.py [--web web/public/eval.json] [--ours homeward_run2]
+                            [--splits-stats data/splits_v2/stats.json] [--dry-run]
 """
 
 import argparse
@@ -43,6 +44,11 @@ def main():
     ap.add_argument("--answers-per-discharge", type=float, default=6.0,
                     help="graded teach-back answers per discharge: 4 questions plus about 2 re-asks")
     ap.add_argument("--gpu-minutes", type=float, default=None)
+    ap.add_argument("--ours", default="homeward_run2",
+                    help="system key of the fine-tuned grader in eval_independent.json, mapped to the web app's gemma-4-e4b-homeward row")
+    ap.add_argument("--splits-stats", default=str(APP / "data" / "splits_v2" / "stats.json"),
+                    help="stats.json of the SFT split used for the recipe section (relative paths resolve against the app root)")
+    ap.add_argument("--dry-run", action="store_true", help="print eval.md to stdout and write no files")
     a = ap.parse_args()
 
     ind, ind_d = load("eval_independent.json"), load("eval_in_distribution.json")
@@ -113,7 +119,8 @@ def main():
         "asr": {k: asr[k] for k in ("clips", "asr", "asr_latency_s", "grading_from_transcripts", "onprem_loop", "mimo_v2_6_flash", "normalisation", "normalised_score", "tts_note")} if asr else None,
         "gpu_minutes_used": a.gpu_minutes,
     }
-    (R / "eval.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))
+    if not a.dry_run:
+        (R / "eval.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))
 
     # Markdown summary.
     def row(name, m):
@@ -159,7 +166,8 @@ def main():
               f"accuracy {100 * k['accuracy']:.1f}%, false reassurance {k['false_reassurance']}, critical {k['critical_false_reassurance']}, over-flags {k['over_flag']}.", ""]
     else:
         L += ["## Safety threshold", "", out["escalation"]["finding"] + ".", ""]
-    v2 = load("/Users/naresh/Desktop/Personal/hackathons/amd-act-iii-2026/app/data/splits_v2/stats.json")
+    sp = Path(a.splits_stats)
+    v2 = load(sp if sp.is_absolute() else APP / sp)
     if train and v2:
         ta = train["args"]
         L += ["## Run-2 recipe", "",
@@ -199,17 +207,18 @@ def main():
         L += [""]
     if loop:
         L += ["## On-prem loop", "", f"{loop['clips']} clips (timed with the run-1 adapter; same model size and code path): E4B ASR then fine-tuned E4B grading on one card, p50 {loop['loop_p50_s']:.1f} s, p95 {loop['loop_p95_s']:.1f} s, peak {loop['peak_vram_gib']:.1f} GiB.", ""]
-    (R / "eval.md").write_text("\n".join(L) + "\n")
+    if not a.dry_run:
+        (R / "eval.md").write_text("\n".join(L) + "\n")
     print("\n".join(L))
 
     # Web app file: keep its schema, fill the nulls.
     web = Path(a.web)
-    if web.exists():
+    if web.exists() and not a.dry_run:
         w = json.loads(web.read_text())
         ts = ind["test_set"]
         w["grader"]["test_set"].update({"description": "Independent teach-back answers written by Claude (a different model family) (never seen by the data generator), held-out conditions",
                                         "cases": ts["cases"], "answers": ts["answers"], "facts_graded": ts["facts"], "languages": len(ts["languages"])})
-        ids = {"gemma-4-e4b-base": "e4b_base", "gemma-4-e4b-homeward": "homeward_run2", "gemma-4-31b": "gemma4_31b"}
+        ids = {"gemma-4-e4b-base": "e4b_base", "gemma-4-e4b-homeward": a.ours, "gemma-4-31b": "gemma4_31b"}
         for mrow in w["grader"]["models"]:
             s = ind["systems"].get(ids.get(mrow["id"], ""))
             if not s:
