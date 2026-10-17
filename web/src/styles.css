@@ -168,7 +168,7 @@ textarea.input { resize: vertical; }
 .fact-top { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .fact-id { font-family: var(--mono); font-size: 0.8rem; color: var(--faint); }
 .switch { display: inline-flex; align-items: center; gap: 7px; cursor: pointer; font-size: 0.88rem; color: var(--muted); user-select: none; }
-.switch input { appearance: none; width: 32px; height: 18px; border-radius: 999px; background: var(--line-strong); position: relative; cursor: pointer; transition: background-color 0.15s ease; margin: 0; }
+.switch input { appearance: none; width: 32px; height: 18px; border-radius: 999px; background: var(--line-strong); position: relative; cursor: pointer; transition: background-color 0.15s ease; margin: 0; flex-shrink: 0; }
 .switch input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--surface); transition: transform 0.15s ease; }
 .switch input:checked { background: var(--ink); }
 .switch input:checked::after { transform: translateX(14px); }
