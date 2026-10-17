@@ -168,6 +168,11 @@ export function OverflagChart({ r }: { r: Results }) {
   const title = `${ours.label} sends ${f1(ours.over_flag)} of correctly understood facts back for re-teaching${
     base?.over_flag != null ? `, down from ${f1(base.over_flag)} for base ${base.model}` : ""
   }${lower.filter((s) => s.role !== "base").length ? ` and below ${lower.filter((s) => s.role !== "base").map((s) => `${s.label.replace(" (cloud)", "")} (${f1(s.over_flag!)})`).join(", ")}` : ""}${
+    (() => {
+      const level = list.filter((s) => s.role !== "ours" && s.role !== "base" && s.over_flag === ours.over_flag);
+      return level.length ? `, level with ${level.map((s) => s.label.replace(" (cloud)", "")).join(" and ")}` : "";
+    })()
+  }${
     better.length ? `; ${better.map((s) => `${s.label} is lower at ${f1(s.over_flag!)}`).join(", ")}` : ""
   }`;
   const max = Math.max(...list.map((s) => s.over_flag!));
@@ -385,7 +390,7 @@ export function DeploymentCard({ r }: { r: Results }) {
   const { sys } = useSystems(r);
   const cap = r.capacity;
   const loop = r.onprem_loop;
-  const cloud = sys.filter((s) => s.role === "cloud");
+  const cloud = sys.filter((s) => s.role === "cloud" || s.role === "teacher");
   const top = cap.by_batch[cap.by_batch.length - 1];
   if (!cap.by_batch.length) return null;
   const groups: Group[] = cap.by_batch.map((b) => ({
@@ -442,6 +447,212 @@ export function DeploymentCard({ r }: { r: Results }) {
             </ul>
           </div>
         ))}
+      </div>
+    </ChartCard>
+  );
+}
+
+/** Size label for a row: only sizes marked verified in model-sizes.md are shown. */
+const sizeText = (s: SystemResult) => s.size?.display ?? "size not published";
+function ratio(s: SystemResult, ours: SystemResult) {
+  const a = s.size?.total_b;
+  const b = ours.size?.total_b;
+  if (!a || !b) return null;
+  return a / b;
+}
+const xFmt = (x: number) => (x >= 10 ? `${Math.round(x)}×` : `${x.toFixed(1)}×`);
+const shortSize = (s: SystemResult) => (s.size?.verified ? s.size.total ?? s.size.display : null);
+const list = (xs: string[]) => (xs.length <= 1 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`);
+
+function sizedGroups(rows: SystemResult[], ours: SystemResult) {
+  const sub = (s: SystemResult) => {
+    const x = s.role === "ours" ? null : ratio(s, ours);
+    return `${sizeText(s)}${x && Math.abs(x - 1) > 0.05 ? ` · ${xFmt(x)} Homeward's size` : ""}`;
+  };
+  const acc: Group[] = rows.map((s) => ({
+    label: s.label,
+    sub: sub(s),
+    strong: s.role === "ours",
+    items: [
+      {
+        series: "Fact accuracy",
+        value: s.accuracy,
+        lo: s.accuracy_ci?.[0],
+        hi: s.accuracy_ci?.[1],
+        color: colorOf(s),
+        display: f1(s.accuracy!),
+        detail: [...(s.accuracy_ci ? [`95% interval ${s.accuracy_ci[0]}–${s.accuracy_ci[1]}%`] : []), sizeText(s), s.runs_on ?? ""].filter(Boolean),
+      },
+    ],
+  }));
+  const crit: Group[] = rows
+    .filter((s) => s.critical_false_reassurance_n)
+    .map((s) => ({
+      label: s.label,
+      sub: sub(s),
+      strong: s.role === "ours",
+      items: [
+        {
+          series: "Critical misses",
+          value: s.critical_false_reassurance_n![0],
+          color: colorOf(s),
+          display: `${s.critical_false_reassurance_n![0]} of ${s.critical_false_reassurance_n![1]}`,
+          detail: ["Critical facts the patient got wrong or left out, graded correct", sizeText(s)],
+        },
+      ],
+    }));
+  return { acc, crit };
+}
+
+function TwoPanels({ rows, ours, N, id }: { rows: SystemResult[]; ours: SystemResult; N: number | undefined; id: string }) {
+  const { acc, crit } = sizedGroups(rows, ours);
+  const lo = Math.min(...rows.map((s) => s.accuracy_ci?.[0] ?? s.accuracy ?? 100));
+  const d0 = Math.max(0, Math.floor((lo - 5) / 10) * 10);
+  const cmax = Math.max(0, ...rows.map((s) => s.critical_false_reassurance_n?.[0] ?? 0));
+  return (
+    <div className="ev-panels">
+      <div className="ev-panel">
+        <h4>Facts graded correctly</h4>
+        <p>Higher is better; whiskers are 95% intervals</p>
+        <HChart groups={acc} domain={[d0, 100]} mark="dot" format={(v) => `${v}%`} axisLabel="Facts graded correctly (%)" ariaLabel={`${id}: accuracy by model, Homeward first`} labelWidth={210} ticks={4} />
+      </div>
+      <div className="ev-panel">
+        <h4>Critical misses</h4>
+        <p>Misunderstood critical facts graded correct, out of {N}; lower is better</p>
+        <HChart groups={crit} domain={[0, Math.max(8, Math.ceil((cmax + 1) / 2) * 2)]} mark="bar" format={(v) => `${v}`} axisLabel={`Critical misses (out of ${N})`} ariaLabel={`${id}: critical misses by model, Homeward first`} labelWidth={210} ticks={4} />
+      </div>
+    </div>
+  );
+}
+
+const sizeTable = (rows: SystemResult[], ours: SystemResult) => ({
+  head: ["System", "Parameters", "Times Homeward's size", "Fact accuracy", "95% interval", "Critical misses", "Runs on"],
+  numeric: [false, false, true, true, true, true, false],
+  rows: rows.map((s) => {
+    const x = s.role === "ours" ? null : ratio(s, ours);
+    return [
+      s.label,
+      sizeText(s),
+      x ? xFmt(x) : "",
+      s.accuracy !== null ? f1(s.accuracy) : "",
+      s.accuracy_ci ? `${s.accuracy_ci[0]}–${s.accuracy_ci[1]}%` : "",
+      s.critical_false_reassurance_n ? `${s.critical_false_reassurance_n[0]} of ${s.critical_false_reassurance_n[1]}` : "",
+      s.runs_on ?? "",
+    ];
+  }),
+});
+
+/** Chart 1: Homeward against every model it did not learn from. The teacher only appears if Homeward matches or beats it. */
+export function SizeChart({ r }: { r: Results }) {
+  const { t, sys, ours, base } = useSystems(r);
+  if (!t || !ours || ours.accuracy === null) return null;
+  const teacher = sys.find((s) => s.role === "teacher");
+  const includeTeacher = teacher?.accuracy != null && ours.accuracy >= teacher.accuracy;
+  const rest = sys
+    .filter((s) => s.role !== "ours" && s.accuracy !== null && (s.role !== "teacher" || includeTeacher))
+    .sort((a, b) => (a.role === "teacher" ? -1 : b.role === "teacher" ? 1 : 0) || (b.size?.total_b ?? -1) - (a.size?.total_b ?? -1) || (b.accuracy ?? 0) - (a.accuracy ?? 0));
+  const rows = [ours, ...rest];
+  const name = (s: SystemResult) => s.label.replace(" (cloud)", "");
+  const others = rest.filter((s) => s.role !== "base");
+  const beaten = others.filter((s) => s.accuracy! > 0 && s.accuracy! < ours.accuracy!);
+  const ahead = others.filter((s) => s.accuracy! >= ours.accuracy! && s.role !== "teacher");
+  const largest = [...beaten].sort((a, b) => (b.size?.total_b ?? 0) - (a.size?.total_b ?? 0))[0];
+  const oSize = shortSize(ours);
+  const oc = ours.critical_false_reassurance_n?.[0];
+  const N = ours.critical_false_reassurance_n?.[1];
+  let title: string;
+  if (largest) {
+    const lSize = shortSize(largest);
+    title = `Our fine-tuned ${oSize ?? ""} Gemma beats ${lSize ? `a ${lSize} model, ${name(largest)},` : name(largest)} at checking discharge understanding: ${f1(ours.accuracy)} against ${f1(largest.accuracy!)}`.replace("  ", " ");
+    const lc = largest.critical_false_reassurance_n?.[0];
+    if (oc !== undefined && lc !== undefined) title += oc < lc ? `, with fewer critical misses (${oc} against ${lc})` : oc === lc ? `, with the same number of critical misses (${oc})` : `, though with more critical misses (${oc} against ${lc})`;
+    const alsoBeat = beaten.filter((s) => s !== largest);
+    if (alsoBeat.length) title += `; it also beats ${list(alsoBeat.map(name))}`;
+  } else {
+    title = `${ours.label} grades ${f1(ours.accuracy)} of facts correctly`;
+  }
+  if (ahead.length) title += `; ${list(ahead.map((s) => `${name(s)} (${f1(s.accuracy!)})`))} ${ahead.length > 1 ? "score" : "scores"} higher`;
+  if (includeTeacher && teacher) title += `, and it matches or beats its teacher ${teacher.model ?? name(teacher)}`;
+  const pv = ours.paired_vs_base;
+  return (
+    <ChartCard
+      id="size"
+      title={title}
+      sub={
+        <>
+          Every model here is one Homeward did not learn from. Each graded the same {t.facts} facts in {t.answers} independent teach-back answers ({t.cases} cases,{" "}
+          {t.languages.length} languages), written by a different model family (Claude) and never seen by the data generator or in training. Each row gives the model's size.
+          {pv && base ? ` Against its own base model, Homeward fixed ${pv.fixes} facts and broke ${pv.breaks} (exact McNemar p = ${pfmt(pv.p)}).` : ""}
+          {teacher && !includeTeacher ? ` Its teacher, ${teacher.model ?? name(teacher)}, is compared separately below.` : ""}
+        </>
+      }
+      caveats={[
+        `Small test set: ${t.answers} answers from ${t.cases} cases, so the 95% intervals (${ours.ci_method ?? "case-level bootstrap"}) are wide; overlapping intervals are not a clear win.`,
+        `Critical misses are small counts out of ${N ?? "?"}; one or two either way is within noise. Homeward never relies on the grader alone: the patient gets a re-teach and the nurse confirms.`,
+        "The answers are synthetic. Sizes come from the makers' model cards (amd-act-iii-2026/model-sizes.md) and are shown only where verified. Mixture-of-experts models list total and active parameters; the multiplier uses total.",
+        "The accuracy axis starts above zero to show the intervals.",
+      ]}
+      source={SOURCE_OURS}
+      table={sizeTable(rows, ours)}
+    >
+      <TwoPanels rows={rows} ours={ours} N={N} id="Homeward vs other models" />
+      {LEGEND_OURS(r, "dot")}
+    </ChartCard>
+  );
+}
+
+const fractionWords = (x: number) => {
+  const n = Math.round(x);
+  const w: Record<number, string> = { 2: "half", 3: "a third", 4: "a quarter", 5: "a fifth", 6: "a sixth", 8: "an eighth", 10: "a tenth" };
+  return w[n] ? `about ${w[n]} of the size` : `${xFmt(x)} smaller`;
+};
+
+/** Chart 2: how much of its teacher Homeward keeps. */
+export function TeacherChart({ r }: { r: Results }) {
+  const { t, sys, ours } = useSystems(r);
+  const teacher = sys.find((s) => s.role === "teacher");
+  if (!t || !ours || !teacher || ours.accuracy === null || teacher.accuracy === null) return null;
+  const keep = Math.round((ours.accuracy / teacher.accuracy) * 100);
+  const x = ratio(teacher, ours);
+  const N = ours.critical_false_reassurance_n?.[1];
+  const title = `Distilled from ${teacher.model ?? teacher.label}, Homeward keeps ${keep}% of its accuracy${x ? ` at ${fractionWords(x)}` : ""}, on one workstation GPU in the hospital`;
+  const oc = ours.critical_false_reassurance_n?.[0];
+  const tc = teacher.critical_false_reassurance_n?.[0];
+  return (
+    <ChartCard
+      id="teacher"
+      title={title}
+      sub={
+        <>
+          Homeward learned from labels its teacher helped produce, so the teacher is the bar to measure against, not a competitor. Accuracy {f1(ours.accuracy)} against{" "}
+          {f1(teacher.accuracy)} ({keep}% kept); critical misses {oc} against {tc} of {N}; size {sizeText(ours)} against {sizeText(teacher)}.
+        </>
+      }
+      caveats={[
+        `Same small, synthetic test set as above (${t.answers} answers), so a ${Math.abs(ours.accuracy - teacher.accuracy).toFixed(1)}-point gap has wide uncertainty; see the intervals.`,
+        "Accuracy kept is Homeward's accuracy divided by the teacher's. Size uses the makers' published parameter counts.",
+      ]}
+      source={SOURCE_OURS}
+      table={sizeTable([ours, teacher], ours)}
+    >
+      <TwoPanels rows={[ours, teacher]} ours={ours} N={N} id="Homeward vs its teacher" />
+      <div className="ev-compare two">
+        <div className="ev-cmp ours">
+          <h4>{ours.label}</h4>
+          <ul>
+            <li>{sizeText(ours)}</li>
+            <li>Runs on one AMD Radeon PRO W7900D inside the hospital</li>
+            <li>Patient audio and text never leave the building</li>
+          </ul>
+        </div>
+        <div className="ev-cmp">
+          <h4>{teacher.label}</h4>
+          <ul>
+            <li>{sizeText(teacher)}</li>
+            <li>Served in AMD's cloud through AMD Token Factory</li>
+            <li>Patient text has to leave the hospital</li>
+          </ul>
+        </div>
       </div>
     </ChartCard>
   );

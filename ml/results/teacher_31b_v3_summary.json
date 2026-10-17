@@ -1,0 +1,59 @@
+{
+ "answers": 3832,
+ "facts": 8008,
+ "answers_all_facts_agree": 2621,
+ "answer_agreement_rate": 0.6839770354906054,
+ "fact_agreement_rate": 0.8031968031968032,
+ "cohen_kappa_facts": 0.7103255497059591,
+ "verifier_invalid_facts": 0,
+ "confusion_designed_vs_verifier": {
+  "correct": {
+   "correct": 3100,
+   "partial": 80,
+   "incorrect": 28,
+   "missing": 6,
+   "invalid": 0
+  },
+  "partial": {
+   "correct": 542,
+   "partial": 1111,
+   "incorrect": 222,
+   "missing": 25,
+   "invalid": 0
+  },
+  "incorrect": {
+   "correct": 213,
+   "partial": 241,
+   "incorrect": 1816,
+   "missing": 95,
+   "invalid": 0
+  },
+  "missing": {
+   "correct": 12,
+   "partial": 46,
+   "incorrect": 66,
+   "missing": 405,
+   "invalid": 0
+  }
+ },
+ "answer_agreement_by_language": {
+  "ar": 0.679,
+  "bn": 0.664,
+  "en": 0.74,
+  "es": 0.685,
+  "fr": 0.75,
+  "hi": 0.671,
+  "it": 0.778,
+  "pt": 0.654,
+  "ta": 0.661,
+  "tl": 0.685,
+  "vi": 0.718,
+  "zh": 0.666
+ },
+ "model": "Gemma-4-31B-IT",
+ "reasoning_effort": "",
+ "batch_size": 6,
+ "requests_counted": 698,
+ "prompt_tokens": 929977,
+ "completion_tokens": 574713
+}

@@ -1,0 +1,182 @@
+{
+  "sample_id": "heart-failure-it",
+  "recorded_at": "2026-10-16T08:45:37Z",
+  "model": {
+    "name": "Gemma 4 E4B, fine-tuned for Homeward (run 2)",
+    "base": "google/gemma-4-e4b-it",
+    "adapter": "homeward run 2 (HF release pending)",
+    "lora_scale": 0.5
+  },
+  "hardware": {
+    "gpu": "AMD Radeon PRO W7900D (48 GB)",
+    "rocm": "7.15.26333",
+    "runtime": "transformers 5.19.0, torch 2.13.0+rocm10.0.0, bf16, batch 1, greedy"
+  },
+  "prompt": "app/prompts/grader.json (verbatim)",
+  "answers": {
+    "t1": [
+      {
+        "attempt": 0,
+        "transcript": "La furosemide la prendo una volta al giorno, 40 milligrammi la mattina. Poi c'è una medicina nuova, lo spironolattone, 25 al giorno. Il bisoprololo e il ramipril li continuo come prima. L'ibuprofene per il ginocchio non lo prendo più, se ho male prendo il paracetamolo, al massimo tre volte al giorno.",
+        "fact_ids": [
+          "f1",
+          "f2",
+          "f3",
+          "f4",
+          "f5"
+        ],
+        "latency_ms": 10039,
+        "tokens_in": 488,
+        "tokens_out": 199,
+        "tokens_per_s": 19.8,
+        "peak_vram_gib": 15.0,
+        "grades": [
+          {
+            "id": "f1",
+            "verdict": "incorrect",
+            "heard": "Furosemide 40 mg once a day in the morning",
+            "reteach": "Take Furosemide 40 mg twice a day at 8 am and 2 pm."
+          },
+          {
+            "id": "f2",
+            "verdict": "correct",
+            "heard": "New medicine Spironolactone 25 mg daily",
+            "reteach": ""
+          },
+          {
+            "id": "f3",
+            "verdict": "correct",
+            "heard": "Continue Bisoprolol as before",
+            "reteach": ""
+          },
+          {
+            "id": "f4",
+            "verdict": "correct",
+            "heard": "Continue Ramipril as before",
+            "reteach": ""
+          },
+          {
+            "id": "f5",
+            "verdict": "correct",
+            "heard": "Stop ibuprofen, take paracetamol up to 3 times a day as needed",
+            "reteach": ""
+          }
+        ]
+      },
+      {
+        "attempt": 1,
+        "transcript": "Ah, ho capito: la furosemide 40 milligrammi la prendo due volte al giorno, alle 8 di mattina e alle 2 del pomeriggio. Prima era 20 una volta sola.",
+        "fact_ids": [
+          "f1"
+        ],
+        "latency_ms": 2913,
+        "tokens_in": 341,
+        "tokens_out": 57,
+        "tokens_per_s": 19.6,
+        "peak_vram_gib": 14.9,
+        "grades": [
+          {
+            "id": "f1",
+            "verdict": "correct",
+            "heard": "Furosemide 40 mg twice a day at 8 am and 2 pm, up from 20 mg once daily",
+            "reteach": ""
+          }
+        ]
+      }
+    ],
+    "t2": [
+      {
+        "attempt": 0,
+        "transcript": "Mi peso ogni mattina prima di colazione. Se in tre giorni salgo di più di 2 chili chiamo l'infermiera dello scompenso. Bevo al massimo un litro e mezzo al giorno e mangio poco sale, meno di 2 grammi.",
+        "fact_ids": [
+          "f6",
+          "f7"
+        ],
+        "latency_ms": 4592,
+        "tokens_in": 373,
+        "tokens_out": 90,
+        "tokens_per_s": 19.6,
+        "peak_vram_gib": 14.9,
+        "grades": [
+          {
+            "id": "f6",
+            "verdict": "correct",
+            "heard": "weigh every morning, call nurse if weight increases more than 2 kg in 3 days",
+            "reteach": ""
+          },
+          {
+            "id": "f7",
+            "verdict": "correct",
+            "heard": "drink max 1.5 L per day and eat less than 2g salt",
+            "reteach": ""
+          }
+        ]
+      }
+    ],
+    "t3": [
+      {
+        "attempt": 0,
+        "transcript": "Se non respiro bene anche quando sono fermo, se ho dolore al petto o se svengo, chiamo subito il 112. Se mi si gonfiano le caviglie, se mi servono più cuscini per dormire o se mi gira la testa quando mi alzo, chiamo la linea delle infermiere lo stesso giorno.",
+        "fact_ids": [
+          "f8",
+          "f9"
+        ],
+        "latency_ms": 4829,
+        "tokens_in": 400,
+        "tokens_out": 95,
+        "tokens_per_s": 19.7,
+        "peak_vram_gib": 14.9,
+        "grades": [
+          {
+            "id": "f8",
+            "verdict": "correct",
+            "heard": "Call 112 immediately for shortness of breath at rest, chest pain, or fainting.",
+            "reteach": ""
+          },
+          {
+            "id": "f9",
+            "verdict": "correct",
+            "heard": "Call the heart failure nurse line the same day for ankle swelling, needing more pillows to sleep, or dizziness when standing.",
+            "reteach": ""
+          }
+        ]
+      }
+    ],
+    "t4": [
+      {
+        "attempt": 0,
+        "transcript": "Il 22 ottobre faccio le analisi del sangue al laboratorio. Il 12 novembre alle 10 e mezza vado dalla dottoressa Bianchi. Cammino dieci, quindici minuti due volte al giorno e per due settimane non sollevo niente sopra i 5 chili.",
+        "fact_ids": [
+          "f10",
+          "f11",
+          "f12"
+        ],
+        "latency_ms": 6734,
+        "tokens_in": 409,
+        "tokens_out": 129,
+        "tokens_per_s": 19.2,
+        "peak_vram_gib": 14.9,
+        "grades": [
+          {
+            "id": "f10",
+            "verdict": "correct",
+            "heard": "blood tests at the lab on October 22",
+            "reteach": ""
+          },
+          {
+            "id": "f11",
+            "verdict": "correct",
+            "heard": "Dr. Bianchi on November 12 at 10:30",
+            "reteach": ""
+          },
+          {
+            "id": "f12",
+            "verdict": "correct",
+            "heard": "walk 10-15 min twice a day and no lifting over 5 kg for 2 weeks",
+            "reteach": ""
+          }
+        ]
+      }
+    ]
+  }
+}

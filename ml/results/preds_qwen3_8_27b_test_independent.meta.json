@@ -1,0 +1,15 @@
+{
+ "system": "qwen3_8_27b",
+ "model": "Qwen3.8-27B",
+ "rows": 150,
+ "errors": 0,
+ "prompt_tokens": 62425,
+ "completion_tokens": 131094,
+ "latency_mean_s": 1663.142205084165,
+ "reasoning_tokens": 109532,
+ "latency_p50_s": 2051.3400971889496,
+ "latency_p95_s": 2694.738578009605,
+ "json_mode": false,
+ "reasoning_effort": "low",
+ "note": "latency includes Token Factory queueing under the shared 20 requests/minute limit"
+}

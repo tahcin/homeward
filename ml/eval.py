@@ -329,6 +329,8 @@ def predict_api(args):
             "errors": sum(1 for r in recs if r.get("error")),
             "prompt_tokens": sum(r.get("prompt_tokens", 0) for r in recs),
             "completion_tokens": sum(r.get("completion_tokens", 0) for r in recs),
+            "latency_mean_s": (statistics.mean([r["latency_s"] for r in recs if "latency_s" in r]) if any("latency_s" in r for r in recs) else None),
+            "reasoning_tokens": sum(r.get("reasoning_tokens", 0) or 0 for r in recs),
             "latency_p50_s": pct([r["latency_s"] for r in recs if "latency_s" in r], 0.5),
             "latency_p95_s": pct([r["latency_s"] for r in recs if "latency_s" in r], 0.95),
             "json_mode": args.json_mode, "reasoning_effort": args.reasoning or None,

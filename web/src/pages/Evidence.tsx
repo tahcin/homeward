@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "../App.tsx";
-import { AsrChart, DeploymentCard, EndToEndChart, GradingChart, OverflagChart, ReassuranceChart } from "../components/evidence/OurCharts.tsx";
+import { AsrChart, DeploymentCard, EndToEndChart, OverflagChart, SizeChart, TeacherChart } from "../components/evidence/OurCharts.tsx";
 import { Scorecard } from "../components/evidence/Scorecard.tsx";
-import { FleursChart, FleursPublishedChart, PublishedLlmChart } from "../components/evidence/PublishedCharts.tsx";
 import type { Benchmarks, Results } from "../components/evidence/types.ts";
 import "../components/evidence/evidence.css";
+
+// Only the sources this page still cites: the Gemma 4 card and report, Whisper turbo, and AMD's specification pages.
+const SOURCE_IDS = ["gemma4_card", "gemma4_report", "whisper_turbo_card", "amd_w7900d", "amd_w7900", "amd_mi300x"];
 
 function useJson<T>(url: string) {
   const [data, setData] = useState<T | null>(null);
@@ -40,14 +42,14 @@ export function Evidence() {
 
       {r && (
         <section aria-labelledby="grade-h">
-          <h2 id="grade-h">Grading: Homeward against each comparator</h2>
+          <h2 id="grade-h">Grading: Homeward against other models</h2>
           <p className="sec-lead">
             Tested on {r.grader.independent?.answers ?? "?"} independent teach-back answers in {r.grader.independent?.languages.length ?? "?"} languages, written by a different model family (Claude) and never seen by the data generator or in training. Three numbers matter:
             how often the verdict is right, how often a misunderstood critical fact is passed (the unsafe error), and how often a correct answer is sent back (the nurse's extra work).
           </p>
           <div className="ev-grid">
-            <GradingChart r={r} />
-            <ReassuranceChart r={r} />
+            <SizeChart r={r} />
+            <TeacherChart r={r} />
             <OverflagChart r={r} />
           </div>
         </section>
@@ -72,21 +74,22 @@ export function Evidence() {
         </section>
       )}
 
-      <section aria-labelledby="pub-h">
-        <h2 id="pub-h">Why we built on Gemma 4</h2>
-        <p className="sec-lead">
-          Context for the choice of base model. These are official numbers from model cards and papers, not our measurements, and two models only sit side by side where they
-          were scored on the same benchmark in the same way.
-        </p>
-        {bench.failed && <p className="note warn">The published benchmark file could not be loaded.</p>}
-        {b && (
-          <div className="ev-grid">
-            <PublishedLlmChart b={b} />
-            <FleursPublishedChart b={b} />
-            {r && <FleursChart b={b} r={r} />}
-          </div>
-        )}
-      </section>
+      {b && (
+        <section aria-labelledby="why-h">
+          <h2 id="why-h">Why we built on Gemma 4</h2>
+          <p className="sec-lead" style={{ marginBottom: 0 }}>
+            We started from Gemma 4 E4B because one model handles both jobs: Google reports 76.6% on multilingual MMMLU for E4B (
+            <a href={b.sources.gemma4_card?.url} target="_blank" rel="noreferrer">
+              model card
+            </a>
+            ) and a 7.5% average error rate across 12 languages on FLEURS speech recognition, counting words (characters for Chinese, Japanese and Korean) (
+            <a href={b.sources.gemma4_report?.url} target="_blank" rel="noreferrer">
+              Gemma 4 technical report, Table 7
+            </a>
+            ), small enough to fine-tune and serve on one workstation card.
+          </p>
+        </section>
+      )}
 
       {b && b.hardware.length > 0 && (
         <section aria-labelledby="hw-h">
@@ -121,9 +124,11 @@ export function Evidence() {
       {b && (
         <section aria-labelledby="src-h">
           <h2 id="src-h">Sources</h2>
-          <p className="sec-lead">Published figures were checked on these pages on the dates shown. {b.note}</p>
+          <p className="sec-lead">Published figures were checked on these pages on the dates shown.</p>
           <ol className="ev-sources">
-            {Object.entries(b.sources).map(([id, s]) => (
+            {Object.entries(b.sources)
+              .filter(([id]) => SOURCE_IDS.includes(id))
+              .map(([id, s]) => (
               <li key={id}>
                 <a href={s.url} target="_blank" rel="noreferrer">
                   {s.title}

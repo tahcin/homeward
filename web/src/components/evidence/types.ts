@@ -2,11 +2,12 @@
 
 export interface SystemResult {
   id: string;
-  role: "ours" | "base" | "onsite" | "cloud";
+  role: "ours" | "base" | "teacher" | "onsite" | "cloud";
   label: string;
   model: string | null;
   run: string | null;
   paired_vs_base: { base: string; fixes: number; breaks: number; p: number } | null;
+  size: ModelSize;
   latency_bs1_p50_s: number | null;
   usd_per_discharge: number | null;
   runs_on: string | null;
@@ -38,6 +39,15 @@ export interface WerCell {
   cer: number | null;
   cer_normalised?: number | null;
 }
+export interface ModelSize {
+  verified: boolean;
+  total: string | null;
+  active: string | null;
+  total_b: number | null;
+  active_b: number | null;
+  source?: string | null;
+  display: string;
+}
 export interface GradeFromTranscript {
   answers: number;
   facts: number;
@@ -61,6 +71,9 @@ export interface Ours {
 export interface Results {
   generated_at: string | null;
   ours: Ours;
+  sizes_file: string | null;
+  teacher_key: string | null;
+  whisper_size: ModelSize;
   grader: { independent: TestSet | null; in_distribution: TestSet | null };
   asr: {
     clips: { tts: number; human: number } | null;

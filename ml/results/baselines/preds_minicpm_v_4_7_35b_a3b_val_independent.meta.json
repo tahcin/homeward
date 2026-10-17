@@ -1,0 +1,15 @@
+{
+ "system": "minicpm_v_4_7_35b_a3b",
+ "model": "MiniCPM-V-4.7-35B-A3B",
+ "rows": 120,
+ "errors": 0,
+ "prompt_tokens": 46530,
+ "completion_tokens": 20329,
+ "latency_mean_s": 1290.74438397487,
+ "reasoning_tokens": 0,
+ "latency_p50_s": 1284.4684489965439,
+ "latency_p95_s": 2352.7406124949453,
+ "json_mode": false,
+ "reasoning_effort": null,
+ "note": "latency includes Token Factory queueing under the shared 20 requests/minute limit"
+}

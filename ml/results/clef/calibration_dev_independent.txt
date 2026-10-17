@@ -1,0 +1,14 @@
+answers 60/60 facts 119 acc 0.824
+FR total 0/45  FR critical 0/35  over-flag 8/50
+confusion (gold -> pred): {'correct': {'correct': 42, 'partial': 8}, 'partial': {'partial': 23, 'correct': 1}, 'incorrect': {'incorrect': 22, 'partial': 11}, 'missing': {'missing': 11, 'partial': 1}}
+ECE 0.112; bins (p_max: n, acc, mean p):
+  0.4-0.5:    4  0.00  0.45
+  0.5-0.6:   19  0.53  0.55
+  0.6-0.7:   22  0.82  0.64
+  0.7-0.8:   26  0.88  0.75
+  0.8-0.9:   21  0.95  0.85
+  0.9-1.0:   27  1.00  0.94
+P(correct)<0.1: 58 facts, of which gold correct 0 (0/50 of gold-correct facts would be dropped)
+P(correct)<0.2: 62 facts, of which gold correct 0 (0/50 of gold-correct facts would be dropped)
+P(correct)<0.3: 66 facts, of which gold correct 0 (0/50 of gold-correct facts would be dropped)
+binary (P(correct)>=0.5) agreement: 0.924

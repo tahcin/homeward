@@ -7,7 +7,7 @@
  },
  "normalised_score": "second score per row after orthography-only normalisation: Traditional to Simplified Chinese (OpenCC t2s) and standard Arabic letter normalisation; number words vs digits and script choice in code-mixed speech still count as errors",
  "normalisation": "NFKC, lowercase, punctuation and symbols removed, whitespace collapsed; WER over whitespace tokens, CER over characters without spaces. Script choice counts as an error (e.g. an English drug name written in Devanagari).",
- "tts_note": "TTS clips are macOS `say` voices reading the independent test transcripts written by Claude: clean studio speech, so they flatter ASR compared with real patients.",
+ "tts_note": "TTS clips are macOS `say` voices reading the independent test transcripts (written by a different model family, Claude): clean studio speech, so they flatter ASR compared with real patients.",
  "mimo_v2_6_flash": "not measured: Token Factory lists it as text+image only and its backend rejected input_audio on 2026-10-15",
  "asr": {
   "e4b": {
@@ -2360,5 +2360,6 @@
   "audio_p50_s": 6.94,
   "peak_vram_gib": 15.10091495513916,
   "vram_after_load_gib": 14.921885967254639
- }
+ },
+ "grader": "grading_from_transcripts: run-2 final model (run B epoch-average adapter, LoRA scale 0.5); on-prem loop timing: run-1 adapter"
 }

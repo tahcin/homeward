@@ -1,0 +1,14 @@
+{
+ "system": "clef",
+ "model": "Clef",
+ "rows": 150,
+ "errors": 0,
+ "prompt_tokens": 101840,
+ "completion_tokens": 0,
+ "latency_p50_s": 2.203495979309082,
+ "latency_p95_s": 3.666748046875,
+ "json_mode": false,
+ "reasoning_effort": null,
+ "endpoint": "/v1/systemone (one choice question per fact, options correct/partial/incorrect/missing with the grader's criteria)",
+ "note": "latency includes Token Factory queueing under the shared 20 requests/minute limit"
+}

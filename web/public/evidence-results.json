@@ -1,13 +1,23 @@
 {
  "schema": "homeward.evidence.v2",
  "source": "ml/results/eval.json",
- "generated_at": "2026-10-16 13:56 IST",
+ "generated_at": "2026-10-17 08:08 IST",
+ "sizes_file": "model-sizes.md",
+ "whisper_size": {
+  "verified": false,
+  "total": null,
+  "active": null,
+  "total_b": null,
+  "active_b": null,
+  "display": "size not published"
+ },
+ "teacher_key": "gemma4_31b",
  "ours": {
   "system_key": "homeward_run2",
   "label": "Homeward (fine-tuned)",
   "model": "Gemma 4 E4B",
-  "run": "adapter_avg",
-  "description": "Gemma 4 E4B fine-tuned with LoRA, adapter_avg",
+  "run": "run 2",
+  "description": "Gemma 4 E4B fine-tuned with LoRA, run 2",
   "base_key": "e4b_base",
   "lora": {
    "rank": 32,
@@ -43,7 +53,16 @@
      "role": "ours",
      "label": "Homeward (fine-tuned)",
      "model": "Gemma 4 E4B",
-     "run": "adapter_avg",
+     "run": "run 2",
+     "size": {
+      "verified": true,
+      "total": "8B",
+      "active": "8B",
+      "total_b": 8,
+      "active_b": 8,
+      "display": "8B (4.5B effective)",
+      "source": "https://huggingface.co/google/gemma-4-E4B-it"
+     },
      "runs_on": "AMD Radeon PRO W7900D",
      "accuracy": 94.1,
      "accuracy_ci": [
@@ -82,6 +101,15 @@
      "label": "Gemma 4 E4B, base",
      "model": "Gemma 4 E4B",
      "run": null,
+     "size": {
+      "verified": true,
+      "total": "8B",
+      "active": "8B",
+      "total_b": 8,
+      "active_b": 8,
+      "display": "8B (4.5B effective)",
+      "source": "https://huggingface.co/google/gemma-4-E4B-it"
+     },
      "runs_on": "AMD Radeon PRO W7900D",
      "accuracy": 83,
      "accuracy_ci": [
@@ -110,49 +138,20 @@
      "usd_per_discharge": null
     },
     {
-     "id": "run1",
-     "role": "onsite",
-     "label": "Gemma 4 E4B, fine-tuned run 1",
-     "model": "Gemma 4 E4B",
-     "run": "run 1",
-     "runs_on": "AMD Radeon PRO W7900D",
-     "accuracy": 88.3,
-     "accuracy_ci": [
-      85.4,
-      91.1
-     ],
-     "macro_f1": 0.8784001650559796,
-     "false_reassurance": 5.8,
-     "false_reassurance_ci": [
-      2.9,
-      8.6
-     ],
-     "false_reassurance_n": [
-      8,
-      138
-     ],
-     "critical_false_reassurance_n": [
-      7,
-      108
-     ],
-     "over_flag": 6.5,
-     "json_valid": 100,
-     "ci_method": "case-level bootstrap, 1000 resamples",
-     "paired_vs_base": {
-      "base": "e4b_base",
-      "fixes": 28,
-      "breaks": 10,
-      "p": 0.0050976432976312935
-     },
-     "latency_bs1_p50_s": 4.9,
-     "usd_per_discharge": null
-    },
-    {
      "id": "gemma4_31b",
-     "role": "cloud",
-     "label": "Gemma 4 31B (cloud)",
+     "role": "teacher",
+     "label": "Gemma 4 31B, teacher (cloud)",
      "model": "Gemma 4 31B",
      "run": null,
+     "size": {
+      "verified": true,
+      "total": "30.7B",
+      "active": "30.7B",
+      "total_b": 30.7,
+      "active_b": 30.7,
+      "display": "30.7B",
+      "source": "https://huggingface.co/google/gemma-4-31B-it"
+     },
      "runs_on": "AMD GPUs via AMD Token Factory",
      "accuracy": 97.1,
      "accuracy_ci": [
@@ -191,13 +190,22 @@
      "label": "DeepSeek V4 Flash (cloud)",
      "model": "DeepSeek V4 Flash",
      "run": null,
+     "size": {
+      "verified": true,
+      "total": "284B",
+      "active": "13B",
+      "total_b": 284,
+      "active_b": 13,
+      "display": "284B total, 13B active",
+      "source": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash"
+     },
      "runs_on": "AMD GPUs via AMD Token Factory",
-     "accuracy": 79.2,
+     "accuracy": 80.4,
      "accuracy_ci": [
-      72.3,
-      86.2
+      73.4,
+      86.3
      ],
-     "macro_f1": 0.8167267829604239,
+     "macro_f1": 0.8250752255974666,
      "false_reassurance": 2.9,
      "false_reassurance_ci": [
       0,
@@ -216,12 +224,153 @@
      "ci_method": "case-level bootstrap, 1000 resamples",
      "paired_vs_base": {
       "base": "e4b_base",
-      "fixes": 25,
-      "breaks": 38,
-      "p": 0.1299179230225525
+      "fixes": 27,
+      "breaks": 36,
+      "p": 0.31350305329645284
      },
      "latency_bs1_p50_s": null,
      "usd_per_discharge": 0.0005156424000000001
+    },
+    {
+     "id": "qwen3_8_flash_next",
+     "role": "cloud",
+     "label": "Qwen3.8 Flash Next (cloud)",
+     "model": "Qwen3.8 Flash Next",
+     "run": null,
+     "size": {
+      "verified": true,
+      "total": "180B",
+      "active": "6B",
+      "total_b": 180,
+      "active_b": 6,
+      "display": "180B total, 6B active",
+      "source": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next"
+     },
+     "runs_on": "AMD GPUs via AMD Token Factory",
+     "accuracy": 91.2,
+     "accuracy_ci": [
+      89.7,
+      92.8
+     ],
+     "macro_f1": 0.9128956735743342,
+     "false_reassurance": 0.7,
+     "false_reassurance_ci": [
+      0,
+      2.1
+     ],
+     "false_reassurance_n": [
+      1,
+      138
+     ],
+     "critical_false_reassurance_n": [
+      1,
+      108
+     ],
+     "over_flag": 8.7,
+     "json_valid": 99.3,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 45,
+      "breaks": 17,
+      "p": 0.0004970915863810334
+     },
+     "latency_bs1_p50_s": null,
+     "usd_per_discharge": null
+    },
+    {
+     "id": "minicpm_v_4_7_35b_a3b",
+     "role": "cloud",
+     "label": "MiniCPM V 4.7 35B A3B (cloud)",
+     "model": "MiniCPM V 4.7 35B A3B",
+     "run": null,
+     "size": {
+      "verified": true,
+      "total": "35B",
+      "active": "about 3B",
+      "total_b": 35,
+      "active_b": 3,
+      "display": "35B total, about 3B active",
+      "source": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B"
+     },
+     "runs_on": "AMD GPUs via AMD Token Factory",
+     "accuracy": 85.9,
+     "accuracy_ci": [
+      79.4,
+      90.7
+     ],
+     "macro_f1": 0.851584275959271,
+     "false_reassurance": 2.2,
+     "false_reassurance_ci": [
+      0,
+      6.1
+     ],
+     "false_reassurance_n": [
+      3,
+      138
+     ],
+     "critical_false_reassurance_n": [
+      3,
+      108
+     ],
+     "over_flag": 13.8,
+     "json_valid": 100,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 37,
+      "breaks": 27,
+      "p": 0.2604354765766535
+     },
+     "latency_bs1_p50_s": null,
+     "usd_per_discharge": null
+    },
+    {
+     "id": "clef",
+     "role": "cloud",
+     "label": "Clef (cloud)",
+     "model": "Clef",
+     "run": null,
+     "size": {
+      "verified": true,
+      "total": "27B",
+      "active": "27B",
+      "total_b": 27,
+      "active_b": 27,
+      "display": "27B",
+      "source": "https://amd-aim.github.io/radeon-cloud-docs/models/clef/"
+     },
+     "runs_on": "AMD GPUs via AMD Token Factory",
+     "accuracy": 88.9,
+     "accuracy_ci": [
+      86.1,
+      92.7
+     ],
+     "macro_f1": 0.8972745222480785,
+     "false_reassurance": 0.7,
+     "false_reassurance_ci": [
+      0,
+      2
+     ],
+     "false_reassurance_n": [
+      1,
+      138
+     ],
+     "critical_false_reassurance_n": [
+      1,
+      108
+     ],
+     "over_flag": 13,
+     "json_valid": 100,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 36,
+      "breaks": 16,
+      "p": 0.0077874363057435225
+     },
+     "latency_bs1_p50_s": null,
+     "usd_per_discharge": null
     }
    ]
   },
@@ -250,7 +399,16 @@
      "role": "ours",
      "label": "Homeward (fine-tuned)",
      "model": "Gemma 4 E4B",
-     "run": "adapter_avg",
+     "run": "run 2",
+     "size": {
+      "verified": true,
+      "total": "8B",
+      "active": "8B",
+      "total_b": 8,
+      "active_b": 8,
+      "display": "8B (4.5B effective)",
+      "source": "https://huggingface.co/google/gemma-4-E4B-it"
+     },
      "runs_on": "AMD Radeon PRO W7900D",
      "accuracy": 87,
      "accuracy_ci": [
@@ -289,6 +447,15 @@
      "label": "Gemma 4 E4B, base",
      "model": "Gemma 4 E4B",
      "run": null,
+     "size": {
+      "verified": true,
+      "total": "8B",
+      "active": "8B",
+      "total_b": 8,
+      "active_b": 8,
+      "display": "8B (4.5B effective)",
+      "source": "https://huggingface.co/google/gemma-4-E4B-it"
+     },
      "runs_on": "AMD Radeon PRO W7900D",
      "accuracy": 82.1,
      "accuracy_ci": [
@@ -317,49 +484,20 @@
      "usd_per_discharge": null
     },
     {
-     "id": "run1",
-     "role": "onsite",
-     "label": "Gemma 4 E4B, fine-tuned run 1",
-     "model": "Gemma 4 E4B",
-     "run": "run 1",
-     "runs_on": "AMD Radeon PRO W7900D",
-     "accuracy": 87.5,
-     "accuracy_ci": [
-      85.2,
-      89.7
-     ],
-     "macro_f1": 0.8286942724268207,
-     "false_reassurance": 1.7,
-     "false_reassurance_ci": [
-      0.4,
-      3.1
-     ],
-     "false_reassurance_n": [
-      4,
-      239
-     ],
-     "critical_false_reassurance_n": [
-      2,
-      173
-     ],
-     "over_flag": 3.7,
-     "json_valid": 100,
-     "ci_method": "case-level bootstrap, 1000 resamples",
-     "paired_vs_base": {
-      "base": "e4b_base",
-      "fixes": 54,
-      "breaks": 14,
-      "p": 0.000001109725672785106
-     },
-     "latency_bs1_p50_s": 5.4,
-     "usd_per_discharge": null
-    },
-    {
      "id": "gemma4_31b",
-     "role": "cloud",
-     "label": "Gemma 4 31B (cloud)",
+     "role": "teacher",
+     "label": "Gemma 4 31B, teacher (cloud)",
      "model": "Gemma 4 31B",
      "run": null,
+     "size": {
+      "verified": true,
+      "total": "30.7B",
+      "active": "30.7B",
+      "total_b": 30.7,
+      "active_b": 30.7,
+      "display": "30.7B",
+      "source": "https://huggingface.co/google/gemma-4-31B-it"
+     },
      "runs_on": "AMD GPUs via AMD Token Factory",
      "accuracy": 85.3,
      "accuracy_ci": [
@@ -398,13 +536,22 @@
      "label": "DeepSeek V4 Flash (cloud)",
      "model": "DeepSeek V4 Flash",
      "run": null,
+     "size": {
+      "verified": true,
+      "total": "284B",
+      "active": "13B",
+      "total_b": 284,
+      "active_b": 13,
+      "display": "284B total, 13B active",
+      "source": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash"
+     },
      "runs_on": "AMD GPUs via AMD Token Factory",
-     "accuracy": 70.8,
+     "accuracy": 71.6,
      "accuracy_ci": [
-      65.6,
-      75.9
+      66.1,
+      76.7
      ],
-     "macro_f1": 0.705517681918488,
+     "macro_f1": 0.7094195045328814,
      "false_reassurance": 3.8,
      "false_reassurance_ci": [
       1.3,
@@ -418,14 +565,14 @@
       6,
       173
      ],
-     "over_flag": 24.3,
+     "over_flag": 23.6,
      "json_valid": 84.5,
      "ci_method": "case-level bootstrap, 1000 resamples",
      "paired_vs_base": {
       "base": "e4b_base",
       "fixes": 42,
-      "breaks": 126,
-      "p": 6.009507673225811e-11
+      "breaks": 120,
+      "p": 6.797926739267764e-10
      },
      "latency_bs1_p50_s": null,
      "usd_per_discharge": 0.0005156424000000001
@@ -438,7 +585,7 @@
    "tts": 110,
    "human": 15
   },
-  "tts_note": "TTS clips are macOS `say` voices reading the independent test transcripts written by Claude: clean studio speech, so they flatter ASR compared with real patients.",
+  "tts_note": "TTS clips are macOS `say` voices reading the independent test transcripts (written by a different model family, Claude): clean studio speech, so they flatter ASR compared with real patients.",
   "normalisation": "NFKC, lowercase, punctuation and symbols removed, whitespace collapsed; WER over whitespace tokens, CER over characters without spaces. Script choice counts as an error (e.g. an English drug name written in Devanagari).",
   "wer": {
    "e4b": {

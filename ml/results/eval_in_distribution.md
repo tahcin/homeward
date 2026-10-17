@@ -1,6 +1,6 @@
 # Teach-back grader evaluation
 
-Test set: 348 answers, 744 facts, 18 cases, 12 languages. Gold verdicts: {'correct': 382, 'incorrect': 176, 'missing': 63, 'partial': 123}. Generated 2026-10-16 13:56:00 IST.
+Test set: 348 answers, 744 facts, 18 cases, 12 languages. Gold verdicts: {'correct': 382, 'incorrect': 176, 'missing': 63, 'partial': 123}. Generated 2026-10-16 13:58:57 IST.
 
 | System | Fact accuracy (95% CI) | Macro-F1 | False reassurance (95% CI) | FR on critical facts | Over-flag | JSON valid |
 |---|---|---|---|---|---|---|
@@ -8,7 +8,7 @@ Test set: 348 answers, 744 facts, 18 cases, 12 languages. Gold verdicts: {'corre
 | run1 | 87.5% (85.2%–89.7%) | 0.829 | 1.7% (0.4%–3.1%) | 1.2% (2/173) | 3.7% | 100.0% |
 | homeward_run2 | 87.0% (84.7%–89.4%) | 0.814 | 2.1% (0.4%–4.1%) | 1.7% (3/173) | 2.9% | 100.0% |
 | gemma4_31b | 85.3% (82.0%–88.2%) | 0.801 | 2.5% (0.8%–4.5%) | 1.2% (2/173) | 6.8% | 100.0% |
-| deepseek_v4_flash | 70.8% (65.6%–75.9%) | 0.706 | 3.8% (1.3%–6.7%) | 3.5% (6/173) | 24.3% | 84.5% |
+| deepseek_v4_flash | 71.6% (66.1%–76.7%) | 0.709 | 3.8% (1.3%–6.7%) | 3.5% (6/173) | 23.6% | 84.5% |
 
 ## Accuracy by language
 
@@ -18,7 +18,7 @@ Test set: 348 answers, 744 facts, 18 cases, 12 languages. Gold verdicts: {'corre
 | run1 | 88% | 84% | 95% | 91% | 84% | 98% | 79% | 86% | 90% | 86% | 84% | 90% |
 | homeward_run2 | 90% | 88% | 93% | 88% | 86% | 95% | 81% | 82% | 92% | 85% | 83% | 90% |
 | gemma4_31b | 82% | 91% | 91% | 91% | 77% | 88% | 67% | 91% | 92% | 85% | 86% | 86% |
-| deepseek_v4_flash | 48% | 72% | 86% | 94% | 77% | 65% | 56% | 66% | 75% | 69% | 66% | 78% |
+| deepseek_v4_flash | 48% | 75% | 86% | 94% | 77% | 65% | 56% | 66% | 75% | 69% | 66% | 82% |
 
 ## Speed and tokens
 
@@ -70,7 +70,7 @@ Test set: 348 answers, 744 facts, 18 cases, 12 languages. Gold verdicts: {'corre
 
 | gold \ pred | correct | partial | incorrect | missing | invalid |
 |---|---|---|---|---|---|
-| correct | 289 | 23 | 14 | 7 | 49 |
-| partial | 28 | 70 | 7 | 2 | 16 |
-| incorrect | 7 | 14 | 131 | 5 | 19 |
+| correct | 292 | 24 | 14 | 7 | 45 |
+| partial | 28 | 71 | 7 | 2 | 15 |
+| incorrect | 7 | 14 | 133 | 5 | 17 |
 | missing | 2 | 8 | 13 | 37 | 3 |

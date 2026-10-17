@@ -1,0 +1,15 @@
+{
+ "system": "qwen3_8_flash_next",
+ "model": "Qwen3.8-Flash-Next",
+ "rows": 150,
+ "errors": 0,
+ "prompt_tokens": 57925,
+ "completion_tokens": 25705,
+ "latency_mean_s": 1300.1739935715993,
+ "reasoning_tokens": 0,
+ "latency_p50_s": 1325.465059041977,
+ "latency_p95_s": 2387.8602494120596,
+ "json_mode": false,
+ "reasoning_effort": "none",
+ "note": "latency includes Token Factory queueing under the shared 20 requests/minute limit"
+}

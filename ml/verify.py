@@ -46,6 +46,8 @@ async def grade_batch(client, rows, prompt, model, reasoning):
                               json_mode=True, reasoning_effort=reasoning)
             data = parse_json(content_of(resp))
             answers = {a.get("n"): a for a in data.get("answers", []) if isinstance(a, dict)}
+            if not answers and len(rows) == 1 and isinstance(data.get("facts"), list):
+                answers = {1: data}  # batch of one: some models (DeepSeek, Oct 16 night) reply with the single-answer format
         except Exception as e:  # noqa: BLE001
             print("batch error", str(e)[:200])
             continue

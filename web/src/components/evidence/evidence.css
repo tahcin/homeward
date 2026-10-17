@@ -97,3 +97,5 @@
 .ev-cmp h4 { margin: 0; font-size: 0.98rem; }
 .ev-cmp ul { margin: 8px 0 0; padding-left: 17px; font-size: 0.87rem; color: var(--muted); }
 .ev-cmp li + li { margin-top: 3px; }
+.ev-compare.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 700px) { .ev-compare.two { grid-template-columns: 1fr; } }

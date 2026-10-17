@@ -122,6 +122,9 @@ def main():
                 f"{100 * m['false_reassurance_rate']:.1f}% ({100 * b_[0]:.1f}–{100 * b_[1]:.1f}) | "
                 f"{m['false_reassurance_critical_n'][0]}/{m['false_reassurance_critical_n'][1]} | {100 * m['over_flag_rate']:.1f}% | {100 * m['json_valid_rate']:.1f}% |")
     L = ["# Homeward grader: evaluation (run 2, final)", "", f"Generated {out['generated_at']}. All numbers come from the files in ml/results; 95% intervals are case-level bootstrap (1,000 resamples).", ""]
+    L += ["## Scoring", "", "Facts whose verdict cannot be read count as wrong. Since 2026-10-16 the parser has a lenient fallback for malformed JSON (a dropped colon or quote): "
+          "each fact's id and verdict are read with a regex. It is applied identically to every system and every set; JSON validity is still reported strictly. "
+          "It was added after model selection, so it did not influence which model was chosen. On the test sets it changes only DeepSeek-V4-Flash (79.2% to 80.4% independent).", ""]
     for key, title in (("independent", "Independent test set (headline)"), ("in_distribution", "In-distribution test set (generator-labelled)")):
         d = out["test_sets"][key]
         ts = d["test_set"]
@@ -173,7 +176,7 @@ def main():
         for k, s_ in sc["systems"].items():
             m = s_["metrics"]
             L.append(f"- {k}: accuracy {100 * m['accuracy']:.1f}%, false reassurance {m['false_reassurance_n'][0]}/{m['false_reassurance_n'][1]}, over-flag {100 * m['over_flag_rate']:.1f}%")
-        L += ["- Majority of 3 samples (T 0.7) costs 3x the generation; candidate for run 4.", ""]
+        L += ["- With the lenient parser (see Scoring), the 3-sample vote matches greedy (91.5%); its only effect is fewer broken outputs. Not worth 3x the generation for run 2.", ""]
     v31 = load("run2/eval_valind_with31b.json")
     if v31:
         m = v31["systems"]["gemma4_31b"]["metrics"]

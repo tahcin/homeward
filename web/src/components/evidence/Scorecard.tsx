@@ -20,11 +20,11 @@ export function Scorecard({ r }: { r: Results }) {
     if (ours.over_flag !== null && s.over_flag !== null) lines.push(`False alarms ${f1(s.over_flag)} → ${f1(ours.over_flag)} for Homeward`);
     if (oc !== undefined && sc !== undefined)
       lines.push(`Critical false passes: Homeward ${oc}, this ${sc}${oc > sc ? " (Homeward not yet better)" : oc < sc ? " (Homeward better)" : " (level)"}`);
-    if (s.role === "cloud") lines.push("Cloud only; Homeward runs on site");
+    if (s.role === "cloud" || s.role === "teacher") lines.push("Cloud only; Homeward runs on site");
     if (s.json_valid !== null && s.json_valid < 100) lines.push(`Valid structured replies ${f1(s.json_valid)}, Homeward ${f1(ours.json_valid ?? 0)}`);
     return (
       <div className="card" key={s.id}>
-        <div className="v-who">vs {s.label}</div>
+        <div className="v-who">vs {s.label}{s.size?.verified ? ` · ${s.size.display}` : ""}</div>
         <div className="v-big">
           {d !== null ? `${signed(d)} points` : "Pending"}
           <small>accuracy</small>

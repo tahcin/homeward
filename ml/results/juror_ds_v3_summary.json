@@ -1,0 +1,59 @@
+{
+ "answers": 800,
+ "facts": 1884,
+ "answers_all_facts_agree": 160,
+ "answer_agreement_rate": 0.2,
+ "fact_agreement_rate": 0.5414012738853503,
+ "cohen_kappa_facts": 0.3698482756521254,
+ "verifier_invalid_facts": 20,
+ "confusion_designed_vs_verifier": {
+  "correct": {
+   "correct": 356,
+   "partial": 57,
+   "incorrect": 11,
+   "missing": 3,
+   "invalid": 4
+  },
+  "partial": {
+   "correct": 183,
+   "partial": 249,
+   "incorrect": 90,
+   "missing": 6,
+   "invalid": 7
+  },
+  "incorrect": {
+   "correct": 106,
+   "partial": 255,
+   "incorrect": 339,
+   "missing": 28,
+   "invalid": 5
+  },
+  "missing": {
+   "correct": 7,
+   "partial": 44,
+   "incorrect": 54,
+   "missing": 76,
+   "invalid": 4
+  }
+ },
+ "answer_agreement_by_language": {
+  "ar": 0.173,
+  "bn": 0.213,
+  "en": 0.185,
+  "es": 0.141,
+  "fr": 0.296,
+  "hi": 0.278,
+  "it": 0.32,
+  "pt": 0.139,
+  "ta": 0.184,
+  "tl": 0.257,
+  "vi": 0.214,
+  "zh": 0.196
+ },
+ "model": "DeepSeek-V4-Flash",
+ "reasoning_effort": "",
+ "batch_size": 1,
+ "requests_counted": 766,
+ "prompt_tokens": 404758,
+ "completion_tokens": 127837
+}

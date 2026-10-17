@@ -1,0 +1,15 @@
+{
+ "system": "mimo_v2_6_flash",
+ "model": "MiMo-V2.6-Flash",
+ "rows": 120,
+ "errors": 1,
+ "prompt_tokens": 45594,
+ "completion_tokens": 31269,
+ "latency_mean_s": 1341.6849447278416,
+ "reasoning_tokens": 0,
+ "latency_p50_s": 1333.0035691261292,
+ "latency_p95_s": 2472.392506122589,
+ "json_mode": false,
+ "reasoning_effort": "none",
+ "note": "latency includes Token Factory queueing under the shared 20 requests/minute limit"
+}

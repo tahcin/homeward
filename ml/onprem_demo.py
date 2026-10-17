@@ -66,6 +66,18 @@ def main():
                 mod.scaling["default"] *= a.lora_scale
     proc = transformers.AutoProcessor.from_pretrained(a.model)
     print(f"Loaded Gemma 4 E4B + Homeward LoRA grader in {time.time() - t0:.1f} s")
+    # Warm-up (kernel compilation) on 1 s of silence and a tiny grading prompt, so timings below are steady-state.
+    wu = proc.apply_chat_template([{"role": "user", "content": [{"type": "text", "text": "Transcribe."},
+                                                               {"type": "audio", "audio": np.zeros(16000, dtype=np.float32)}]}],
+                                  tokenize=True, return_dict=True, return_tensors="pt", add_generation_prompt=True,
+                                  enable_thinking=False).to(model.device)
+    wu["input_features"] = wu["input_features"].to(torch.bfloat16)
+    with torch.no_grad(), model.disable_adapter():
+        model.generate(**wu, max_new_tokens=8, do_sample=False)
+    with torch.no_grad():
+        model.generate(**tok("Hi", return_tensors="pt").to(model.device), max_new_tokens=8, do_sample=False)
+    torch.cuda.reset_peak_memory_stats()
+    print("Warm-up done (kernels compiled).")
     print(rocm_vram())
     print()
     print(f"Question ({row['language_name']}): {row['question']}")

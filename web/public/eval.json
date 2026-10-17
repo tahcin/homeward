@@ -1,7 +1,7 @@
 {
   "_note": "Filled by the ML pipeline (ml/). Every null renders as 'Pending' on the How it works page. Never hand-edit numbers in; write them from an evaluation run and set status to 'final'.",
   "status": "final",
-  "updated": "2026-10-16",
+  "updated": "2026-10-17",
   "grader": {
     "test_set": {
       "description": "Independent teach-back answers written by Claude (a different model family) (never seen by the data generator), held-out conditions",

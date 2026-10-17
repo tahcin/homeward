@@ -31,13 +31,100 @@ function modelName(path) {
   b = b.replace(/-/g, " ").replace(/^gemma/i, "Gemma");
   return b;
 }
-/** "/workspace/runs/lora1/adapter" -> "run 1". */
-function runName(adapter) {
+/** "homeward_run2" -> "run 2"; else "/workspace/runs/lora1/adapter" -> "run 1". */
+function runName(adapter, key) {
+  const k = /run[_-]?(\d+)$/i.exec(key ?? "");
+  if (k) return `run ${Number(k[1])}`;
   if (!adapter) return null;
   const parts = String(adapter).split("/").filter(Boolean);
   const dir = parts[parts.length - 1] === "adapter" ? parts[parts.length - 2] : parts[parts.length - 1];
   const m = /(\d+)$/.exec(dir ?? "");
   return m ? `run ${Number(m[1])}` : dir ?? null;
+}
+
+// Parameter counts from amd-act-iii-2026/model-sizes.md, only where that file marks them verified.
+// It reads any markdown table with a model-name column ("Token Factory name", "Model" or "Name"; an
+// "Official release" column is also matched), "Total params" / "Active params" columns, and either a
+// "Confidence" column (a row counts when it starts with "High") or a "Verified"/"Status" column.
+// Cells can be verbose: the first "30.7B"-style figure is used, "(= 180B" wins when given (a sum of
+// parts), and a bare count like "2,516,756,480" is converted. Dense models show one figure; MoE models
+// show "284B total, 13B active"; an "about 3B" active figure (name only) is kept as "about 3B".
+const sizesPath = process.env.HOMEWARD_SIZES || resolve(here, "../../../model-sizes.md");
+const norm = (x) => String(x ?? "").toLowerCase().replace(/[^a-z0-9.]/g, "");
+const sizeRows = [];
+if (existsSync(sizesPath)) {
+  const lines = readFileSync(sizesPath, "utf8").split("\n");
+  let head = null;
+  for (const line of lines) {
+    if (!line.trim().startsWith("|")) {
+      head = null;
+      continue;
+    }
+    const cells = line.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+    if (cells.every((c) => /^:?-{2,}:?$/.test(c) || c === "")) continue;
+    if (!head) {
+      head = cells.map((c) => c.toLowerCase().replace(/\*/g, ""));
+      continue;
+    }
+    const col = (re) => head.findIndex((h) => re.test(h));
+    const get = (re) => (col(re) >= 0 ? (cells[col(re)] ?? "").replace(/\*/g, "").trim() : "");
+    const model = get(/model|name/);
+    if (!model) continue;
+    const conf = get(/confidence/);
+    const ver = get(/verif|status|confirmed/);
+    const verified = conf
+      ? /^high/i.test(conf)
+      : ver
+        ? /\b(verified|yes|confirmed)\b|✓|✔/i.test(ver) && !/\b(unverified|not verified|no|unconfirmed)\b/i.test(ver)
+        : false;
+    sizeRows.push({
+      model,
+      release: get(/official|release|repo/),
+      key: get(/^(key|system)$/),
+      arch: get(/architecture|arch/),
+      total: get(/total/),
+      active: get(/active/),
+      verified,
+      source: (get(/source|url|link/).match(/https?:\/\/\S+/) ?? [null])[0],
+    });
+  }
+}
+/** First size figure in a verbose cell, in billions. */
+function toB(x) {
+  if (!x) return null;
+  const sum = /\(=\s*([\d.]+)\s*([BMT])/i.exec(x);
+  const m = sum ?? /([\d.]+)\s*([BMT])\b/i.exec(x);
+  if (m) {
+    const v = parseFloat(m[1]);
+    const u = m[2].toUpperCase();
+    return u === "T" ? v * 1000 : u === "M" ? v / 1000 : v;
+  }
+  const n = /(\d{1,3}(?:,\d{3}){2,})/.exec(x);
+  return n ? Number(n[1].replace(/,/g, "")) / 1e9 : null;
+}
+const fmtB = (b) => (b === null ? null : b >= 100 ? `${Math.round(b)}B` : b >= 10 ? `${Number(b.toFixed(1))}B` : `${Number(b.toFixed(2)).toString().replace(/\.?0+$/, "")}B`);
+function sizeFor(key, name) {
+  const n = norm(name);
+  const exact = (r) => norm(r.model) === n || norm(r.release.split(" ")[0]) === n || norm(r.model).replace(/it$/, "") === n;
+  const loose = (r) => n.length > 3 && (norm(r.model).startsWith(n) || n.startsWith(norm(r.model)) || norm(r.release).includes(n));
+  const row = sizeRows.find((r) => r.key && norm(r.key) === norm(key)) ?? sizeRows.find(exact) ?? sizeRows.find(loose);
+  const none = { verified: false, total: null, active: null, total_b: null, active_b: null, display: "size not published" };
+  if (!row || !row.verified) return none;
+  const total_b = toB(row.total);
+  const dense = /^dense/i.test(row.arch) || /\(dense/i.test(row.active);
+  const effective = /effective/i.test(row.active) ? toB(row.active) : null;
+  const about = /^about/i.test(row.active);
+  // Encoder-decoder models give two active figures; quote the one used while generating.
+  const decode = /([\d.]+)\s*B per token in decode/i.exec(row.active);
+  const active_b = dense ? total_b : decode ? parseFloat(decode[1]) : toB(row.active);
+  if (total_b === null) return none;
+  const total = fmtB(total_b);
+  const active = active_b === null ? null : `${about ? "about " : ""}${fmtB(active_b)}`;
+  let display;
+  if (effective) display = `${total} (${fmtB(effective)} effective)`;
+  else if (dense || !active || active_b === total_b) display = total;
+  else display = `${total} total, ${active} active`;
+  return { verified: true, total, active, total_b, active_b: dense ? total_b : active_b, display, source: row.source };
 }
 
 const indep = d.test_sets?.independent?.systems ?? {};
@@ -48,20 +135,28 @@ const oursMeta = indep[oursKey]?.meta ?? {};
 const baseKey =
   Object.entries(indep).find(([k, s]) => k !== oursKey && !s.meta?.adapter && s.meta?.model && s.meta.model === oursMeta.model)?.[0] ?? null;
 const oursModel = modelName(oursMeta.model) ?? "Gemma 4 E4B";
-const oursRun = runName(oursMeta.adapter);
+// The teacher whose labels Homeward was distilled from: HOMEWARD_TEACHER, eval.json's teacher.system_key,
+// or the Gemma 4 31B system.
+const teacherKey =
+  process.env.HOMEWARD_TEACHER ||
+  d.teacher?.system_key ||
+  Object.entries(indep).find(([, s]) => !s.meta?.adapter && /gemma.?4.?31b/i.test(String(s.meta?.model ?? "")))?.[0] ||
+  null;
+const oursRun = runName(oursMeta.adapter, oursKey);
 const costs = d.cost?.per_system ?? {};
 
 function labelFor(key, s) {
   const m = s.meta ?? {};
   if (key === oursKey) return "Homeward (fine-tuned)";
   const name = modelName(m.model) ?? key;
-  if (m.adapter) return `${name}, fine-tuned ${runName(m.adapter) ?? ""}`.trim();
   if (key === baseKey) return `${name}, base`;
+  if (key === teacherKey) return `${name}, teacher${s.meta?.device ? "" : " (cloud)"}`;
   return s.meta?.device ? name : `${name} (cloud)`;
 }
 function roleFor(key, s) {
   if (key === oursKey) return "ours";
   if (key === baseKey) return "base";
+  if (key === teacherKey) return "teacher";
   return s.meta?.device ? "onsite" : "cloud";
 }
 function runsOn(s) {
@@ -70,7 +165,10 @@ function runsOn(s) {
 
 function testSet(t) {
   if (!t) return null;
-  const systems = Object.entries(t.systems || {}).map(([id, s]) => {
+  // Only the selected Homeward grader is shown; intermediate fine-tuning runs are left out.
+  const systems = Object.entries(t.systems || {})
+    .filter(([id, s]) => id === oursKey || !s.meta?.adapter)
+    .map(([id, s]) => {
     const m = s.metrics || {};
     const ci = (k) => (Array.isArray(m[k]) ? m[k].map(pct) : null);
     const pk = Object.keys(m).find((k) => k.startsWith("paired_vs_"));
@@ -80,7 +178,8 @@ function testSet(t) {
       role: roleFor(id, s),
       label: labelFor(id, s),
       model: modelName(s.meta?.model),
-      run: runName(s.meta?.adapter),
+      run: id === oursKey ? oursRun : null,
+      size: sizeFor(id, modelName(s.meta?.model)),
       runs_on: runsOn(s),
       accuracy: pct(m.accuracy),
       accuracy_ci: ci("accuracy_95ci"),
@@ -98,7 +197,7 @@ function testSet(t) {
     };
   });
   // Ours first, then its base, then the rest in file order.
-  const rank = { ours: 0, base: 1, onsite: 2, cloud: 3 };
+  const rank = { ours: 0, base: 1, teacher: 2, onsite: 3, cloud: 4 };
   systems.sort((a, b) => rank[a.role] - rank[b.role]);
   return {
     answers: t.test_set?.answers ?? null,
@@ -140,6 +239,9 @@ const result = {
   schema: "homeward.evidence.v2",
   source: "ml/results/eval.json",
   generated_at: d.generated_at ?? null,
+  sizes_file: existsSync(sizesPath) ? "model-sizes.md" : null,
+  whisper_size: sizeFor("whisper", "whisper-large-v3-turbo"),
+  teacher_key: teacherKey,
   ours: {
     system_key: oursKey,
     label: "Homeward (fine-tuned)",

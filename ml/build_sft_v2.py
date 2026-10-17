@@ -12,6 +12,13 @@ Label rule per answer:
      matches the majority, else the designed text.
   3. No teacher label: keep only if the verifier agreed on every fact (run-1 rule), unless
      --require-teacher.
+  With --juror-clef (Clef decision model on Token Factory, per-fact verdict + probabilities) and a teacher
+  label: one more vote. Votes = designed, 31B, Qwen and DeepSeek where present, Clef; a fact keeps the strict
+  majority, else the 31B verdict if it is the unique plurality, else the answer is dropped (with 3 or 4 votes
+  this equals rules 2 and the 4-way jury), except that an answer is dropped if the vote would overrule a
+  31B "incorrect" or "missing" to "correct". Answers with a final "correct" fact that Clef gives
+  P(correct) < --clef-min-pcorrect are dropped as likely label errors; --clef-conf-min caps oversampling of
+  answers whose final labels Clef finds unlikely.
 Then: near-duplicate removal (character 5-gram Jaccard > 0.8 within a case topic), at most
 --cap answers per case, oversampling of near-miss pairs (same topic, verdicts differ on
 exactly one fact) and of weak languages, and a hash check that no transcript or case from
@@ -76,6 +83,15 @@ def main():
     ap.add_argument("--verify-v2", action="append", default=["data/verify_v2.jsonl"])
     ap.add_argument("--teacher", action="append", default=["data/teacher_31b.jsonl"])
     ap.add_argument("--require-teacher", action="store_true")
+    ap.add_argument("--mine", action="append", default=[], help="run-2 predictions on training rows (eval.py predict-local output); answers where it disagrees with the final label get x--mine-x")
+    ap.add_argument("--mine-x", type=float, default=2.0)
+    ap.add_argument("--mine-probs", action="append", default=[], help="run-2 verdict probabilities on mined rows; low-confidence 'correct' calls get x--lowconf-x")
+    ap.add_argument("--lowconf-p", type=float, default=0.8)
+    ap.add_argument("--lowconf-x", type=float, default=1.5)
+    ap.add_argument("--juror", action="append", default=[], help="third AI juror labels (e.g. DeepSeek-V4-Flash via verify.py); enables the 4-way jury rule")
+    ap.add_argument("--juror-clef", action="append", default=[], help="Clef decision-model labels (scratchpad clef_label.py: per fact verdict + probabilities); one more vote, plus a label-error filter")
+    ap.add_argument("--clef-min-pcorrect", type=float, default=0.2, help="drop an answer if a fact's final label is 'correct' but Clef's P(correct) is below this")
+    ap.add_argument("--clef-conf-min", type=float, default=0.0, help="if > 0, answers where Clef's probability of the final label is below this on any fact are not oversampled (weight capped at 1)")
     ap.add_argument("--cap", type=int, default=30)
     ap.add_argument("--near-miss-x", type=float, default=1.5)
     ap.add_argument("--weak-langs", default="ta,bn,en,ar")
@@ -96,6 +112,9 @@ def main():
 
     ver = {r["key"]: r for p in [a.verify] + a.verify_v2 for r in rj(p)}
     teach = {r["key"]: r for p in a.teacher for r in rj(p)}
+    jury = {r["key"]: r for p in a.juror for r in rj(p)}
+    clef = {r["key"]: r for p in a.juror_clef for r in rj(p) if r.get("facts")}
+    clef_p = {}  # key -> Clef probability of each final verdict (kept answers judged with Clef)
     # answers_v2 reuses v1 case ids with n restarting at 1, so its keys collide with v1;
     # remap v2 to n + 1000 (the teacher labels for v2 are produced on the same remapped copy).
     v2 = [dict(r, n=r["n"] + 1000 if r["n"] < 1000 else r["n"], _src="v2") for r in rj(a.answers_v2)]
@@ -119,6 +138,96 @@ def main():
         designed = [l["verdict"] for l in r["labels"]]
         t, v = teach.get(k), ver.get(k)
         traw = {f.get("id"): f for f in ((t or {}).get("verifier_raw") or {}).get("facts", []) if isinstance(f, dict)}
+        j = jury.get(k)
+        cl = clef.get(k)
+        if cl and [f.get("id") for f in cl["facts"]] == [l["id"] for l in r["labels"]] and all(f.get("verdict") for f in cl["facts"]):
+            for lab, tv, cv in zip(r["labels"], (t or {}).get("verifier") or [None] * len(r["labels"]), cl["verifier"]):
+                if tv and cv:
+                    stats["clef_vs_31b_facts"] += 1
+                    stats["clef_disagrees_31b_facts"] += tv != cv
+                    stats["clef_disagrees_designed_facts"] += lab["verdict"] != cv
+        else:
+            cl = None
+        if t and cl:
+            # Clef present: one more vote. Votes = designed, 31B, plus Qwen / DeepSeek when present, plus Clef.
+            # A fact keeps a strict-majority verdict, else the 31B verdict if it is the unique plurality; else drop.
+            # (With 3 or 4 votes this is exactly the earlier 2-of-3 and 4-way jury rules.)
+            jraw = {f.get("id"): f for f in (((j or {}).get("verifier_raw") or {}).get("facts", [])) if isinstance(f, dict)}
+            vraw = {f.get("id"): f for f in (((v or {}).get("verifier_raw") or {}).get("facts", [])) if isinstance(f, dict)}
+            vv_l = (v or {}).get("verifier") or [None] * len(r["labels"])
+            jv_l = (j or {}).get("verifier") or [None] * len(r["labels"])
+            labels, ok, overrule, label_err = [], True, 0, False
+            for lab, tv, vv, jv, cf in zip(r["labels"], t["verifier"], vv_l, jv_l, cl["facts"]):
+                votes = [x for x in (lab["verdict"], tv, vv, jv, cf.get("verdict")) if x]
+                c = Counter(votes)
+                ranked = c.most_common()
+                top, n = ranked[0]
+                if n * 2 > len(votes):
+                    final = top
+                elif tv and c[tv] == n and sum(1 for _, m in ranked if m == n) == 1:
+                    final = tv
+                else:
+                    ok = False
+                    break
+                if final == "correct" and ((cf.get("probabilities") or {}).get("correct", 1.0) < a.clef_min_pcorrect):
+                    label_err = True
+                if final == "correct" and tv in ("incorrect", "missing"):
+                    # never let the vote overrule the teacher towards reassurance; treat as contested
+                    stats["clefjury_unsafe_overrule_facts"] += 1
+                    ok = False
+                    break
+                src = (traw.get(lab["id"], {}) if tv == final else jraw.get(lab["id"], {}) if jv == final
+                       else vraw.get(lab["id"], {}) if vv == final else lab)
+                labels.append(dict(lab, verdict=final, heard=src.get("heard", lab.get("heard", "")),
+                                   reteach=src.get("reteach", lab.get("reteach", ""))))
+                overrule += final != tv
+            if not ok:
+                stats[f"dropped_clefjury_no_majority_{r['_src']}"] += 1
+                dropped_examples.append(k)
+                continue
+            if label_err:
+                stats[f"dropped_clef_label_error_{r['_src']}"] += 1
+                dropped_examples.append(k)
+                continue
+            stats[f"kept_clefjury_{r['_src']}"] += 1
+            stats["clefjury_facts"] += len(labels)
+            stats["clefjury_overrules_31b_facts"] += overrule
+            stats["clefjury_changes_designed_facts"] += sum(l["verdict"] != d for l, d in zip(labels, designed))
+            clef_p[k] = [(cf.get("probabilities") or {}).get(l["verdict"], 1.0) for l, cf in zip(labels, cl["facts"])]
+            kept.append(dict(r, labels=labels))
+            continue
+        if t and v and j:
+            # 4-way jury: designed, 31B, Qwen, DeepSeek. Keep a fact's verdict when >= 3 of 4 agree, or when
+            # 31B plus one other agree and the remaining two differ from each other; otherwise drop the answer.
+            jraw = {f.get("id"): f for f in ((j.get("verifier_raw") or {}).get("facts", [])) if isinstance(f, dict)}
+            vraw = {f.get("id"): f for f in ((v.get("verifier_raw") or {}).get("facts", [])) if isinstance(f, dict)}
+            labels, ok, overrule = [], True, 0
+            for lab, tv, vv, jv in zip(r["labels"], t["verifier"], v["verifier"], j["verifier"]):
+                votes = [lab["verdict"], tv, vv, jv]
+                c = Counter(x for x in votes if x)
+                top, n = c.most_common(1)[0] if c else (None, 0)
+                if n >= 3:
+                    final = top
+                elif n == 2 and c.get(tv, 0) == 2 and len(c) == 3:
+                    final = tv
+                else:
+                    ok = False
+                    break
+                src = (traw.get(lab["id"], {}) if tv == final else jraw.get(lab["id"], {}) if jv == final
+                       else vraw.get(lab["id"], {}) if vv == final else lab)
+                labels.append(dict(lab, verdict=final, heard=src.get("heard", lab.get("heard", "")),
+                                   reteach=src.get("reteach", lab.get("reteach", ""))))
+                overrule += final != tv
+            if not ok:
+                stats[f"dropped_jury_no_majority_{r['_src']}"] += 1
+                dropped_examples.append(k)
+                continue
+            stats[f"kept_jury_{r['_src']}"] += 1
+            stats["jury_facts"] += len(labels)
+            stats["jury_overrules_31b_facts"] += overrule
+            stats["jury_changes_designed_facts"] += sum(l["verdict"] != d for l, d in zip(labels, designed))
+            kept.append(dict(r, labels=labels))
+            continue
         if t and t.get("agree_all"):
             labels = [dict(l, heard=traw.get(l["id"], {}).get("heard", l.get("heard", "")),
                            reteach=traw.get(l["id"], {}).get("reteach", l.get("reteach", ""))) for l in r["labels"]]
@@ -167,9 +276,20 @@ def main():
     per_case = defaultdict(list)
     for r in dedup:
         per_case[r["case_id"]].append(r)
+    # The cap keeps mined answers (run 2 disagrees with the final label) and targeted answers (n 301-999) first.
+    mined_pre = {p["key"]: p for f in a.mine for p in rj(f)}
+
+    def cap_priority(r):
+        mp = mined_pre.get(grader.row_key(r))
+        if mp:
+            mv, _ = grader.verdicts_from(grader.parse_reply(mp["text"]), [f["id"] for f in r["facts"]])
+            if any(v != l["verdict"] for l, v in zip(r["labels"], mv)):
+                return 0
+        return 1 if 301 <= r["n"] < 1000 else 2
     final = []
     for cid, rows in per_case.items():
         rng.shuffle(rows)
+        rows.sort(key=cap_priority)
         stats["dropped_case_cap"] += max(0, len(rows) - a.cap)
         final += rows[:a.cap]
 
@@ -186,10 +306,42 @@ def main():
                 if len(vi) == len(vj) and sum(x != y for x, y in zip(vi, vj)) == 1:
                     for r in (rows[i], rows[j]):
                         weights[grader.row_key(r)] = max(weights[grader.row_key(r)], float(a.near_miss_x))
+    mined = {p["key"]: p for f in a.mine for p in rj(f)}
+    for r in final:
+        mp = mined.get(grader.row_key(r))
+        if not mp:
+            continue
+        ids = [f["id"] for f in r["facts"]]
+        mv, _ = grader.verdicts_from(grader.parse_reply(mp["text"]), ids)
+        bad = [(l["verdict"], v or "invalid") for l, v in zip(r["labels"], mv) if v != l["verdict"]]
+        if bad:
+            weights[grader.row_key(r)] *= a.mine_x
+            stats["mined_answers_upweighted"] += 1
+            for g, p_ in bad:
+                stats[f"mined_{g}->{p_}"] += 1
+    stats["mined_answers_checked"] = sum(1 for r in final if grader.row_key(r) in mined)
+    mprobs = {(x["key"], x["id"]): x["p"] for f in a.mine_probs for x in rj(f)}
+    if mprobs:
+        for r in final:
+            k = grader.row_key(r)
+            mp = mined.get(k)
+            if not mp or weights[k] >= a.mine_x:
+                continue
+            ids = [f["id"] for f in r["facts"]]
+            mv, _ = grader.verdicts_from(grader.parse_reply(mp["text"]), ids)
+            if any(v == "correct" and (mprobs.get((k, fid)) or {}).get("correct", 1.0) < a.lowconf_p for fid, v in zip(ids, mv)):
+                weights[k] *= a.lowconf_x
+                stats["lowconf_correct_answers_upweighted"] += 1
     weak = set(a.weak_langs.split(","))
     for r in final:
         if r["language"] in weak:
             weights[grader.row_key(r)] *= a.weak_x
+    if a.clef_conf_min > 0:
+        for r in final:
+            k = grader.row_key(r)
+            if k in clef_p and min(clef_p[k]) < a.clef_conf_min and weights[k] > 1:
+                weights[k] = 1.0
+                stats["clef_lowconf_oversampling_removed"] += 1
     expanded = []
     for r in final:
         w = weights[grader.row_key(r)]
@@ -222,7 +374,8 @@ def main():
     (out / "train_unique.jsonl").write_text("".join(json.dumps({k: v for k, v in r.items() if k != "_src"}, ensure_ascii=False) + "\n" for r in final))
     s = {"pool": len(pool), "unique_kept": len(final), "sft_rows_after_oversampling": len(expanded),
          "facts_unique": sum(len(r["labels"]) for r in final), "counts": dict(stats),
-         "teacher_rows_available": len(teach), "verifier_rows_available": len(ver),
+         "teacher_rows_available": len(teach), "verifier_rows_available": len(ver), "juror_rows_available": len(jury),
+         "clef_rows_available": len(clef), "clef_options": {"min_pcorrect": a.clef_min_pcorrect, "conf_min": a.clef_conf_min} if clef else None,
          "verdicts_unique": dict(Counter(l["verdict"] for r in final for l in r["labels"])),
          "languages_unique": dict(sorted(Counter(r["language"] for r in final).items())),
          "sources_unique": dict(Counter(r["_src"] for r in final)),
