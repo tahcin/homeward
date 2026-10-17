@@ -89,7 +89,7 @@ def main():
     ap.add_argument("--lowconf-p", type=float, default=0.8)
     ap.add_argument("--lowconf-x", type=float, default=1.5)
     ap.add_argument("--juror", action="append", default=[], help="third AI juror labels (e.g. DeepSeek-V4-Flash via verify.py); enables the 4-way jury rule")
-    ap.add_argument("--juror-clef", action="append", default=[], help="Clef decision-model labels (scratchpad clef_label.py: per fact verdict + probabilities); one more vote, plus a label-error filter")
+    ap.add_argument("--juror-clef", action="append", default=[], help="Clef decision-model labels (ml/clef_label.py: per fact verdict + probabilities); one more vote, plus a label-error filter")
     ap.add_argument("--clef-min-pcorrect", type=float, default=0.2, help="drop an answer if a fact's final label is 'correct' but Clef's P(correct) is below this")
     ap.add_argument("--clef-conf-min", type=float, default=0.0, help="if > 0, answers where Clef's probability of the final label is below this on any fact are not oversampled (weight capped at 1)")
     ap.add_argument("--cap", type=int, default=30)
