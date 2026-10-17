@@ -1,6 +1,6 @@
-# Homeward grader: evaluation (run 2, final)
+# Homeward grader: evaluation (run 4, final)
 
-Generated 2026-10-17 08:08 IST. All numbers come from the files in ml/results; 95% intervals are case-level bootstrap (1,000 resamples).
+Generated 2026-10-17 14:26 IST. All numbers come from the files in ml/results; 95% intervals are case-level bootstrap (1,000 resamples).
 
 ## Scoring
 
@@ -15,6 +15,7 @@ Facts whose verdict cannot be read count as wrong. Since 2026-10-16 the parser h
 | e4b_base | 83.0% (80.6–85.8) | 0.832 | 4.3% (1.5–7.2) | 5/108 | 10.9% | 100.0% |
 | run1 | 88.3% (85.4–91.1) | 0.878 | 5.8% (2.9–8.6) | 7/108 | 6.5% | 100.0% |
 | homeward_run2 | 94.1% (91.4–96.7) | 0.940 | 1.4% (0.0–3.2) | 2/108 | 2.9% | 100.0% |
+| homeward_run4 | 94.7% (91.9–97.5) | 0.946 | 1.4% (0.0–3.1) | 1/108 | 2.9% | 100.0% |
 | gemma4_31b | 97.1% (94.9–99.1) | 0.971 | 0.7% (0.0–2.1) | 1/108 | 2.9% | 100.0% |
 | deepseek_v4_flash | 80.4% (73.4–86.3) | 0.825 | 2.9% (0.0–6.8) | 3/108 | 14.5% | 90.7% |
 | qwen3_8_flash_next | 91.2% (89.7–92.8) | 0.913 | 0.7% (0.0–2.1) | 1/108 | 8.7% | 99.3% |
@@ -23,6 +24,7 @@ Facts whose verdict cannot be read count as wrong. Since 2026-10-16 the parser h
 
 - run1 vs base E4B: right where base is wrong on 28 facts, wrong where base is right on 10 (exact McNemar p = 0.0051).
 - homeward_run2 vs base E4B: right where base is wrong on 41 facts, wrong where base is right on 3 (exact McNemar p = 1.6e-09).
+- homeward_run4 vs base E4B: right where base is wrong on 43 facts, wrong where base is right on 3 (exact McNemar p = 4.6e-10).
 - gemma4_31b vs base E4B: right where base is wrong on 51 facts, wrong where base is right on 3 (exact McNemar p = 2.9e-12).
 - deepseek_v4_flash vs base E4B: right where base is wrong on 27 facts, wrong where base is right on 36 (exact McNemar p = 0.31).
 - qwen3_8_flash_next vs base E4B: right where base is wrong on 45 facts, wrong where base is right on 17 (exact McNemar p = 0.0005).
@@ -38,41 +40,49 @@ Facts whose verdict cannot be read count as wrong. Since 2026-10-16 the parser h
 | e4b_base | 82.1% (79.1–84.9) | 0.763 | 1.7% (0.4–3.1) | 2/173 | 5.0% | 100.0% |
 | run1 | 87.5% (85.2–89.7) | 0.829 | 1.7% (0.4–3.1) | 2/173 | 3.7% | 100.0% |
 | homeward_run2 | 87.0% (84.7–89.4) | 0.814 | 2.1% (0.4–4.1) | 3/173 | 2.9% | 100.0% |
+| homeward_run4 | 86.0% (83.3–88.7) | 0.814 | 2.1% (0.4–4.1) | 3/173 | 6.5% | 100.0% |
 | gemma4_31b | 85.3% (82.0–88.2) | 0.801 | 2.5% (0.8–4.5) | 2/173 | 6.8% | 100.0% |
 | deepseek_v4_flash | 71.6% (66.1–76.7) | 0.709 | 3.8% (1.3–6.7) | 6/173 | 23.6% | 84.5% |
 
 - run1 vs base E4B: right where base is wrong on 54 facts, wrong where base is right on 14 (exact McNemar p = 1.1e-06).
 - homeward_run2 vs base E4B: right where base is wrong on 57 facts, wrong where base is right on 21 (exact McNemar p = 5.6e-05).
+- homeward_run4 vs base E4B: right where base is wrong on 56 facts, wrong where base is right on 27 (exact McNemar p = 0.0019).
 - gemma4_31b vs base E4B: right where base is wrong on 62 facts, wrong where base is right on 38 (exact McNemar p = 0.021).
 - deepseek_v4_flash vs base E4B: right where base is wrong on 42 facts, wrong where base is right on 120 (exact McNemar p = 6.8e-10).
 
 ## Training (AMD Radeon PRO W7900D, ROCm)
 
-LoRA r=32, alpha=32, lr 0.0002, 2.0 epochs, 2743 training rows, 344 steps; 69,763,072 trainable of 8,010,863,904 params; 43.5 min wall, 1036 tokens/s, peak 23.5 GiB allocated; val loss 0.792 -> 0.338.
+LoRA r=32, alpha=32, lr 0.0002, 2.0 epochs, 3738 training rows, 468 steps; 69,763,072 trainable of 8,010,863,904 params; 58.8 min wall, 1045 tokens/s, peak 23.6 GiB allocated; val loss 0.792 -> 0.331.
 
 ## Model selection (validation only)
 
 Declared policy, fixed on validation before any test scoring: a missed critical fact is never acceptable; extra re-checks are. Among all candidates (adapters, LoRA scales) and escalation thresholds tau on val_independent, require zero critical false reassurance and total false reassurance no worse than base E4B on the same set; then minimise total false reassurance, then over-flags, then maximise accuracy.
 
-Chosen: runB_avg_s050 (LoRA scale 0.5, tau 0.0): val accuracy 87.3%, false reassurance 0, critical 0, over-flags 7.
-For transparency, the earlier rule (minimise 5 x false reassurance + over-flags) would have picked runB_avg_s050 at tau 0.0: accuracy 87.3%, false reassurance 0, critical 0, over-flags 7.
+Chosen: run4_final (LoRA scale 1.0, tau 0.5): val accuracy 93.0%, false reassurance 0, critical 0, over-flags 2.
+For transparency, the earlier rule (minimise 5 x false reassurance + over-flags) would have picked run4_final at tau 0.5: accuracy 93.0%, false reassurance 0, critical 0, over-flags 2.
 
-## Run-2 recipe
+## Run-4 recipe
 
-- Data: 1793 unique teach-back answers (2743 rows after oversampling near-miss pairs x1.5 and weaker languages x1.25), v1 generator answers plus multi-model v2 answers. Labels: kept when Gemma-4-31B-IT agreed with the designed label on every fact (heard/reteach text distilled from 31B), otherwise a per-fact 2-of-3 vote of designed, 31B and Qwen3.8-Flash-Next labels; answers without a majority dropped. Counts: {'excluded_eval_or_heldout_case': 580, 'kept_teacher_agree_v1': 609, 'dropped_no_majority_v1': 21, 'kept_majority_vote_v1': 226, 'facts_relabelled_by_vote': 460, 'kept_teacher_agree_v2': 847, 'dropped_no_majority_v2': 45, 'kept_majority_vote_v2': 348, 'dropped_case_cap': 237}.
+- Data (splits_v3): 3602 unique teach-back answers (3738 rows; 89 answers where run 2 disagreed with agreed labels x2, 76 low-confidence correct answers x1.5; near-miss and weak-language oversampling off to keep the run inside the GPU window). Sources {'v3': 2754, 'v1': 282, 'v2': 566}. All answers generated and labelled by open models on AMD Token Factory. Labels: per-fact vote of the designed label, Gemma-4-31B-IT, Qwen3.8-Flash-Next or DeepSeek-V4-Flash where present, and Clef (Cloudflare's grading model) as one ordinary vote; strict majority, else the 31B verdict if it is the unique plurality, else the answer is dropped; a vote never turns a 31B incorrect/missing into correct; answers with a final 'correct' fact that Clef gives P(correct) < 0.2 are dropped as likely label errors.
 - Contamination check: passed (transcript hashes, cases, held-out conditions); dev, val_independent and test cases excluded from training.
-- Target order: 'heard' before 'verdict' (run B). LoRA r=32, alpha=32, lr 0.0002, 2.0 epochs, loss weight 3.0 on verdict tokens, unlikelihood 0.5 on P('correct') where gold is incorrect/missing (half for partial).
-- Inference: average of the epoch-1 and epoch-2 adapters, applied at LoRA scale 0.5 (chosen on validation), greedy decoding, no escalation (tau 0).
+- Target order: 'heard' before 'verdict'. LoRA r=32, alpha=32, lr 0.0002, 2.0 epochs, loss weight 3.0 on verdict tokens, unlikelihood 0.5 on P('correct') where gold is incorrect/missing (half for partial).
+- Inference: the final (epoch-2) adapter at LoRA scale 1.0, greedy decoding; a fact graded correct with P(correct) < 0.5 goes to the nurse (tau 0.5, chosen on validation).
 
-## Self-consistency (validation only)
+## Candidates on validation (val_independent)
 
-- greedy: accuracy 91.5%, false reassurance 0/113, over-flag 1.8%
-- sample1: accuracy 91.5%, false reassurance 1/113, over-flag 1.8%
-- sample2: accuracy 90.8%, false reassurance 0/113, over-flag 3.5%
-- sample3: accuracy 91.5%, false reassurance 1/113, over-flag 1.8%
-- vote3_samples: accuracy 91.5%, false reassurance 0/113, over-flag 2.7%
-- vote_greedy_s1_s2: accuracy 91.5%, false reassurance 0/113, over-flag 2.7%
-- With the lenient parser (see Scoring), the 3-sample vote matches greedy (91.5%); its only effect is fewer broken outputs. Not worth 3x the generation for run 2.
+| Candidate | LoRA scale | tau | Accuracy | False reassurance | Critical | Over-flags |
+|---|---|---|---|---|---|---|
+| run4_final | 1.0 | 0.5 | 93.0% | 0 | 0 | 2 |
+| run2_final | 0.5 | 0.0 | 91.5% | 0 | 0 | 2 |
+| run4_final_sc | 1.0 | 0.5 | 93.0% | 0 | 0 | 3 |
+| run4_final_s050 | 0.5 | 0.0 | 92.3% | 0 | 0 | 3 |
+| run4_avg_s050 | 0.5 | 0.0 | 91.9% | 0 | 0 | 3 |
+
+Run 2's frozen model was a candidate, so run 4 had to beat it on validation. Two planned candidates did not run: the epoch-averaged adapter at scale 1.0 (its model load stalled twice on a ROCm host-to-GPU copy) and scale 0.75 (out of time). The self-consistency candidate (greedy plus 2 samples at T 0.7) tied on accuracy with one more over-flag at 3x the generation.
+
+## Run 4 vs run 2 (independent test, paired)
+
+Run 4 is right where run 2 is wrong on 9 facts and wrong where run 2 is right on 7 (exact McNemar p = 0.8): neither the accuracy gain nor the critical-miss difference (1 vs 2 of 108) is statistically significant on 150 answers.
 
 ## Gemma-4-31B on the validation set
 
@@ -86,10 +96,10 @@ Base 12B on val_independent: 81.0%, critical misses 2/74, JSON valid 95.0%; belo
 
 | Batch | Teach-backs/s | Teach-backs/hour | Gen tokens/s | Peak GiB |
 |---|---|---|---|---|
-| 16 | 1.50 | 5398 | 162 | 16.4 |
-| 64 | 2.42 | 8697 | 262 | 20.6 |
+| 16 | 1.55 | 5591 | 165 | 16.4 |
+| 64 | 2.42 | 8707 | 257 | 20.6 |
 
-Discharges per hour per card, ASR plus grading: 274 (6 graded answers per discharge; grading batched at 64; ASR unbatched at batch 1 (p50 of the on-prem loop clips); one card; no other load). Grading only: 1449.
+Discharges per hour per card, ASR plus grading: 274 (6 graded answers per discharge; grading batched at 64; ASR unbatched at batch 1 (p50 of the on-prem loop clips); one card; no other load). Grading only: 1451.
 
 ## Hosted cost per discharge (Token Factory list prices)
 

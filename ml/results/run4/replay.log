@@ -1,0 +1,18 @@
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  42%|████▏     | 868/2076 [00:00<00:00, 8677.42it/s]Loading weights:  84%|████████▎ | 1736/2076 [00:00<00:00, 6299.25it/s]Loading weights: 100%|██████████| 2076/2076 [00:00<00:00, 6990.87it/s]
+heart-failure-it t1 0 ['incorrect', 'correct', 'correct', 'correct', 'correct'] 10116 ms
+heart-failure-it t1 1 ['correct'] 2885 ms
+heart-failure-it t2 0 ['correct', 'correct'] 4614 ms
+heart-failure-it t3 0 ['correct', 'correct'] 4666 ms
+heart-failure-it t4 0 ['correct', 'correct', 'correct'] 6534 ms
+wrote /workspace/runs/final2/replay/heart-failure-it.onprem.json
+anticoagulant-hi t1 0 ['incorrect', 'incorrect', 'correct', 'correct', 'correct'] 10777 ms
+anticoagulant-hi t1 1 ['partial', 'incorrect'] 5336 ms
+anticoagulant-hi t2 0 ['correct', 'correct', 'correct'] 6737 ms
+anticoagulant-hi t3 0 ['correct', 'correct', 'correct'] 6273 ms
+wrote /workspace/runs/final2/replay/anticoagulant-hi.onprem.json
+knee-replacement-es t1 0 ['incorrect', 'correct', 'correct', 'correct', 'correct'] 11952 ms
+knee-replacement-es t1 1 ['correct'] 2852 ms
+knee-replacement-es t2 0 ['correct', 'correct'] 4951 ms
+knee-replacement-es t3 0 ['correct', 'correct', 'correct'] 6367 ms
+knee-replacement-es t4 0 ['correct', 'correct'] 3972 ms
+wrote /workspace/runs/final2/replay/knee-replacement-es.onprem.json

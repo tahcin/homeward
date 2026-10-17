@@ -38,6 +38,17 @@ def prices():
             for x in m.get("data", []) if "pricing" in x}
 
 
+RUNS = {
+    "homeward_run2": {"label": "run 2", "train": "train_log.json", "cap16": "run2/final_preds_test.meta.json",
+                      "cap64": "run2/final_cap_bs64.meta.json", "select": "run2/select_final.json"},
+    "homeward_run4": {"label": "run 4", "train": "run4/train_log.json", "cap16": "run4/preds_test.meta.json",
+                      "cap64": "run4/cap_bs64.meta.json", "select": "run4/select_final.json",
+                      "cand_note": "Run 2's frozen model was a candidate, so run 4 had to beat it on validation. Two planned candidates did not run: "
+                                   "the epoch-averaged adapter at scale 1.0 (its model load stalled twice on a ROCm host-to-GPU copy) and scale 0.75 (out of time). "
+                                   "The self-consistency candidate (greedy plus 2 samples at T 0.7) tied on accuracy with one more over-flag at 3x the generation."},
+}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--web", default=str(APP / "web" / "public" / "eval.json"))
@@ -52,7 +63,8 @@ def main():
     a = ap.parse_args()
 
     ind, ind_d = load("eval_independent.json"), load("eval_in_distribution.json")
-    train = load("train_log.json")
+    run = RUNS.get(a.ours, RUNS["homeward_run2"])
+    train = load(run["train"])
     ver = load("verify_summary.json")
     asr = load("asr.json")
     split = load("split_stats.json")
@@ -60,7 +72,7 @@ def main():
            "e4b_lora_valsplit": load("escalation/tau_ft.json")}
     cap = {}
     for bs in (16, 64):
-        m = load("run2/final_preds_test.meta.json" if bs == 16 else "run2/final_cap_bs64.meta.json")
+        m = load(run["cap16"] if bs == 16 else run["cap64"])
         if m:
             cap[bs] = {"answers_per_s": m["batched"]["answers_per_s"], "gen_tok_per_s": m["batched"]["gen_tok_per_s"],
                        "peak_vram_gib": m["peak_vram_allocated_gib"], "answers": m["rows"]}
@@ -128,7 +140,7 @@ def main():
         return (f"| {name} | {100 * m['accuracy']:.1f}% ({100 * a_[0]:.1f}–{100 * a_[1]:.1f}) | {m['macro_f1']:.3f} | "
                 f"{100 * m['false_reassurance_rate']:.1f}% ({100 * b_[0]:.1f}–{100 * b_[1]:.1f}) | "
                 f"{m['false_reassurance_critical_n'][0]}/{m['false_reassurance_critical_n'][1]} | {100 * m['over_flag_rate']:.1f}% | {100 * m['json_valid_rate']:.1f}% |")
-    L = ["# Homeward grader: evaluation (run 2, final)", "", f"Generated {out['generated_at']}. All numbers come from the files in ml/results; 95% intervals are case-level bootstrap (1,000 resamples).", ""]
+    L = [f"# Homeward grader: evaluation ({run['label']}, final)", "", f"Generated {out['generated_at']}. All numbers come from the files in ml/results; 95% intervals are case-level bootstrap (1,000 resamples).", ""]
     L += ["## Scoring", "", "Facts whose verdict cannot be read count as wrong. Since 2026-10-16 the parser has a lenient fallback for malformed JSON (a dropped colon or quote): "
           "each fact's id and verdict are read with a regex. It is applied identically to every system and every set; JSON validity is still reported strictly. "
           "It was added after model selection, so it did not influence which model was chosen. On the test sets it changes only DeepSeek-V4-Flash (79.2% to 80.4% independent).", ""]
@@ -152,7 +164,7 @@ def main():
               f"{train['train_examples']} training rows, {train['optimizer_steps']} steps; {train['trainable_params']:,} trainable of {train['total_params']:,} params; "
               f"{train['train_wall_s'] / 60:.1f} min wall, {train['mean_tok_per_s']:.0f} tokens/s, peak {train['peak_vram_allocated_gib']:.1f} GiB allocated; "
               f"val loss {train['val'][0]['loss']:.3f} -> {train['val'][-1]['loss']:.3f}.", ""]
-    sel = load("run2/select_final.json")
+    sel = load(run["select"])
     if sel:
         out["selection"] = sel
         c, k = sel["chosen"], sel["cost_rule_pick"]
@@ -170,7 +182,20 @@ def main():
     v2 = load(sp if sp.is_absolute() else APP / sp)
     if train and v2:
         ta = train["args"]
-        L += ["## Run-2 recipe", "",
+        if a.ours == "homeward_run4":
+            c_ = v2["counts"]
+            L += ["## Run-4 recipe", "",
+                  f"- Data (splits_v3): {v2['unique_kept']} unique teach-back answers ({v2['sft_rows_after_oversampling']} rows; {c_.get('mined_answers_upweighted', 0)} answers where run 2 disagreed with agreed labels x2, "
+                  f"{c_.get('lowconf_correct_answers_upweighted', 0)} low-confidence correct answers x1.5; near-miss and weak-language oversampling off to keep the run inside the GPU window). "
+                  f"Sources {v2['sources_unique']}. All answers generated and labelled by open models on AMD Token Factory. Labels: per-fact vote of the designed label, Gemma-4-31B-IT, "
+                  f"Qwen3.8-Flash-Next or DeepSeek-V4-Flash where present, and Clef (Cloudflare's grading model) as one ordinary vote; strict majority, else the 31B verdict if it is the unique plurality, else the answer is dropped; "
+                  f"a vote never turns a 31B incorrect/missing into correct; answers with a final 'correct' fact that Clef gives P(correct) < 0.2 are dropped as likely label errors.",
+                  f"- Contamination check: {v2['contamination_check']}; dev, val_independent and test cases excluded from training.",
+                  f"- Target order: 'heard' before 'verdict'. LoRA r={ta['rank']}, alpha={ta['alpha']}, lr {ta['lr']}, {ta['epochs']} epochs, "
+                  f"loss weight {ta.get('verdict_weight', 1)} on verdict tokens, unlikelihood {ta.get('ul_lambda', 0)} on P('correct') where gold is incorrect/missing (half for partial).",
+                  "- Inference: the final (epoch-2) adapter at LoRA scale 1.0, greedy decoding; a fact graded correct with P(correct) < 0.5 goes to the nurse (tau 0.5, chosen on validation).", ""]
+        else:
+          L += ["## Run-2 recipe", "",
               f"- Data: {v2['unique_kept']} unique teach-back answers ({v2['sft_rows_after_oversampling']} rows after oversampling near-miss pairs x1.5 and weaker languages x1.25), "
               f"v1 generator answers plus multi-model v2 answers. Labels: kept when Gemma-4-31B-IT agreed with the designed label on every fact (heard/reteach text distilled from 31B), "
               f"otherwise a per-fact 2-of-3 vote of designed, 31B and Qwen3.8-Flash-Next labels; answers without a majority dropped. Counts: {v2['counts']}.",
@@ -178,13 +203,25 @@ def main():
               f"- Target order: 'heard' before 'verdict' (run B). LoRA r={ta['rank']}, alpha={ta['alpha']}, lr {ta['lr']}, {ta['epochs']} epochs, "
               f"loss weight {ta.get('verdict_weight', 1)} on verdict tokens, unlikelihood {ta.get('ul_lambda', 0)} on P('correct') where gold is incorrect/missing (half for partial).",
               "- Inference: average of the epoch-1 and epoch-2 adapters, applied at LoRA scale 0.5 (chosen on validation), greedy decoding, no escalation (tau 0).", ""]
-    sc = load("run2/eval_sc_valind.json")
+    sc = load("run2/eval_sc_valind.json") if a.ours == "homeward_run2" else None
+    if sel and a.ours != "homeward_run2":
+        L += ["## Candidates on validation (val_independent)", "", "| Candidate | LoRA scale | tau | Accuracy | False reassurance | Critical | Over-flags |", "|---|---|---|---|---|---|---|"]
+        for c_ in sel.get("candidates", []):
+            L.append(f"| {c_['name']} | {c_['scale']} | {c_['tau']} | {100 * c_['accuracy']:.1f}% | {c_['false_reassurance']} | {next((w['critical_false_reassurance'] for w in c_.get('sweep', []) if w['tau'] == c_['tau']), 'n/a')} | {c_['over_flag']} |")
+        L += ["", run.get("cand_note", ""), ""]
     if sc:
         L += ["## Self-consistency (validation only)", ""]
         for k, s_ in sc["systems"].items():
             m = s_["metrics"]
             L.append(f"- {k}: accuracy {100 * m['accuracy']:.1f}%, false reassurance {m['false_reassurance_n'][0]}/{m['false_reassurance_n'][1]}, over-flag {100 * m['over_flag_rate']:.1f}%")
         L += ["- With the lenient parser (see Scoring), the 3-sample vote matches greedy (91.5%); its only effect is fewer broken outputs. Not worth 3x the generation for run 2.", ""]
+    vr2 = load("run4/eval_independent_vs_run2.json") if a.ours == "homeward_run4" else None
+    if vr2:
+        pv = vr2["systems"]["homeward_run4"]["metrics"]["paired_vs_homeward_run2"]
+        b_, c_ = pv["this_right_ref_wrong"], pv["this_wrong_ref_right"]
+        L += ["## Run 4 vs run 2 (independent test, paired)", "",
+              f"Run 4 is right where run 2 is wrong on {b_} facts and wrong where run 2 is right on {c_} (exact McNemar p = {mcnemar_p(b_, c_):.2g}): "
+              "neither the accuracy gain nor the critical-miss difference (1 vs 2 of 108) is statistically significant on 150 answers.", ""]
     v31 = load("run2/eval_valind_with31b.json")
     if v31:
         m = v31["systems"]["gemma4_31b"]["metrics"]

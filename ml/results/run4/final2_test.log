@@ -1,0 +1,60 @@
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  41%|████      | 848/2076 [00:00<00:00, 8465.56it/s]Loading weights:  82%|████████▏ | 1695/2076 [00:00<00:00, 6072.65it/s]Loading weights: 100%|██████████| 2076/2076 [00:00<00:00, 6813.69it/s]
+/usr/lib/python3.14/multiprocessing/resource_tracker.py:396: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-vv8g_ago'}
+  warnings.warn(
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights: 100%|██████████| 2076/2076 [00:00<00:00, 31048.87it/s]
+batched 16/348
+batched 32/348
+batched 48/348
+batched 64/348
+batched 80/348
+batched 96/348
+batched 112/348
+batched 128/348
+batched 144/348
+batched 160/348
+batched 176/348
+batched 192/348
+batched 208/348
+batched 224/348
+batched 240/348
+batched 256/348
+batched 272/348
+batched 288/348
+batched 304/348
+batched 320/348
+batched 336/348
+batched 348/348
+{
+ "system": "homeward_final2",
+ "model": "/workspace/models/gemma-4-E4B-it",
+ "adapter": "/workspace/runs/run4/adapter",
+ "lora_scale": 1.0,
+ "rows": 348,
+ "device": "AMD Radeon Pro W7900D",
+ "torch": "2.13.0+rocm10.0.0",
+ "load_s": 22.7,
+ "decoding": "greedy",
+ "max_new_tokens": 768,
+ "batched": {
+  "batch_size": 16,
+  "wall_s": 224.1,
+  "completion_tokens": 36910,
+  "prompt_tokens": 138568,
+  "gen_tok_per_s": 164.7215706014728,
+  "answers_per_s": 1.5530508417586706
+ },
+ "bs1": {
+  "n": 20,
+  "p50_s": 4.956795811653137,
+  "p95_s": 7.589015197753906,
+  "mean_s": 5.669201135635376,
+  "gen_tok_per_s": 19.791148226288
+ },
+ "peak_vram_allocated_gib": 16.425538063049316
+}
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  40%|███▉      | 827/2076 [00:00<00:00, 8251.77it/s]Loading weights:  80%|███████▉  | 1653/2076 [00:00<00:00, 5891.98it/s]Loading weights: 100%|██████████| 2076/2076 [00:00<00:00, 6720.97it/s]
+/usr/lib/python3.14/multiprocessing/resource_tracker.py:396: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-d89jk27o'}
+  warnings.warn(
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights: 100%|██████████| 2076/2076 [00:00<00:00, 30714.50it/s]
+744 fact slots scored in 255.9s
+tau 0.5: 8 facts escalated

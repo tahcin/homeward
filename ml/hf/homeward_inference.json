@@ -1,0 +1,23 @@
+{
+ "base_model": "google/gemma-4-E4B-it",
+ "adapter_repo": "oktash/homeward-teachback-gemma4-e4b",
+ "system_key": "homeward_run4",
+ "run": "run 4",
+ "source_adapter_path": "/workspace/runs/run4/adapter",
+ "lora_scale": 1.0,
+ "lora_scale_note": "multiply every LoRA module's scaling by this factor before merging (peft: module.scaling['default'] *= lora_scale)",
+ "decoding": "greedy decoding, one pass",
+ "max_new_tokens": 768,
+ "escalation_tau": 0.5,
+ "chat_template_kwargs": {
+  "enable_thinking": false
+ },
+ "attn_implementation_gfx1100": {
+  "text_config": "eager",
+  "audio_config": "sdpa",
+  "vision_config": "eager"
+ },
+ "prompt_file": "grader_prompt.json",
+ "train_log": "ml/results/run4/train_log.json",
+ "selection_file": "ml/results/run4/select_final.json"
+}

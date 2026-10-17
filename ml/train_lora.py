@@ -40,11 +40,18 @@ def load_model_and_tokenizer(model_path: str, dtype=torch.bfloat16, attn: str | 
     cls = getattr(transformers, "AutoModelForMultimodalLM", None) or transformers.AutoModelForImageTextToText
     attn = attn or os.environ.get("ATTN_IMPL") or {"text_config": "eager", "audio_config": "sdpa",
                                                     "vision_config": "eager"}
+    # Default (LOAD_VIA_CPU unset or 1): materialise the weights in host memory first, then move them to the GPU in one go.
+    # On Oct 17 the direct load (device_map to GPU) stalled at random points in transformers'
+    # _materialize_copy (host-to-GPU copy from the memory-mapped safetensors) in 3 of 5 loads.
+    via_cpu = os.environ.get("LOAD_VIA_CPU", "1") == "1"
+    dmap = None if via_cpu else {"": 0}
     try:
-        model = cls.from_pretrained(model_path, dtype=dtype, device_map={"": 0}, attn_implementation=attn)
+        model = cls.from_pretrained(model_path, dtype=dtype, device_map=dmap, attn_implementation=attn)
     except (ValueError, KeyError, TypeError) as e:  # e.g. a sub-config name the model lacks
         print("attention config fallback to eager:", str(e)[:200], flush=True)
-        model = cls.from_pretrained(model_path, dtype=dtype, device_map={"": 0}, attn_implementation="eager")
+        model = cls.from_pretrained(model_path, dtype=dtype, device_map=dmap, attn_implementation="eager")
+    if via_cpu:
+        model = model.to("cuda:0")
     return model, tok
 
 

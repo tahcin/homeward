@@ -1,0 +1,182 @@
+{
+  "sample_id": "knee-replacement-es",
+  "recorded_at": "2026-10-17T08:49:27Z",
+  "model": {
+    "name": "Gemma 4 E4B, fine-tuned for Homeward (run 4)",
+    "base": "google/gemma-4-e4b-it",
+    "adapter": "homeward run 4 (HF release pending)",
+    "lora_scale": 1.0
+  },
+  "hardware": {
+    "gpu": "AMD Radeon PRO W7900D (48 GB)",
+    "rocm": "7.15.26333",
+    "runtime": "transformers 5.19.0, torch 2.13.0+rocm10.0.0, bf16, batch 1, greedy"
+  },
+  "prompt": "app/prompts/grader.json (verbatim)",
+  "answers": {
+    "t1": [
+      {
+        "attempt": 0,
+        "transcript": "Me pongo la inyección de enoxaparina de 40 una vez al día, a las 6 de la tarde, durante una semana. El paracetamol, 1 gramo cada 6 horas, como mucho 4 gramos al día. La oxicodona de 5 solo si el dolor es fuerte, máximo 4 al día, y mientras la tomo no conduzco. El omeprazol de 20 antes del desayuno. Y el naproxeno no lo tomo hasta que me vea el cirujano.",
+        "fact_ids": [
+          "f1",
+          "f2",
+          "f3",
+          "f4",
+          "f5"
+        ],
+        "latency_ms": 11952,
+        "tokens_in": 535,
+        "tokens_out": 233,
+        "tokens_per_s": 19.5,
+        "peak_vram_gib": 15.0,
+        "grades": [
+          {
+            "id": "f1",
+            "verdict": "incorrect",
+            "heard": "Enoxaparin 40mg once daily at 6 pm for one week",
+            "reteach": "Inject Enoxaparin 40 mg once daily at 6 pm for 14 days, with the last dose on 28 Oct 2026."
+          },
+          {
+            "id": "f2",
+            "verdict": "correct",
+            "heard": "Paracetamol 1g every 6h, max 4g per day",
+            "reteach": ""
+          },
+          {
+            "id": "f3",
+            "verdict": "correct",
+            "heard": "Oxycodone 5mg only for severe pain, max 4 tablets/day, no driving",
+            "reteach": ""
+          },
+          {
+            "id": "f4",
+            "verdict": "correct",
+            "heard": "Omeprazole 20mg before breakfast",
+            "reteach": ""
+          },
+          {
+            "id": "f5",
+            "verdict": "correct",
+            "heard": "Hold naproxen until surgeon review",
+            "reteach": ""
+          }
+        ]
+      },
+      {
+        "attempt": 1,
+        "transcript": "Ah, la inyección de enoxaparina de 40 me la pongo una vez al día a las 6 de la tarde durante 14 días, y la última es el 28 de octubre.",
+        "fact_ids": [
+          "f1"
+        ],
+        "latency_ms": 2852,
+        "tokens_in": 347,
+        "tokens_out": 55,
+        "tokens_per_s": 19.3,
+        "peak_vram_gib": 14.9,
+        "grades": [
+          {
+            "id": "f1",
+            "verdict": "correct",
+            "heard": "Enoxaparin 40mg once daily at 6 pm for 14 days, last dose Oct 28",
+            "reteach": ""
+          }
+        ]
+      }
+    ],
+    "t2": [
+      {
+        "attempt": 0,
+        "transcript": "Si me duele o se me hincha la pantorrilla, o me falta el aire de repente o me duele el pecho, llamo al 112. Si tengo más de 38 de fiebre, la herida se pone más roja, sale pus o se abre, llamo a la planta de ortopedia ese mismo día.",
+        "fact_ids": [
+          "f8",
+          "f9"
+        ],
+        "latency_ms": 4951,
+        "tokens_in": 402,
+        "tokens_out": 96,
+        "tokens_per_s": 19.4,
+        "peak_vram_gib": 15.0,
+        "grades": [
+          {
+            "id": "f8",
+            "verdict": "correct",
+            "heard": "Call 112 for calf pain/swelling, sudden shortness of breath, or chest pain.",
+            "reteach": ""
+          },
+          {
+            "id": "f9",
+            "verdict": "correct",
+            "heard": "Call orthopaedic ward the same day for fever >38C, spreading redness, pus, or wound opening.",
+            "reteach": ""
+          }
+        ]
+      }
+    ],
+    "t3": [
+      {
+        "attempt": 0,
+        "transcript": "Mantengo el apósito seco. Desde el 17 de octubre me puedo duchar con el apósito impermeable, pero nada de bañera ni piscina. Hago los ejercicios 3 veces al día, uso el andador siempre las primeras 2 semanas, y me pongo hielo 20 minutos después de los ejercicios.",
+        "fact_ids": [
+          "f6",
+          "f10",
+          "f11"
+        ],
+        "latency_ms": 6367,
+        "tokens_in": 415,
+        "tokens_out": 124,
+        "tokens_per_s": 19.5,
+        "peak_vram_gib": 15.0,
+        "grades": [
+          {
+            "id": "f6",
+            "verdict": "correct",
+            "heard": "Keep dressing dry, shower from Oct 17 with waterproof dressing, no baths or swimming.",
+            "reteach": ""
+          },
+          {
+            "id": "f10",
+            "verdict": "correct",
+            "heard": "Physio 3x/day, use walker always for first 2 weeks.",
+            "reteach": ""
+          },
+          {
+            "id": "f11",
+            "verdict": "correct",
+            "heard": "Ice pack for 20 minutes after exercises.",
+            "reteach": ""
+          }
+        ]
+      }
+    ],
+    "t4": [
+      {
+        "attempt": 0,
+        "transcript": "El 26 de octubre me quitan las grapas en la consulta, y el 10 de noviembre a las 9 y cuarto veo al doctor Herrera.",
+        "fact_ids": [
+          "f7",
+          "f12"
+        ],
+        "latency_ms": 3972,
+        "tokens_in": 342,
+        "tokens_out": 77,
+        "tokens_per_s": 19.4,
+        "peak_vram_gib": 14.9,
+        "grades": [
+          {
+            "id": "f7",
+            "verdict": "correct",
+            "heard": "staple removal on Oct 26",
+            "reteach": ""
+          },
+          {
+            "id": "f12",
+            "verdict": "correct",
+            "heard": "Dr. Herrera on Nov 10 at 9:15",
+            "reteach": ""
+          }
+        ]
+      }
+    ]
+  }
+}

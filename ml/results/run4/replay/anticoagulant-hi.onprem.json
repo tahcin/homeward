@@ -1,0 +1,167 @@
+{
+  "sample_id": "anticoagulant-hi",
+  "recorded_at": "2026-10-17T08:48:58Z",
+  "model": {
+    "name": "Gemma 4 E4B, fine-tuned for Homeward (run 4)",
+    "base": "google/gemma-4-e4b-it",
+    "adapter": "homeward run 4 (HF release pending)",
+    "lora_scale": 1.0
+  },
+  "hardware": {
+    "gpu": "AMD Radeon PRO W7900D (48 GB)",
+    "rocm": "7.15.26333",
+    "runtime": "transformers 5.19.0, torch 2.13.0+rocm10.0.0, bf16, batch 1, greedy"
+  },
+  "prompt": "app/prompts/grader.json (verbatim)",
+  "answers": {
+    "t1": [
+      {
+        "attempt": 0,
+        "transcript": "पापा Apixaban सुबह एक बार लेंगे, और Metoprolol दिन में दो बार, सुबह 9 बजे और रात 9 बजे। Aspirin अब बंद है। Atorvastatin 20 mg रात को सोते समय। दर्द के लिए ibuprofen या diclofenac नहीं, सिर्फ़ paracetamol।",
+        "fact_ids": [
+          "f1",
+          "f2",
+          "f3",
+          "f4",
+          "f5"
+        ],
+        "latency_ms": 10777,
+        "tokens_in": 482,
+        "tokens_out": 210,
+        "tokens_per_s": 19.5,
+        "peak_vram_gib": 15.0,
+        "grades": [
+          {
+            "id": "f1",
+            "verdict": "incorrect",
+            "heard": "Apixaban once in the morning",
+            "reteach": "Take Apixaban 5 mg twice a day at 9 am and 9 pm."
+          },
+          {
+            "id": "f2",
+            "verdict": "incorrect",
+            "heard": "Metoprolol twice a day at 9 am and 9 pm",
+            "reteach": "Take Metoprolol succinate 25 mg once daily in the morning."
+          },
+          {
+            "id": "f3",
+            "verdict": "correct",
+            "heard": "Aspirin is stopped",
+            "reteach": ""
+          },
+          {
+            "id": "f4",
+            "verdict": "correct",
+            "heard": "Atorvastatin 20 mg at bedtime",
+            "reteach": ""
+          },
+          {
+            "id": "f5",
+            "verdict": "correct",
+            "heard": "No ibuprofen or diclofenac, only paracetamol for pain",
+            "reteach": ""
+          }
+        ]
+      },
+      {
+        "attempt": 1,
+        "transcript": "Apixaban सुबह 9 बजे, और Metoprolol सुबह और रात दोनों टाइम।",
+        "fact_ids": [
+          "f1",
+          "f2"
+        ],
+        "latency_ms": 5336,
+        "tokens_in": 367,
+        "tokens_out": 104,
+        "tokens_per_s": 19.5,
+        "peak_vram_gib": 14.9,
+        "grades": [
+          {
+            "id": "f1",
+            "verdict": "partial",
+            "heard": "Apixaban at 9 am",
+            "reteach": "Take Apixaban 5 mg twice a day at 9 am and 9 pm."
+          },
+          {
+            "id": "f2",
+            "verdict": "incorrect",
+            "heard": "Metoprolol in the morning and at night",
+            "reteach": "Take Metoprolol succinate 25 mg once daily in the morning."
+          }
+        ]
+      }
+    ],
+    "t2": [
+      {
+        "attempt": 0,
+        "transcript": "अगर काला या खून वाला मल हो, खून की उल्टी हो, बहुत तेज़ सिरदर्द हो या गिरकर सिर पर चोट लगे, तो 112 पर फ़ोन करेंगे। नाक से 10 मिनट से ज़्यादा खून आए, पेशाब में खून दिखे या बिना वजह नील पड़ें तो क्लिनिक को फ़ोन करेंगे। दाँत के डॉक्टर या किसी भी डॉक्टर को बताएँगे कि पापा Apixaban लेते हैं।",
+        "fact_ids": [
+          "f6",
+          "f7",
+          "f8"
+        ],
+        "latency_ms": 6737,
+        "tokens_in": 450,
+        "tokens_out": 131,
+        "tokens_per_s": 19.4,
+        "peak_vram_gib": 15.0,
+        "grades": [
+          {
+            "id": "f6",
+            "verdict": "correct",
+            "heard": "Call 112 for black/bloody stools, vomiting blood, severe headache, or head injury from a fall.",
+            "reteach": ""
+          },
+          {
+            "id": "f7",
+            "verdict": "correct",
+            "heard": "Call clinic for nosebleed >10 mins, blood in urine, or unusual bruising.",
+            "reteach": ""
+          },
+          {
+            "id": "f8",
+            "verdict": "correct",
+            "heard": "Tell dentist or doctor that the father takes Apixaban.",
+            "reteach": ""
+          }
+        ]
+      }
+    ],
+    "t3": [
+      {
+        "attempt": 0,
+        "transcript": "29 अक्टूबर को किडनी का खून का टेस्ट है। 9 नवंबर को 11 बजे डॉक्टर अंजलि मेहता से मिलना है। रोज़ नब्ज़ देखेंगे, आराम में 50 से कम या 110 से ज़्यादा हो तो फ़ोन करेंगे।",
+        "fact_ids": [
+          "f9",
+          "f10",
+          "f11"
+        ],
+        "latency_ms": 6273,
+        "tokens_in": 398,
+        "tokens_out": 122,
+        "tokens_per_s": 19.4,
+        "peak_vram_gib": 15.0,
+        "grades": [
+          {
+            "id": "f9",
+            "verdict": "correct",
+            "heard": "kidney blood test on Oct 29",
+            "reteach": ""
+          },
+          {
+            "id": "f10",
+            "verdict": "correct",
+            "heard": "Dr. Anjali Mehta on Nov 9 at 11:00",
+            "reteach": ""
+          },
+          {
+            "id": "f11",
+            "verdict": "correct",
+            "heard": "check pulse daily, call if below 50 or above 110",
+            "reteach": ""
+          }
+        ]
+      }
+    ]
+  }
+}

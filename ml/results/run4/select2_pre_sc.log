@@ -1,0 +1,7 @@
+run4_final                   scale 1.0   tau 0.5    cost 2    acc 93.0% FR 0 over 2 | at tau 0: acc 92.6% FR 0 over 2
+run2_final                   scale 0.5   tau 0.0    cost 2    acc 91.5% FR 0 over 2 | at tau 0: acc 91.5% FR 0 over 2
+run4_final_s050              scale 0.5   tau 0.0    cost 3    acc 92.3% FR 0 over 3 | at tau 0: acc 92.3% FR 0 over 3
+run4_avg_s050                scale 0.5   tau 0.0    cost 3    acc 91.9% FR 0 over 3 | at tau 0: acc 91.9% FR 0 over 3
+SAFETY-FIRST pick (safety-first constraints met): {'name': 'run4_final', 'adapter': '/workspace/runs/run4/adapter', 'scale': 1.0, 'tau': 0.5, 'accuracy': 0.9295774647887324, 'false_reassurance': 0, 'critical_false_reassurance': 0, 'over_flag': 2, 'cost': 2}
+5x-cost rule pick (reported for transparency): {'name': 'run4_final', 'adapter': '/workspace/runs/run4/adapter', 'scale': 1.0, 'tau': 0.5, 'accuracy': 0.9295774647887324, 'false_reassurance': 0, 'critical_false_reassurance': 0, 'over_flag': 2, 'cost': 2}
+CHOSEN run4_final /workspace/runs/run4/adapter 1.0 0.5

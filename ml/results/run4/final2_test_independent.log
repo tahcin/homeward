@@ -1,0 +1,48 @@
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  41%|████▏     | 858/2076 [00:00<00:00, 8565.14it/s]Loading weights:  83%|████████▎ | 1715/2076 [00:00<00:00, 6319.50it/s]Loading weights: 100%|██████████| 2076/2076 [00:00<00:00, 7013.81it/s]
+/usr/lib/python3.14/multiprocessing/resource_tracker.py:396: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-av_qr4s5'}
+  warnings.warn(
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights: 100%|██████████| 2076/2076 [00:00<00:00, 31308.88it/s]
+batched 16/150
+batched 32/150
+batched 48/150
+batched 64/150
+batched 80/150
+batched 96/150
+batched 112/150
+batched 128/150
+batched 144/150
+batched 150/150
+{
+ "system": "homeward_final2",
+ "model": "/workspace/models/gemma-4-E4B-it",
+ "adapter": "/workspace/runs/run4/adapter",
+ "lora_scale": 1.0,
+ "rows": 150,
+ "device": "AMD Radeon Pro W7900D",
+ "torch": "2.13.0+rocm10.0.0",
+ "load_s": 15.8,
+ "decoding": "greedy",
+ "max_new_tokens": 768,
+ "batched": {
+  "batch_size": 16,
+  "wall_s": 102.0,
+  "completion_tokens": 17068,
+  "prompt_tokens": 55310,
+  "gen_tok_per_s": 167.3736999791366,
+  "answers_per_s": 1.4709429925515873
+ },
+ "bs1": {
+  "n": 20,
+  "p50_s": 4.891361355781555,
+  "p95_s": 7.62376424074173,
+  "mean_s": 5.11174840927124,
+  "gen_tok_per_s": 19.817094248275396
+ },
+ "peak_vram_allocated_gib": 16.33482837677002
+}
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  39%|███▉      | 812/2076 [00:00<00:00, 8101.93it/s]Loading weights:  78%|███████▊  | 1623/2076 [00:00<00:00, 5439.17it/s]Loading weights: 100%|██████████| 2076/2076 [00:00<00:00, 6271.36it/s]
+/usr/lib/python3.14/multiprocessing/resource_tracker.py:396: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/mp-dzdn6w7n'}
+  warnings.warn(
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights: 100%|██████████| 2076/2076 [00:00<00:00, 30528.09it/s]
+341 fact slots scored in 107.1s
+tau 0.5: 2 facts escalated
