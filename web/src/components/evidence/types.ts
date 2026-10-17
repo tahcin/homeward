@@ -12,6 +12,7 @@ export interface SystemResult {
   usd_per_discharge: number | null;
   runs_on: string | null;
   accuracy: number | null;
+  accuracy_raw?: number | null;
   accuracy_ci: [number, number] | null;
   macro_f1: number | null;
   false_reassurance: number | null;
@@ -83,7 +84,8 @@ export interface Results {
     latency_s: Record<string, { p50: number; p95: number; n: number }> | null;
     grading_from_transcripts: Record<string, GradeFromTranscript> | null;
   };
-  onprem_loop: { clips: number | null; p50_s: number | null; p95_s: number | null; asr_p50_s: number | null; grade_p50_s: number | null; peak_vram_gib: number | null };
+  onprem_loop: { clips: number | null; p50_s: number | null; p95_s: number | null; asr_p50_s: number | null; grade_p50_s: number | null; peak_vram_gib: number | null; adapter?: string | null };
+  onprem_demo?: { run: string; source: string; language: string | null; audio_s: number | null; total_s: number; asr_s: number; grade_s: number; peak_vram_gib: number } | null;
   capacity: {
     by_batch: { batch: number; per_hour: number; peak_vram_gib: number | null }[];
     discharges_per_hour_per_card: number | null;

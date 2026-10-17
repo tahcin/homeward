@@ -1,11 +1,11 @@
 {
   "sample_id": "anticoagulant-hi",
-  "recorded_at": "2026-10-16T08:46:06Z",
+  "recorded_at": "2026-10-17T08:48:58Z",
   "model": {
-    "name": "Gemma 4 E4B, fine-tuned for Homeward (run 2)",
+    "name": "Gemma 4 E4B, fine-tuned for Homeward (run 4)",
     "base": "google/gemma-4-e4b-it",
-    "adapter": "homeward run 2 (HF release pending)",
-    "lora_scale": 0.5
+    "adapter": "homeward run 4 (HF release pending)",
+    "lora_scale": 1.0
   },
   "hardware": {
     "gpu": "AMD Radeon PRO W7900D (48 GB)",
@@ -25,10 +25,10 @@
           "f4",
           "f5"
         ],
-        "latency_ms": 10599,
+        "latency_ms": 10777,
         "tokens_in": 482,
         "tokens_out": 210,
-        "tokens_per_s": 19.8,
+        "tokens_per_s": 19.5,
         "peak_vram_gib": 15.0,
         "grades": [
           {
@@ -70,10 +70,10 @@
           "f1",
           "f2"
         ],
-        "latency_ms": 5226,
+        "latency_ms": 5336,
         "tokens_in": 367,
-        "tokens_out": 103,
-        "tokens_per_s": 19.7,
+        "tokens_out": 104,
+        "tokens_per_s": 19.5,
         "peak_vram_gib": 14.9,
         "grades": [
           {
@@ -85,7 +85,7 @@
           {
             "id": "f2",
             "verdict": "incorrect",
-            "heard": "Metoprolol in the morning and night",
+            "heard": "Metoprolol in the morning and at night",
             "reteach": "Take Metoprolol succinate 25 mg once daily in the morning."
           }
         ]
@@ -100,10 +100,10 @@
           "f7",
           "f8"
         ],
-        "latency_ms": 6743,
+        "latency_ms": 6737,
         "tokens_in": 450,
-        "tokens_out": 133,
-        "tokens_per_s": 19.7,
+        "tokens_out": 131,
+        "tokens_per_s": 19.4,
         "peak_vram_gib": 15.0,
         "grades": [
           {
@@ -115,13 +115,13 @@
           {
             "id": "f7",
             "verdict": "correct",
-            "heard": "Call clinic for nosebleed > 10 mins, blood in urine, or unusual bruising.",
+            "heard": "Call clinic for nosebleed >10 mins, blood in urine, or unusual bruising.",
             "reteach": ""
           },
           {
             "id": "f8",
             "verdict": "correct",
-            "heard": "Tell dentist or doctor that father takes Apixaban before procedure.",
+            "heard": "Tell dentist or doctor that the father takes Apixaban.",
             "reteach": ""
           }
         ]
@@ -136,11 +136,11 @@
           "f10",
           "f11"
         ],
-        "latency_ms": 6091,
+        "latency_ms": 6273,
         "tokens_in": 398,
-        "tokens_out": 120,
-        "tokens_per_s": 19.7,
-        "peak_vram_gib": 14.9,
+        "tokens_out": 122,
+        "tokens_per_s": 19.4,
+        "peak_vram_gib": 15.0,
         "grades": [
           {
             "id": "f9",
@@ -151,7 +151,7 @@
           {
             "id": "f10",
             "verdict": "correct",
-            "heard": "meet Dr. Anjali Mehta on Nov 9 at 11",
+            "heard": "Dr. Anjali Mehta on Nov 9 at 11:00",
             "reteach": ""
           },
           {

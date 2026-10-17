@@ -1,7 +1,7 @@
 {
  "schema": "homeward.evidence.v2",
  "source": "ml/results/eval.json",
- "generated_at": "2026-10-17 08:08 IST",
+ "generated_at": "2026-10-17 14:26 IST",
  "sizes_file": "model-sizes.md",
  "whisper_size": {
   "verified": false,
@@ -13,11 +13,11 @@
  },
  "teacher_key": "gemma4_31b",
  "ours": {
-  "system_key": "homeward_run2",
+  "system_key": "homeward_run4",
   "label": "Homeward (fine-tuned)",
   "model": "Gemma 4 E4B",
-  "run": "run 2",
-  "description": "Gemma 4 E4B fine-tuned with LoRA, run 2",
+  "run": "run 4",
+  "description": "Gemma 4 E4B fine-tuned with LoRA, run 4",
   "base_key": "e4b_base",
   "lora": {
    "rank": 32,
@@ -49,11 +49,11 @@
    "labels": "designed labels from the generator (not verifier-filtered)",
    "systems": [
     {
-     "id": "homeward_run2",
+     "id": "homeward_run4",
      "role": "ours",
      "label": "Homeward (fine-tuned)",
      "model": "Gemma 4 E4B",
-     "run": "run 2",
+     "run": "run 4",
      "size": {
       "verified": true,
       "total": "8B",
@@ -64,23 +64,24 @@
       "source": "https://huggingface.co/google/gemma-4-E4B-it"
      },
      "runs_on": "AMD Radeon PRO W7900D",
-     "accuracy": 94.1,
+     "accuracy": 94.7,
+     "accuracy_raw": 0.9472140762463344,
      "accuracy_ci": [
-      91.4,
-      96.7
+      91.9,
+      97.5
      ],
-     "macro_f1": 0.940095633045592,
+     "macro_f1": 0.9458595064146017,
      "false_reassurance": 1.4,
      "false_reassurance_ci": [
       0,
-      3.2
+      3.1
      ],
      "false_reassurance_n": [
       2,
       138
      ],
      "critical_false_reassurance_n": [
-      2,
+      1,
       108
      ],
      "over_flag": 2.9,
@@ -88,11 +89,11 @@
      "ci_method": "case-level bootstrap, 1000 resamples",
      "paired_vs_base": {
       "base": "e4b_base",
-      "fixes": 41,
+      "fixes": 43,
       "breaks": 3,
-      "p": 1.6183321349672042e-9
+      "p": 4.6219383875722997e-10
      },
-     "latency_bs1_p50_s": 5.1,
+     "latency_bs1_p50_s": 4.9,
      "usd_per_discharge": null
     },
     {
@@ -112,6 +113,7 @@
      },
      "runs_on": "AMD Radeon PRO W7900D",
      "accuracy": 83,
+     "accuracy_raw": 0.8299120234604106,
      "accuracy_ci": [
       80.6,
       85.8
@@ -154,6 +156,7 @@
      },
      "runs_on": "AMD GPUs via AMD Token Factory",
      "accuracy": 97.1,
+     "accuracy_raw": 0.9706744868035191,
      "accuracy_ci": [
       94.9,
       99.1
@@ -201,6 +204,7 @@
      },
      "runs_on": "AMD GPUs via AMD Token Factory",
      "accuracy": 80.4,
+     "accuracy_raw": 0.8035190615835777,
      "accuracy_ci": [
       73.4,
       86.3
@@ -248,6 +252,7 @@
      },
      "runs_on": "AMD GPUs via AMD Token Factory",
      "accuracy": 91.2,
+     "accuracy_raw": 0.9120234604105572,
      "accuracy_ci": [
       89.7,
       92.8
@@ -295,6 +300,7 @@
      },
      "runs_on": "AMD GPUs via AMD Token Factory",
      "accuracy": 85.9,
+     "accuracy_raw": 0.8592375366568915,
      "accuracy_ci": [
       79.4,
       90.7
@@ -342,6 +348,7 @@
      },
      "runs_on": "AMD GPUs via AMD Token Factory",
      "accuracy": 88.9,
+     "accuracy_raw": 0.8885630498533724,
      "accuracy_ci": [
       86.1,
       92.7
@@ -395,11 +402,11 @@
    "labels": "designed labels from the generator (not verifier-filtered)",
    "systems": [
     {
-     "id": "homeward_run2",
+     "id": "homeward_run4",
      "role": "ours",
      "label": "Homeward (fine-tuned)",
      "model": "Gemma 4 E4B",
-     "run": "run 2",
+     "run": "run 4",
      "size": {
       "verified": true,
       "total": "8B",
@@ -410,12 +417,13 @@
       "source": "https://huggingface.co/google/gemma-4-E4B-it"
      },
      "runs_on": "AMD Radeon PRO W7900D",
-     "accuracy": 87,
+     "accuracy": 86,
+     "accuracy_raw": 0.8602150537634409,
      "accuracy_ci": [
-      84.7,
-      89.4
+      83.3,
+      88.7
      ],
-     "macro_f1": 0.8140942406852687,
+     "macro_f1": 0.8139320380816906,
      "false_reassurance": 2.1,
      "false_reassurance_ci": [
       0.4,
@@ -429,16 +437,16 @@
       3,
       173
      ],
-     "over_flag": 2.9,
+     "over_flag": 6.5,
      "json_valid": 100,
      "ci_method": "case-level bootstrap, 1000 resamples",
      "paired_vs_base": {
       "base": "e4b_base",
-      "fixes": 57,
-      "breaks": 21,
-      "p": 0.00005571116486469109
+      "fixes": 56,
+      "breaks": 27,
+      "p": 0.0019314374822250473
      },
-     "latency_bs1_p50_s": 5.7,
+     "latency_bs1_p50_s": 5,
      "usd_per_discharge": null
     },
     {
@@ -458,6 +466,7 @@
      },
      "runs_on": "AMD Radeon PRO W7900D",
      "accuracy": 82.1,
+     "accuracy_raw": 0.821236559139785,
      "accuracy_ci": [
       79.1,
       84.9
@@ -500,6 +509,7 @@
      },
      "runs_on": "AMD GPUs via AMD Token Factory",
      "accuracy": 85.3,
+     "accuracy_raw": 0.853494623655914,
      "accuracy_ci": [
       82,
       88.2
@@ -547,6 +557,7 @@
      },
      "runs_on": "AMD GPUs via AMD Token Factory",
      "accuracy": 71.6,
+     "accuracy_raw": 0.7163978494623656,
      "accuracy_ci": [
       66.1,
       76.7
@@ -992,30 +1003,41 @@
   "p95_s": 14.9,
   "asr_p50_s": 1.8,
   "grade_p50_s": 8.7,
-  "peak_vram_gib": 15.1
+  "peak_vram_gib": 15.1,
+  "adapter": "run 1"
+ },
+ "onprem_demo": {
+  "run": "run 4",
+  "source": "ml/results/run4/onprem_demo_run4.txt",
+  "language": "Hindi",
+  "audio_s": 7.4,
+  "total_s": 12.5,
+  "asr_s": 1.7,
+  "grade_s": 10.8,
+  "peak_vram_gib": 15.2
  },
  "capacity": {
   "by_batch": [
    {
     "batch": 16,
-    "per_hour": 5398,
+    "per_hour": 5591,
     "peak_vram_gib": 16.4
    },
    {
     "batch": 64,
-    "per_hour": 8697,
+    "per_hour": 8707,
     "peak_vram_gib": 20.6
    }
   ],
   "discharges_per_hour_per_card": 274,
-  "grading_only_discharges_per_hour_per_card": 1449,
+  "grading_only_discharges_per_hour_per_card": 1451,
   "answers_per_discharge": 6,
   "assumptions": "6 graded answers per discharge; grading batched at 64; ASR unbatched at batch 1 (p50 of the on-prem loop clips); one card; no other load"
  },
  "training": {
   "device": "AMD Radeon PRO W7900D",
-  "examples": 2743,
-  "minutes": 43.5,
-  "peak_vram_gib": 23.5
+  "examples": 3738,
+  "minutes": 58.8,
+  "peak_vram_gib": 23.6
  }
 }

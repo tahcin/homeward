@@ -390,6 +390,7 @@ export function DeploymentCard({ r }: { r: Results }) {
   const { sys } = useSystems(r);
   const cap = r.capacity;
   const loop = r.onprem_loop;
+  const demo = r.onprem_demo;
   const cloud = sys.filter((s) => s.role === "cloud" || s.role === "teacher");
   const top = cap.by_batch[cap.by_batch.length - 1];
   if (!cap.by_batch.length) return null;
@@ -408,11 +409,13 @@ export function DeploymentCard({ r }: { r: Results }) {
         `Capacity assumes ${cap.answers_per_discharge ?? 6} graded answers per discharge, grading batched at ${top.batch} and speech recognition one clip at a time, on one card with no other load.`,
         "Cloud prices are AMD Token Factory list prices for the tokens our test answers used. Cloud latency in our runs included queueing under a shared hackathon rate limit, so it is not a fair speed comparison and is not shown.",
         "Token Factory did not accept audio input when we tested it, so the cloud graders still need a separate speech service.",
-        ...(loop.clips ? [`The ${loop.clips}-clip timing of one spoken answer (batch size 1) was measured with an earlier fine-tuned adapter on the same Gemma 4 E4B base.`] : []),
+        ...(loop.clips
+          ? [`The ${loop.clips}-clip timing of one spoken answer (batch size 1) was measured with an earlier fine-tuned adapter${loop.adapter ? ` (${loop.adapter})` : ""} on the same Gemma 4 E4B base${demo ? `; the final model (${demo.run}) was timed on one clip` : ""}.`]
+          : []),
       ]}
       source={
         <>
-          Source: Homeward evaluation run, <code>ml/results/eval.json</code> (capacity, cost and on-prem loop).
+          Source: Homeward evaluation run, <code>ml/results/eval.json</code> (capacity, cost and on-prem loop){demo ? <>, and <code>{demo.source}</code> (final-model demo)</> : null}.
         </>
       }
       table={{
@@ -428,12 +431,18 @@ export function DeploymentCard({ r }: { r: Results }) {
           <ul>
             {cap.discharges_per_hour_per_card != null && <li>{cap.discharges_per_hour_per_card} discharges per hour per card, speech plus grading</li>}
             {cap.grading_only_discharges_per_hour_per_card != null && <li>{cap.grading_only_discharges_per_hour_per_card.toLocaleString()} per hour for grading alone</li>}
-            {loop.p50_s != null && (
+            {demo && (
               <li>
-                One spoken answer, heard and graded: {loop.p50_s} s median, {loop.p95_s} s at the 95th percentile ({loop.clips} clips)
+                One spoken {demo.language ? `${demo.language} ` : ""}answer, heard and graded by the final model ({demo.run}): {demo.total_s} s ({demo.asr_s} s speech, {demo.grade_s} s grading),
+                peak memory {demo.peak_vram_gib} GiB of the card's 48 GiB, one model copy for speech and grading
               </li>
             )}
-            {loop.peak_vram_gib != null && <li>Peak memory {loop.peak_vram_gib} GiB of the card's 48 GiB, one model copy for speech and grading</li>}
+            {loop.p50_s != null && (
+              <li>
+                Over {loop.clips} recorded answers{loop.adapter ? ` with the ${loop.adapter} adapter` : ""}: {loop.p50_s} s median, {loop.p95_s} s at the 95th percentile
+                {loop.peak_vram_gib != null ? `, peak memory ${loop.peak_vram_gib} GiB` : ""}
+              </li>
+            )}
             <li>No per-call fee and no patient audio or text leaves the hospital</li>
           </ul>
         </div>
@@ -539,7 +548,7 @@ const sizeTable = (rows: SystemResult[]) => ({
   }),
 });
 
-/** Chart 1: Homeward against every model it did not learn from. The teacher only appears if Homeward matches or beats it. */
+/** Chart 1: Homeward against the other models (some cast training-label votes). The teacher only appears if Homeward matches or beats it. */
 export function SizeChart({ r }: { r: Results }) {
   const { t, sys, ours, base } = useSystems(r);
   if (!t || !ours || ours.accuracy === null) return null;
@@ -585,7 +594,8 @@ export function SizeChart({ r }: { r: Results }) {
       title={title}
       sub={
         <>
-          Every model here is one Homeward did not learn from. Each graded the same {t.facts} facts in {t.answers} independent teach-back answers ({t.cases} cases,{" "}
+          Its teacher aside, these are the other models we could have used. Some of them helped label the training data (DeepSeek V4 Flash, Qwen3.8 Flash Next and Clef each cast
+          votes alongside the teacher), but none of them, and no training example, saw the test answers. Each graded the same {t.facts} facts in {t.answers} independent teach-back answers ({t.cases} cases,{" "}
           {t.languages.length} languages), written by a different model family (Claude) and never seen by the data generator or in training. Every other model was given
           the same grading prompt with no examples (zero-shot); Homeward is fine-tuned for this task and output format. Each row gives the model's size.
           {pv && base ? ` Against its own base model, Homeward fixed ${pv.fixes} facts and broke ${pv.breaks} (exact McNemar p = ${pfmt(pv.p)}).` : ""}
@@ -618,12 +628,21 @@ export function TeacherChart({ r }: { r: Results }) {
   const { t, sys, ours } = useSystems(r);
   const teacher = sys.find((s) => s.role === "teacher");
   if (!t || !ours || !teacher || ours.accuracy === null || teacher.accuracy === null) return null;
-  const keep = Math.round((ours.accuracy / teacher.accuracy) * 100);
+  const keepRaw = ((ours.accuracy_raw ?? ours.accuracy) / (teacher.accuracy_raw ?? teacher.accuracy)) * 100;
+  const keep = keepRaw >= 99.95 ? "100" : keepRaw.toFixed(1);
   const x = ratio(teacher, ours);
   const N = ours.critical_false_reassurance_n?.[1];
-  const title = `Distilled from ${teacher.model ?? teacher.label}, Homeward keeps ${keep}% of its accuracy${x ? ` at ${fractionWords(x)}` : ""}, on one workstation GPU in the hospital`;
   const oc = ours.critical_false_reassurance_n?.[0];
   const tc = teacher.critical_false_reassurance_n?.[0];
+  const critPhrase =
+    oc === undefined || tc === undefined
+      ? ""
+      : oc === tc
+        ? `, and lets through the same number of critical misses (${oc} of ${N})`
+        : oc < tc
+          ? `, and lets through fewer critical misses (${oc} against ${tc} of ${N})`
+          : "";
+  const title = `Distilled from ${teacher.model ?? teacher.label}, Homeward keeps ${keep}% of its accuracy${x ? ` at ${fractionWords(x)}` : ""}${critPhrase}, on one workstation GPU in the hospital`;
   return (
     <ChartCard
       id="teacher"
@@ -631,12 +650,12 @@ export function TeacherChart({ r }: { r: Results }) {
       sub={
         <>
           Homeward learned from labels its teacher helped produce, so the teacher is the bar to measure against, not a competitor. Accuracy {f1(ours.accuracy)} against{" "}
-          {f1(teacher.accuracy)} ({keep}% kept); critical misses {oc} against {tc} of {N}; size {sizeText(ours)} against {sizeText(teacher)}.
+          {f1(teacher.accuracy)} ({keep}% kept); critical misses {oc} against {tc} of {N}{oc !== undefined && oc === tc ? " (a tie)" : ""}; size {sizeText(ours)} against {sizeText(teacher)}.
         </>
       }
       caveats={[
         `Same small, synthetic test set as above (${t.answers} answers), so a ${Math.abs(ours.accuracy - teacher.accuracy).toFixed(1)}-point gap has wide uncertainty; see the intervals.`,
-        "Accuracy kept is Homeward's accuracy divided by the teacher's. Size uses the makers' published parameter counts.",
+        "Accuracy kept is Homeward's unrounded accuracy divided by the teacher's. Size uses the makers' published parameter counts.",
       ]}
       source={SOURCE_OURS}
       table={sizeTable([ours, teacher])}

@@ -24,9 +24,11 @@ function useJson<T>(url: string) {
 function hwNote(h: Benchmarks["hardware"][number], r: Results | null): string | undefined {
   if (!/W7900D/.test(h.name) || !r) return h.note;
   const train = r.training?.peak_vram_gib;
-  const loop = r.onprem_loop?.peak_vram_gib;
+  const demo = r.onprem_demo;
+  const loop = demo?.peak_vram_gib ?? r.onprem_loop?.peak_vram_gib;
   if (train == null || loop == null) return h.note;
-  return `The card we fine-tuned and served Gemma 4 E4B on. Training peaked at ${train} GiB and the full speech-plus-grading loop at ${loop} GiB, so one workstation card holds it with room to spare.`;
+  const what = demo ? "hearing and grading a spoken answer with the final model" : "the full speech-plus-grading loop";
+  return `The card we fine-tuned and served Gemma 4 E4B on. Training peaked at ${train} GiB and ${what} at ${loop} GiB, so one workstation card holds it with room to spare.`;
 }
 
 export function Evidence() {

@@ -1,11 +1,11 @@
 {
   "sample_id": "heart-failure-it",
-  "recorded_at": "2026-10-16T08:45:37Z",
+  "recorded_at": "2026-10-17T08:48:29Z",
   "model": {
-    "name": "Gemma 4 E4B, fine-tuned for Homeward (run 2)",
+    "name": "Gemma 4 E4B, fine-tuned for Homeward (run 4)",
     "base": "google/gemma-4-e4b-it",
-    "adapter": "homeward run 2 (HF release pending)",
-    "lora_scale": 0.5
+    "adapter": "homeward run 4 (HF release pending)",
+    "lora_scale": 1.0
   },
   "hardware": {
     "gpu": "AMD Radeon PRO W7900D (48 GB)",
@@ -25,22 +25,22 @@
           "f4",
           "f5"
         ],
-        "latency_ms": 10039,
+        "latency_ms": 10116,
         "tokens_in": 488,
-        "tokens_out": 199,
-        "tokens_per_s": 19.8,
+        "tokens_out": 198,
+        "tokens_per_s": 19.6,
         "peak_vram_gib": 15.0,
         "grades": [
           {
             "id": "f1",
             "verdict": "incorrect",
-            "heard": "Furosemide 40 mg once a day in the morning",
+            "heard": "Furosemide 40mg once a day in the morning",
             "reteach": "Take Furosemide 40 mg twice a day at 8 am and 2 pm."
           },
           {
             "id": "f2",
             "verdict": "correct",
-            "heard": "New medicine Spironolactone 25 mg daily",
+            "heard": "New medicine Spironolactone 25mg daily",
             "reteach": ""
           },
           {
@@ -58,7 +58,7 @@
           {
             "id": "f5",
             "verdict": "correct",
-            "heard": "Stop ibuprofen, take paracetamol up to 3 times a day as needed",
+            "heard": "Stop ibuprofen, take paracetamol 3 times a day max as needed",
             "reteach": ""
           }
         ]
@@ -69,16 +69,16 @@
         "fact_ids": [
           "f1"
         ],
-        "latency_ms": 2913,
+        "latency_ms": 2885,
         "tokens_in": 341,
-        "tokens_out": 57,
-        "tokens_per_s": 19.6,
+        "tokens_out": 56,
+        "tokens_per_s": 19.4,
         "peak_vram_gib": 14.9,
         "grades": [
           {
             "id": "f1",
             "verdict": "correct",
-            "heard": "Furosemide 40 mg twice a day at 8 am and 2 pm, up from 20 mg once daily",
+            "heard": "Furosemide 40mg twice daily at 8am and 2pm, increased from 20mg once daily",
             "reteach": ""
           }
         ]
@@ -92,22 +92,22 @@
           "f6",
           "f7"
         ],
-        "latency_ms": 4592,
+        "latency_ms": 4614,
         "tokens_in": 373,
         "tokens_out": 90,
-        "tokens_per_s": 19.6,
-        "peak_vram_gib": 14.9,
+        "tokens_per_s": 19.5,
+        "peak_vram_gib": 15.0,
         "grades": [
           {
             "id": "f6",
             "verdict": "correct",
-            "heard": "weigh every morning, call nurse if weight increases more than 2 kg in 3 days",
+            "heard": "weigh every morning, call nurse if weight increases > 2kg in 3 days",
             "reteach": ""
           },
           {
             "id": "f7",
             "verdict": "correct",
-            "heard": "drink max 1.5 L per day and eat less than 2g salt",
+            "heard": "fluids max 1.5L/day, salt < 2g/day",
             "reteach": ""
           }
         ]
@@ -121,22 +121,22 @@
           "f8",
           "f9"
         ],
-        "latency_ms": 4829,
+        "latency_ms": 4666,
         "tokens_in": 400,
-        "tokens_out": 95,
-        "tokens_per_s": 19.7,
-        "peak_vram_gib": 14.9,
+        "tokens_out": 90,
+        "tokens_per_s": 19.3,
+        "peak_vram_gib": 15.0,
         "grades": [
           {
             "id": "f8",
             "verdict": "correct",
-            "heard": "Call 112 immediately for shortness of breath at rest, chest pain, or fainting.",
+            "heard": "Call 112 for shortness of breath at rest, chest pain, or fainting.",
             "reteach": ""
           },
           {
             "id": "f9",
             "verdict": "correct",
-            "heard": "Call the heart failure nurse line the same day for ankle swelling, needing more pillows to sleep, or dizziness when standing.",
+            "heard": "Call the nurse line the same day for ankle swelling, needing more pillows, or dizziness when standing.",
             "reteach": ""
           }
         ]
@@ -151,28 +151,28 @@
           "f11",
           "f12"
         ],
-        "latency_ms": 6734,
+        "latency_ms": 6534,
         "tokens_in": 409,
-        "tokens_out": 129,
-        "tokens_per_s": 19.2,
-        "peak_vram_gib": 14.9,
+        "tokens_out": 127,
+        "tokens_per_s": 19.4,
+        "peak_vram_gib": 15.0,
         "grades": [
           {
             "id": "f10",
             "verdict": "correct",
-            "heard": "blood tests at the lab on October 22",
+            "heard": "blood tests at lab on Oct 22",
             "reteach": ""
           },
           {
             "id": "f11",
             "verdict": "correct",
-            "heard": "Dr. Bianchi on November 12 at 10:30",
+            "heard": "Dr. Bianchi on Nov 12 at 10:30",
             "reteach": ""
           },
           {
             "id": "f12",
             "verdict": "correct",
-            "heard": "walk 10-15 min twice a day and no lifting over 5 kg for 2 weeks",
+            "heard": "walk 10-15 min twice daily, no lifting over 5kg for 2 weeks",
             "reteach": ""
           }
         ]

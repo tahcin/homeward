@@ -182,6 +182,8 @@ function testSet(t) {
       size: sizeFor(id, modelName(s.meta?.model)),
       runs_on: runsOn(s),
       accuracy: pct(m.accuracy),
+      // Unrounded share, for ratios such as "keeps X% of the teacher" (rounding both sides first shifts the ratio).
+      accuracy_raw: typeof m.accuracy === "number" ? m.accuracy : null,
       accuracy_ci: ci("accuracy_95ci"),
       macro_f1: m.macro_f1 ?? null,
       false_reassurance: pct(m.false_reassurance_rate),
@@ -231,6 +233,30 @@ for (const [sys, bySrc] of Object.entries(asr.asr || {})) {
 
 const loop = asr.onprem_loop || {};
 const onprem = d.cost?.onprem_w7900d || {};
+// The single-clip on-site demo of the selected model (a text log from ml/notebook, e.g. results/run4/onprem_demo_run4.txt).
+// The 25-clip loop above was timed with an earlier adapter, so the demo is the figure for the model we ship.
+function onpremDemo() {
+  const m = /_run(\d+)$/.exec(oursKey || "");
+  if (!m) return null;
+  const f = resolve(here, `../../ml/results/run${m[1]}/onprem_demo_run${m[1]}.txt`);
+  if (!existsSync(f)) return null;
+  const t = readFileSync(f, "utf8");
+  const e = /End to end on one GPU: ([\d.]+) s \(ASR ([\d.]+) s \+ grading ([\d.]+) s\); peak PyTorch memory ([\d.]+) GiB/.exec(t);
+  if (!e) return null;
+  const lang = /Question \(([^)]+)\)/.exec(t)?.[1] ?? null;
+  const audio = /\(([\d.]+) s of audio, recorded by a person\)/.exec(t);
+  return {
+    run: `run ${m[1]}`,
+    source: `ml/results/run${m[1]}/${basename(f)}`,
+    language: lang,
+    audio_s: audio ? Number(audio[1]) : null,
+    total_s: Number(e[1]),
+    asr_s: Number(e[2]),
+    grade_s: Number(e[3]),
+    peak_vram_gib: Number(e[4]),
+  };
+}
+
 const capacity = Object.entries(d.capacity || {})
   .map(([bs, c]) => ({ batch: Number(bs), per_hour: Math.round(c.answers_per_s * 3600), peak_vram_gib: r1(c.peak_vram_gib) }))
   .sort((a, b) => a.batch - b.batch);
@@ -273,7 +299,9 @@ const result = {
     asr_p50_s: r1(loop.asr_p50_s),
     grade_p50_s: r1(loop.grade_p50_s),
     peak_vram_gib: r1(loop.peak_vram_gib),
+    adapter: loop.clips ? "run 1" : null,
   },
+  onprem_demo: onpremDemo(),
   capacity: {
     by_batch: capacity,
     discharges_per_hour_per_card: onprem.discharges_per_hour_per_card ? Math.round(onprem.discharges_per_hour_per_card) : null,
@@ -292,4 +320,4 @@ const result = {
 };
 
 writeFileSync(out, JSON.stringify(result, null, 1) + "\n");
-console.log(`build-evidence: wrote ${out} from ${d.generated_at}; ours = ${oursKey} (${result.ours.description}), base = ${baseKey}`);
+console.log(`build-evidence: wrote ${out} from ${d.generated_at}; ours = ${oursKey} (${result.ours.description}), base = ${baseKey}, teacher = ${teacherKey}${result.onprem_demo ? `, on-site demo = ${result.onprem_demo.run} ${result.onprem_demo.total_s} s` : ""}`);

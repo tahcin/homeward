@@ -186,8 +186,15 @@ function SafetyLine({ ev }: { ev: Evidence | null }) {
   if (!ours || n(ours) === undefined || !N) return null;
   const acc = base?.accuracy != null && ours.accuracy != null ? ` fine-tuning raised verdict accuracy from ${base.accuracy.toFixed(1)}% to ${ours.accuracy.toFixed(1)}%.` : "";
   const vsBase = base && n(base) !== undefined ? ` and the base model ${n(base)}` : "";
-  const vsTeacher = teacher && n(teacher) !== undefined ? ` ${teacher.model ?? teacher.label} passed ${n(teacher)}.` : "";
-  const demo = teacher && n(teacher)! <= n(ours)! ? " The hosted demo grades with Gemma 4 31B for that reason." : "";
+  const tName = teacher ? `${teacher.model ?? teacher.label}, the larger model it learned from,` : "";
+  const tMore = teacher?.accuracy != null && ours.accuracy != null && teacher.accuracy > ours.accuracy;
+  const vsTeacher =
+    teacher && n(teacher) !== undefined
+      ? n(teacher) === n(ours)
+        ? ` ${tName} also passed ${n(teacher)}${tMore ? `, with higher accuracy (${teacher.accuracy!.toFixed(1)}%)` : ""}.`
+        : ` ${tName} passed ${n(teacher)}.`
+      : "";
+  const demo = teacher && (n(teacher)! < n(ours)! || (n(teacher) === n(ours) && tMore)) ? ` The hosted demo grades with ${teacher.model ?? "the larger model"} for that reason.` : "";
   return (
     <p className="small">
       What this means for safety:{acc} Of the {N} critical facts the patients got wrong or left out, the fine-tuned model passed {n(ours)} as understood

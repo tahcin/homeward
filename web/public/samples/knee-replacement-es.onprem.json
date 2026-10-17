@@ -1,11 +1,11 @@
 {
   "sample_id": "knee-replacement-es",
-  "recorded_at": "2026-10-16T08:46:35Z",
+  "recorded_at": "2026-10-17T08:49:27Z",
   "model": {
-    "name": "Gemma 4 E4B, fine-tuned for Homeward (run 2)",
+    "name": "Gemma 4 E4B, fine-tuned for Homeward (run 4)",
     "base": "google/gemma-4-e4b-it",
-    "adapter": "homeward run 2 (HF release pending)",
-    "lora_scale": 0.5
+    "adapter": "homeward run 4 (HF release pending)",
+    "lora_scale": 1.0
   },
   "hardware": {
     "gpu": "AMD Radeon PRO W7900D (48 GB)",
@@ -25,40 +25,40 @@
           "f4",
           "f5"
         ],
-        "latency_ms": 11574,
+        "latency_ms": 11952,
         "tokens_in": 535,
-        "tokens_out": 228,
-        "tokens_per_s": 19.7,
+        "tokens_out": 233,
+        "tokens_per_s": 19.5,
         "peak_vram_gib": 15.0,
         "grades": [
           {
             "id": "f1",
             "verdict": "incorrect",
-            "heard": "Enoxaparin 40 mg once daily at 6 pm for one week",
-            "reteach": "You need to take Enoxaparin for 14 days, with the last dose on October 28, 2026."
+            "heard": "Enoxaparin 40mg once daily at 6 pm for one week",
+            "reteach": "Inject Enoxaparin 40 mg once daily at 6 pm for 14 days, with the last dose on 28 Oct 2026."
           },
           {
             "id": "f2",
             "verdict": "correct",
-            "heard": "Paracetamol 1 g every 6 hours, max 4 g per day",
+            "heard": "Paracetamol 1g every 6h, max 4g per day",
             "reteach": ""
           },
           {
             "id": "f3",
             "verdict": "correct",
-            "heard": "Oxycodone 5 mg only for severe pain, max 4 per day, no driving",
+            "heard": "Oxycodone 5mg only for severe pain, max 4 tablets/day, no driving",
             "reteach": ""
           },
           {
             "id": "f4",
             "verdict": "correct",
-            "heard": "Omeprazole 20 mg before breakfast",
+            "heard": "Omeprazole 20mg before breakfast",
             "reteach": ""
           },
           {
             "id": "f5",
             "verdict": "correct",
-            "heard": "Do not take Naproxen until surgeon review",
+            "heard": "Hold naproxen until surgeon review",
             "reteach": ""
           }
         ]
@@ -69,16 +69,16 @@
         "fact_ids": [
           "f1"
         ],
-        "latency_ms": 2858,
+        "latency_ms": 2852,
         "tokens_in": 347,
-        "tokens_out": 56,
-        "tokens_per_s": 19.6,
+        "tokens_out": 55,
+        "tokens_per_s": 19.3,
         "peak_vram_gib": 14.9,
         "grades": [
           {
             "id": "f1",
             "verdict": "correct",
-            "heard": "Enoxaparin 40mg once daily at 6 pm for 14 days, last dose on Oct 28",
+            "heard": "Enoxaparin 40mg once daily at 6 pm for 14 days, last dose Oct 28",
             "reteach": ""
           }
         ]
@@ -92,11 +92,11 @@
           "f8",
           "f9"
         ],
-        "latency_ms": 4883,
+        "latency_ms": 4951,
         "tokens_in": 402,
         "tokens_out": 96,
-        "tokens_per_s": 19.7,
-        "peak_vram_gib": 14.9,
+        "tokens_per_s": 19.4,
+        "peak_vram_gib": 15.0,
         "grades": [
           {
             "id": "f8",
@@ -122,11 +122,11 @@
           "f10",
           "f11"
         ],
-        "latency_ms": 6222,
+        "latency_ms": 6367,
         "tokens_in": 415,
-        "tokens_out": 123,
-        "tokens_per_s": 19.8,
-        "peak_vram_gib": 14.9,
+        "tokens_out": 124,
+        "tokens_per_s": 19.5,
+        "peak_vram_gib": 15.0,
         "grades": [
           {
             "id": "f6",
@@ -137,13 +137,13 @@
           {
             "id": "f10",
             "verdict": "correct",
-            "heard": "Physio 3 times a day, use walker always for first 2 weeks.",
+            "heard": "Physio 3x/day, use walker always for first 2 weeks.",
             "reteach": ""
           },
           {
             "id": "f11",
             "verdict": "correct",
-            "heard": "Ice pack 20 minutes after exercises.",
+            "heard": "Ice pack for 20 minutes after exercises.",
             "reteach": ""
           }
         ]
@@ -157,10 +157,10 @@
           "f7",
           "f12"
         ],
-        "latency_ms": 3952,
+        "latency_ms": 3972,
         "tokens_in": 342,
-        "tokens_out": 78,
-        "tokens_per_s": 19.7,
+        "tokens_out": 77,
+        "tokens_per_s": 19.4,
         "peak_vram_gib": 14.9,
         "grades": [
           {
@@ -172,7 +172,7 @@
           {
             "id": "f12",
             "verdict": "correct",
-            "heard": "see Dr. Herrera on Nov 10 at 9:15",
+            "heard": "Dr. Herrera on Nov 10 at 9:15",
             "reteach": ""
           }
         ]

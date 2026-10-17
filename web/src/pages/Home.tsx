@@ -113,7 +113,10 @@ const BARRIERS: { title: string; problem: string; src: Src; answer: string }[] =
   },
 ];
 
-type OnSite = { clips: number | null; p50_s: number | null; peak_vram_gib: number | null };
+type OnSite = {
+  loop: { clips: number | null; p50_s: number | null; peak_vram_gib: number | null; adapter?: string | null } | null;
+  demo: { run: string; language: string | null; total_s: number; asr_s: number; grade_s: number; peak_vram_gib: number } | null;
+};
 
 /** The on-site figure comes from the same results file as the Evidence page, so it always matches it. */
 function useOnSite() {
@@ -121,7 +124,7 @@ function useOnSite() {
   useEffect(() => {
     fetch("/evidence-results.json", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((d) => setLoop(d?.onprem_loop ?? null))
+      .then((d) => setLoop({ loop: d?.onprem_loop ?? null, demo: d?.onprem_demo ?? null }))
       .catch(() => setLoop(null));
   }, []);
   return loop;
@@ -313,11 +316,20 @@ export function Home() {
               <Icon name="right" size={16} />
             </Link>
           </div>
-          {onSite?.p50_s != null && onSite.peak_vram_gib != null && (
+          {onSite?.demo ? (
             <p className="lp-measured">
-              Hearing and grading one spoken answer on one card took a median of <b>{onSite.p50_s} seconds</b> across {onSite.clips} recorded answers, with memory peaking at{" "}
-              <b>{onSite.peak_vram_gib} GiB</b> of the card's 48 GiB.
+              With the final model, hearing and grading one spoken {onSite.demo.language ? `${onSite.demo.language} ` : ""}answer on one card took{" "}
+              <b>{onSite.demo.total_s} seconds</b> ({onSite.demo.asr_s} s to hear it, {onSite.demo.grade_s} s to grade it), with memory peaking at{" "}
+              <b>{onSite.demo.peak_vram_gib} GiB</b> of the card's 48 GiB.
             </p>
+          ) : (
+            onSite?.loop?.p50_s != null &&
+            onSite.loop.peak_vram_gib != null && (
+              <p className="lp-measured">
+                Hearing and grading one spoken answer on one card took a median of <b>{onSite.loop.p50_s} seconds</b> across {onSite.loop.clips} recorded answers
+                {onSite.loop.adapter ? ` (timed with the ${onSite.loop.adapter} adapter)` : ""}, with memory peaking at <b>{onSite.loop.peak_vram_gib} GiB</b> of the card's 48 GiB.
+              </p>
+            )
           )}
         </div>
       </section>

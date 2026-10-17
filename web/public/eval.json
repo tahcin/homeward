@@ -58,18 +58,18 @@
         "id": "gemma-4-e4b-homeward",
         "label": "Gemma 4 E4B, fine-tuned (ours)",
         "runs_on": "AMD Radeon PRO W7900D",
-        "accuracy": 94.1,
-        "critical_recall": 98.1,
+        "accuracy": 94.7,
+        "critical_recall": 99.1,
         "false_reassurance": 1.4,
-        "latency_p50_ms": 5147,
+        "latency_p50_ms": 4891,
         "ci95": {
           "accuracy": [
-            91.4,
-            96.7
+            91.9,
+            97.5
           ],
           "false_reassurance": [
             0.0,
-            3.2
+            3.1
           ]
         }
       },
@@ -98,9 +98,9 @@
     "gpu": "AMD Radeon PRO W7900D (48 GB)",
     "method": "LoRA",
     "base_model": "Gemma 4 E4B",
-    "examples": 2743,
+    "examples": 3738,
     "epochs": 2.0,
-    "minutes": 43.5
+    "minutes": 58.8
   },
   "fact_lock": {
     "description": "24 synthetic discharge notes in 8 languages run through the full pipeline on AMD Token Factory (Gemma 4 31B extracts and writes, DeepSeek V4 Flash checks), facts extracted without nurse review.",
