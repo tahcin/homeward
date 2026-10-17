@@ -13,6 +13,8 @@ Test set: 150 answers, 341 facts, 7 cases, 12 languages. Gold verdicts: {'correc
 | qwen3_8_flash_next | 91.2% (89.7%–92.8%) | 0.913 | 0.7% (0.0%–2.1%) | 0.9% (1/108) | 8.7% | 99.3% |
 | minicpm_v_4_7_35b_a3b | 85.9% (79.4%–90.7%) | 0.852 | 2.2% (0.0%–6.1%) | 2.8% (3/108) | 13.8% | 100.0% |
 | clef | 88.9% (86.1%–92.7%) | 0.897 | 0.7% (0.0%–2.0%) | 0.9% (1/108) | 13.0% | 100.0% |
+| mimo_v2_6_flash | 88.9% (86.3%–91.8%) | 0.891 | 0.7% (0.0%–2.0%) | 0.9% (1/108) | 15.9% | 100.0% |
+| qwen3_8_27b | 87.7% (85.9%–90.1%) | 0.895 | 0.7% (0.0%–2.0%) | 0.9% (1/108) | 23.2% | 99.3% |
 
 ## Accuracy by language
 
@@ -27,6 +29,8 @@ Test set: 150 answers, 341 facts, 7 cases, 12 languages. Gold verdicts: {'correc
 | qwen3_8_flash_next | 87% | 80% | 96% | 96% | 93% | 90% | 96% | 84% | 83% | 100% | 96% | 93% |
 | minicpm_v_4_7_35b_a3b | 87% | 80% | 86% | 93% | 83% | 90% | 93% | 81% | 72% | 96% | 85% | 87% |
 | clef | 94% | 88% | 96% | 96% | 87% | 93% | 89% | 90% | 86% | 85% | 81% | 80% |
+| mimo_v2_6_flash | 87% | 92% | 96% | 89% | 93% | 83% | 93% | 87% | 90% | 88% | 81% | 87% |
+| qwen3_8_27b | 90% | 88% | 89% | 89% | 83% | 97% | 82% | 87% | 83% | 96% | 69% | 97% |
 
 ## Speed and tokens
 
@@ -41,6 +45,8 @@ Test set: 150 answers, 341 facts, 7 cases, 12 languages. Gold verdicts: {'correc
 | qwen3_8_flash_next | AMD Token Factory | 1325.47 s | 2387.86 s | n/a | 386 | 171 |
 | minicpm_v_4_7_35b_a3b | AMD Token Factory | 1283.95 s | 3116.19 s | n/a | 386 | 171 |
 | clef | AMD Token Factory | 2.20 s | 3.67 s | n/a | 679 | 0 |
+| mimo_v2_6_flash | AMD Token Factory | 1976.15 s | 3172.59 s | n/a | 384 | 141 |
+| qwen3_8_27b | AMD Token Factory | 1937.88 s | 2666.28 s | n/a | 416 | 807 |
 
 ### Confusion matrix: e4b_base (rows gold, columns predicted)
 
@@ -122,3 +128,21 @@ Test set: 150 answers, 341 facts, 7 cases, 12 languages. Gold verdicts: {'correc
 | partial | 2 | 63 | 0 | 0 | 0 |
 | incorrect | 1 | 17 | 78 | 0 | 0 |
 | missing | 0 | 0 | 0 | 42 | 0 |
+
+### Confusion matrix: mimo_v2_6_flash (rows gold, columns predicted)
+
+| gold \ pred | correct | partial | incorrect | missing | invalid |
+|---|---|---|---|---|---|
+| correct | 116 | 22 | 0 | 0 | 0 |
+| partial | 0 | 58 | 4 | 3 | 0 |
+| incorrect | 1 | 8 | 87 | 0 | 0 |
+| missing | 0 | 0 | 0 | 42 | 0 |
+
+### Confusion matrix: qwen3_8_27b (rows gold, columns predicted)
+
+| gold \ pred | correct | partial | incorrect | missing | invalid |
+|---|---|---|---|---|---|
+| correct | 106 | 26 | 3 | 0 | 3 |
+| partial | 1 | 61 | 3 | 0 | 0 |
+| incorrect | 1 | 3 | 91 | 0 | 1 |
+| missing | 0 | 0 | 0 | 41 | 1 |

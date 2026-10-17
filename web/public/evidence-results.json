@@ -1,7 +1,7 @@
 {
  "schema": "homeward.evidence.v2",
  "source": "ml/results/eval.json",
- "generated_at": "2026-10-17 14:26 IST",
+ "generated_at": "2026-10-17 22:22 IST",
  "sizes_file": "model-sizes.md",
  "whisper_size": {
   "verified": false,
@@ -375,6 +375,102 @@
       "fixes": 36,
       "breaks": 16,
       "p": 0.0077874363057435225
+     },
+     "latency_bs1_p50_s": null,
+     "usd_per_discharge": null
+    },
+    {
+     "id": "mimo_v2_6_flash",
+     "role": "cloud",
+     "label": "MiMo V2.6 Flash (cloud)",
+     "model": "MiMo V2.6 Flash",
+     "run": null,
+     "size": {
+      "verified": true,
+      "total": "309B",
+      "active": "15B",
+      "total_b": 309,
+      "active_b": 15,
+      "display": "309B total, 15B active",
+      "source": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL"
+     },
+     "runs_on": "AMD GPUs via AMD Token Factory",
+     "accuracy": 88.9,
+     "accuracy_raw": 0.8885630498533724,
+     "accuracy_ci": [
+      86.3,
+      91.8
+     ],
+     "macro_f1": 0.8909930952527301,
+     "false_reassurance": 0.7,
+     "false_reassurance_ci": [
+      0,
+      2
+     ],
+     "false_reassurance_n": [
+      1,
+      138
+     ],
+     "critical_false_reassurance_n": [
+      1,
+      108
+     ],
+     "over_flag": 15.9,
+     "json_valid": 100,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 43,
+      "breaks": 23,
+      "p": 0.018657260354021005
+     },
+     "latency_bs1_p50_s": null,
+     "usd_per_discharge": null
+    },
+    {
+     "id": "qwen3_8_27b",
+     "role": "cloud",
+     "label": "Qwen3.8 27B (cloud)",
+     "model": "Qwen3.8 27B",
+     "run": null,
+     "size": {
+      "verified": true,
+      "total": "27B",
+      "active": "27B",
+      "total_b": 27,
+      "active_b": 27,
+      "display": "27B",
+      "source": "https://huggingface.co/Qwen/Qwen3.8-27B"
+     },
+     "runs_on": "AMD GPUs via AMD Token Factory",
+     "accuracy": 87.7,
+     "accuracy_raw": 0.8768328445747801,
+     "accuracy_ci": [
+      85.9,
+      90.1
+     ],
+     "macro_f1": 0.8949605951639483,
+     "false_reassurance": 0.7,
+     "false_reassurance_ci": [
+      0,
+      2
+     ],
+     "false_reassurance_n": [
+      1,
+      138
+     ],
+     "critical_false_reassurance_n": [
+      1,
+      108
+     ],
+     "over_flag": 23.2,
+     "json_valid": 99.3,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 49,
+      "breaks": 33,
+      "p": 0.09703091129729906
      },
      "latency_bs1_p50_s": null,
      "usd_per_discharge": null

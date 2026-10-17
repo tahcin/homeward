@@ -1,6 +1,6 @@
 # Homeward grader: evaluation (run 4, final)
 
-Generated 2026-10-17 14:26 IST. All numbers come from the files in ml/results; 95% intervals are case-level bootstrap (1,000 resamples).
+Generated 2026-10-17 22:22 IST. All numbers come from the files in ml/results; 95% intervals are case-level bootstrap (1,000 resamples).
 
 ## Scoring
 
@@ -21,6 +21,8 @@ Facts whose verdict cannot be read count as wrong. Since 2026-10-16 the parser h
 | qwen3_8_flash_next | 91.2% (89.7–92.8) | 0.913 | 0.7% (0.0–2.1) | 1/108 | 8.7% | 99.3% |
 | minicpm_v_4_7_35b_a3b | 85.9% (79.4–90.7) | 0.852 | 2.2% (0.0–6.1) | 3/108 | 13.8% | 100.0% |
 | clef | 88.9% (86.1–92.7) | 0.897 | 0.7% (0.0–2.0) | 1/108 | 13.0% | 100.0% |
+| mimo_v2_6_flash | 88.9% (86.3–91.8) | 0.891 | 0.7% (0.0–2.0) | 1/108 | 15.9% | 100.0% |
+| qwen3_8_27b | 87.7% (85.9–90.1) | 0.895 | 0.7% (0.0–2.0) | 1/108 | 23.2% | 99.3% |
 
 - run1 vs base E4B: right where base is wrong on 28 facts, wrong where base is right on 10 (exact McNemar p = 0.0051).
 - homeward_run2 vs base E4B: right where base is wrong on 41 facts, wrong where base is right on 3 (exact McNemar p = 1.6e-09).
@@ -30,6 +32,8 @@ Facts whose verdict cannot be read count as wrong. Since 2026-10-16 the parser h
 - qwen3_8_flash_next vs base E4B: right where base is wrong on 45 facts, wrong where base is right on 17 (exact McNemar p = 0.0005).
 - minicpm_v_4_7_35b_a3b vs base E4B: right where base is wrong on 37 facts, wrong where base is right on 27 (exact McNemar p = 0.26).
 - clef vs base E4B: right where base is wrong on 36 facts, wrong where base is right on 16 (exact McNemar p = 0.0078).
+- mimo_v2_6_flash vs base E4B: right where base is wrong on 43 facts, wrong where base is right on 23 (exact McNemar p = 0.019).
+- qwen3_8_27b vs base E4B: right where base is wrong on 49 facts, wrong where base is right on 33 (exact McNemar p = 0.097).
 
 ## In-distribution test set (generator-labelled)
 

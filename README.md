@@ -15,7 +15,7 @@ Homeward rewrites hospital discharge instructions in the patient's language, wit
 Teach-back grading on an independent test set that no training-data generator ever saw: 150 answers, 341 facts, 7 discharge cases, 12 languages, messy and code-mixed phrasing, written by Claude (a different model family from the generators) and never used for training. Each system grades every fact as correct, partial, incorrect or missing.
 
 - The fine-tuned Gemma 4 E4B (8B, 4.5B effective) scores **94.7%** per-fact accuracy, up from 83.0% for the same model before fine-tuning, and passes 1 critical miss as understood instead of 5.
-- It is more accurate than every other model we tested except its own teacher: Qwen3.8 Flash Next (180B total, 6B active) 91.2%, Clef (27B dense) 88.9%, MiniCPM-V 4.7 (35B total, about 3B active) 85.9% and DeepSeek V4 Flash (284B total, 13B active) 80.4%. Qwen3.8 Flash Next and Clef also pass 1 critical miss, and our interval overlaps theirs, so those two gaps are not conclusive.
+- It is more accurate than every other model we tested except its own teacher: Qwen3.8 Flash Next (180B total, 6B active) 91.2%, MiMo-V2.6 Flash (309B total, 15B active) 88.9%, Clef (27B dense) 88.9%, Qwen3.8 27B (27B dense) 87.7%, MiniCPM-V 4.7 (35B total, about 3B active) 85.9% and DeepSeek V4 Flash (284B total, 13B active) 80.4%. The largest of these is MiMo-V2.6 Flash. Qwen3.8 Flash Next, MiMo-V2.6 Flash, Clef and Qwen3.8 27B also pass 1 critical miss, the same as ours; our interval overlaps those of Qwen3.8 Flash Next and Clef, so those two gaps are not conclusive.
 - Gemma 4 31B is the teacher whose labels trained the fine-tune. The fine-tune keeps 97.6% of its accuracy (94.7% vs 97.1%) at about a quarter of the size (8B vs 30.7B). It ties the 31B on critical misses (1 each) but is below it on accuracy.
 
 | System | Size (total / active) | Per-fact accuracy (95% CI) | Macro-F1 | Critical misses passed as understood | Over-flag | Valid JSON |
@@ -25,6 +25,8 @@ Teach-back grading on an independent test set that no training-data generator ev
 | Gemma 4 31B, teacher (Token Factory) | 30.7B dense | 97.1% (94.9–99.1) | 0.971 | 1 of 108 | 2.9% | 100% |
 | DeepSeek V4 Flash | 284B / 13B | 80.4% (73.4–86.3) | 0.825 | 3 of 108 | 14.5% | 90.7% |
 | Qwen3.8 Flash Next | 180B / 6B | 91.2% (89.7–92.8) | 0.913 | 1 of 108 | 8.7% | 99.3% |
+| MiMo-V2.6 Flash | 309B / 15B | 88.9% (86.3–91.8) | 0.891 | 1 of 108 | 15.9% | 100% |
+| Qwen3.8 27B | 27B dense | 87.7% (85.9–90.1) | 0.895 | 1 of 108 | 23.2% | 99.3% |
 | MiniCPM-V 4.7 35B-A3B | 35B / about 3B | 85.9% (79.4–90.7) | 0.852 | 3 of 108 | 13.8% | 100% |
 | Clef (Cloudflare decision model) | 27B dense | 88.9% (86.1–92.7) | 0.897 | 1 of 108 | 13.0% | 100% |
 
@@ -35,7 +37,8 @@ How to read it:
 - 95% intervals are case-level bootstrap. Against its base, the fine-tune fixes 43 facts and breaks 3 (exact McNemar p = 4.6e-10).
 - Scoring: a fact whose verdict cannot be read counts as wrong. A lenient fallback for malformed JSON is applied identically to every system; it changes only DeepSeek V4 Flash (79.2% under the strict parser, 80.4% with the fallback). Valid JSON is reported strictly.
 - Sizes are the makers' published figures (the MiniCPM active count comes from its "A3B" name only).
-- Pending: GLM-5.3 Flash (320B / 18B), MiMo-V2.6 Flash (309B / 15B) and Qwen3.8 27B (27B dense) did not finish within the event's daily API budget; they will be added to this table tonight (Oct 17), whatever they score. Partial predictions are in `ml/results/`.
+- Pending: GLM-5.3 Flash (320B / 18B) is still running on Token Factory (slow queue for that model); it will be added to this table when it finishes, whatever it scores. Partial predictions are in `ml/results/`.
+- MiMo-V2.6 Flash and Qwen3.8 27B ran on Oct 16 and 17 with the same prompt and settings as before; rows that failed (2 API errors for MiMo; 8 Qwen3.8 27B replies that spent the whole 3,000-token budget on reasoning) were re-run with identical settings. One Qwen3.8 27B answer (c055/t1/302) stayed empty after four attempts and counts as wrong, like any unreadable reply.
 - On the in-distribution test set (348 answers, labels designed by the generator) the fine-tune scores 86.0% (run 2: 87.0%) and the 31B 85.3%; the intervals overlap and the labels come from the generator, so we do not claim it beats its teacher.
 
 The model was chosen on a separate validation set (also written by Claude) with a rule declared before the test set was scored: zero critical misses, then fewest total misses, then fewest re-checks, then accuracy. The chosen model was then scored on the test set once. Five candidates were compared, including the frozen run 2 model; run 4 (final adapter, LoRA scale 1.0, escalation threshold 0.5) won on validation with 93.0% against 91.5% for run 2, both with zero critical misses. On the test set the run 4 vs run 2 difference (94.7% vs 94.1%, 1 vs 2 critical misses) is not significant (exact McNemar p = 0.8). Run 2 stays on the `run2` branch of the Hugging Face repo, at its evaluated LoRA scale of 0.5. Full details and every intermediate number: [ml/results/eval.md](ml/results/eval.md).

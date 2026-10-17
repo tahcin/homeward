@@ -1588,6 +1588,340 @@
      "this_wrong_ref_right": 16
     }
    }
+  },
+  "mimo_v2_6_flash": {
+   "meta": {
+    "system": "mimo_v2_6_flash",
+    "model": "MiMo-V2.6-Flash",
+    "rows": 150,
+    "errors": 0,
+    "prompt_tokens": 57565,
+    "completion_tokens": 21191,
+    "latency_mean_s": 1895.0416465806961,
+    "reasoning_tokens": 0,
+    "latency_p50_s": 1976.1455597877502,
+    "latency_p95_s": 3172.5914215087887,
+    "json_mode": false,
+    "reasoning_effort": "none",
+    "note": "latency includes Token Factory queueing under the shared 20 requests/minute limit"
+   },
+   "metrics": {
+    "facts": 341,
+    "accuracy": 0.8885630498533724,
+    "macro_f1": 0.8909930952527301,
+    "per_verdict": {
+     "correct": {
+      "precision": 0.9914529914529915,
+      "recall": 0.8405797101449275,
+      "f1": 0.9098039215686274,
+      "support": 138
+     },
+     "partial": {
+      "precision": 0.6590909090909091,
+      "recall": 0.8923076923076924,
+      "f1": 0.7581699346405228,
+      "support": 65
+     },
+     "incorrect": {
+      "precision": 0.9560439560439561,
+      "recall": 0.90625,
+      "f1": 0.9304812834224598,
+      "support": 96
+     },
+     "missing": {
+      "precision": 0.9333333333333333,
+      "recall": 1.0,
+      "f1": 0.9655172413793104,
+      "support": 42
+     }
+    },
+    "false_reassurance_rate": 0.007246376811594203,
+    "false_reassurance_n": [
+     1,
+     138
+    ],
+    "false_reassurance_rate_critical": 0.009259259259259259,
+    "false_reassurance_critical_n": [
+     1,
+     108
+    ],
+    "partial_graded_correct_rate": 0.0,
+    "over_flag_rate": 0.15942028985507245,
+    "understood_vs_not_accuracy": 0.9325513196480938,
+    "invalid_facts": 0,
+    "confusion": {
+     "correct": {
+      "correct": 116,
+      "partial": 22,
+      "incorrect": 0,
+      "missing": 0,
+      "invalid": 0
+     },
+     "partial": {
+      "correct": 0,
+      "partial": 58,
+      "incorrect": 4,
+      "missing": 3,
+      "invalid": 0
+     },
+     "incorrect": {
+      "correct": 1,
+      "partial": 8,
+      "incorrect": 87,
+      "missing": 0,
+      "invalid": 0
+     },
+     "missing": {
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "missing": 42,
+      "invalid": 0
+     }
+    },
+    "accuracy_95ci": [
+     0.8630097847358121,
+     0.9177215189873418
+    ],
+    "macro_f1_95ci": [
+     0.8598360970522276,
+     0.9191652353281301
+    ],
+    "false_reassurance_rate_95ci": [
+     0.0,
+     0.02040816326530612
+    ],
+    "method": "case-level bootstrap, 1000 resamples",
+    "json_valid_rate": 1.0,
+    "answers": 150,
+    "answer_exact_match_rate": 0.78,
+    "per_language_accuracy": {
+     "ar": {
+      "accuracy": 0.8709677419354839,
+      "facts": 31
+     },
+     "bn": {
+      "accuracy": 0.92,
+      "facts": 25
+     },
+     "en": {
+      "accuracy": 0.9642857142857143,
+      "facts": 28
+     },
+     "es": {
+      "accuracy": 0.8888888888888888,
+      "facts": 27
+     },
+     "fr": {
+      "accuracy": 0.9333333333333333,
+      "facts": 30
+     },
+     "hi": {
+      "accuracy": 0.8333333333333334,
+      "facts": 30
+     },
+     "it": {
+      "accuracy": 0.9285714285714286,
+      "facts": 28
+     },
+     "pt": {
+      "accuracy": 0.8709677419354839,
+      "facts": 31
+     },
+     "ta": {
+      "accuracy": 0.896551724137931,
+      "facts": 29
+     },
+     "tl": {
+      "accuracy": 0.8846153846153846,
+      "facts": 26
+     },
+     "vi": {
+      "accuracy": 0.8076923076923077,
+      "facts": 26
+     },
+     "zh": {
+      "accuracy": 0.8666666666666667,
+      "facts": 30
+     }
+    },
+    "answers_without_prediction": 0,
+    "tokens": {
+     "prompt_per_answer": 383.76666666666665,
+     "completion_per_answer": 141.27333333333334
+    },
+    "paired_vs_e4b_base": {
+     "this_right_ref_wrong": 43,
+     "this_wrong_ref_right": 23
+    }
+   }
+  },
+  "qwen3_8_27b": {
+   "meta": {
+    "system": "qwen3_8_27b",
+    "model": "Qwen3.8-27B",
+    "rows": 150,
+    "errors": 0,
+    "prompt_tokens": 62413,
+    "completion_tokens": 121003,
+    "latency_mean_s": 1594.4276790237427,
+    "reasoning_tokens": 98184,
+    "latency_p50_s": 1937.8793150186539,
+    "latency_p95_s": 2666.2758674383163,
+    "json_mode": false,
+    "reasoning_effort": "low",
+    "note": "latency includes Token Factory queueing under the shared 20 requests/minute limit"
+   },
+   "metrics": {
+    "facts": 341,
+    "accuracy": 0.8768328445747801,
+    "macro_f1": 0.8949605951639483,
+    "per_verdict": {
+     "correct": {
+      "precision": 0.9814814814814815,
+      "recall": 0.7681159420289855,
+      "f1": 0.8617886178861789,
+      "support": 138
+     },
+     "partial": {
+      "precision": 0.6777777777777778,
+      "recall": 0.9384615384615385,
+      "f1": 0.7870967741935484,
+      "support": 65
+     },
+     "incorrect": {
+      "precision": 0.9381443298969072,
+      "recall": 0.9479166666666666,
+      "f1": 0.9430051813471502,
+      "support": 96
+     },
+     "missing": {
+      "precision": 1.0,
+      "recall": 0.9761904761904762,
+      "f1": 0.9879518072289156,
+      "support": 42
+     }
+    },
+    "false_reassurance_rate": 0.007246376811594203,
+    "false_reassurance_n": [
+     1,
+     138
+    ],
+    "false_reassurance_rate_critical": 0.009259259259259259,
+    "false_reassurance_critical_n": [
+     1,
+     108
+    ],
+    "partial_graded_correct_rate": 0.015384615384615385,
+    "over_flag_rate": 0.2318840579710145,
+    "understood_vs_not_accuracy": 0.9002932551319648,
+    "invalid_facts": 5,
+    "confusion": {
+     "correct": {
+      "correct": 106,
+      "partial": 26,
+      "incorrect": 3,
+      "missing": 0,
+      "invalid": 3
+     },
+     "partial": {
+      "correct": 1,
+      "partial": 61,
+      "incorrect": 3,
+      "missing": 0,
+      "invalid": 0
+     },
+     "incorrect": {
+      "correct": 1,
+      "partial": 3,
+      "incorrect": 91,
+      "missing": 0,
+      "invalid": 1
+     },
+     "missing": {
+      "correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "missing": 41,
+      "invalid": 1
+     }
+    },
+    "accuracy_95ci": [
+     0.8591457969720339,
+     0.9009590895749897
+    ],
+    "macro_f1_95ci": [
+     0.8805054637932966,
+     0.9141892189376009
+    ],
+    "false_reassurance_rate_95ci": [
+     0.0,
+     0.02040816326530612
+    ],
+    "method": "case-level bootstrap, 1000 resamples",
+    "json_valid_rate": 0.9933333333333333,
+    "answers": 150,
+    "answer_exact_match_rate": 0.7666666666666667,
+    "per_language_accuracy": {
+     "ar": {
+      "accuracy": 0.9032258064516129,
+      "facts": 31
+     },
+     "bn": {
+      "accuracy": 0.88,
+      "facts": 25
+     },
+     "en": {
+      "accuracy": 0.8928571428571429,
+      "facts": 28
+     },
+     "es": {
+      "accuracy": 0.8888888888888888,
+      "facts": 27
+     },
+     "fr": {
+      "accuracy": 0.8333333333333334,
+      "facts": 30
+     },
+     "hi": {
+      "accuracy": 0.9666666666666667,
+      "facts": 30
+     },
+     "it": {
+      "accuracy": 0.8214285714285714,
+      "facts": 28
+     },
+     "pt": {
+      "accuracy": 0.8709677419354839,
+      "facts": 31
+     },
+     "ta": {
+      "accuracy": 0.8275862068965517,
+      "facts": 29
+     },
+     "tl": {
+      "accuracy": 0.9615384615384616,
+      "facts": 26
+     },
+     "vi": {
+      "accuracy": 0.6923076923076923,
+      "facts": 26
+     },
+     "zh": {
+      "accuracy": 0.9666666666666667,
+      "facts": 30
+     }
+    },
+    "answers_without_prediction": 0,
+    "tokens": {
+     "prompt_per_answer": 416.08666666666664,
+     "completion_per_answer": 806.6866666666666
+    },
+    "paired_vs_e4b_base": {
+     "this_right_ref_wrong": 49,
+     "this_wrong_ref_right": 33
+    }
+   }
   }
  }
 }

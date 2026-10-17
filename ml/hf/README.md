@@ -46,7 +46,7 @@ Published model: Homeward adapter, <!--v:run-->run 4<!--/v--> (eval key <!--v:sy
 - Per-fact accuracy 94.7% (95% CI 91.9–97.5) on an independent test set of 150 answers and 341 facts in 12 languages. Critical facts the patient got wrong or left out but that were graded "understood": 1 of 108.
 - Against the same model without the adapter: 83.0% accuracy and 5 of 108 critical misses. The adapter fixes 43 fact grades and breaks 3 (exact McNemar p = 4.6e-10).
 - It keeps 97.6% of the accuracy of its teacher, Gemma 4 31B (97.1%, 1 of 108 critical misses), at about a quarter of the size (8B against 30.7B parameters). It ties it on critical misses but is below it on accuracy.
-- Higher point accuracy than DeepSeek V4 Flash (284B total, 13B active, 80.4%), Qwen3.8 Flash Next (180B total, 6B active, 91.2%), MiniCPM-V 4.7 35B-A3B (35B total, about 3B active, 85.9%) and Cloudflare Clef (27B dense, 88.9%). The largest of these is DeepSeek V4 Flash (284B total, 13B active). The 95% intervals overlap for Qwen3.8 Flash Next and Cloudflare Clef, so those gaps are not conclusive.
+- Higher point accuracy than MiMo-V2.6 Flash (309B total, 15B active, 88.9%), DeepSeek V4 Flash (284B total, 13B active, 80.4%), Qwen3.8 Flash Next (180B total, 6B active, 91.2%), MiniCPM-V 4.7 35B-A3B (35B total, about 3B active, 85.9%), Qwen3.8 27B (27B dense, 87.7%) and Cloudflare Clef (27B dense, 88.9%). The largest of these is MiMo-V2.6 Flash (309B total, 15B active). The 95% intervals overlap for Qwen3.8 Flash Next and Cloudflare Clef, so those gaps are not conclusive.
 <!--/b:headline-->
 
 The test set is synthetic. The grader has not been tested with real patients.
@@ -150,7 +150,9 @@ Metrics: accuracy is the share of facts whose verdict equals the designed verdic
 | Gemma 4 31B (teacher) | 30.7B dense | AMD Token Factory | 97.1% (94.9–99.1) | 0.971 | 1 of 108 | 0.7% | 2.9% | 100.0% |
 | **Homeward adapter (run 4)** | 8B total, 4.5B effective, plus 69.8M LoRA parameters | AMD Radeon PRO W7900D | **94.7% (91.9–97.5)** | 0.946 | **1 of 108** | 1.4% | 2.9% | 100.0% |
 | Qwen3.8 Flash Next | 180B total, 6B active | AMD Token Factory | 91.2% (89.7–92.8) | 0.913 | 1 of 108 | 0.7% | 8.7% | 99.3% |
+| MiMo-V2.6 Flash | 309B total, 15B active | AMD Token Factory | 88.9% (86.3–91.8) | 0.891 | 1 of 108 | 0.7% | 15.9% | 100.0% |
 | Cloudflare Clef | 27B dense | AMD Token Factory | 88.9% (86.1–92.7) | 0.897 | 1 of 108 | 0.7% | 13.0% | 100.0% |
+| Qwen3.8 27B | 27B dense | AMD Token Factory | 87.7% (85.9–90.1) | 0.895 | 1 of 108 | 0.7% | 23.2% | 99.3% |
 | MiniCPM-V 4.7 35B-A3B | 35B total, about 3B active | AMD Token Factory | 85.9% (79.4–90.7) | 0.852 | 3 of 108 | 2.2% | 13.8% | 100.0% |
 | Gemma 4 E4B, base (no adapter) | 8B total, 4.5B effective | AMD Radeon PRO W7900D | 83.0% (80.6–85.8) | 0.832 | 5 of 108 | 4.3% | 10.9% | 100.0% |
 | DeepSeek V4 Flash | 284B total, 13B active | AMD Token Factory | 80.4% (73.4–86.3) | 0.825 | 3 of 108 | 2.9% | 14.5% | 90.7% |
