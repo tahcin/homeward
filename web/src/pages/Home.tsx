@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useRouter } from "../App.tsx";
 import { Icon } from "../components/Icon.tsx";
 import { HeroBackdrop } from "../components/landing/HeroBackdrop.tsx";
@@ -49,6 +49,7 @@ const S = {
   engel: { label: "Engel et al., Ann Emerg Med 2009", href: "https://pubmed.ncbi.nlm.nih.gov/18619710/" },
   khoong: { label: "Khoong et al., JAMA Intern Med 2019", href: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6450297/" },
   emteba: { label: "Mahajan et al., Int J Emerg Med 2020", href: "https://pmc.ncbi.nlm.nih.gov/articles/PMC7513274/" },
+  agenas: { label: "AGENAS, Programma Nazionale Esiti 2025, indicator 201", href: "https://pne.agenas.it/assets/documentation/protocolli/pro_201.pdf" },
 } satisfies Record<string, Src>;
 
 const Sources = ({ list }: { list: Src[] }) => (
@@ -80,7 +81,7 @@ const CHAIN: { fig: string; title: string; text: string; src: Src[] }[] = [
   {
     fig: "3.85 million",
     title: "So they come back",
-    text: "US hospitals saw 3.85 million 30-day readmissions in 2020, costing about $16,300 each. About a quarter were judged potentially preventable, and Medicare is cutting payments to 80% of evaluated hospitals for excess readmissions in fiscal 2027.",
+    text: "In the US, hospitals saw 3.85 million 30-day readmissions in 2020, costing about $16,300 each. About a quarter were judged potentially preventable, and Medicare is cutting payments to 80% of evaluated hospitals for excess readmissions in fiscal 2027.",
     src: [S.hcup, S.auerbach, S.cms],
   },
   {
@@ -112,8 +113,23 @@ const BARRIERS: { title: string; problem: string; src: Src; answer: string }[] =
   },
 ];
 
+type OnSite = { clips: number | null; p50_s: number | null; peak_vram_gib: number | null };
+
+/** The on-site figure comes from the same results file as the Evidence page, so it always matches it. */
+function useOnSite() {
+  const [loop, setLoop] = useState<OnSite | null>(null);
+  useEffect(() => {
+    fetch("/evidence-results.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((d) => setLoop(d?.onprem_loop ?? null))
+      .catch(() => setLoop(null));
+  }, []);
+  return loop;
+}
+
 export function Home() {
   const { go } = useRouter();
+  const onSite = useOnSite();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState("");
   const italian = useSample("heart-failure-it");
@@ -162,6 +178,13 @@ export function Home() {
         <div className="wrap">
           <div className="lp-head">
             <h2 id="why-h">Why it matters</h2>
+            <p>
+              In Italy, 11.9% of patients admitted for heart failure in 2024 were back in hospital within 30 days: 8,769 of 73,886 (
+              <a href={S.agenas.href} target="_blank" rel="noreferrer">
+                {S.agenas.label}
+              </a>
+              ). Misunderstanding the discharge plan is one avoidable path back.
+            </p>
           </div>
           <ol className="lp-chain">
             {CHAIN.map((c) => (
@@ -290,9 +313,12 @@ export function Home() {
               <Icon name="right" size={16} />
             </Link>
           </div>
-          <p className="lp-measured">
-            On the author's own recorded Hindi answer, transcription and grading took <b>14.7 seconds</b> on one card, using <b>15.7 GB</b> of its 48 GB.
-          </p>
+          {onSite?.p50_s != null && onSite.peak_vram_gib != null && (
+            <p className="lp-measured">
+              Hearing and grading one spoken answer on one card took a median of <b>{onSite.p50_s} seconds</b> across {onSite.clips} recorded answers, with memory peaking at{" "}
+              <b>{onSite.peak_vram_gib} GiB</b> of the card's 48 GiB.
+            </p>
+          )}
         </div>
       </section>
     </div>

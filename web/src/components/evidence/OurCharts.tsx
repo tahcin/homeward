@@ -395,7 +395,7 @@ export function DeploymentCard({ r }: { r: Results }) {
   if (!cap.by_batch.length) return null;
   const groups: Group[] = cap.by_batch.map((b) => ({
     label: `Batch of ${b.batch}`,
-    items: [{ series: "Teach-backs graded per hour", value: b.per_hour, color: COLORS.gemma, display: b.per_hour.toLocaleString(), detail: b.peak_vram_gib ? [`Peak memory ${b.peak_vram_gib} GiB of 48 GB`] : undefined }],
+    items: [{ series: "Teach-backs graded per hour", value: b.per_hour, color: COLORS.gemma, display: b.per_hour.toLocaleString(), detail: b.peak_vram_gib ? [`Peak memory ${b.peak_vram_gib} GiB of 48 GiB`] : undefined }],
   }));
   const max = Math.max(...cap.by_batch.map((b) => b.per_hour));
   const money = (v: number) => `$${v < 0.01 ? v.toFixed(5) : v.toFixed(3)}`;
@@ -408,6 +408,7 @@ export function DeploymentCard({ r }: { r: Results }) {
         `Capacity assumes ${cap.answers_per_discharge ?? 6} graded answers per discharge, grading batched at ${top.batch} and speech recognition one clip at a time, on one card with no other load.`,
         "Cloud prices are AMD Token Factory list prices for the tokens our test answers used. Cloud latency in our runs included queueing under a shared hackathon rate limit, so it is not a fair speed comparison and is not shown.",
         "Token Factory did not accept audio input when we tested it, so the cloud graders still need a separate speech service.",
+        ...(loop.clips ? [`The ${loop.clips}-clip timing of one spoken answer (batch size 1) was measured with an earlier fine-tuned adapter on the same Gemma 4 E4B base.`] : []),
       ]}
       source={
         <>
@@ -432,7 +433,7 @@ export function DeploymentCard({ r }: { r: Results }) {
                 One spoken answer, heard and graded: {loop.p50_s} s median, {loop.p95_s} s at the 95th percentile ({loop.clips} clips)
               </li>
             )}
-            {loop.peak_vram_gib != null && <li>{loop.peak_vram_gib} GiB of the card's 48 GB, one model copy for speech and grading</li>}
+            {loop.peak_vram_gib != null && <li>Peak memory {loop.peak_vram_gib} GiB of the card's 48 GiB, one model copy for speech and grading</li>}
             <li>No per-call fee and no patient audio or text leaves the hospital</li>
           </ul>
         </div>
@@ -464,11 +465,9 @@ const xFmt = (x: number) => (x >= 10 ? `${Math.round(x)}×` : `${x.toFixed(1)}×
 const shortSize = (s: SystemResult) => (s.size?.verified ? s.size.total ?? s.size.display : null);
 const list = (xs: string[]) => (xs.length <= 1 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`);
 
-function sizedGroups(rows: SystemResult[], ours: SystemResult) {
-  const sub = (s: SystemResult) => {
-    const x = s.role === "ours" ? null : ratio(s, ours);
-    return `${sizeText(s)}${x && Math.abs(x - 1) > 0.05 ? ` · ${xFmt(x)} Homeward's size` : ""}`;
-  };
+function sizedGroups(rows: SystemResult[]) {
+  // Sizes only, no "times our size" multiplier: for mixture-of-experts models total against total overstates the gap.
+  const sub = (s: SystemResult) => sizeText(s);
   const acc: Group[] = rows.map((s) => ({
     label: s.label,
     sub: sub(s),
@@ -504,8 +503,8 @@ function sizedGroups(rows: SystemResult[], ours: SystemResult) {
   return { acc, crit };
 }
 
-function TwoPanels({ rows, ours, N, id }: { rows: SystemResult[]; ours: SystemResult; N: number | undefined; id: string }) {
-  const { acc, crit } = sizedGroups(rows, ours);
+function TwoPanels({ rows, N, id }: { rows: SystemResult[]; N: number | undefined; id: string }) {
+  const { acc, crit } = sizedGroups(rows);
   const lo = Math.min(...rows.map((s) => s.accuracy_ci?.[0] ?? s.accuracy ?? 100));
   const d0 = Math.max(0, Math.floor((lo - 5) / 10) * 10);
   const cmax = Math.max(0, ...rows.map((s) => s.critical_false_reassurance_n?.[0] ?? 0));
@@ -525,15 +524,13 @@ function TwoPanels({ rows, ours, N, id }: { rows: SystemResult[]; ours: SystemRe
   );
 }
 
-const sizeTable = (rows: SystemResult[], ours: SystemResult) => ({
-  head: ["System", "Parameters", "Times Homeward's size", "Fact accuracy", "95% interval", "Critical misses", "Runs on"],
-  numeric: [false, false, true, true, true, true, false],
+const sizeTable = (rows: SystemResult[]) => ({
+  head: ["System", "Parameters", "Fact accuracy", "95% interval", "Critical misses", "Runs on"],
+  numeric: [false, false, true, true, true, false],
   rows: rows.map((s) => {
-    const x = s.role === "ours" ? null : ratio(s, ours);
     return [
       s.label,
       sizeText(s),
-      x ? xFmt(x) : "",
       s.accuracy !== null ? f1(s.accuracy) : "",
       s.accuracy_ci ? `${s.accuracy_ci[0]}–${s.accuracy_ci[1]}%` : "",
       s.critical_false_reassurance_n ? `${s.critical_false_reassurance_n[0]} of ${s.critical_false_reassurance_n[1]}` : "",
@@ -554,22 +551,30 @@ export function SizeChart({ r }: { r: Results }) {
   const rows = [ours, ...rest];
   const name = (s: SystemResult) => s.label.replace(" (cloud)", "");
   const others = rest.filter((s) => s.role !== "base");
-  const beaten = others.filter((s) => s.accuracy! > 0 && s.accuracy! < ours.accuracy!);
+  const oc = ours.critical_false_reassurance_n?.[0];
+  const N = ours.critical_false_reassurance_n?.[1];
+  // "Beats" only where both numbers favour Homeward: higher accuracy and no more critical misses.
+  // Higher accuracy alone is said as "higher accuracy than", with the critical misses next to it.
+  const higher = others.filter((s) => s.accuracy! > 0 && s.accuracy! < ours.accuracy!);
+  const crit = (s: SystemResult) => s.critical_false_reassurance_n?.[0];
+  const beaten = higher.filter((s) => oc !== undefined && crit(s) !== undefined && oc <= crit(s)!);
+  const accOnly = higher.filter((s) => !beaten.includes(s));
   const ahead = others.filter((s) => s.accuracy! >= ours.accuracy! && s.role !== "teacher");
   const largest = [...beaten].sort((a, b) => (b.size?.total_b ?? 0) - (a.size?.total_b ?? 0))[0];
   const oSize = shortSize(ours);
-  const oc = ours.critical_false_reassurance_n?.[0];
-  const N = ours.critical_false_reassurance_n?.[1];
   let title: string;
   if (largest) {
     const lSize = shortSize(largest);
     title = `Our fine-tuned ${oSize ?? ""} Gemma beats ${lSize ? `a ${lSize} model, ${name(largest)},` : name(largest)} at checking discharge understanding: ${f1(ours.accuracy)} against ${f1(largest.accuracy!)}`.replace("  ", " ");
-    const lc = largest.critical_false_reassurance_n?.[0];
-    if (oc !== undefined && lc !== undefined) title += oc < lc ? `, with fewer critical misses (${oc} against ${lc})` : oc === lc ? `, with the same number of critical misses (${oc})` : `, though with more critical misses (${oc} against ${lc})`;
+    const lc = crit(largest);
+    if (oc !== undefined && lc !== undefined) title += oc < lc ? `, with fewer critical misses (${oc} against ${lc})` : `, with the same number of critical misses (${oc})`;
     const alsoBeat = beaten.filter((s) => s !== largest);
     if (alsoBeat.length) title += `; it also beats ${list(alsoBeat.map(name))}`;
   } else {
     title = `${ours.label} grades ${f1(ours.accuracy)} of facts correctly`;
+  }
+  if (accOnly.length) {
+    title += `; it has higher accuracy than ${list(accOnly.map(name))}, ${accOnly.length > 1 ? "which let" : "which lets"} through fewer critical misses (${list(accOnly.map((s) => `${crit(s) ?? "?"}`))} against ${oc})`;
   }
   if (ahead.length) title += `; ${list(ahead.map((s) => `${name(s)} (${f1(s.accuracy!)})`))} ${ahead.length > 1 ? "score" : "scores"} higher`;
   if (includeTeacher && teacher) title += `, and it matches or beats its teacher ${teacher.model ?? name(teacher)}`;
@@ -581,7 +586,8 @@ export function SizeChart({ r }: { r: Results }) {
       sub={
         <>
           Every model here is one Homeward did not learn from. Each graded the same {t.facts} facts in {t.answers} independent teach-back answers ({t.cases} cases,{" "}
-          {t.languages.length} languages), written by a different model family (Claude) and never seen by the data generator or in training. Each row gives the model's size.
+          {t.languages.length} languages), written by a different model family (Claude) and never seen by the data generator or in training. Every other model was given
+          the same grading prompt with no examples (zero-shot); Homeward is fine-tuned for this task and output format. Each row gives the model's size.
           {pv && base ? ` Against its own base model, Homeward fixed ${pv.fixes} facts and broke ${pv.breaks} (exact McNemar p = ${pfmt(pv.p)}).` : ""}
           {teacher && !includeTeacher ? ` Its teacher, ${teacher.model ?? name(teacher)}, is compared separately below.` : ""}
         </>
@@ -589,13 +595,13 @@ export function SizeChart({ r }: { r: Results }) {
       caveats={[
         `Small test set: ${t.answers} answers from ${t.cases} cases, so the 95% intervals (${ours.ci_method ?? "case-level bootstrap"}) are wide; overlapping intervals are not a clear win.`,
         `Critical misses are small counts out of ${N ?? "?"}; one or two either way is within noise. Homeward never relies on the grader alone: the patient gets a re-teach and the nurse confirms.`,
-        "The answers are synthetic. Sizes come from the makers' model cards (amd-act-iii-2026/model-sizes.md) and are shown only where verified. Mixture-of-experts models list total and active parameters; the multiplier uses total.",
+        "The answers are synthetic. Sizes come from the makers' model cards (amd-act-iii-2026/model-sizes.md) and are shown only where verified. Mixture-of-experts models list total and active parameters.",
         "The accuracy axis starts above zero to show the intervals.",
       ]}
       source={SOURCE_OURS}
-      table={sizeTable(rows, ours)}
+      table={sizeTable(rows)}
     >
-      <TwoPanels rows={rows} ours={ours} N={N} id="Homeward vs other models" />
+      <TwoPanels rows={rows} N={N} id="Homeward vs other models" />
       {LEGEND_OURS(r, "dot")}
     </ChartCard>
   );
@@ -633,9 +639,9 @@ export function TeacherChart({ r }: { r: Results }) {
         "Accuracy kept is Homeward's accuracy divided by the teacher's. Size uses the makers' published parameter counts.",
       ]}
       source={SOURCE_OURS}
-      table={sizeTable([ours, teacher], ours)}
+      table={sizeTable([ours, teacher])}
     >
-      <TwoPanels rows={[ours, teacher]} ours={ours} N={N} id="Homeward vs its teacher" />
+      <TwoPanels rows={[ours, teacher]} N={N} id="Homeward vs its teacher" />
       <div className="ev-compare two">
         <div className="ev-cmp ours">
           <h4>{ours.label}</h4>

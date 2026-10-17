@@ -224,7 +224,7 @@ export function Board({ s, update, goStage, reset }: { s: Session; update: Updat
           </label>
           <span className="small muted">
             {onsite
-              ? `Showing ${onprem.model.name}'s verdicts for the same recorded answers${swap && swap.unmatched ? `; ${swap.unmatched} answer(s) had no matching on-site grade and keep the hosted grade` : ""}.`
+              ? `Showing the verdicts of ${onprem.model.name} for the same recorded answers${swap && swap.unmatched ? `; ${swap.unmatched} answer(s) had no matching on-site grade and keep the hosted grade` : ""}.`
               : "Shows how our fine-tuned Gemma 4 E4B, running on one workstation GPU, graded these same answers."}
           </span>
         </div>

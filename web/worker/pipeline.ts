@@ -5,7 +5,7 @@
 import grader from "../../prompts/grader.json";
 import { CATEGORIES, langByCode } from "../shared/types.ts";
 import type { AnchorProblem, Fact, FactGrade, Fault, Level, LockResult, MeaningIssue, PatientVersion, PrepareEvent, Topic, Verdict } from "../shared/types.ts";
-import { inventedNumbers, numberTokens, splitLeaflet, strayEnglish, verifyFact } from "./lock.ts";
+import { backTranslationProblem, bracketNames, inventedNumbers, numberTokens, splitLeaflet, strayEnglish, verifyFact } from "./lock.ts";
 import { HIGH_RISK_HINT, highRiskGroup } from "./rules.ts";
 import { cleanAnchors, compareMed, missingItems, notEnglishComplaint, tidyDuplicateBrackets, type ItemCheck, type MedTuple } from "./structured.ts";
 import { chat, TF_HOST, type Env, type Meter, type ModelRef } from "./tf.ts";
@@ -353,11 +353,14 @@ async function backTranslate(
   env: Env,
   meter: Meter,
   sentences: { id: string; text: string }[],
-  langName: string,
+  lang: { code: string; name: string },
+  facts: Fact[],
   known: Map<string, string>,
   suspects: Map<string, Suspect[]>,
   label: string,
 ): Promise<boolean> {
+  const langName = lang.name;
+  const system = BACK_SYSTEM(langName);
   const todo = [...new Set(sentences.map((x) => x.text).filter((t) => !known.has(t)))];
   const CHUNK = 4;
   const chunks: string[][] = [];
@@ -374,9 +377,10 @@ async function backTranslate(
             models: CHECKER,
             json: true,
             maxTokens: 3000,
-            temperature: 0,
+            // The same request at temperature 0 tends to repeat the same failure: vary it a little on later tries.
+            temperature: tryNo === 0 ? 0 : 0.3,
             messages: [
-              { role: "system", content: BACK_SYSTEM(langName) },
+              { role: "system", content: system },
               { role: "user", content: JSON.stringify(input) },
             ],
             accept: (d) => d && typeof d === "object" && !Array.isArray(d),
@@ -388,6 +392,14 @@ async function backTranslate(
             // An entry whose numbers differ from its source sentence is misaligned (or altered): ask again.
             const same = (x: string) => numberTokens(x).map(Number).sort((p, q) => p - q).join(",");
             if (!en || same(en) !== same(t)) {
+              still.push(t);
+              return;
+            }
+            // Its own instructions, the source sentence handed back or a half translation is the checker failing:
+            // ask again, and never let a fact pass on it.
+            const bad = backTranslationProblem(en, t, lang.code, system, bracketNames(t, facts));
+            if (bad) {
+              meter.add({ step: `${label}: back-translation rejected`, model: DEEPSEEK, host: TF_HOST, ms: 0, note: `${bad}; asked again` });
               still.push(t);
               return;
             }
@@ -718,7 +730,7 @@ export async function prepare(
     const toCheck = facts.filter((f) => !carried.includes(f));
     const [picked, ok] = await Promise.all([
       lockQuotes(env, meter, toCheck, sentences, `Fact lock: find each fact's sentences${suffix}`),
-      backTranslate(env, meter, sentences, lang.name, english, suspects, round === 0 ? "Back-translate every sentence" : `Back-translate the repaired sentences${suffix}`),
+      backTranslate(env, meter, sentences, lang, facts, english, suspects, round === 0 ? "Back-translate every sentence" : `Back-translate the repaired sentences${suffix}`),
     ]);
     // The checker sometimes points at nothing for a fact whose sentence is plainly there: ask once more for those
     // facts alone before calling the fact missing (a "missing" fact would otherwise be written again by the repair).
@@ -730,7 +742,7 @@ export async function prepare(
     backOk = ok;
     // A failed back-translation is the checker's problem, not the text's: try the missing sentences again before judging.
     for (let extra = 0; extra < 2 && !backOk; extra++) {
-      backOk = await backTranslate(env, meter, sentences, lang.name, english, suspects, `Back-translate the remaining sentences${suffix}`);
+      backOk = await backTranslate(env, meter, sentences, lang, facts, english, suspects, `Back-translate the remaining sentences${suffix}`);
     }
     const byId = new Map(sentences.map((x) => [x.id, x]));
     const text = draft.paragraphs.join("\n\n");
@@ -763,19 +775,23 @@ export async function prepare(
     }
     // Anchors present is not enough ("take" vs "do not take"): compare meaning on everything that passed the code checks.
     const passed = toCheck.filter((f) => results[f.id].problems.length === 0);
-    if (!backOk) {
-      // The checker failed, not the text: a repair cannot help, so these facts go straight to the nurse.
-      for (const f of passed) results[f.id].problems.push({ kind: "meaning", anchor: "", reason: "the back-translation failed, so the meaning could not be checked" });
-      for (const f of passed) uncheckable.add(f.id);
-    } else {
-      const critical = passed.filter((f) => f.critical && f.category === "warning_sign");
+    // A fact whose sentences have no accepted back-translation cannot be checked. The checker failed, not the text:
+    // a repair cannot help, so such facts go straight to the nurse. Facts with every sentence translated go on.
+    const unchecked = backOk ? [] : passed.filter((f) => (picked[f.id] ?? []).some((id) => !english.has(byId.get(id)!.text)));
+    for (const f of unchecked) {
+      results[f.id].problems.push({ kind: "meaning", anchor: "", reason: "the back-translation failed, so the meaning could not be checked" });
+      uncheckable.add(f.id);
+    }
+    {
+      const checkable = toCheck.filter((f) => results[f.id].problems.length === 0);
+      const critical = checkable.filter((f) => f.critical && f.category === "warning_sign");
       const fs = await structureP;
-      const medItems = fs ? passed.filter((f) => fs.meds[f.id] && results[f.id].quote_en).map((f) => ({ id: f.id, text: results[f.id].quote_en })) : [];
+      const medItems = fs ? checkable.filter((f) => fs.meds[f.id] && results[f.id].quote_en).map((f) => ({ id: f.id, text: results[f.id].quote_en })) : [];
       const warnItems = fs
-        ? passed.filter((f) => (fs.warnings[f.id]?.length ?? 0) > 1 && results[f.id].quote_en).map((f) => ({ id: f.id, items: fs.warnings[f.id], text: results[f.id].quote_en }))
+        ? checkable.filter((f) => (fs.warnings[f.id]?.length ?? 0) > 1 && results[f.id].quote_en).map((f) => ({ id: f.id, items: fs.warnings[f.id], text: results[f.id].quote_en }))
         : [];
       const [meaning, second, ps] = await Promise.all([
-        compareMeaning(env, meter, passed.map((f) => ({ fact: f, quote_en: results[f.id].quote_en })), `Fact lock: compare meaning${suffix}`),
+        compareMeaning(env, meter, checkable.map((f) => ({ fact: f, quote_en: results[f.id].quote_en })), `Fact lock: compare meaning${suffix}`),
         secondReading(env, meter, critical.map((f) => ({ fact: f, quote: results[f.id].quote })), lang.name, `Fact lock: second literal reading of critical warning signs${suffix}`).catch(
           () => null,
         ),
@@ -804,7 +820,7 @@ export async function prepare(
         if (second === null) results[f.id].problems.push({ kind: "meaning", anchor: "", reason: "the second reading of this critical warning sign failed" });
         else for (const x of second[f.id] ?? []) results[f.id].problems.push({ kind: "meaning", anchor: x.word, reason: `second reading found "${x.word}"${x.why ? `: ${x.why}` : ""}` });
       }
-      for (const f of passed) {
+      for (const f of checkable) {
         const m = meaning[f.id];
         if (!m) results[f.id].problems.push({ kind: "meaning", anchor: "", reason: "the meaning check gave no answer for this fact" });
         else if (!m.match) results[f.id].problems.push({ kind: "meaning", anchor: m.issue, reason: `meaning differs (${m.issue.replace("_", " ")})${m.explain ? `: ${m.explain}` : ""}` });

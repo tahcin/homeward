@@ -367,7 +367,7 @@
     {
       "step": "Find the facts",
       "model": "Gemma-4-31B-IT",
-      "host": "AMD Instinct via Token Factory",
+      "host": "AMD GPUs via AMD Token Factory",
       "ms": 83637,
       "tokens_in": 904,
       "tokens_out": 1365,

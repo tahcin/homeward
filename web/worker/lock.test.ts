@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { checkAnchor, inventedNumbers, numberTokens, quoteIsVerbatim, splitLeaflet, strayEnglish, verifyFact } from "./lock.ts";
+import { backTranslationProblem, bracketNames, checkAnchor, inventedNumbers, numberTokens, quoteIsVerbatim, splitLeaflet, strayEnglish, verifyFact } from "./lock.ts";
 import type { Fact } from "../shared/types.ts";
 
 const fact: Fact = {
@@ -130,4 +130,49 @@ test("local drug names with the box-label name in brackets, local titles and dec
 test("sentences are not split after local titles", () => {
   const s = splitLeaflet(["Vada dal Dott. Rossi il 12 novembre. Porti i referti."]);
   assert.deepEqual(s.map((x) => x.text), ["Vada dal Dott. Rossi il 12 novembre.", "Porti i referti."]);
+});
+
+// Taken from the recorded Oct 16 samples, where these back-translations let facts lock.
+const PROMPT = "You are an adversarial literal translator checking a Spanish patient leaflet for a discharge nurse. Translate each sentence into English word for word.";
+
+test("a back-translation that repeats the checker's instructions is rejected", () => {
+  const r = backTranslationProblem(
+    "You are an adversarial literal translator checking a Spanish patient leaflet for a discharge nurse.",
+    "No tome el naproxen que tiene en casa hasta que el cirujano lo revise.",
+    "es",
+    PROMPT,
+  );
+  assert.match(r ?? "", /instructions/);
+});
+
+test("a back-translation that hands back the source sentence is rejected", () => {
+  const es = "Llame al 112 si tiene dolor o hinchazón en la pantorrilla.";
+  assert.match(backTranslationProblem(es, es, "es", PROMPT) ?? "", /source sentence/);
+  const it = "Al suo posto, usi paracetamolo (paracetamol) 500 mg fino a 3 volte al giorno solo se necessario.";
+  assert.ok(backTranslationProblem(it, it, "it", PROMPT));
+  // Half translated: the second half is still Italian.
+  const half = "Stop taking the ibuprofen (ibuprofen). Al suo posto, usi paracetamolo (paracetamol) 500 mg fino a 3 volte al giorno solo se necessario.";
+  assert.ok(backTranslationProblem(half, `Smetta di prendere l'ibuprofene (ibuprofen). ${it}`, "it", PROMPT));
+});
+
+test("a back-translation in another script is rejected", () => {
+  assert.match(backTranslationProblem("नई दवा Apixaban 5 mg लें।", "नई दवा Apixaban 5 mg लें।", "hi", PROMPT) ?? "", /not in English/);
+});
+
+test("a back-translation that drops the medicine is rejected", () => {
+  const facts: Fact[] = [{ ...fact, statement: "Take furosemide 40 mg twice a day at 8:00 and 14:00." }];
+  const src = "Prenda furosemide (Furosemide) 40 mg due volte al giorno alle 8:00 e alle 14:00.";
+  assert.deepEqual(bracketNames(src, facts), ["furosemide"]);
+  assert.match(backTranslationProblem("40 mg two times per day at 8:00 and at 14:00.", src, "it", PROMPT, bracketNames(src, facts)) ?? "", /furosemide/);
+  assert.equal(backTranslationProblem("Take furosemide (Furosemide) 40 mg two times per day at 8:00 and at 14:00.", src, "it", PROMPT, bracketNames(src, facts)), null);
+});
+
+test("good literal back-translations pass, including names, doses and Hindi word order", () => {
+  assert.equal(backTranslationProblem("Attend the Orthopedics clinic with Dr. Luis Herrera on November 10, 2026 at 9:15.", "Asista a la clínica de Ortopedia con el Dr. Luis Herrera el 10 de noviembre de 2026 a las 9:15.", "es", PROMPT), null);
+  assert.equal(backTranslationProblem("Take Paracetamol 1 g every 6 h. The maximum is of 4 g in 24 h.", "Tome Paracetamol 1 g cada 6 h. El máximo es de 4 g en 24 h.", "es", PROMPT), null);
+  assert.equal(backTranslationProblem("Metoprolol succinate 25 mg take.", "नई दवा Metoprolol succinate 25 mg लें।", "hi", PROMPT), null);
+  assert.equal(backTranslationProblem("Paracetamol 500 mg.", "Paracetamol 500 mg.", "it", PROMPT), null);
+  // English leaflets are their own back-translation.
+  const en = "Take furosemide 40 mg twice a day.";
+  assert.equal(backTranslationProblem(en, en, "en", PROMPT), null);
 });

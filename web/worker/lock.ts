@@ -233,3 +233,60 @@ export function strayEnglish(quote: string, lang: string, allFacts: Fact[]): str
   const words = normLoose(quote).replace(/°\s*[cf]\b/g, " ").match(/[a-z]+/g) ?? [];
   return [...new Set(words.filter((w) => !allowed.has(w)))];
 }
+
+/** Lower-case word tokens of Latin letters (diacritics removed), two letters or more. */
+function latinWords(s: string): string[] {
+  return (normLoose(s).match(/[a-z]+/g) ?? []).filter((w) => w.length >= 2);
+}
+
+/** Words a back-translation must keep: medicine label names in brackets ("(Furosemide)") that the facts also name. */
+export function bracketNames(source: string, allFacts: Fact[]): string[] {
+  const known = new Set<string>();
+  for (const f of allFacts) for (const w of latinWords([f.statement, ...f.anchors].join(" "))) known.add(w);
+  const out: string[] = [];
+  for (const m of normLoose(source).matchAll(/\(([^()]{2,40})\)/g)) {
+    const words = latinWords(m[1]);
+    if (words.length && words.length <= 2 && words.every((w) => known.has(w))) out.push(...words);
+  }
+  return [...new Set(out)];
+}
+
+/**
+ * Code check of one literal back-translation before it is trusted. The checker model has returned its own
+ * instructions, the source sentence unchanged, or a half-translated sentence; any of these would let a fact pass
+ * on text nobody translated. Returns why the back-translation is unusable (a checker failure: ask again, never
+ * pass), or null when it can be used.
+ */
+export function backTranslationProblem(en: string, source: string, lang: string, prompt: string, keep: string[] = []): string | null {
+  const enWords = latinWords(en);
+  // 1. Its own instructions: five words in a row taken from the system prompt.
+  const promptText = ` ${latinWords(prompt).join(" ")} `;
+  for (let i = 0; i + 5 <= enWords.length; i++) {
+    if (promptText.includes(` ${enWords.slice(i, i + 5).join(" ")} `)) return "the back-translation repeats the checker's instructions";
+  }
+  if (lang === "en") return null;
+  // 2. Letters in another script: the sentence was not translated into English.
+  const letters = en.normalize("NFKC").match(/\p{L}/gu) ?? [];
+  const foreign = letters.filter((c) => !/\p{Script=Latin}/u.test(c)).length;
+  if (letters.length && foreign / letters.length > 0.15) return "the back-translation is not in English";
+  if (!enWords.length) return "the back-translation has no English words";
+  // 3. The source sentence handed back, whole or in part.
+  // (A sentence of only a name and a dose, "Paracetamol 500 mg.", may rightly come back unchanged.)
+  if (latinWords(source).length >= 3 && normLoose(en).replace(/[^\p{L}\p{N}]+/gu, "") === normLoose(source).replace(/[^\p{L}\p{N}]+/gu, "")) return "the back-translation is the source sentence, not a translation";
+  // Only for languages written in Latin letters: in other scripts the shared Latin words are medicine and people's names.
+  const src = new Set(latinWords(source));
+  if (src.size && !NON_LATIN.has(lang)) {
+    const shared = enWords.filter((w) => src.has(w)).length;
+    if (enWords.length >= 4 && shared / enWords.length >= 0.6) return "the back-translation is mostly the source sentence, not English";
+    let run = 0;
+    for (const w of enWords) {
+      run = src.has(w) ? run + 1 : 0;
+      if (run >= 5) return "part of the sentence was left untranslated";
+    }
+  }
+  // 4. A medicine label name the sentence carries is gone: the translation dropped part of the sentence.
+  const enSet = new Set(enWords);
+  const lost = keep.filter((w) => !enSet.has(w));
+  if (lost.length) return `the back-translation leaves out ${lost.map((w) => `"${w}"`).join(", ")}`;
+  return null;
+}

@@ -171,6 +171,31 @@ interface EvalFile {
 }
 
 const num = (v: unknown) => typeof v === "number" && Number.isFinite(v);
+
+type CritSystem = { role: string; label: string; model?: string; accuracy: number | null; critical_false_reassurance_n?: [number, number] };
+type Evidence = { grader: { independent?: { systems: CritSystem[] } } };
+
+/** The safety sentence, worked out from the same results file as the Evidence page, so a new run updates it. */
+function SafetyLine({ ev }: { ev: Evidence | null }) {
+  const sys = ev?.grader.independent?.systems ?? [];
+  const ours = sys.find((s) => s.role === "ours");
+  const base = sys.find((s) => s.role === "base");
+  const teacher = sys.find((s) => s.role === "teacher");
+  const n = (s?: CritSystem) => s?.critical_false_reassurance_n?.[0];
+  const N = ours?.critical_false_reassurance_n?.[1];
+  if (!ours || n(ours) === undefined || !N) return null;
+  const acc = base?.accuracy != null && ours.accuracy != null ? ` fine-tuning raised verdict accuracy from ${base.accuracy.toFixed(1)}% to ${ours.accuracy.toFixed(1)}%.` : "";
+  const vsBase = base && n(base) !== undefined ? ` and the base model ${n(base)}` : "";
+  const vsTeacher = teacher && n(teacher) !== undefined ? ` ${teacher.model ?? teacher.label} passed ${n(teacher)}.` : "";
+  const demo = teacher && n(teacher)! <= n(ours)! ? " The hosted demo grades with Gemma 4 31B for that reason." : "";
+  return (
+    <p className="small">
+      What this means for safety:{acc} Of the {N} critical facts the patients got wrong or left out, the fine-tuned model passed {n(ours)} as understood
+      {vsBase}. These are small counts, so one or two either way is within noise.{vsTeacher}
+      {demo} The small model is the on-site option, for hospitals where data cannot leave the building; either way, the nurse reviews every result on the board.
+    </p>
+  );
+}
 function cell(m: EvalModel, id: string, unit: string) {
   const v = m[id];
   if (!num(v)) return <span className="faint">not measured</span>;
@@ -186,12 +211,17 @@ function cell(m: EvalModel, id: string, unit: string) {
 
 function Evaluation() {
   const [e, setE] = useState<EvalFile | null>(null);
+  const [ev, setEv] = useState<Evidence | null>(null);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
     fetch("/eval.json", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then(setE)
       .catch(() => setFailed(true));
+    fetch("/evidence-results.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then(setEv)
+      .catch(() => setEv(null));
   }, []);
   if (failed) return <p className="muted">The evaluation file could not be loaded.</p>;
   if (!e) return <p className="muted">Loading the evaluation.</p>;
@@ -236,12 +266,7 @@ function Evaluation() {
             </tbody>
           </table>
         </div>
-        <p className="small">
-          What this means for safety: fine-tuning raised verdict accuracy, but not safety. On the 108 critical facts the patients got wrong or left out, the fine-tuned
-          model missed 7 and the base model 5; the confidence intervals overlap, so neither is better on this test. Gemma 4 31B missed 1, which is why this hosted demo
-          grades with Gemma 4 31B. The small model is the on-site option, for hospitals where data cannot leave the building; either way, the nurse reviews every result on
-          the board.
-        </p>
+        <SafetyLine ev={ev} />
         <p className="tiny faint">
           {e.grader.metrics
             .filter((m) => m.hint)
@@ -312,7 +337,6 @@ const WHERE: [string, string, string, string][] = [
   ["Fact lock: anchors and stray English in every sentence; the confirmation rule", "Homeward code, no model", "Cloudflare Worker", "Cloudflare"],
   ["Grade the teach-back, write re-teach lines", "Gemma 4 31B (on-site build: our fine-tuned Gemma 4 E4B, not connected to this demo)", "AMD GPUs (on site: AMD Radeon PRO W7900D)", "AMD Token Factory (on site: self-hosted)"],
   ["Transcribe the spoken answer", "Browser speech recognition (on site: Gemma 4 E4B)", "Patient's device (on site: AMD Radeon PRO W7900D)", "Browser (on site: self-hosted)"],
-  ["Second literal reading in the recorded Italian and Spanish samples only", "Qwen3.8-Flash-Next", "AMD GPUs", "AMD Token Factory"],
 ];
 
 export function How() {
@@ -390,14 +414,14 @@ export function How() {
             <h3>Hosted demo (this site)</h3>
             <p className="small muted">
               Gemma 4 31B finds the facts, writes the patient version and grades the teach-back. DeepSeek V4 Flash only answers for Gemma if Gemma fails, and the audit trail
-              marks it as a fallback. Spoken answers are transcribed by your browser, because Token Factory does not yet serve audio input. When the Italian and Spanish samples were recorded, Qwen3.8-Flash-Next did the second literal reading; it was then dropped because it misreads Devanagari vowel signs, and DeepSeek V4 Flash does that pass now.
+              marks it as a fallback. Spoken answers are transcribed by your browser, because Token Factory does not yet serve audio input.
             </p>
           </div>
           <div className="card pad stack">
             <h3>Hospital deployment</h3>
             <p className="small muted">
               Real discharge notes cannot go to a public API (Token Factory's own terms forbid health data). In the hospital, Gemma 4 E4B, fine-tuned with LoRA on one AMD
-              Radeon PRO W7900D (48 GB), listens to the answer and grades it on site, where the data already lives.
+              Radeon PRO W7900D (48 GiB), listens to the answer and grades it on site, where the data already lives.
             </p>
           </div>
         </div>

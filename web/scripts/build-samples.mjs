@@ -5,6 +5,8 @@
 //   node scripts/build-samples.mjs <base-url> labels  <id...>   # add short nurse labels to those facts
 //   node scripts/build-samples.mjs <base-url> version <id...>   # patient version -> public/samples/<id>.json
 //   node scripts/build-samples.mjs <base-url> answers <id...>   # grade the scripted answers in scripts/answers/<id>.json
+//   node scripts/build-samples.mjs <base-url> keep-answers <id...>  # publish a new version with the published sample's
+//                                                                   # graded answers (grading does not read the version)
 //
 // Between "facts" and "version" a person reviews the facts file, as the nurse would in the app.
 // Two samples put a deliberate error into the first draft (a reversed instruction, a doubled dose) so the
@@ -12,11 +14,15 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { backTranslationProblem, bracketNames } from "../worker/lock.ts";
+
+// Enough of the checker's instructions to recognise them if they come back as a "translation".
+const BACK_PROMPT = "You are an adversarial literal translator checking a patient leaflet for a discharge nurse. Translate each sentence into English word for word. Reply with JSON only";
 
 const here = path.dirname(new URL(import.meta.url).pathname);
 const [base, stage, ...ids] = process.argv.slice(2);
 if (!base || !stage) {
-  console.error("usage: node scripts/build-samples.mjs <base-url> facts|version|answers <id...>");
+  console.error("usage: node scripts/build-samples.mjs <base-url> facts|labels|version|answers|keep-answers <id...>");
   process.exit(1);
 }
 
@@ -100,7 +106,15 @@ for (const id of ids) {
       const sents = (v?.paragraphs ?? []).flatMap((p) => p.split(/(?<=[.!?।。！？])\s+/u)).map((x) => x.trim()).filter((x) => x.length > 12);
       const dupes = sents.filter((x, i) => sents.indexOf(x) !== i);
       if (dupes.length) console.log("   duplicated sentences:", dupes.slice(0, 2).join(" | "));
-      if (!v || writer !== "Gemma-4-31B-IT" || (s.fault && !v.fault) || checkerFailed || flagged.length || dupes.length) {
+      // The worker already rejects these; checked again here so no recording ships a non-translation.
+      const badBack = [
+        ...(v?.lock ?? []).filter((l) => l.quote_en).map((l) => [l.id, l.quote, l.quote_en]),
+        ...(v?.paragraphs ?? []).map((p, i) => [`paragraph ${i + 1}`, p, v.back_translation?.[i] ?? ""]),
+      ]
+        .map(([where, src, en]) => [where, en ? backTranslationProblem(en, src, s.language, BACK_PROMPT, bracketNames(src, ex.facts)) : "no back-translation"])
+        .filter(([, why]) => why);
+      for (const [where, why] of badBack) console.log("   back-translation:", where, why);
+      if (!v || writer !== "Gemma-4-31B-IT" || (s.fault && !v.fault) || checkerFailed || flagged.length || dupes.length || badBack.length) {
         if (flagged.length) console.log("   flagged:", flagged.join(", "));
         for (const l of v?.lock ?? []) {
           const lastProblems = l.history.at(-1)?.problems ?? [];
@@ -134,6 +148,23 @@ for (const id of ids) {
     };
     fs.writeFileSync(pendingFile, JSON.stringify(sample, null, 2));
     console.log(id, "(staged, run answers to publish)", version.lock.map((l) => `${l.id}:${l.status}`).join(" "), steps.map((x) => `${x.step} ${x.model} ${x.ms}ms`).join(" | "));
+  }
+
+  if (stage === "keep-answers") {
+    // Grading uses only the facts, the topic question, the transcript and the language, so a re-recorded patient
+    // version can reuse the graded answers (and the on-site replay that matches them) without new model calls.
+    const sample = JSON.parse(fs.readFileSync(pendingFile, "utf8"));
+    const published = JSON.parse(fs.readFileSync(sampleFile, "utf8"));
+    if (JSON.stringify(published.facts) !== JSON.stringify(sample.facts) || JSON.stringify(published.topics) !== JSON.stringify(sample.topics)) {
+      throw new Error(`${id}: facts or topics changed since the answers were graded; run "answers" instead`);
+    }
+    sample.answers = published.answers;
+    const missing = sample.topics.filter((t) => !sample.answers[t.id]?.length).map((t) => t.id);
+    const flagged = sample.version.lock.filter((l) => l.status === "flagged").map((l) => l.id);
+    if (missing.length || flagged.length) throw new Error(`${id}: not publishing (missing answers: ${missing.join(",") || "none"}; flagged: ${flagged.join(",") || "none"})`);
+    fs.writeFileSync(sampleFile, JSON.stringify(sample, null, 2));
+    fs.unlinkSync(pendingFile);
+    console.log(id, "published with the existing graded answers");
   }
 
   if (stage === "answers") {

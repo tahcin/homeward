@@ -20,6 +20,15 @@ function useJson<T>(url: string) {
   return { data, failed };
 }
 
+/** The W7900D note quotes our own memory figures, so it is written from the results file rather than kept as text. */
+function hwNote(h: Benchmarks["hardware"][number], r: Results | null): string | undefined {
+  if (!/W7900D/.test(h.name) || !r) return h.note;
+  const train = r.training?.peak_vram_gib;
+  const loop = r.onprem_loop?.peak_vram_gib;
+  if (train == null || loop == null) return h.note;
+  return `The card we fine-tuned and served Gemma 4 E4B on. Training peaked at ${train} GiB and the full speech-plus-grading loop at ${loop} GiB, so one workstation card holds it with room to spare.`;
+}
+
 export function Evidence() {
   const res = useJson<Results>("/evidence-results.json");
   const bench = useJson<Benchmarks>("/benchmarks.json");
@@ -31,8 +40,9 @@ export function Evidence() {
       <section>
         <h1 style={{ maxWidth: "22ch" }}>How the Homeward grader compares</h1>
         <p className="lead">
-          Homeward's grader decides whether a patient really understood each discharge fact. It is our own fine-tuned Gemma model, running on one AMD workstation GPU
-          inside the hospital, and every chart below puts it first against the base model it came from, the cloud models we could have used instead, and Whisper for speech.
+          Homeward's on-site grader decides whether a patient really understood each discharge fact. It is our own fine-tuned Gemma model, built to run on one AMD
+          workstation GPU inside the hospital (the hosted demo on this site grades with Gemma 4 31B instead). Every chart below puts it first against the base model it came
+          from, the cloud models we could have used instead, and Whisper for speech.
         </p>
         {res.failed && <p className="note warn" style={{ marginTop: 16 }}>Our results file could not be loaded.</p>}
         {!r && !res.failed && <p className="muted" style={{ marginTop: 16 }}>Loading results.</p>}
@@ -106,7 +116,7 @@ export function Evidence() {
                     </li>
                   ))}
                 </ul>
-                {h.note && <p className="tiny muted" style={{ marginTop: 8 }}>{h.note}</p>}
+                {hwNote(h, r) && <p className="tiny muted" style={{ marginTop: 8 }}>{hwNote(h, r)}</p>}
                 {b.sources[h.source] && (
                   <p className="tiny faint" style={{ marginTop: 8 }}>
                     Source:{" "}
