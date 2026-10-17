@@ -1,7 +1,7 @@
 {
  "schema": "homeward.evidence.v2",
  "source": "ml/results/eval.json",
- "generated_at": "2026-10-17 22:22 IST",
+ "generated_at": "2026-10-18 02:01 IST",
  "sizes_file": "model-sizes.md",
  "whisper_size": {
   "verified": false,
@@ -471,6 +471,54 @@
       "fixes": 49,
       "breaks": 33,
       "p": 0.09703091129729906
+     },
+     "latency_bs1_p50_s": null,
+     "usd_per_discharge": null
+    },
+    {
+     "id": "glm_5_3_flash",
+     "role": "cloud",
+     "label": "GLM 5.3 Flash (cloud)",
+     "model": "GLM 5.3 Flash",
+     "run": null,
+     "size": {
+      "verified": true,
+      "total": "320B",
+      "active": "18B",
+      "total_b": 320,
+      "active_b": 18,
+      "display": "320B total, 18B active",
+      "source": "https://huggingface.co/zai-org/GLM-5.3-Flash"
+     },
+     "runs_on": "AMD GPUs via AMD Token Factory",
+     "accuracy": 90.3,
+     "accuracy_raw": 0.9032258064516129,
+     "accuracy_ci": [
+      85.9,
+      93.7
+     ],
+     "macro_f1": 0.9208822445969507,
+     "false_reassurance": 0.7,
+     "false_reassurance_ci": [
+      0,
+      2
+     ],
+     "false_reassurance_n": [
+      1,
+      138
+     ],
+     "critical_false_reassurance_n": [
+      1,
+      108
+     ],
+     "over_flag": 12.3,
+     "json_valid": 94,
+     "ci_method": "case-level bootstrap, 1000 resamples",
+     "paired_vs_base": {
+      "base": "e4b_base",
+      "fixes": 47,
+      "breaks": 22,
+      "p": 0.0035448128470210523
      },
      "latency_bs1_p50_s": null,
      "usd_per_discharge": null

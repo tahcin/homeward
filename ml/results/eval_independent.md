@@ -15,6 +15,7 @@ Test set: 150 answers, 341 facts, 7 cases, 12 languages. Gold verdicts: {'correc
 | clef | 88.9% (86.1%–92.7%) | 0.897 | 0.7% (0.0%–2.0%) | 0.9% (1/108) | 13.0% | 100.0% |
 | mimo_v2_6_flash | 88.9% (86.3%–91.8%) | 0.891 | 0.7% (0.0%–2.0%) | 0.9% (1/108) | 15.9% | 100.0% |
 | qwen3_8_27b | 87.7% (85.9%–90.1%) | 0.895 | 0.7% (0.0%–2.0%) | 0.9% (1/108) | 23.2% | 99.3% |
+| glm_5_3_flash | 90.3% (85.9%–93.7%) | 0.921 | 0.7% (0.0%–2.0%) | 0.9% (1/108) | 12.3% | 94.0% |
 
 ## Accuracy by language
 
@@ -31,6 +32,7 @@ Test set: 150 answers, 341 facts, 7 cases, 12 languages. Gold verdicts: {'correc
 | clef | 94% | 88% | 96% | 96% | 87% | 93% | 89% | 90% | 86% | 85% | 81% | 80% |
 | mimo_v2_6_flash | 87% | 92% | 96% | 89% | 93% | 83% | 93% | 87% | 90% | 88% | 81% | 87% |
 | qwen3_8_27b | 90% | 88% | 89% | 89% | 83% | 97% | 82% | 87% | 83% | 96% | 69% | 97% |
+| glm_5_3_flash | 87% | 92% | 89% | 93% | 97% | 87% | 96% | 87% | 79% | 96% | 88% | 93% |
 
 ## Speed and tokens
 
@@ -47,6 +49,7 @@ Test set: 150 answers, 341 facts, 7 cases, 12 languages. Gold verdicts: {'correc
 | clef | AMD Token Factory | 2.20 s | 3.67 s | n/a | 679 | 0 |
 | mimo_v2_6_flash | AMD Token Factory | 1976.15 s | 3172.59 s | n/a | 384 | 141 |
 | qwen3_8_27b | AMD Token Factory | 1937.88 s | 2666.28 s | n/a | 416 | 807 |
+| glm_5_3_flash | AMD Token Factory | 1878.48 s | 5837.44 s | n/a | 380 | 646 |
 
 ### Confusion matrix: e4b_base (rows gold, columns predicted)
 
@@ -146,3 +149,12 @@ Test set: 150 answers, 341 facts, 7 cases, 12 languages. Gold verdicts: {'correc
 | partial | 1 | 61 | 3 | 0 | 0 |
 | incorrect | 1 | 3 | 91 | 0 | 1 |
 | missing | 0 | 0 | 0 | 41 | 1 |
+
+### Confusion matrix: glm_5_3_flash (rows gold, columns predicted)
+
+| gold \ pred | correct | partial | incorrect | missing | invalid |
+|---|---|---|---|---|---|
+| correct | 121 | 8 | 2 | 0 | 7 |
+| partial | 2 | 57 | 0 | 2 | 4 |
+| incorrect | 1 | 3 | 91 | 0 | 1 |
+| missing | 0 | 0 | 0 | 39 | 3 |
