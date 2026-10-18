@@ -1,0 +1,16 @@
+{
+ "name": "run4_final",
+ "adapter": "/workspace/runs/run4/adapter",
+ "scale": 1.0,
+ "tau": 0.5,
+ "accuracy": 0.9295774647887324,
+ "false_reassurance": 0,
+ "critical_false_reassurance": 0,
+ "over_flag": 2,
+ "cost": 2,
+ "incumbent": [
+  "run4_final"
+ ],
+ "picked_at": "13:50:28 IST",
+ "weights": null
+}

@@ -1,0 +1,16 @@
+=== start 12:47:47 IST
+5.19.0 0.21.2
+rows 5228 -> epochs 1.16 (est 48 min); deadlines train 13:40 pick 14:05 hard 14:20 IST
+=== run5_attempt_1 12:48:01 IST
+=== run5_exit_rc=0 13:50:30 IST
+08:06:45 candidate run5_avg_late: weights not available (avg:LATE+adapter), skipped
+08:09:31 candidate run5_final (adapter x1.0) in 166s: {'accuracy': 0.926056338028169, 'false_reassurance_n': [1, 113], 'critical_n': [1, 74], 'over_flag_rate': 0.017699115044247787}
+08:12:16 candidate run5_avg (avg:adapter_epoch1+adapter x1.0) in 164s: {'accuracy': 0.926056338028169, 'false_reassurance_n': [1, 113], 'critical_n': [1, 74], 'over_flag_rate': 0.017699115044247787}
+08:15:00 candidate run5_final_s075 (adapter x0.75) in 163s: {'accuracy': 0.9401408450704225, 'false_reassurance_n': [1, 113], 'critical_n': [1, 74], 'over_flag_rate': 0.008849557522123894}
+08:17:43 candidate run5_avg_s075 (avg:adapter_epoch1+adapter x0.75) in 164s: {'accuracy': 0.9401408450704225, 'false_reassurance_n': [1, 113], 'critical_n': [1, 74], 'over_flag_rate': 0.008849557522123894}
+08:20:28 candidate run5_ep1 (adapter_epoch1 x1.0) in 164s: {'accuracy': 0.9225352112676056, 'false_reassurance_n': [1, 113], 'critical_n': [1, 74], 'over_flag_rate': 0.017699115044247787}
+08:20:28 candidate run5_avg_late: weights not available (avg:LATE+adapter), skipped
+08:20:28 FROZEN PICK: run4_final scale 1.0 tau 0.5 (val acc 93.0%, FR 0, critical 0, over 2)
+08:20:28 incumbent kept: no test scoring
+incumbent run4_final kept by the declared rule; test sets not scored again
+=== DAY3DONE_NO_RUN5_TEST 13:50:30 IST

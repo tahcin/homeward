@@ -1,0 +1,181 @@
+07:18:02 run5 start pid 263; train deadline 13:40:00 IST, pick deadline 14:05:00 IST
+Loading weights:   0%|          | 0/2076 [00:00<?, ?it/s]Loading weights:  40%|███▉      | 829/2076 [00:00<00:00, 8286.16it/s]Loading weights:  80%|███████▉  | 1658/2076 [00:00<00:00, 5723.32it/s]Loading weights: 100%|██████████| 2076/2076 [00:00<00:00, 6488.34it/s]
+07:18:25 base model loaded in 23.4s
+07:18:26 unlikelihood target token: 'correct' 19448 lambda 0.5
+07:18:32 supervised span of example 0: '{"facts": [{"id": "f6", "heard": "Stop Lisinopril, but doesn\'t know when to restart", "verdict": "partial", "reteach": "Stop taking Lisinopril now and do not restart it unless your doctor tells you to."}]}<turn|>\n'
+07:18:32 verdict tokens of example 0: 'partial' (weight 3.0)
+07:18:32 unlikelihood positions: [('partial', 0.5)]
+07:18:32 unlikelihood positions: [('incorrect', 1.0)]
+07:18:32 unlikelihood positions: [('incorrect', 1.0), ('incorrect', 1.0)]
+07:18:32 train 5228 (dropped 0 > max_len), val 68 (dropped 0)
+07:18:36 trainable params 69,763,072 of 8,010,863,904 (0.871%), lora modules 258
+07:18:46 step 0 val_loss 0.7915
+/workspace/code/train_lora.py:195: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/rockrel/rockrel/external-builds/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:822.)
+  UL_STATS["sum"] += float(ul)
+[W1018 07:18:50.381865831 HIPCachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1746927616 bytes (free: 685768704, total: 51522830336).
+07:18:56 step 1/380 loss 0.4723 gn 1.24 lr 2.11e-05 902 tok/s peak 22.4 GiB
+07:19:25 step 5/380 loss 0.3865 gn 1.79 lr 6.32e-05 1055 tok/s peak 22.4 GiB
+07:20:02 step 10/380 loss 0.3137 gn 1.07 lr 1.16e-04 1054 tok/s peak 22.4 GiB
+07:20:39 step 15/380 loss 0.2497 gn 0.32 lr 1.68e-04 1066 tok/s peak 22.4 GiB
+07:21:18 step 20/380 loss 0.1620 gn 0.23 lr 2.00e-04 1060 tok/s peak 22.8 GiB
+07:21:59 step 25/380 loss 0.1342 gn 0.19 lr 2.00e-04 1017 tok/s peak 22.8 GiB
+07:22:36 step 30/380 loss 0.2270 gn 0.24 lr 2.00e-04 1041 tok/s peak 22.8 GiB
+07:23:11 step 35/380 loss 0.1598 gn 0.17 lr 1.99e-04 1055 tok/s peak 22.8 GiB
+07:23:47 step 40/380 loss 0.1292 gn 0.19 lr 1.98e-04 1054 tok/s peak 22.8 GiB
+07:24:22 step 45/380 loss 0.1197 gn 0.20 lr 1.97e-04 1045 tok/s peak 22.8 GiB
+07:24:57 step 50/380 loss 0.1404 gn 0.21 lr 1.96e-04 1063 tok/s peak 22.8 GiB
+07:25:34 step 55/380 loss 0.1316 gn 0.19 lr 1.95e-04 1059 tok/s peak 22.8 GiB
+07:26:10 step 60/380 loss 0.1496 gn 0.31 lr 1.94e-04 1054 tok/s peak 22.8 GiB
+07:26:47 step 65/380 loss 0.1123 gn 0.18 lr 1.92e-04 1061 tok/s peak 22.8 GiB
+07:27:25 step 70/380 loss 0.0839 gn 0.15 lr 1.90e-04 1056 tok/s peak 22.8 GiB
+07:28:02 step 75/380 loss 0.1331 gn 0.17 lr 1.88e-04 1054 tok/s peak 22.8 GiB
+07:28:35 step 80/380 loss 0.1390 gn 0.19 lr 1.86e-04 1055 tok/s peak 22.8 GiB
+07:29:12 step 85/380 loss 0.1900 gn 0.20 lr 1.84e-04 1052 tok/s peak 22.8 GiB
+07:29:50 step 90/380 loss 0.1519 gn 0.19 lr 1.82e-04 1066 tok/s peak 22.8 GiB
+07:30:30 step 95/380 loss 0.1569 gn 0.22 lr 1.79e-04 1046 tok/s peak 22.8 GiB
+07:31:05 step 100/380 loss 0.1526 gn 0.23 lr 1.76e-04 1057 tok/s peak 22.8 GiB
+07:31:45 step 105/380 loss 0.1233 gn 0.15 lr 1.73e-04 973 tok/s peak 22.8 GiB
+07:32:21 step 110/380 loss 0.1556 gn 0.46 lr 1.70e-04 1050 tok/s peak 22.8 GiB
+07:32:57 step 115/380 loss 0.1449 gn 0.22 lr 1.67e-04 1059 tok/s peak 22.8 GiB
+07:33:32 step 120/380 loss 0.1258 gn 0.16 lr 1.64e-04 1061 tok/s peak 22.8 GiB
+07:34:08 step 125/380 loss 0.1174 gn 0.25 lr 1.60e-04 1039 tok/s peak 22.8 GiB
+07:34:45 step 130/380 loss 0.1449 gn 0.23 lr 1.57e-04 1041 tok/s peak 22.8 GiB
+07:35:22 step 135/380 loss 0.1440 gn 0.23 lr 1.53e-04 1060 tok/s peak 22.8 GiB
+07:35:59 step 140/380 loss 0.1516 gn 0.20 lr 1.49e-04 1046 tok/s peak 22.8 GiB
+07:36:37 step 145/380 loss 0.1582 gn 0.21 lr 1.46e-04 1018 tok/s peak 22.8 GiB
+07:37:16 step 150/380 loss 0.1706 gn 0.21 lr 1.42e-04 1062 tok/s peak 22.8 GiB
+07:37:54 step 155/380 loss 0.1024 gn 0.17 lr 1.38e-04 1059 tok/s peak 22.8 GiB
+07:38:34 step 160/380 loss 0.1749 gn 0.21 lr 1.34e-04 1046 tok/s peak 22.8 GiB
+07:39:11 step 165/380 loss 0.1300 gn 0.18 lr 1.30e-04 1051 tok/s peak 22.8 GiB
+07:39:51 step 170/380 loss 0.1335 gn 0.23 lr 1.25e-04 1038 tok/s peak 23.0 GiB
+07:40:29 step 175/380 loss 0.1579 gn 0.18 lr 1.21e-04 1032 tok/s peak 23.0 GiB
+07:41:08 step 180/380 loss 0.1383 gn 0.17 lr 1.17e-04 1039 tok/s peak 23.0 GiB
+07:41:44 step 185/380 loss 0.1229 gn 0.22 lr 1.13e-04 1065 tok/s peak 23.4 GiB
+07:42:22 step 190/380 loss 0.1530 gn 0.19 lr 1.08e-04 1065 tok/s peak 23.4 GiB
+07:43:02 step 195/380 loss 0.1425 gn 0.19 lr 1.04e-04 1036 tok/s peak 23.4 GiB
+07:43:39 step 200/380 loss 0.1447 gn 0.33 lr 9.96e-05 1053 tok/s peak 23.4 GiB
+07:44:17 step 205/380 loss 0.1133 gn 0.16 lr 9.52e-05 1056 tok/s peak 23.4 GiB
+07:44:55 step 210/380 loss 0.1017 gn 0.18 lr 9.09e-05 1016 tok/s peak 23.4 GiB
+[W1018 07:45:29.425954654 HIPCachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 2017460224 bytes (free: 1855979520, total: 51522830336).
+07:45:35 step 215/380 loss 0.1222 gn 0.18 lr 8.66e-05 916 tok/s peak 23.4 GiB
+07:46:15 step 220/380 loss 0.1162 gn 0.16 lr 8.23e-05 1028 tok/s peak 23.4 GiB
+07:46:53 step 225/380 loss 0.0907 gn 0.14 lr 7.80e-05 1053 tok/s peak 23.4 GiB
+07:47:31 step 230/380 loss 0.1071 gn 0.17 lr 7.38e-05 1050 tok/s peak 23.4 GiB
+07:48:11 step 235/380 loss 0.1461 gn 0.18 lr 6.96e-05 1072 tok/s peak 23.4 GiB
+07:48:50 step 240/380 loss 0.1673 gn 0.19 lr 6.55e-05 1022 tok/s peak 23.4 GiB
+07:49:27 step 245/380 loss 0.1486 gn 0.20 lr 6.14e-05 1068 tok/s peak 23.4 GiB
+07:50:05 step 250/380 loss 0.1217 gn 0.17 lr 5.75e-05 1051 tok/s peak 23.4 GiB
+07:50:40 step 255/380 loss 0.1837 gn 0.24 lr 5.36e-05 1067 tok/s peak 23.4 GiB
+07:51:19 step 260/380 loss 0.1080 gn 0.20 lr 4.97e-05 1064 tok/s peak 23.4 GiB
+07:51:59 step 265/380 loss 0.0936 gn 0.17 lr 4.60e-05 1072 tok/s peak 23.5 GiB
+07:52:36 step 270/380 loss 0.1455 gn 0.25 lr 4.24e-05 1054 tok/s peak 23.5 GiB
+07:53:13 step 275/380 loss 0.1673 gn 0.20 lr 3.89e-05 1048 tok/s peak 23.5 GiB
+07:53:47 step 280/380 loss 0.1377 gn 0.18 lr 3.55e-05 1075 tok/s peak 23.5 GiB
+07:54:25 step 285/380 loss 0.1406 gn 0.23 lr 3.23e-05 1026 tok/s peak 23.5 GiB
+07:55:02 step 290/380 loss 0.1290 gn 0.30 lr 2.91e-05 1062 tok/s peak 23.5 GiB
+07:55:42 step 295/380 loss 0.1496 gn 0.17 lr 2.61e-05 986 tok/s peak 23.5 GiB
+07:56:19 step 300/380 loss 0.1041 gn 0.19 lr 2.33e-05 1043 tok/s peak 23.5 GiB
+07:56:59 step 305/380 loss 0.1709 gn 0.18 lr 2.06e-05 1039 tok/s peak 23.5 GiB
+07:57:37 step 310/380 loss 0.1033 gn 0.16 lr 1.80e-05 1062 tok/s peak 23.5 GiB
+07:58:17 step 315/380 loss 0.1349 gn 0.18 lr 1.56e-05 996 tok/s peak 23.5 GiB
+07:58:54 step 320/380 loss 0.1084 gn 0.14 lr 1.33e-05 1055 tok/s peak 23.5 GiB
+07:59:31 step 325/380 loss 0.1612 gn 0.18 lr 1.12e-05 1034 tok/s peak 23.5 GiB
+07:59:55 epoch 1 step 327 val_loss 0.3071
+07:59:56 checkpoint adapter_epoch1 saved and kept in GPU memory
+08:00:19 step 330/380 loss 0.1013 gn 0.16 lr 9.32e-06 1040 tok/s peak 23.5 GiB
+08:00:57 step 335/380 loss 0.1321 gn 0.16 lr 7.57e-06 1011 tok/s peak 23.5 GiB
+08:01:33 step 340/380 loss 0.0912 gn 0.15 lr 6.00e-06 1044 tok/s peak 23.5 GiB
+08:02:10 step 345/380 loss 0.0747 gn 0.12 lr 4.60e-06 1046 tok/s peak 23.5 GiB
+08:02:48 step 350/380 loss 0.1174 gn 0.15 lr 3.39e-06 1031 tok/s peak 23.5 GiB
+08:03:23 step 355/380 loss 0.0921 gn 0.16 lr 2.36e-06 1058 tok/s peak 23.5 GiB
+08:04:02 step 360/380 loss 0.1042 gn 0.16 lr 1.51e-06 953 tok/s peak 23.9 GiB
+08:04:42 step 365/380 loss 0.1175 gn 0.13 lr 8.51e-07 1004 tok/s peak 23.9 GiB
+08:05:20 step 370/380 loss 0.1006 gn 0.14 lr 3.78e-07 1036 tok/s peak 23.9 GiB
+08:05:57 step 375/380 loss 0.0896 gn 0.16 lr 9.47e-08 1056 tok/s peak 23.9 GiB
+08:06:35 step 380/380 loss 0.0711 gn 0.13 lr 0.00e+00 1050 tok/s peak 23.9 GiB
+08:06:44 final val_loss 0.3131
+08:06:45 checkpoint adapter saved and kept in GPU memory
+08:06:45 {
+ "load_s": 23.4,
+ "train_examples": 5228,
+ "val_examples": 68,
+ "dropped_over_max_len": 0,
+ "trainable_params": 69763072,
+ "total_params": 8010863904,
+ "lora_modules": 258,
+ "val": [
+  {
+   "step": 0,
+   "loss": 0.7915315498523091
+  },
+  {
+   "step": 327,
+   "loss": 0.30710068835191534
+  },
+  {
+   "step": 380,
+   "loss": 0.31310461047744814
+  }
+ ],
+ "device": "AMD Radeon Pro W7900D",
+ "torch": "2.13.0+rocm10.0.0",
+ "planned_steps": 380,
+ "steps_per_epoch": 327,
+ "deadline_events": [],
+ "checkpoints": [
+  {
+   "name": "adapter_epoch1",
+   "step": 327,
+   "epoch": 1.0
+  },
+  {
+   "name": "adapter",
+   "step": 380,
+   "epoch": 1.162
+  }
+ ],
+ "transformers": "5.19.0",
+ "peft": "0.21.2",
+ "optimizer_steps": 380,
+ "train_wall_s": 2869.8,
+ "total_wall_s": 2898.8,
+ "tokens_processed": 2979824,
+ "supervised_tokens": 631301,
+ "mean_tok_per_s": 1038.3321271295013,
+ "peak_vram_allocated_gib": 23.86026430130005,
+ "peak_vram_reserved_gib": 46.892578125,
+ "epochs_completed": 1.162
+}
+08:06:45 swapper: 258 LoRA layers, base backup 7.25 GiB on the GPU
+08:06:45 candidate run5_avg_late: weights not available (avg:LATE+adapter), skipped
+08:07:09 batched 64/120
+08:07:50 batched 120/120
+[W1018 08:07:53.546952280 HIPCachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 2910846976 bytes (free: 1528823808, total: 51522830336).
+08:09:31 candidate run5_final (adapter x1.0) in 166s: {'accuracy': 0.926056338028169, 'false_reassurance_n': [1, 113], 'critical_n': [1, 74], 'over_flag_rate': 0.017699115044247787}
+08:09:55 batched 64/120
+08:10:35 batched 120/120
+08:12:16 candidate run5_avg (avg:adapter_epoch1+adapter x1.0) in 164s: {'accuracy': 0.926056338028169, 'false_reassurance_n': [1, 113], 'critical_n': [1, 74], 'over_flag_rate': 0.017699115044247787}
+08:12:39 batched 64/120
+08:13:19 batched 120/120
+08:15:00 candidate run5_final_s075 (adapter x0.75) in 163s: {'accuracy': 0.9401408450704225, 'false_reassurance_n': [1, 113], 'critical_n': [1, 74], 'over_flag_rate': 0.008849557522123894}
+08:15:23 batched 64/120
+08:16:02 batched 120/120
+08:17:43 candidate run5_avg_s075 (avg:adapter_epoch1+adapter x0.75) in 164s: {'accuracy': 0.9401408450704225, 'false_reassurance_n': [1, 113], 'critical_n': [1, 74], 'over_flag_rate': 0.008849557522123894}
+08:18:06 batched 64/120
+08:18:47 batched 120/120
+08:20:28 candidate run5_ep1 (adapter_epoch1 x1.0) in 164s: {'accuracy': 0.9225352112676056, 'false_reassurance_n': [1, 113], 'critical_n': [1, 74], 'over_flag_rate': 0.017699115044247787}
+08:20:28 selection (final):
+run4_final                   scale 1.0   tau 0.5    cost 2    acc 93.0% FR 0 over 2 | at tau 0: acc 92.6% FR 0 over 2
+run5_final_s075              scale 0.75  tau 0.0    cost 6    acc 94.0% FR 1 over 1 | at tau 0: acc 94.0% FR 1 over 1
+run5_avg_s075                scale 0.75  tau 0.0    cost 6    acc 94.0% FR 1 over 1 | at tau 0: acc 94.0% FR 1 over 1
+run5_final                   scale 1.0   tau 0.0    cost 7    acc 92.6% FR 1 over 2 | at tau 0: acc 92.6% FR 1 over 2
+run5_avg                     scale 1.0   tau 0.0    cost 7    acc 92.6% FR 1 over 2 | at tau 0: acc 92.6% FR 1 over 2
+run5_ep1                     scale 1.0   tau 0.0    cost 7    acc 92.3% FR 1 over 2 | at tau 0: acc 92.3% FR 1 over 2
+SAFETY-FIRST pick (safety-first constraints met): {'name': 'run4_final', 'adapter': '/workspace/runs/run4/adapter', 'scale': 1.0, 'tau': 0.5, 'accuracy': 0.9295774647887324, 'false_reassurance': 0, 'critical_false_reassurance': 0, 'over_flag': 2, 'cost': 2}
+5x-cost rule pick (reported for transparency): {'name': 'run4_final', 'adapter': '/workspace/runs/run4/adapter', 'scale': 1.0, 'tau': 0.5, 'accuracy': 0.9295774647887324, 'false_reassurance': 0, 'critical_false_reassurance': 0, 'over_flag': 2, 'cost': 2}
+CHOSEN run4_final /workspace/runs/run4/adapter 1.0 0.5
+
+08:20:28 candidate run5_avg_late: weights not available (avg:LATE+adapter), skipped
+08:20:28 FROZEN PICK: run4_final scale 1.0 tau 0.5 (val acc 93.0%, FR 0, critical 0, over 2)
+08:20:28 incumbent kept: no test scoring
