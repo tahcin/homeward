@@ -65,7 +65,6 @@ def load_adapter(model, adapter, scale=1.0):
 # ---------------------------------------------------------------- local (GPU)
 
 def predict_local(args):
-    import torch
     from train_lora import load_model_and_tokenizer
 
     prompt = grader.load_prompt(args.prompt)
@@ -78,6 +77,34 @@ def predict_local(args):
         model = load_adapter(model, args.adapter, args.lora_scale)
     model.eval()
     load_s = time.time() - t0
+    recs, meta = predict_rows(model, tok, rows, prompt, bsz=args.bsz, max_new=args.max_new, temperature=args.temperature,
+                              seed=args.seed, latency_n=args.latency_n)
+    meta = {"system": args.name or ("e4b_lora" if args.adapter else "e4b_base"), "model": args.model,
+            "adapter": args.adapter, "lora_scale": args.lora_scale, "rows": len(rows), **meta, "load_s": round(load_s, 1)}
+    write_preds(args.out, recs, meta)
+    print(json.dumps(meta, indent=1))
+
+
+def write_preds(out, recs, meta):
+    with open(out, "w") as fh:
+        for rec in recs:
+            fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    Path(out).with_suffix(".meta.json").write_text(json.dumps(meta, indent=1))
+
+
+def _is_oom(e):
+    return "out of memory" in str(e).lower() or type(e).__name__ == "OutOfMemoryError"
+
+
+def _log(*a):
+    print(*a, flush=True)
+
+
+def predict_rows(model, tok, rows, prompt, bsz=16, max_new=768, temperature=0.0, seed=0, latency_n=0, log=_log):
+    """Generate grader replies for rows with an already loaded (merged) model. Greedy unless temperature > 0.
+    Returns (records in row order, meta). A batch that runs out of GPU memory is split in half and retried."""
+    import torch
+    dev = next(model.parameters()).device
     tok.padding_side = "left"
     pad = tok.pad_token_id if tok.pad_token_id is not None else 0
     texts = [tok.apply_chat_template(grader.messages(r, prompt), tokenize=False,
@@ -85,6 +112,17 @@ def predict_local(args):
     enc_all = [tok(t, add_special_tokens=False)["input_ids"] for t in texts]
 
     def gen(idx):
+        try:
+            return _gen(idx)
+        except Exception as e:  # noqa: BLE001
+            if not _is_oom(e) or len(idx) == 1:
+                raise
+            torch.cuda.empty_cache()
+            log(f"OOM at batch {len(idx)}, splitting")
+            h_ = len(idx) // 2
+            return gen(idx[:h_]) + gen(idx[h_:])
+
+    def _gen(idx):
         L = max(len(enc_all[i]) for i in idx)
         ids = torch.full((len(idx), L), pad, dtype=torch.long)
         att = torch.zeros((len(idx), L), dtype=torch.long)
@@ -92,13 +130,13 @@ def predict_local(args):
             n = len(enc_all[i])
             ids[r, L - n:] = torch.tensor(enc_all[i])
             att[r, L - n:] = 1
-        ids, att = ids.cuda(), att.cuda()
+        ids, att = ids.to(dev), att.to(dev)
         with torch.no_grad():
-            if args.temperature > 0:
-                out = model.generate(input_ids=ids, attention_mask=att, max_new_tokens=args.max_new,
-                                     do_sample=True, temperature=args.temperature, top_p=0.95, pad_token_id=pad)
+            if temperature > 0:
+                out = model.generate(input_ids=ids, attention_mask=att, max_new_tokens=max_new,
+                                     do_sample=True, temperature=temperature, top_p=0.95, pad_token_id=pad)
             else:
-                out = model.generate(input_ids=ids, attention_mask=att, max_new_tokens=args.max_new,
+                out = model.generate(input_ids=ids, attention_mask=att, max_new_tokens=max_new,
                                      do_sample=False, pad_token_id=pad)
         res = []
         eos = set(model.generation_config.eos_token_id if isinstance(model.generation_config.eos_token_id, list)
@@ -113,14 +151,14 @@ def predict_local(args):
             res.append((tok.decode(new[:n], skip_special_tokens=True), n))
         return res
 
-    torch.manual_seed(args.seed)
+    torch.manual_seed(seed)
     torch.cuda.reset_peak_memory_stats()
     # Warm-up (kernel compilation / caches), excluded from timings.
     gen([0])
 
     # Sequential batch-size-1 latency pass.
     lat = {}
-    for i in range(min(args.latency_n, len(rows))):
+    for i in range(min(latency_n, len(rows))):
         torch.cuda.synchronize()
         t = time.time()
         (text, n), = gen([i])
@@ -132,30 +170,28 @@ def predict_local(args):
     preds = {}
     torch.cuda.synchronize()
     tb = time.time()
-    for b in range(0, len(order), args.bsz):
-        idx = order[b:b + args.bsz]
+    for b in range(0, len(order), bsz):
+        idx = order[b:b + bsz]
         for i, (text, n) in zip(idx, gen(idx)):
             preds[i] = (text, n)
-        print(f"batched {min(b + args.bsz, len(order))}/{len(order)}", flush=True)
+        log(f"batched {min(b + bsz, len(order))}/{len(order)}")
     torch.cuda.synchronize()
     batch_s = time.time() - tb
 
-    with open(args.out, "w") as fh:
-        for i, r in enumerate(rows):
-            text, n = preds[i]
-            rec = {"key": grader.row_key(r), "text": text, "prompt_tokens": len(enc_all[i]),
-                   "completion_tokens": n}
-            if i in lat:
-                rec["latency_s_bs1"] = lat[i]["latency_s"]
-                rec["text_bs1"] = lat[i]["text"]
-            fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    recs = []
+    for i, r in enumerate(rows):
+        text, n = preds[i]
+        rec = {"key": grader.row_key(r), "text": text, "prompt_tokens": len(enc_all[i]),
+               "completion_tokens": n}
+        if i in lat:
+            rec["latency_s_bs1"] = lat[i]["latency_s"]
+            rec["text_bs1"] = lat[i]["text"]
+        recs.append(rec)
     lats = [v["latency_s"] for v in lat.values()]
     meta = {
-        "system": args.name or ("e4b_lora" if args.adapter else "e4b_base"),
-        "model": args.model, "adapter": args.adapter, "lora_scale": args.lora_scale, "rows": len(rows),
         "device": torch.cuda.get_device_name(0), "torch": torch.__version__,
-        "load_s": round(load_s, 1), "decoding": "greedy" if args.temperature <= 0 else f"sampled T={args.temperature} top_p=0.95 seed={args.seed}", "max_new_tokens": args.max_new,
-        "batched": {"batch_size": args.bsz, "wall_s": round(batch_s, 1),
+        "decoding": "greedy" if temperature <= 0 else f"sampled T={temperature} top_p=0.95 seed={seed}", "max_new_tokens": max_new,
+        "batched": {"batch_size": bsz, "wall_s": round(batch_s, 1),
                     "completion_tokens": sum(n for _, n in preds.values()),
                     "prompt_tokens": sum(len(e) for e in enc_all),
                     "gen_tok_per_s": sum(n for _, n in preds.values()) / batch_s,
@@ -165,8 +201,7 @@ def predict_local(args):
                 "gen_tok_per_s": (sum(v["out_tokens"] for v in lat.values()) / sum(lats)) if lats else None},
         "peak_vram_allocated_gib": torch.cuda.max_memory_allocated() / 2**30,
     }
-    Path(args.out).with_suffix(".meta.json").write_text(json.dumps(meta, indent=1))
-    print(json.dumps(meta, indent=1))
+    return recs, meta
 
 
 # ---------------------------------------------------------------- verdict probabilities (GPU)
@@ -176,17 +211,35 @@ def verdict_probs(args):
     the reply prefix up to '"verdict": "' plus each candidate verdict and its closing quote.
     p(verdict) = softmax over the four sequence log-probs. Used for the escalation rule
     (send a 'correct' to the nurse unless p(correct) >= tau)."""
-    import re as _re
-    import torch
     from train_lora import load_model_and_tokenizer
 
     prompt = grader.load_prompt(args.prompt)
-    rows = {grader.row_key(r): r for r in read_jsonl(args.rows)}
+    rows = read_jsonl(args.rows)
     preds = read_jsonl(args.preds)
     model, tok = load_model_and_tokenizer(args.model)
     if args.adapter:
         model = load_adapter(model, args.adapter, args.lora_scale)
     model.eval()
+    t0 = time.time()
+    recs = verdict_probs_rows(model, tok, rows, preds, prompt, bsz=args.bsz)
+    write_jsonl(args.out, recs)
+    print(f"{len(recs)} fact slots scored in {time.time() - t0:.1f}s")
+
+
+def write_jsonl(out, recs):
+    with open(out, "w") as fh:
+        for r in recs:
+            fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+
+
+def verdict_probs_rows(model, tok, rows, preds, prompt, bsz=4, log=_log):
+    """Teacher-forced verdict probabilities (see verdict_probs) with an already loaded (merged) model.
+    Returns [{"key", "id", "p": {verdict: prob}}]. A batch that runs out of GPU memory is split in half."""
+    import math
+    import re as _re
+    import torch
+    dev = next(model.parameters()).device
+    rows = {grader.row_key(r): r for r in rows}
     jobs = []  # (key, fact_id, candidate, full_text, prefix_text)
     for p in preds:
         r = rows.get(p["key"])
@@ -204,36 +257,51 @@ def verdict_probs(args):
             for v in grader.VERDICTS:
                 jobs.append((p["key"], fid, v, prefix + v + '"', prefix))
     out = defaultdict(dict)
-    t0 = time.time()
-    for b in range(0, len(jobs), args.bsz):
-        chunk = jobs[b:b + args.bsz]
+    pad = tok.pad_token_id if tok.pad_token_id is not None else 0
+
+    def score(chunk):
+        try:
+            return _score(chunk)
+        except Exception as e:  # noqa: BLE001
+            if not _is_oom(e) or len(chunk) == 1:
+                raise
+            torch.cuda.empty_cache()
+            log(f"OOM at verdict-probs batch {len(chunk)}, splitting")
+            h_ = len(chunk) // 2
+            return score(chunk[:h_]) + score(chunk[h_:])
+
+    def _score(chunk):
         enc = [tok(j[3], add_special_tokens=False)["input_ids"] for j in chunk]
         pre = [tok(j[4], add_special_tokens=False)["input_ids"] for j in chunk]
         L = max(len(e) for e in enc)
-        pad = tok.pad_token_id if tok.pad_token_id is not None else 0
         inp = torch.full((len(chunk), L), pad, dtype=torch.long)
         att = torch.zeros((len(chunk), L), dtype=torch.long)
         for i, e in enumerate(enc):
             inp[i, :len(e)] = torch.tensor(e)
             att[i, :len(e)] = 1
         with torch.no_grad():
-            logits = model(input_ids=inp.cuda(), attention_mask=att.cuda()).logits
+            logits = model(input_ids=inp.to(dev), attention_mask=att.to(dev)).logits
+        res = []
         for i, (e, pr) in enumerate(zip(enc, pre)):
             k = 0
             while k < min(len(e), len(pr)) and e[k] == pr[k]:
                 k += 1
             k = min(k, len(pr))  # first token that differs from the bare prefix
             lsm = torch.log_softmax(logits[i, k - 1:len(e) - 1].float(), -1)  # only the scored positions
-            lp = sum(lsm[t - k, e[t]].item() for t in range(k, len(e)))
-            key, fid, v = chunk[i][0], chunk[i][1], chunk[i][2]
-            out[(key, fid)][v] = lp
-    with open(args.out, "w") as fh:
-        for (key, fid), d in out.items():
-            import math
-            mx = max(d.values())
-            z = sum(math.exp(x - mx) for x in d.values())
-            fh.write(json.dumps({"key": key, "id": fid, "p": {v: math.exp(d[v] - mx) / z for v in d}}) + "\n")
-    print(f"{len(out)} fact slots scored in {time.time() - t0:.1f}s")
+            res.append(sum(lsm[t - k, e[t]].item() for t in range(k, len(e))))
+        del logits
+        return res
+
+    for b in range(0, len(jobs), bsz):
+        chunk = jobs[b:b + bsz]
+        for j, lp in zip(chunk, score(chunk)):
+            out[(j[0], j[1])][j[2]] = lp
+    recs = []
+    for (key, fid), d in out.items():
+        mx = max(d.values())
+        z = sum(math.exp(x - mx) for x in d.values())
+        recs.append({"key": key, "id": fid, "p": {v: math.exp(d[v] - mx) / z for v in d}})
+    return recs
 
 
 def escalate(args):

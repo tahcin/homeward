@@ -23,6 +23,8 @@ from pathlib import Path
 
 import torch
 
+# HOMEWARD_DEVICE=cpu only for dry runs on a laptop (with the torch.cuda shim in the run 5 tests).
+DEVICE = os.environ.get("HOMEWARD_DEVICE", "cuda")
 TARGET_REGEX = r".*language_model.*\.(q_proj|k_proj|v_proj|o_proj|gate_proj|up_proj|down_proj)$"
 
 
@@ -51,7 +53,7 @@ def load_model_and_tokenizer(model_path: str, dtype=torch.bfloat16, attn: str | 
         print("attention config fallback to eager:", str(e)[:200], flush=True)
         model = cls.from_pretrained(model_path, dtype=dtype, device_map=dmap, attn_implementation="eager")
     if via_cpu:
-        model = model.to("cuda:0")
+        model = model.to(DEVICE + ":0" if DEVICE == "cuda" else DEVICE)
     return model, tok
 
 
@@ -207,7 +209,7 @@ def evaluate(model, examples, bsz, pad_id, device):
     return tot / max(n, 1)
 
 
-def main() -> None:
+def build_parser():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
     ap.add_argument("--train", required=True)
@@ -227,10 +229,29 @@ def main() -> None:
     ap.add_argument("--no-ckpt", action="store_true", help="disable gradient checkpointing")
     ap.add_argument("--verdict-weight", type=float, default=1.0, help="loss weight on verdict-value tokens")
     ap.add_argument("--ul-lambda", type=float, default=0.0, help="unlikelihood weight on P(correct) for non-correct gold verdicts")
-    args = ap.parse_args()
+    ap.add_argument("--save-at", default="", help="extra adapter checkpoints at these epoch fractions, e.g. '1.5' (saved as adapter_step<N>)")
+    ap.add_argument("--deadline-ts", type=float, default=0.0,
+                    help="unix time by which training must end: the cosine horizon shrinks to fit (measured step time), "
+                         "and training stops at the deadline whatever happens")
+    ap.add_argument("--deadline-reserve-s", type=float, default=90.0, help="seconds kept before the deadline for the final val loss and save")
+    return ap
 
+
+def main() -> None:
+    args = build_parser().parse_args()
+    t0 = time.time()
+    model, tok = load_model_and_tokenizer(args.model)
+    run_training(model, tok, args, load_s=time.time() - t0)
+
+
+def run_training(model, tok, args, load_s=0.0, on_save=None, log_fn=None):
+    """Train LoRA adapters on an already loaded base model. Saves adapter_epoch<N> at each full epoch,
+    adapter_step<N> at --save-at fractions, the final adapter at <out>/adapter and train_log.json.
+    on_save(name, peft_model) is called after every save (run5.py snapshots the weights in GPU memory).
+    Returns the PeftModel (still on the GPU, train mode)."""
     from peft import LoraConfig, get_peft_model
 
+    pr = log_fn or (lambda *a: print(*a, flush=True))
     global VERDICT_WEIGHT, UL_LAMBDA, CORRECT_ID
     VERDICT_WEIGHT = args.verdict_weight
     UL_LAMBDA = args.ul_lambda
@@ -238,15 +259,14 @@ def main() -> None:
     random.seed(args.seed)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
-    dev = torch.device("cuda")
+    dev = torch.device(DEVICE)
     t_start = time.time()
+    deadline = float(getattr(args, "deadline_ts", 0) or 0)
+    reserve = float(getattr(args, "deadline_reserve_s", 90) or 0)
 
-    t0 = time.time()
-    model, tok = load_model_and_tokenizer(args.model)
-    load_s = time.time() - t0
     pad_id = tok.pad_token_id if tok.pad_token_id is not None else 0
     CORRECT_ID = correct_token_id(tok)
-    print("unlikelihood target token:", repr(tok.decode([CORRECT_ID])), CORRECT_ID, "lambda", args.ul_lambda, flush=True)
+    pr("unlikelihood target token:", repr(tok.decode([CORRECT_ID])), CORRECT_ID, "lambda", args.ul_lambda)
 
     def load(path):
         rows = [json.loads(l) for l in Path(path).read_text().splitlines() if l.strip()]
@@ -263,13 +283,13 @@ def main() -> None:
     val, drop_va = load(args.val) if args.val else ([], 0)
     e0 = train[0]
     sup = [t for t, l in zip(e0["input_ids"], e0["labels"]) if l != -100]
-    print("supervised span of example 0:", repr(tok.decode(sup))[:400], flush=True)
+    pr("supervised span of example 0:", repr(tok.decode(sup))[:400])
     vt = [t for t, v in zip(e0["input_ids"], e0["verdict"]) if v]
-    print("verdict tokens of example 0:", repr(tok.decode(vt)), f"(weight {args.verdict_weight})", flush=True)
+    pr("verdict tokens of example 0:", repr(tok.decode(vt)), f"(weight {args.verdict_weight})")
     for e in train[:3]:
         bt = [(tok.decode([t]), b) for t, b in zip(e["input_ids"], e["bad"]) if b]
-        print("unlikelihood positions:", bt, flush=True)
-    print(f"train {len(train)} (dropped {drop_tr} > max_len), val {len(val)} (dropped {drop_va})", flush=True)
+        pr("unlikelihood positions:", bt)
+    pr(f"train {len(train)} (dropped {drop_tr} > max_len), val {len(val)} (dropped {drop_va})")
 
     model.config.use_cache = False
     if not args.no_ckpt:
@@ -281,27 +301,36 @@ def main() -> None:
     n_train = sum(p.numel() for p in model.parameters() if p.requires_grad)
     n_all = sum(p.numel() for p in model.parameters())
     n_lora_modules = sum(1 for n, _ in model.named_modules() if n.endswith("lora_A"))
-    print(f"trainable params {n_train:,} of {n_all:,} ({100 * n_train / n_all:.3f}%), lora modules {n_lora_modules}", flush=True)
+    pr(f"trainable params {n_train:,} of {n_all:,} ({100 * n_train / n_all:.3f}%), lora modules {n_lora_modules}")
 
     steps_per_epoch = math.ceil(len(batches(train, args.bsz, True, 0)) / args.accum)
     total = args.max_steps or math.ceil(steps_per_epoch * args.epochs)
+    T = [total]  # cosine horizon; may shrink to meet --deadline-ts
     warm = max(1, int(total * args.warmup))
+    save_steps = {int(round(float(f) * steps_per_epoch)): f for f in str(getattr(args, "save_at", "") or "").split(",") if f.strip()}
     opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=args.lr,
                             weight_decay=0.0, betas=(0.9, 0.999))
     sched = torch.optim.lr_scheduler.LambdaLR(
-        opt, lambda s: (s + 1) / warm if s < warm else 0.5 * (1 + math.cos(math.pi * (s - warm) / max(1, total - warm))))
+        opt, lambda s: (s + 1) / warm if s < warm else 0.5 * (1 + math.cos(math.pi * min(1.0, (s - warm) / max(1, T[0] - warm)))))
 
     log = {"args": vars(args), "load_s": round(load_s, 1), "train_examples": len(train),
            "val_examples": len(val), "dropped_over_max_len": drop_tr + drop_va,
            "trainable_params": n_train, "total_params": n_all, "lora_modules": n_lora_modules,
            "steps": [], "val": [], "device": torch.cuda.get_device_name(0),
-           "torch": torch.__version__}
+           "torch": torch.__version__, "planned_steps": total, "steps_per_epoch": steps_per_epoch,
+           "deadline_events": [], "checkpoints": []}
     import transformers, peft
     log["transformers"], log["peft"] = transformers.__version__, peft.__version__
     if val:
         vl = evaluate(model, val, args.bsz, pad_id, dev)
         log["val"].append({"step": 0, "loss": vl})
-        print(f"step 0 val_loss {vl:.4f}", flush=True)
+        pr(f"step 0 val_loss {vl:.4f}")
+
+    def save(name):
+        model.save_pretrained(out / name)
+        log["checkpoints"].append({"name": name, "step": step, "epoch": round(step / steps_per_epoch, 3)})
+        if on_save:
+            on_save(name, model)
 
     torch.cuda.reset_peak_memory_stats()
     model.train()
@@ -338,24 +367,42 @@ def main() -> None:
                    "tok_per_s": ntok / dt, "step_s": dt}
             log["steps"].append(rec)
             if step % 5 == 0 or step == 1:
-                print(f'step {step}/{total} loss {rec["loss"]:.4f} gn {rec["grad_norm"]:.2f} '
-                      f'lr {rec["lr"]:.2e} {rec["tok_per_s"]:.0f} tok/s '
-                      f'peak {torch.cuda.max_memory_allocated() / 2**30:.1f} GiB', flush=True)
-            if step >= total:
+                pr(f'step {step}/{T[0]} loss {rec["loss"]:.4f} gn {rec["grad_norm"]:.2f} '
+                   f'lr {rec["lr"]:.2e} {rec["tok_per_s"]:.0f} tok/s '
+                   f'peak {torch.cuda.max_memory_allocated() / 2**30:.1f} GiB')
+            if step in save_steps and step < T[0]:
+                save(f"adapter_step{step}")
+            if deadline:
+                now = time.time()
+                if now > deadline - reserve:
+                    log["deadline_events"].append({"step": step, "what": "hard stop at the deadline", "planned": T[0]})
+                    pr(f"DEADLINE: hard stop at step {step} of {T[0]}")
+                    done = True
+                    break
+                if step >= 10 and step % 10 == 0:
+                    recent = [x["step_s"] for x in log["steps"][2:]][-60:]
+                    avg = sum(recent) / max(1, len(recent))
+                    fit = step + int((deadline - reserve - now) // max(avg, 1e-3))
+                    if fit < T[0]:
+                        log["deadline_events"].append({"step": step, "what": "cosine horizon shortened", "from": T[0], "to": max(step + 1, fit), "avg_step_s": avg})
+                        pr(f"DEADLINE: horizon {T[0]} -> {max(step + 1, fit)} steps (avg {avg:.2f} s/step)")
+                        T[0] = max(step + 1, fit)
+            if step >= T[0]:
                 done = True
                 break
         epoch += 1
         if val and not done:
             vl = evaluate(model, val, args.bsz, pad_id, dev)
             log["val"].append({"step": step, "loss": vl})
-            print(f"epoch {epoch} step {step} val_loss {vl:.4f}", flush=True)
-            model.save_pretrained(out / f"adapter_epoch{epoch}")
+            pr(f"epoch {epoch} step {step} val_loss {vl:.4f}")
+            save(f"adapter_epoch{epoch}")
+        elif not done:
+            save(f"adapter_epoch{epoch}")
     train_s = time.time() - train_t0
     if val:
         vl = evaluate(model, val, args.bsz, pad_id, dev)
         log["val"].append({"step": step, "loss": vl})
-        print(f"final val_loss {vl:.4f}", flush=True)
-    model.save_pretrained(out / "adapter")
+        pr(f"final val_loss {vl:.4f}")
     log.update({
         "optimizer_steps": step, "train_wall_s": round(train_s, 1),
         "total_wall_s": round(time.time() - t_start, 1),
@@ -363,9 +410,13 @@ def main() -> None:
         "mean_tok_per_s": tok_seen / train_s,
         "peak_vram_allocated_gib": torch.cuda.max_memory_allocated() / 2**30,
         "peak_vram_reserved_gib": torch.cuda.max_memory_reserved() / 2**30,
+        "epochs_completed": round(step / steps_per_epoch, 3),
     })
+    save("adapter")
     (out / "train_log.json").write_text(json.dumps(log, indent=1))
-    print(json.dumps({k: v for k, v in log.items() if k not in ("steps", "args")}, indent=1), flush=True)
+    pr(json.dumps({k: v for k, v in log.items() if k not in ("steps", "args")}, indent=1))
+    del opt, sched
+    return model
 
 
 if __name__ == "__main__":
