@@ -16,9 +16,12 @@ At a glance (independent test: 150 patient answers in 12 languages, messy and co
 | Model | Size | Fact accuracy | Critical misses passed as understood |
 |---|---|---|---|
 | **Homeward: Gemma 4 E4B + LoRA, trained on the AMD W7900D** | **8B** | **94.7%** | **1 of 108** |
-| GLM-5.3 Flash, zero-shot (largest model we beat; intervals overlap) | 320B total | 90.3% | 1 of 108 |
-| Gemma 4 31B, the teacher | 30.7B | 97.1% | 1 of 108 |
-| Gemma 4 E4B before fine-tuning | 8B | 83.0% | 5 of 108 |
+| Qwen3.8 Flash Next | 180B total | 91.2% | 1 of 108 |
+| GLM-5.3 Flash | 320B total | 90.3% | 1 of 108 |
+| MiMo-V2.6 Flash | 309B total | 88.9% | 1 of 108 |
+| DeepSeek V4 Flash | 284B total | 80.4% | 3 of 108 |
+
+Its teacher, Gemma 4 31B (30.7B), scores 97.1%: our 8B model keeps 97.6% of that accuracy at about a quarter of the size, with the same 1 of 108 critical misses. Before fine-tuning, the same E4B scored 83.0% and passed 5.
 
 Built for the AMD Developer Hackathon: ACT III (Health and Wellbeing track) by team Solus.
 
