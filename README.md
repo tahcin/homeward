@@ -1,12 +1,26 @@
 # Homeward
 
-**Make sure patients understand before they go home.**
+**Patients forget about half of what they're told at discharge. Homeward finds which half.**
 
-Homeward rewrites hospital discharge instructions in the patient's language, with every dose and date verifiably carried over or flagged to the nurse. It then listens to the patient (or their caregiver) explain the instructions back, grades each fact, and tells the nurse exactly which instruction was misunderstood. The teach-back grader is a small model, Gemma 4 E4B, fine-tuned on an AMD Radeon PRO W7900D so it can run on one workstation GPU inside the hospital.
+The patient (or their caregiver) explains the discharge instructions back by voice, in their own language, and the nurse sees exactly which medicine, dose or warning sign was misunderstood before they leave. Before that, Homeward rewrites the instructions in the patient's language with every dose and date checked by code. The grader is our own small model, Gemma 4 E4B, fine-tuned on one AMD Radeon PRO W7900D with Gemma 4 31B as its teacher, so a hospital can run it on one workstation GPU without sending patient conversations to a cloud API.
 
-- Live demo (synthetic patients, no login): https://homeward.tahcin.tech
-- Fine-tuned grader (LoRA adapter for Gemma 4 E4B): https://huggingface.co/oktash/homeward-teachback-gemma4-e4b (run 4, Apache 2.0)
-- Built for the AMD Developer Hackathon: ACT III, Health and Wellbeing track, by team Solus.
+| Start here | |
+|---|---|
+| Live demo (no login, synthetic patients) | https://homeward.tahcin.tech/check, pick "Ramesh · Hindi" and click through in about a minute |
+| Demo video and submission | https://lablab.ai/ai-hackathons/amd-developer-hackathon-act-iii/solus/homeward-discharge-teach-back-in-12-languages |
+| Fine-tuned grader (LoRA for Gemma 4 E4B, Apache 2.0) | https://huggingface.co/oktash/homeward-teachback-gemma4-e4b |
+| Every result with its interval and source | https://homeward.tahcin.tech/evidence |
+
+At a glance (independent test: 150 patient answers in 12 languages, messy and code-mixed, written by a different model family and never used for training; full table below):
+
+| Model | Size | Fact accuracy | Critical misses passed as understood |
+|---|---|---|---|
+| **Homeward: Gemma 4 E4B + LoRA, trained on the AMD W7900D** | **8B** | **94.7%** | **1 of 108** |
+| GLM-5.3 Flash, zero-shot (largest model we beat; intervals overlap) | 320B total | 90.3% | 1 of 108 |
+| Gemma 4 31B, the teacher | 30.7B | 97.1% | 1 of 108 |
+| Gemma 4 E4B before fine-tuning | 8B | 83.0% | 5 of 108 |
+
+Built for the AMD Developer Hackathon: ACT III (Health and Wellbeing track) by team Solus.
 
 > Hosted demo: synthetic data only, not medical advice. Homeward never diagnoses or recommends treatment; it only restates the clinician's own instructions and checks they were understood.
 
